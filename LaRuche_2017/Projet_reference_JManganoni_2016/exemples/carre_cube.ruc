@@ -1,0 +1,222 @@
+{
+      "listeOrdonnee": [
+            {
+                  "nom": "n",
+                  "format": {
+                        "valeur": "",
+                        "nom": "integer",
+                        "edit": "null"
+                  },
+                  "valeur": "",
+                  "proto": "Variable",
+                  "edit": "null"
+            },
+            {
+                  "nom": "N",
+                  "format": {
+                        "valeur": "",
+                        "nom": "integer",
+                        "edit": "null"
+                  },
+                  "valeur": "",
+                  "proto": "Variable",
+                  "edit": "null"
+            },
+            {
+                  "nom": "M",
+                  "format": {
+                        "valeur": "",
+                        "nom": "integer",
+                        "edit": "null"
+                  },
+                  "valeur": "",
+                  "proto": "Variable",
+                  "edit": "null"
+            }
+      ],
+      "listeReponse": [
+            {
+                  "nom": "reponse1",
+                  "idt": "reponse1",
+                  "format": {
+                        "typ": "numeric",
+                        "resultat": "",
+                        "nom": "reponse1",
+                        "valeur": "",
+                        "_status_options_sauv": [
+                              false,
+                              false
+                        ],
+                        "edit": "null"
+                  },
+                  "nomEssaimGerant": "",
+                  "type": "core",
+                  "proto": "Reponse",
+                  "edit": "null"
+            },
+            {
+                  "nom": "reponse2",
+                  "idt": "reponse2",
+                  "format": {
+                        "typ": "numeric",
+                        "resultat": "",
+                        "nom": "reponse2",
+                        "valeur": "",
+                        "_status_options_sauv": [
+                              false,
+                              false
+                        ],
+                        "edit": "null"
+                  },
+                  "nomEssaimGerant": "",
+                  "type": "core",
+                  "proto": "Reponse",
+                  "edit": "null"
+            }
+      ],
+      "tableauVariables": [
+            null,
+            null,
+            null
+      ],
+      "listeEditeur": [
+            {
+                  "nom": "divdebutrepfeedback1",
+                  "enonce_Txt": "<div><span contenteditable=\"false\"><span class=\"surligneVar classN\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">N</span></span> &lt;0</div>",
+                  "enonce_Html": "\\N &lt;0",
+                  "enonce_Html_sauve": "<div><span contenteditable=\"false\"><span class=\"surligneVar classN\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">N</span></span> &lt;0</div>",
+                  "selection": 0,
+                  "edit": "null"
+            },
+            {
+                  "nom": "divfinrepfeedback1",
+                  "enonce_Txt": "<div>Le carré d'un nombre est toujours positif</div>",
+                  "enonce_Html": "<div>Le carré d'un nombre est toujours positif",
+                  "enonce_Html_sauve": "<div>Le carré d'un nombre est toujours positif",
+                  "selection": "",
+                  "edit": "null"
+            },
+            {
+                  "nom": "divdebutrepfeedback2",
+                  "enonce_Txt": "",
+                  "enonce_Html": "",
+                  "enonce_Html_sauve": "",
+                  "selection": "",
+                  "edit": "null"
+            },
+            {
+                  "nom": "divfinrepfeedback2",
+                  "enonce_Txt": "",
+                  "enonce_Html": "",
+                  "enonce_Html_sauve": "",
+                  "selection": "",
+                  "edit": "null"
+            },
+            {
+                  "nom": "divdebutrepfeedback3",
+                  "enonce_Txt": "<div><span contenteditable=\"false\"><span class=\"surligneVar classM\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">M</span></span> &gt;0 &amp;&amp; <span contenteditable=\"false\"><span class=\"surligneVar classn\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">n</span></span> &lt;0</div>",
+                  "enonce_Html": "\\M &gt;0 &amp;&amp; \\n &lt;0",
+                  "enonce_Html_sauve": "<div><span contenteditable=\"false\"><span class=\"surligneVar classM\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">M</span></span> &gt;0 &amp;&amp; <span contenteditable=\"false\"><span class=\"surligneVar classn\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">n</span></span> &lt;0</div>",
+                  "selection": 8,
+                  "edit": "null"
+            },
+            {
+                  "nom": "divfinrepfeedback3",
+                  "enonce_Txt": "<div>Le cube d'un nombre bégatif est négatif</div>",
+                  "enonce_Html": "<div>Le cube d'un nombre bégatif est négatif",
+                  "enonce_Html_sauve": "<div>Le cube d'un nombre bégatif est négatif",
+                  "selection": "",
+                  "edit": "null"
+            },
+            {
+                  "nom": "valuen",
+                  "enonce_Txt": "<div>randint(5..99)</div>",
+                  "enonce_Html": "randint(5..99)",
+                  "enonce_Html_sauve": "<div>randint(5..99)</div>",
+                  "selection": "",
+                  "edit": "null"
+            },
+            {
+                  "nom": "valueN",
+                  "enonce_Txt": "<div><span contenteditable=\"false\"><span class=\"surligneVar classn\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">n</span></span> *<span contenteditable=\"false\"><span class=\"surligneVar classn\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">n</span></span>&nbsp;</div>",
+                  "enonce_Html": "\\n *\\n&nbsp;",
+                  "enonce_Html_sauve": "<div><span contenteditable=\"false\"><span class=\"surligneVar classn\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">n</span></span> *<span contenteditable=\"false\"><span class=\"surligneVar classn\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">n</span></span>&nbsp;</div>",
+                  "selection": 3,
+                  "edit": "null"
+            },
+            {
+                  "nom": "valueM",
+                  "enonce_Txt": "<div><span contenteditable=\"false\"><span class=\"surligneVar classn\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">n</span></span> *<span contenteditable=\"false\"><span class=\"surligneVar classn\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">n</span></span> *<span contenteditable=\"false\"><span class=\"surligneVar classn\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">n</span></span>&nbsp;</div>",
+                  "enonce_Html": "\\n *\\n *\\n&nbsp;",
+                  "enonce_Html_sauve": "<div><span contenteditable=\"false\"><span class=\"surligneVar classn\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">n</span></span> *<span contenteditable=\"false\"><span class=\"surligneVar classn\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">n</span></span> *<span contenteditable=\"false\"><span class=\"surligneVar classn\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">n</span></span>&nbsp;</div>",
+                  "selection": 6,
+                  "edit": "null"
+            },
+            {
+                  "nom": "resultatreponse1",
+                  "enonce_Txt": "<div><span contenteditable=\"false\"><span class=\"surligneVar classN\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">N</span></span>&nbsp;</div>",
+                  "enonce_Html": "\\N&nbsp;",
+                  "enonce_Html_sauve": "<div><span contenteditable=\"false\"><span class=\"surligneVar classN\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">N</span></span>&nbsp;</div>",
+                  "selection": 0,
+                  "edit": "null"
+            },
+            {
+                  "nom": "resultatreponse2",
+                  "enonce_Txt": "<div><span contenteditable=\"false\"><span class=\"surligneVar classM\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">M</span></span>&nbsp;</div>",
+                  "enonce_Html": "\\M&nbsp;",
+                  "enonce_Html_sauve": "<div><span contenteditable=\"false\"><span class=\"surligneVar classM\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">M</span></span>&nbsp;</div>",
+                  "selection": 0,
+                  "edit": "null"
+            }
+      ],
+      "listeClasseEssaim": [
+            null
+      ],
+      "listeAutre": [
+            {
+                  "nom": "repfeedback1",
+                  "proto": "repfeedback",
+                  "edit": "null"
+            },
+            {
+                  "nom": "repfeedback3",
+                  "proto": "repfeedback",
+                  "edit": "null"
+            }
+      ],
+      "listeOrdonnee_sauve": null,
+      "nb_latex": 0,
+      "nb_reponse": 2,
+      "nb_condition": 0,
+      "nb_for": 0,
+      "nb_classeEssaim": 1,
+      "nb_essaim": 0,
+      "nb_imageEssaim": 0,
+      "nbrepcodelibre": 0,
+      "nbrepcondition": 0,
+      "nbrepaide": 0,
+      "nb_codeLibre": 0,
+      "nbrepfeedback": 3,
+      "nbrepindication": 0,
+      "enonce": {
+            "nom": "ql-editor-1",
+            "enonce_Txt": "Calculer le carré et cube de n \n\nLe carré de n est \nle cube de n est \n",
+            "enonce_Html": "<div>Calculer le carré et cube de \\n&nbsp;</div>\n<div><br></div>\n<div>Le carré de \\n est \\embed{reply1,10}</div>\n<div>le cube de \\n est \\embed{reply2,10}</div>\n",
+            "enonce_Html_sauve": "<div>Calculer le carré et cube de <span contenteditable=\"false\"><span class=\"surligneVar classn\" id=\"spann\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">n</span></span>&nbsp;</div><div><br></div><div>Le carré de <span contenteditable=\"false\"><span class=\"surligneVar classn\" id=\"spann\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">n</span></span> est <img id=\"reponse1\" class=\"reponsesupprimable\" src=\"reponse.png\"></div><div>le cube de <span contenteditable=\"false\"><span class=\"surligneVar classn\" id=\"spann\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">n</span></span> est <img id=\"reponse2\" class=\"reponsesupprimable\" src=\"reponse.png\"></div>",
+            "selection": "",
+            "edit": "null"
+      },
+      "entete": {
+            "title": "Le carré et le cube d'un entier",
+            "langage": "fr",
+            "auteur": "Damir, Buskulic",
+            "email": "",
+            "computeanswer": "no",
+            "format": "\\format{ html }\n",
+            "precision": "\\precision{ 1000 }\n",
+            "range": "\\range{ -5..5 }\n\n",
+            "libre": "",
+            "edit": "null"
+      },
+      "edit": "null"
+}

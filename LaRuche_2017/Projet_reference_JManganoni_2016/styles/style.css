@@ -1,0 +1,1049 @@
+/******************************************************************************************
+ ********************************* STYLES GENERAUX ****************************************/
+body {
+	font-family: 'Arial';
+	font-size: 1em;
+	color: rgba(30,30,30,1);
+}
+header {
+	background-color: rgba(30,30,30,1);
+	box-shadow: 0px 2px 5px 0px rgba(30,30,30,1);
+}
+h1 {
+	width: 190px;
+	height: 60px;
+	margin: auto;
+	background: url(../images/logo.png) bottom center no-repeat;
+	background-size: contain;
+	text-indent: -9999px;
+}
+h2 {
+	text-align: center;
+	font-size: 1.5em;
+	text-transform : uppercase;
+	padding: 10px 0 0 0;
+}
+h3 {
+	margin-top: 20px;
+	text-align: center;
+	font-size: 1.05em;
+	text-transform : uppercase;
+}
+/*
+ * Styles des messages d'erreur */
+.Rcl_Error {
+	padding: 0 5px;
+	line-height: 2em;
+	text-align: center;
+	color: rgba(255,10,0,1);
+	background-color: rgba(255,10,0,0.1);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+/*
+ * Styles des quill façon input */
+.Rcl_Mini_Editor {
+	width: 27%;
+	margin: auto 10px !important;
+	padding: 0 !important;
+	border: 1px solid rgba(30,30,30,1);
+}
+@media screen and (max-wdth: 1200px) {
+	.Rcl_Mini_Editor {
+		width:21%;
+	}
+}
+@media screen and (max-width: 960px) {
+	.Rcl_Mini_Editor {
+		width:48%;
+	}
+}
+.Rcl_Mini_Editor_hidden{
+    display: none;
+}
+/*
+ * Styles des blocs réduits */
+.Rcl_Closed {
+	height: 44px;
+	overflow: hidden;
+    background-color:lightgray;
+    margin-bottom: 0px;
+	box-shadow: 2px 1px 5px rgba(0,0,0,0.2);
+	border: 1px solid #E5E5E5;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    padding: 12px 15px;
+}
+@media screen and (max-width: 960px) {
+	.Rcl_Closed {
+		height: 44px;
+	}
+}
+/*
+ * Styles des boutons Agrandir et diminuer fenêtre */
+.Rcl_Button_Minimize {
+	width: 16px;
+	height: 16px;
+	margin: 3px;
+	float: right;
+	border: none;
+	cursor: pointer;
+	background-image: url("../images/reduce.png");
+	-webkit-transition: background-image 0.2s ease-in-out;
+  	-moz-transition: background-image 0.2s ease-in-out;
+  	-o-transition: background-image 0.2s ease-in-out;
+  	transition: background-image 0.2s ease-in-out;
+	background-repeat: no-repeat;
+	background-color: transparent;
+	background-size: cover;
+	outline: none !important;
+}
+.Rcl_Button_Minimize:hover {
+	background-image: url("../images/reduce_active.png");
+	-webkit-transition: background-image 0.2s ease-in-out;
+  	-moz-transition: background-image 0.2s ease-in-out;
+  	-o-transition: background-image 0.2s ease-in-out;
+  	transition: background-image 0.2s ease-in-out;
+}
+.Rcl_Button_Maximize {
+	width: 16px;
+	height: 16px;
+	margin: 3px;
+	float: right;
+	border: none;
+	cursor: pointer;
+	background-image: url("../images/extend.png");
+	-webkit-transition: background-image 0.2s ease-in-out;
+  	-moz-transition: background-image 0.2s ease-in-out;
+  	-o-transition: background-image 0.2s ease-in-out;
+  	transition: background-image 0.2s ease-in-out;
+	background-repeat: no-repeat;
+	background-color: transparent;
+	background-size: cover;
+	outline: none !important;
+}
+.Rcl_Button_Maximize:hover {
+	background-image: url("../images/extend_active.png");
+	-webkit-transition: background-image 0.2s ease-in-out;
+  	-moz-transition: background-image 0.2s ease-in-out;
+  	-o-transition: background-image 0.2s ease-in-out;
+  	transition: background-image 0.2s ease-in-out;
+}
+
+/*
+ * Styles des boutons HAUT */
+.Rcl_Move_Up_Arrow {
+	width: 20px;
+	height: 20px;
+	-ms-transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg); 
+	float: right;
+	border: none;
+	cursor: pointer;
+	background-image: url("../images/arrow.png");
+	-webkit-transition: background-image 0.2s ease-in-out;
+  	-moz-transition: background-image 0.2s ease-in-out;
+  	-o-transition: background-image 0.2s ease-in-out;
+  	transition: background-image 0.2s ease-in-out;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-color: transparent; 
+	outline: none !important;
+}
+.Rcl_Move_Up_Arrow:hover {
+	background-image: url("../images/arrow_active.png");
+	-webkit-transition: background-image 0.2s ease-in-out;
+  	-moz-transition: background-image 0.2s ease-in-out;
+  	-o-transition: background-image 0.2s ease-in-out;
+  	transition: background-image 0.2s ease-in-out;
+}
+/*
+ * Styles des boutons BAS */
+.Rcl_Move_Down_Arrow {
+	width: 20px;
+	height: 20px;
+	-ms-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+	float: right;
+	border: none;
+	cursor: pointer;
+	background-image: url("../images/arrow.png");
+	-webkit-transition: background-image 0.2s ease-in-out;
+  	-moz-transition: background-image 0.2s ease-in-out;
+  	-o-transition: background-image 0.2s ease-in-out;
+  	transition: background-image 0.2s ease-in-out;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-color: transparent;
+	outline: none !important;
+}
+.Rcl_Move_Down_Arrow:hover {
+	background-image: url("../images/arrow_active.png");
+	-webkit-transition: background-image 0.2s ease-in-out;
+  	-moz-transition: background-image 0.2s ease-in-out;
+  	-o-transition: background-image 0.2s ease-in-out;
+  	transition: background-image 0.2s ease-in-out;
+}
+/*
+ * Styles des boutons supprimer */
+.Rcl_Button_Delete {
+	width: 16px;
+	height: 16px;
+	margin: 3px;
+	float: right;
+	border: none;
+	cursor: pointer;
+	background-image: url("../images/cross.png");
+	-webkit-transition: background-image 0.2s ease-in-out;
+  	-moz-transition: background-image 0.2s ease-in-out;
+  	-o-transition: background-image 0.2s ease-in-out;
+  	transition: background-image 0.2s ease-in-out;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-color: transparent; 
+	outline: none !important;
+}
+.Rcl_Button_Delete:hover {
+	background-image: url("../images/cross_active.png");
+	-webkit-transition: background-image 0.2s ease-in-out;
+  	-moz-transition: background-image 0.2s ease-in-out;
+  	-o-transition: background-image 0.2s ease-in-out;
+  	transition: background-image 0.2s ease-in-out;
+}
+/*
+ * Styles des boutons aide */
+.Rcl_Button_Help_Open {
+    width: 19px;
+    height: 19px;
+    margin: 3px;
+    float: left;
+    border: none;
+    cursor: pointer;
+    background-image: url("../images/help_open.png");
+    -webkit-transition: background-image 0.2s ease-in-out;
+    -moz-transition: background-image 0.2s ease-in-out;
+    -o-transition: background-image 0.2s ease-in-out;
+    transition: background-image 0.2s ease-in-out;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    background-size: cover;
+    outline: none !important;
+}
+.Rcl_Button_Help_Open:hover {
+    background-image: url("../images/help_open_active.png");
+    -webkit-transition: background-image 0.2s ease-in-out;
+    -moz-transition: background-image 0.2s ease-in-out;
+    -o-transition: background-image 0.2s ease-in-out;
+    transition: background-image 0.2s ease-in-out;
+}
+.Rcl_Button_Help_Close {
+    width: 19px;
+    height: 19px;
+    margin: 3px;
+    float: left;
+    border: none;
+    cursor: pointer;
+    background-image: url("../images/help.png");
+    -webkit-transition: background-image 0.2s ease-in-out;
+    -moz-transition: background-image 0.2s ease-in-out;
+    -o-transition: background-image 0.2s ease-in-out;
+    transition: background-image 0.2s ease-in-out;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    background-size: cover;
+    outline: none !important;
+}
+.Rcl_Button_Help_Close:hover {
+    background-image: url("../images/help_active.png");
+    -webkit-transition: background-image 0.2s ease-in-out;
+    -moz-transition: background-image 0.2s ease-in-out;
+    -o-transition: background-image 0.2s ease-in-out;
+    transition: background-image 0.2s ease-in-out;
+}
+
+/*
+ * Styles des boutons Var, Latex, etc */
+.Rcl_Editor_Button_Variable, .Rcl_Editor_Button_Latex, .Rcl_Editor_Button_Composant {
+  	cursor: pointer;
+  	font-family: "quill-snow";
+  	font-size: 1em;
+  	border: none;
+  	color: rgba(30,30,30,1);
+  	background: none;
+}
+.Rcl_Editor_Button_Latex, .Rcl_Editor_Button_Composant {
+	background-color: rgba(229,224,229,1) !important;
+}
+.Rcl_Editor_Button_Variable:hover, .Rcl_Editor_Button_Latex:hover, .Rcl_Editor_Button_Composant:hover {
+  	color: rgba(250,10,30,1);
+}
+.Rcl_Barre_Tache_CodeLibre {
+	margin-bottom: -16px;
+}
+/*
+ * Style de la barre de tâche quill */
+.Rcl_Barre_Tache_Secondaire {
+	margin-top: 23px;
+}
+.Rcl_Barre_Tache_Secondaire button {
+	width: auto;
+	margin-left: 0;
+}
+/*
+ * Style des input text, email, etc */
+input[type=text], input[type=email] {
+	padding: 0 5px;
+	width: 90%;
+	outline: none !important;
+	line-height: 1.42;
+	font-size: 1em;
+}
+/*
+ * Style des placeholder */
+::-webkit-input-placeholder { color:rgba(255,10,0,0.5); }
+::-moz-placeholder { color:rgba(255,10,0,0.5); }
+input:-moz-placeholder { color:rgba(255,10,0,0.5); }
+/*
+ * Styles des scrollbars */
+::-webkit-scrollbar {
+    width: 5px;
+} 
+::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+    background-color: rgba(60,60,60,1);
+}
+/*
+ * Cache les onglets inactifs */
+.Rcl_Contenu_Onglet {
+	display: none;
+}
+
+/*
+ * Styles de surlignage des zones spéciales des éditeurs (variables, essaims, latex, etc... */
+
+.Rcl_Surligne_Variable {
+    background-color: rgb(175,217,235);
+    padding: 2px 5px 2px 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;}
+.Rcl_Surligne_Essaim {
+/*    background-color: rgb(112,25,153);
+    background-color: rgb(255,239,105);
+*/
+    background-color: rgb(253,255,187);
+    padding: 7px 9px 7px 9px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+/*    color: rgba(255,255,255,1);
+*/
+}
+.Rcl_Surligne_Composant {
+    background-color: rgb(217,177,237);
+    padding: 2px 5px 2px 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    /*    color: rgba(255,255,255,1);
+     */
+}
+
+/******************************************************************************************
+ ****************** STYLES DES POPUPS DE VARIABLES ET COMPOSANTS **************************/
+
+.Rcl_Popup_Composant {
+    -webkit-border-radius: 14;
+       -moz-border-radius: 14;
+            border-radius: 14px;
+    -webkit-box-shadow: 2px 2px 11px #8f8f8f;
+       -moz-box-shadow: 2px 2px 11px #8f8f8f;
+            box-shadow: 2px 2px 11px #8f8f8f;
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 13px;
+    background: #616161;
+    padding: 7px 14px 7px 14px;
+    text-decoration: none;
+}
+
+/******************************************************************************************
+ ************************** STYLES DES SECTIONS D'AIDES ***********************************/
+
+.Rcl_Help_Essaim {
+    background-color: rgb(255,205,151);
+    -webkit-border-bottom-right-radius: 10px;
+    -webkit-border-bottom-left-radius: 10px;
+    -moz-border-radius-bottomright: 10px;
+    -moz-border-radius-bottomleft: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    font: bold;
+    padding: 5px 15px;
+    height: 100%;
+    opacity: 1;
+    -webkit-transition: height 0s, opacity 700ms;
+       -moz-transition: height 0s, opacity 700ms;
+        -ms-transition: height 0s, opacity 700ms;
+         -o-transition: height 0s, opacity 700ms;
+            transition: height 0s, opacity 700ms;
+}
+
+.Rcl_Help_Variable {
+    background-color: rgb(220,241,250);
+    -webkit-border-bottom-right-radius: 10px;
+    -webkit-border-bottom-left-radius: 10px;
+    -moz-border-radius-bottomright: 10px;
+    -moz-border-radius-bottomleft: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    font: bold;
+    padding: 5px 15px;
+    height: 100%;
+    opacity: 1;
+    -webkit-transition: height 0s, opacity 700ms;
+    -moz-transition: height 0s, opacity 700ms;
+    -ms-transition: height 0s, opacity 700ms;
+    -o-transition: height 0s, opacity 700ms;
+    transition: height 0s, opacity 700ms;
+}
+
+.Rcl_Help_Closed {
+/*    display: none;
+*/
+    height: 0;
+    opacity: 0;
+    -webkit-transition: height 300ms, opacity 400ms;
+       -moz-transition: height 300ms, opacity 400ms;
+        -ms-transition: height 300ms, opacity 400ms;
+         -o-transition: height 300ms, opacity 400ms;
+            transition: height 300ms, opacity 400ms;
+}
+
+.Rcl_Help_Title {
+    /* format des sections de titre de l'aide */
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 24px;
+}
+
+.Rcl_Help_Body {
+    /* format des sections de corps de l'aide */
+    font-size: 14px;
+    line-height: 24px;
+}
+
+/******************************************************************************************
+ ************************ STYLES DU MENU (TAB) DES ONGLETS ********************************/
+.Rcl_Menu_Onglets {
+	display: flex;
+}
+.Rcl_Tab_Onglet {
+	width: 50%;
+	text-align: center;
+	cursor: pointer;
+}
+.Rcl_Tab_Onglet_0 {
+	padding: 25px 0;
+	font-size: 1em;
+	border-bottom: 4px solid rgba(30,30,30,1);
+	-webkit-transition: border-color 0.4s ease-in-out;
+  	-moz-transition: border-color 0.4s ease-in-out;
+  	-o-transition: border-color 0.4s ease-in-out;
+  	transition: border-color 0.4s ease-in-out;
+	color: rgba(255,255,255,0.5);
+}
+.Rcl_Tab_Onglet_0:hover {
+	border-bottom: 4px solid rgba(255,255,255,1);
+	-webkit-transition: border-color 0.4s ease-in-out;
+  	-moz-transition: border-color 0.4s ease-in-out;
+  	-o-transition: border-color 0.4s ease-in-out;
+  	transition: border-color 0.4s ease-in-out;
+  	color: rgba(255,255,255,1);
+}
+.Rcl_Tab_Onglet_1 {
+	padding: 25px 0;
+	border-bottom: 4px solid rgba(255,255,255,1);
+	-webkit-transition: border-color 0.4s ease-in-out;
+  	-moz-transition: border-color 0.4s ease-in-out;
+  	-o-transition: border-color 0.4s ease-in-out;
+  	transition: border-color 0.4s ease-in-out;
+  	color: rgba(255,255,255,1);
+}
+.Rcl_Tab_Onglet_Fake {
+	cursor: auto;
+}
+
+.BlocInterieur {
+    background-color: rgb(209, 209, 209);
+    padding: 12px 15px;
+    border-radius: 10px;
+    box-shadow: 2px 1px 5px rgba(0,0,0,0.2);
+    
+    /*border-bottom: 4px solid rgba(60,60,60,1);*/
+    
+    
+    
+}
+
+
+#Rid_Tab_Onglet_Previsu {
+	background-color: rgba(60,60,60,1);
+	border-bottom: 4px solid rgba(60,60,60,1);
+	-webkit-transition: border-color 0.4s ease-in-out;
+  	-moz-transition: border-color 0.4s ease-in-out;
+  	-o-transition: border-color 0.4s ease-in-out;
+  	transition: border-color 0.4s ease-in-out;
+  	border-top-left-radius: 10px;
+ 	color: rgba(255,255,255,1);
+	font-style: italic;
+}
+#Rid_Tab_Onglet_JSON {
+	background-color: rgba(60,60,60,1);
+	border-bottom: 4px solid rgba(60,60,60,1);
+	-webkit-transition: border-color 0.4s ease-in-out;
+  	-moz-transition: border-color 0.4s ease-in-out;
+  	-o-transition: border-color 0.4s ease-in-out;
+  	transition: border-color 0.4s ease-in-out;
+  	border-top-right-radius: 10px;
+  	color: rgba(255,255,255,1);
+	font-style: italic;
+}
+#Rid_Tab_Onglet_Previsu:hover, #Rid_Tab_Onglet_JSON:hover, .Rcl_Tab_Onglet_1#Rid_Tab_Onglet_Previsu, .Rcl_Tab_Onglet_1#Rid_Tab_Onglet_JSON {
+	border-bottom: 4px solid rgba(255,10,0,1);
+	-webkit-transition: border-color 0.4s ease-in-out;
+  	-moz-transition: border-color 0.4s ease-in-out;
+  	-o-transition: border-color 0.4s ease-in-out;
+  	transition: border-color 0.4s ease-in-out;
+	color: rgba(255,255,255,1);
+}
+/******************************************************************************************
+ ********************************* STYLES EN-TETE *****************************************/
+#Rid_Entete_Declaration {
+	margin: 20px auto;
+	border: 1px solid #E5E5E5;
+	box-shadow: 2px 1px 5px rgba(0,0,0,0.2);
+}
+#Rid_Entete_Declaration ul {
+	padding: 12px 15px;
+	display: flex;
+	justify-content: center;
+}
+#Rid_Entete_Declaration ul li {
+	width: 20%;
+}
+@media screen and (max-width: 767px) {
+	#Rid_Entete_Declaration ul {
+		display: block;
+	}
+	#Rid_Entete_Declaration ul li {
+		width: 100%;
+		margin-bottom: 10px;
+	}
+}
+.Rid_Entete_CodeLibre {
+	padding: 12px 15px;
+}
+#Rid_Entete_Editeur_CodeLibre {
+	width: 99%;
+	padding: 0 5px;
+	line-height: 1.42em;
+	font-family: 'Arial';
+	font-size: 1em;
+	outline: none !important;
+	resize: none;
+}
+@media screen and (max-width: 767px) {
+	#Rid_Entete_Editeur_CodeLibre {
+		width: 92%;
+	}
+}
+/******************************************************************************************
+ ********************************* STYLES ENONCE ******************************************/
+#Rid_Enonce_Vars  {
+	height: 241px;
+	margin: 10px auto;
+	box-shadow: 2px 1px 5px rgba(0,0,0,0.2);
+	border: 1px solid rgba(229,229,229,1);
+	overflow: auto;
+}
+#Rid_Enonce_Essaims {
+    height: 241px;
+    margin: 10px auto;
+    box-shadow: 2px 1px 5px rgba(0,0,0,0.2);
+    border: 1px solid rgba(229,229,229,1);
+    overflow: auto;
+}
+@media screen and (max-width: 960px) {
+	#Rid_Enonce_Vars {
+		height: 290px;
+	}
+    #Rid_Enonce_Essaims {
+        height: 290px;
+    }
+}
+#Rid_Enonce_Vars ul li, #Rid_Enonce_Essaims ul li {
+	padding: 5px 15px;
+	line-height: 29px;
+	background-color: rgba(255,255,255,1);
+	-webkit-transition: background-color 0.4s ease-in-out;
+  	-moz-transition: background-color 0.4s ease-in-out;
+  	-o-transition: background-color 0.4s ease-in-out;
+  	transition: background-color 0.4s ease-in-out;
+}
+#Rid_Enonce_Vars ul li:hover, #Rid_Enonce_Essaims ul li:hover {
+	background-color: rgba(229,229,229,1);
+	-webkit-transition: background-color 0.4s ease-in-out;
+  	-moz-transition: background-color 0.4s ease-in-out;
+  	-o-transition: background-color 0.4s ease-in-out;
+  	transition: background-color 0.4s ease-in-out;
+}
+/******************************************************************************************
+ ********************************* STYLES PREPARATION *************************************/
+/*
+ * Colonne de gauche */
+.Rcl_Prep_Menu {
+	height: 499px;
+	margin: 20px auto;
+	background-color: rgba(255,255,255,1);
+	box-shadow: 2px 1px 5px rgba(0,0,0,0.2);
+	border: 1px solid #E5E5E5;
+	line-height: 2em;
+}
+.Rcl_Prep_Menu .Rcl_Side_Menu_Button {
+	display: block;
+	width: 100%;
+	padding: 10px 0;
+	background-color: rgba(255,255,255,1);
+	-webkit-transition: background-color 0.4s ease-in-out;
+  	-moz-transition: background-color 0.4s ease-in-out;
+  	-o-transition: background-color 0.4s ease-in-out;
+  	transition: background-color 0.4s ease-in-out;
+	border: none;
+	border-bottom: 1px solid rgba(229,229,229,1);
+	font-size: 1em;
+	color: rgba(30,30,30,1);
+	cursor: pointer;
+	outline: none !important;
+
+}
+.Rcl_Prep_Menu .Rcl_Side_Menu_Button:hover {
+	background-color: rgba(229,229,229,1);
+	-webkit-transition: background-color 0.4s ease-in-out;
+  	-moz-transition: background-color 0.4s ease-in-out;
+  	-o-transition: background-color 0.4s ease-in-out;
+  	transition: background-color 0.4s ease-in-out;
+}
+.Rcl_Prep_Menu .Rcl_Prep_Define_Variable {
+	display: flex;
+	width: 100%;
+}
+.Rcl_Prep_Menu .Rcl_Prep_Define_Variable input[type=text] {
+	width: 50%;
+	border: none;
+	border-bottom: 1px solid rgba(229,229,229,1);
+	border-right: 1px solid rgba(229,229,229,1);
+}
+.Rcl_Prep_Menu .Rcl_Prep_Define_Variable .Rcl_Side_Menu_Button {
+	width: 50%;
+}
+/*
+ * Styles de la zone centrale */
+.Rcl_Bloc_Interne {
+	padding: 12px 15px;
+}
+.Rcl_Bloc_Interne p {
+	display: inline-block;
+}
+.Rcl_Bloc_Interne select {
+	margin: auto 5px;
+	outline: none !important;
+	font-size: 1em;
+}
+.Rcl_Bloc_Interne input {
+	padding: 0 5px;
+	outline: none !important;
+	line-height: 1.42;
+	font-size: 1em;
+}
+.Rcl_Bloc_Interne_appartenance {
+    padding: 12px 15px;
+    color: darkgreen;
+}
+
+.Rcl_Bloc_Interne_estDansBloc {
+    /*padding: 12px 15px;*/
+    
+    /*color: crimson;
+    background-color: rgb(169, 169, 169);
+    border-bottom: 4px solid rgba(60,60,60,1);*/
+    
+}
+.Rcl_Prep_Blocs {
+	margin: 20px auto;
+	line-height: 2em;
+}
+#Rid_Prep_Blocs {
+	height: 519px;
+	overflow-y: auto;
+	overflow-x: hidden; 
+}
+.Rcl_Bloc {
+	margin-bottom: 10px;
+	box-shadow: 2px 1px 5px rgba(0,0,0,0.2);
+	border: 1px solid #E5E5E5;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+.Rcl_Editor {
+	margin: 10px auto !important;
+}
+.Rcl_Droppable {
+	border: 1px solid rgba(30,30,30,1);
+}
+.Rcl_Droppable_focus {
+    background-color:lightgreen;
+}
+/*
+ * Style de la colonne de droite */
+.Rcl_Var_List {
+	height: 519px;
+	margin: 20px auto;
+	background-color: rgba(255,255,255,1);
+	box-shadow: 2px 1px 5px rgba(0,0,0,0.2);
+	border: 1px solid #E5E5E5;
+	line-height: 2em;
+	overflow: auto;
+}
+/* 
+ * Styles de la liste de variables draggable dans Preparation ET Analyse (Attention) */
+.Rcl_Var_List #Rid_Prep_Vars div, .Rcl_Var_List #Rid_Analyse_Vars div{
+	padding: 5px 15px;
+	line-height: 29px;
+	background-color: rgba(255,255,255,1);
+	-webkit-transition: background-color 0.4s ease-in-out;
+  	-moz-transition: background-color 0.4s ease-in-out;
+  	-o-transition: background-color 0.4s ease-in-out;
+  	transition: background-color 0.4s ease-in-out;
+	cursor: pointer;
+	overflow-x: hidden; 
+}
+.Rcl_Var_List #Rid_Prep_Vars div:hover, .Rcl_Var_List #Rid_Analyse_Vars div:hover {
+	background-color: rgba(229,229,229,1);
+	-webkit-transition: background-color 0.4s ease-in-out;
+  	-moz-transition: background-color 0.4s ease-in-out;
+  	-o-transition: background-color 0.4s ease-in-out;
+  	transition: background-color 0.4s ease-in-out;
+}
+.Rcl_Var_List #Rid_Prep_Vars div:active, .Rcl_Var_List #Rid_Analyse_Vars div:active {
+	cursor: move;
+}
+
+.Rcl_Bouton_Choix_Type_Var {
+    width: 50px;
+    height: 28px;
+    margin-left: 10px;
+    padding-top: 14px;
+    border: none;
+    background-image: url("../images/type_variables.png");
+    background-repeat: no-repeat;
+    background-color: transparent;
+    background-size: cover;
+    outline: none !important;
+}
+
+.Rcl_Nom_Type_Variable {
+    width: auto;
+    height: 32px;
+    -webkit-border-top-right-radius: 16px;
+    -webkit-border-bottom-right-radius: 16px;
+    -moz-border-radius-topright: 16px;
+    -moz-border-radius-bottomright: 16px;
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
+    color: #5b5b5b;
+    font-size: 14px;
+    background: #ffffff;
+    border: solid #7ab8d3;
+    border-width: 5px 2px 5px 0;
+    margin: 0 10px 0 -2px;
+    padding: 0 4px;
+    text-decoration: none;
+    vertical-align:top;
+}
+.Rcl_ValVar {
+    width: auto;
+    height: 32px;
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
+    color:darkgreen;
+    font-size: 16px;
+    vertical-align:top;
+}
+
+/* Style des blocs d'essaim */
+
+.Rcl_Bloc_Essaim {
+/*    background-color: rgba(255,241,224,1); */
+/*    background-color: rgba(249,239,255,1); */
+    background-color: rgba(253,255,187,1);
+}
+/* Style de la zone de drop pour le bloc dans bloc */
+.zoneDrop{ 
+    background: #adadad;
+    background: repeating-linear-gradient(
+        45deg,
+        white,
+        white 10px,
+        #cdcdcd 10px,
+        #dddddd 20px
+    );
+    text-align : center;
+    border-radius: 0px 0px 10px 10px;
+    
+}
+
+
+/******************************************************************************************
+ ********************************* STYLE GRAPHE *****************************************/
+#blocFocus{
+	background-color:rgb(255,218,185);
+	position:absolute;
+	top:10px;
+	left:10px;
+}
+
+#blocFocus .leftMenu {
+	background-color:rgb(255,200,170);
+}
+#blocFocus .leftMenu .zoneInput{
+	padding-top:15%;
+	width:87%;
+}
+
+#blocFocus .leftMenu .zoneInput .bouton_valider{
+	width:115%;
+}
+
+#blocFocus .leftMenu input{
+	width: 100%;
+	text-align: left;
+	border: 2px white outset;
+	border-radius: 3px;
+	background-color: rgb(216,191,216);
+}
+
+#blocFocus .leftMenu input:hover{
+	background-color: rgb(255,160,15);
+}
+
+#blocFocus .leftMenu select{
+	width:100%;
+	background-color: rgb(216,191,216);
+	border: 2px white outset;
+}
+
+#blocFocus .leftMenu select:hover{
+	background:rgb(255,160,15)
+}
+
+#blocFocus .menu_contextuel input[type="button"]{
+	width:100%;
+}
+
+#blocFocus .topMenu {
+	width:100%;
+	margin-left:110px;
+	text-align:center;
+	background-color:rgb(255,200,170);
+}
+
+#blocFocus .topMenu input {
+	width: 9%;
+	height:100%;
+	border: 2px white outset;
+	border-radius: 2px;
+	background-color: rgb(216,191,216);
+	padding-left:3px;
+}
+
+#blocFocus .topMenu input:hover{
+	background-color: rgb(255,160,15);
+}
+
+#blocFocus .topMenu input:active{
+	border:2px gray inset;
+	background: rgb(255,160,15);
+}
+
+/******************************************************************************************
+ ********************************* STYLES ANALYSE *****************************************/
+.Rcl_Menu_Analyse {
+	height: 499px;
+	margin: 20px auto;
+	background-color: rgba(255,255,255,1);
+	box-shadow: 2px 1px 5px rgba(0,0,0,0.2);
+	border: 1px solid #E5E5E5;
+	line-height: 2em;
+}
+.Rcl_Menu_Analyse .Rcl_Side_Menu_Button {
+	display: block;
+	width: 100%;
+	padding: 10px 0;
+	background-color: rgba(255,255,255,1);
+	-webkit-transition: background-color 0.4s ease-in-out;
+  	-moz-transition: background-color 0.4s ease-in-out;
+  	-o-transition: background-color 0.4s ease-in-out;
+  	transition: background-color 0.4s ease-in-out;
+	border: none;
+	border-bottom: 1px solid rgba(229,229,229,1);
+	font-size: 1em;
+	color: rgba(30,30,30,1);
+	cursor: pointer;
+	outline: none !important;
+
+}
+.Rcl_Menu_Analyse .Rcl_Side_Menu_Button:hover {
+	background-color: rgba(229,229,229,1);
+	-webkit-transition: background-color 0.4s ease-in-out;
+  	-moz-transition: background-color 0.4s ease-in-out;
+  	-o-transition: background-color 0.4s ease-in-out;
+  	transition: background-color 0.4s ease-in-out;
+}
+#Rid_Analyse_Blocs {
+	margin-top: 20px;
+	height: 519px;
+	overflow: auto;
+}
+#Rid_Analyse_Blocs p{
+	margin-bottom: 20px;
+}
+/* Code pas utilisé, à enlever
+ .liReponse {
+	width: 100%;
+	margin: 20px auto;
+	box-shadow: 2px 1px 5px rgba(0,0,0,0.2);
+	border: 1px solid #E5E5E5;
+	line-height: 2em;
+}
+.classrep {
+	padding: 12px 15px;
+}
+.classrep select {
+	width: 193px;
+	margin: auto 20px;
+	padding: 0 5px;
+	outline: none !important;
+	font-size: 1em;
+}
+.classrep input {
+	padding: 0 5px;
+	outline: none !important;
+	line-height: 1.42;
+	font-size: 1em;
+}
+.classrep textarea {
+	display: block;
+	width: 320px;
+	height: 120px;
+	resize: none;
+	outline: none !important;
+}
+ 
+*/
+
+.ql-code-libre {
+	margin-top: 22px !important;
+}
+/******************************************************************************************
+ ********************************* STYLES OEF *********************************************/
+#Rcl_Code_Genere {
+	width: 100%;
+	margin: 20px auto;
+	box-shadow: 2px 1px 5px rgba(0,0,0,0.2);
+	border: 1px solid #E5E5E5;
+	height: 500px;
+	box-sizing: border-box;
+	font-family: Helvetica,Arial,sans-serif;
+	line-height: 1.42;
+	overflow-x: hidden;
+	overflow-y: auto;
+	padding: 12px 15px;
+	resize: none;
+	outline: none !important;
+}
+/******************************************************************************************
+ ********************************* STYLES SAUVEGARDE **************************************/
+.Rcl_Sauvegarde {
+	display: flex;
+}
+#Rid_Zone_Sauvegarde {
+	width: 100%;
+	margin: 20px auto 0 auto;
+	box-shadow: 2px 1px 5px rgba(0,0,0,0.2);
+	border: 1px solid #E5E5E5;
+	height: 500px;
+	box-sizing: border-box;
+	font-family: Helvetica,Arial,sans-serif;
+	line-height: 1.42;
+	overflow-x: hidden;
+	overflow-y: auto;
+	padding: 12px 15px;
+	resize: none;
+	outline: none !important;
+}
+.Rcl_Button_Save, .Rcl_Button_Load {
+	display: block;
+	width: 150px;
+	margin: 20px auto 0 auto;
+	padding: 10px 20px;
+	background-color: rgba(30,30,30,1);
+	-webkit-transition: background-color 0.4s ease-in-out;
+  	-moz-transition: background-color 0.4s ease-in-out;
+  	-o-transition: background-color 0.4s ease-in-out;
+  	transition: background-color 0.4s ease-in-out;
+	border: none;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    color: rgba(255,255,255,1);
+	font-size: 1em;
+	text-align: center;
+	cursor: pointer;
+	outline: none !important;
+}
+.Rcl_OK_Light_SaveLoad {
+    display: block;
+    margin: 20px auto 0 auto;
+    background: #ff6b6b;
+    background-image: -webkit-linear-gradient(top, #ff6b6b, #b80000);
+    background-image: -moz-linear-gradient(top, #ff6b6b, #b80000);
+    background-image: -ms-linear-gradient(top, #ff6b6b, #b80000);
+    background-image: -o-linear-gradient(top, #ff6b6b, #b80000);
+    background-image: linear-gradient(to bottom, #ff6b6b, #b80000);
+    -webkit-border-radius: 29;
+    -moz-border-radius: 29;
+    border-radius: 20px;
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 18px;
+    padding: 12px 9px 12px 9px;
+    text-decoration: none;
+    -webkit-transition: visibility 0.4s ease-in-out;
+    -moz-transition: visibility 0.4s ease-in-out;
+    -o-transition: visibility 0.4s ease-in-out;
+    transition: visibility 0.4s ease-in-out;
+    outline: none !important;
+}
+.Rcl_Button_Save:hover, .Rcl_Button_Load:hover {
+	background-color: rgba(250,10,0,1);
+	-webkit-transition: background-color 0.4s ease-in-out;
+  	-moz-transition: background-color 0.4s ease-in-out;
+  	-o-transition: background-color 0.4s ease-in-out;
+  	transition: background-color 0.4s ease-in-out;
+}

@@ -1,0 +1,355 @@
+{
+      "listeOrdonnee": [
+            {
+                  "nom": "xM",
+                  "format": {
+                        "valeur": "",
+                        "nom": "real",
+                        "edit": "null"
+                  },
+                  "valeur": "",
+                  "proto": "Variable",
+                  "edit": "null"
+            },
+            {
+                  "nom": "yM",
+                  "format": {
+                        "valeur": "",
+                        "nom": "real",
+                        "edit": "null"
+                  },
+                  "valeur": "",
+                  "proto": "Variable",
+                  "edit": "null"
+            },
+            {
+                  "nom": "rM",
+                  "format": {
+                        "valeur": "",
+                        "nom": "real",
+                        "edit": "null"
+                  },
+                  "valeur": "",
+                  "proto": "Variable",
+                  "edit": "null"
+            },
+            {
+                  "nom": "urMx",
+                  "format": {
+                        "valeur": "",
+                        "nom": "real",
+                        "edit": "null"
+                  },
+                  "valeur": "",
+                  "proto": "Variable",
+                  "edit": "null"
+            },
+            {
+                  "nom": "urMy",
+                  "format": {
+                        "valeur": "",
+                        "nom": "real",
+                        "edit": "null"
+                  },
+                  "valeur": "",
+                  "proto": "Variable",
+                  "edit": "null"
+            },
+            {
+                  "nom": "utMx",
+                  "format": {
+                        "valeur": "",
+                        "nom": "real",
+                        "edit": "null"
+                  },
+                  "valeur": "",
+                  "proto": "Variable",
+                  "edit": "null"
+            },
+            {
+                  "nom": "utMy",
+                  "format": {
+                        "valeur": "",
+                        "nom": "real",
+                        "edit": "null"
+                  },
+                  "valeur": "",
+                  "proto": "Variable",
+                  "edit": "null"
+            },
+            {
+                  "nom": "pointx",
+                  "format": {
+                        "valeur": "",
+                        "nom": "real",
+                        "edit": "null"
+                  },
+                  "valeur": "",
+                  "proto": "Variable",
+                  "edit": "null"
+            },
+            {
+                  "nom": "pointy",
+                  "format": {
+                        "valeur": "",
+                        "nom": "real",
+                        "edit": "null"
+                  },
+                  "valeur": "",
+                  "proto": "Variable",
+                  "edit": "null"
+            },
+            {
+                  "nom": "TailleDessin",
+                  "format": {
+                        "valeur": "",
+                        "nom": "integer",
+                        "edit": "null"
+                  },
+                  "valeur": "",
+                  "proto": "Variable",
+                  "edit": "null"
+            },
+            {
+                  "nom": "Dess",
+                  "format": {
+                        "valeur": "",
+                        "nom": "text",
+                        "edit": "null"
+                  },
+                  "valeur": "",
+                  "proto": "Variable",
+                  "edit": "null"
+            },
+            {
+                  "nom": "PP",
+                  "format": {
+                        "valeur": "",
+                        "nom": "text",
+                        "edit": "null"
+                  },
+                  "valeur": "",
+                  "proto": "Variable",
+                  "edit": "null"
+            },
+            {
+                  "nom": "Px",
+                  "format": {
+                        "valeur": "",
+                        "nom": "integer",
+                        "edit": "null"
+                  },
+                  "valeur": "",
+                  "proto": "Variable",
+                  "edit": "null"
+            },
+            {
+                  "nom": "Py",
+                  "format": {
+                        "valeur": "",
+                        "nom": "integer",
+                        "edit": "null"
+                  },
+                  "valeur": "",
+                  "proto": "Variable",
+                  "edit": "null"
+            }
+      ],
+      "listeReponse": [
+            {
+                  "nom": "reponse1",
+                  "idt": "reponse1",
+                  "format": {
+                        "typ": "AutreRep",
+                        "resultat": "",
+                        "nom": "reponse1",
+                        "valeur": "coord",
+                        "_status_options_sauv": [
+                              false
+                        ],
+                        "edit": "null"
+                  },
+                  "nomEssaimGerant": "",
+                  "type": "core",
+                  "proto": "Reponse",
+                  "edit": "null"
+            }
+      ],
+      "tableauVariables": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+      ],
+      "listeEditeur": [
+            {
+                  "nom": "valuexM",
+                  "enonce_Txt": "<div>randint( 1..4 )* random(1,-1)</div>",
+                  "enonce_Html": "randint( 1..4 )* random(1,-1)",
+                  "enonce_Html_sauve": "<div>randint( 1..4 )* random(1,-1)</div>",
+                  "selection": "",
+                  "edit": "null"
+            },
+            {
+                  "nom": "valueyM",
+                  "enonce_Txt": "<div>randint( 1..4 )* random(1,-1)</div>",
+                  "enonce_Html": "randint( 1..4 )* random(1,-1)",
+                  "enonce_Html_sauve": "<div>randint( 1..4 )* random(1,-1)</div>",
+                  "selection": "",
+                  "edit": "null"
+            },
+            {
+                  "nom": "valuerM",
+                  "enonce_Txt": "<div>sqrt((<span contenteditable=\"false\"><span class=\"surligneVar classxM\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">xM</span></span>)^2+(<span contenteditable=\"false\"><span class=\"surligneVar classyM\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">yM</span></span>)^2)</div>",
+                  "enonce_Html": "sqrt((\\xM)^2+(\\yM)^2)",
+                  "enonce_Html_sauve": "<div>sqrt((<span contenteditable=\"false\"><span class=\"surligneVar classxM\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">xM</span></span>)^2+(<span contenteditable=\"false\"><span class=\"surligneVar classyM\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">yM</span></span>)^2)</div>",
+                  "selection": "",
+                  "edit": "null"
+            },
+            {
+                  "nom": "valueurMx",
+                  "enonce_Txt": "<div><span contenteditable=\"false\"><span class=\"surligneVar classxM\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">xM</span></span> /<span contenteditable=\"false\"><span class=\"surligneVar classrM\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">rM</span></span>&nbsp;</div>",
+                  "enonce_Html": "\\xM /\\rM&nbsp;",
+                  "enonce_Html_sauve": "<div><span contenteditable=\"false\"><span class=\"surligneVar classxM\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">xM</span></span> /<span contenteditable=\"false\"><span class=\"surligneVar classrM\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">rM</span></span>&nbsp;</div>",
+                  "selection": "",
+                  "edit": "null"
+            },
+            {
+                  "nom": "valueurMy",
+                  "enonce_Txt": "<div><span contenteditable=\"false\"><span class=\"surligneVar classyM\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">yM</span></span> /<span contenteditable=\"false\"><span class=\"surligneVar classrM\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">rM</span></span>&nbsp;</div>",
+                  "enonce_Html": "\\yM /\\rM&nbsp;",
+                  "enonce_Html_sauve": "<div><span contenteditable=\"false\"><span class=\"surligneVar classyM\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">yM</span></span> /<span contenteditable=\"false\"><span class=\"surligneVar classrM\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">rM</span></span>&nbsp;</div>",
+                  "selection": "",
+                  "edit": "null"
+            },
+            {
+                  "nom": "valueutMx",
+                  "enonce_Txt": "<div>-<span contenteditable=\"false\"><span class=\"surligneVar classurMy\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">urMy</span></span>&nbsp;</div>",
+                  "enonce_Html": "-\\urMy&nbsp;",
+                  "enonce_Html_sauve": "<div>-<span contenteditable=\"false\"><span class=\"surligneVar classurMy\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">urMy</span></span>&nbsp;</div>",
+                  "selection": "",
+                  "edit": "null"
+            },
+            {
+                  "nom": "valueutMy",
+                  "enonce_Txt": "<div><span contenteditable=\"false\"><span class=\"surligneVar classurMx\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">urMx</span></span>&nbsp;</div>",
+                  "enonce_Html": "\\urMx&nbsp;",
+                  "enonce_Html_sauve": "<div><span contenteditable=\"false\"><span class=\"surligneVar classurMx\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">urMx</span></span>&nbsp;</div>",
+                  "selection": "",
+                  "edit": "null"
+            },
+            {
+                  "nom": "valuepointx",
+                  "enonce_Txt": "<div><span contenteditable=\"false\"><span class=\"surligneVar classxM\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">xM</span></span> +<span contenteditable=\"false\"><span class=\"surligneVar classutMx\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">utMx</span></span>&nbsp;</div>",
+                  "enonce_Html": "\\xM +\\utMx&nbsp;",
+                  "enonce_Html_sauve": "<div><span contenteditable=\"false\"><span class=\"surligneVar classxM\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">xM</span></span> +<span contenteditable=\"false\"><span class=\"surligneVar classutMx\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">utMx</span></span>&nbsp;</div>",
+                  "selection": "",
+                  "edit": "null"
+            },
+            {
+                  "nom": "valuepointy",
+                  "enonce_Txt": "<div><span contenteditable=\"false\"><span class=\"surligneVar classyM\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">yM</span></span> +<span contenteditable=\"false\"><span class=\"surligneVar classutMy\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">utMy</span></span>&nbsp;</div>",
+                  "enonce_Html": "\\yM +\\utMy&nbsp;",
+                  "enonce_Html_sauve": "<div><span contenteditable=\"false\"><span class=\"surligneVar classyM\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">yM</span></span> +<span contenteditable=\"false\"><span class=\"surligneVar classutMy\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">utMy</span></span>&nbsp;</div>",
+                  "selection": "",
+                  "edit": "null"
+            },
+            {
+                  "nom": "valueTailleDessin",
+                  "enonce_Txt": "<div>400</div>",
+                  "enonce_Html": "400",
+                  "enonce_Html_sauve": "<div>400</div>",
+                  "selection": "",
+                  "edit": "null"
+            },
+            {
+                  "nom": "valueDess",
+                  "enonce_Txt": "<div>draw(<span contenteditable=\"false\"><span class=\"surligneVar classTailleDessin\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">TailleDessin</span></span> ,<span contenteditable=\"false\"><span class=\"surligneVar classTailleDessin\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">TailleDessin</span></span></div><div>&nbsp;&nbsp;&nbsp;&nbsp; xrange -5.2, 5.2</div><div>&nbsp;&nbsp;&nbsp;&nbsp; yrange -5.2, 5.2</div><div>&nbsp;&nbsp;&nbsp;&nbsp; hline 0,0, gray</div><div>&nbsp;&nbsp;&nbsp;&nbsp; vline 0,0, gray</div><div>&nbsp;&nbsp;&nbsp;&nbsp; dlines gray,0,0,<span contenteditable=\"false\"><span class=\"surligneVar classxM\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">xM</span></span> ,<span contenteditable=\"false\"><span class=\"surligneVar classyM\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">yM</span></span>&nbsp; &nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp; fcircle <span contenteditable=\"false\"><span class=\"surligneVar classxM\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">xM</span></span>,<span contenteditable=\"false\"><span class=\"surligneVar classyM\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">yM</span></span>,5,black</div><div>&nbsp;&nbsp;&nbsp;&nbsp; text black,<span contenteditable=\"false\"><span class=\"surligneVar classxM\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">xM</span></span>-0.2,<span contenteditable=\"false\"><span class=\"surligneVar classyM\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">yM</span></span>-0.2,large,M</div><div>&nbsp;&nbsp;&nbsp;&nbsp; circle <span contenteditable=\"false\"><span class=\"surligneVar classxM\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">xM</span></span>,<span contenteditable=\"false\"><span class=\"surligneVar classyM\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">yM</span></span>,<span contenteditable=\"false\"><span class=\"surligneVar classTailleDessin\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">TailleDessin</span></span>/5.2,red)</div><div><br></div><div><br></div>",
+                  "enonce_Html": "draw(\\TailleDessin ,\\TailleDessin\n&nbsp;&nbsp;&nbsp;&nbsp; xrange -5.2, 5.2\n&nbsp;&nbsp;&nbsp;&nbsp; yrange -5.2, 5.2\n&nbsp;&nbsp;&nbsp;&nbsp; hline 0,0, gray\n&nbsp;&nbsp;&nbsp;&nbsp; vline 0,0, gray\n&nbsp;&nbsp;&nbsp;&nbsp; dlines gray,0,0,\\xM ,\\yM&nbsp; &nbsp;\n&nbsp;&nbsp;&nbsp;&nbsp; fcircle \\xM,\\yM,5,black\n&nbsp;&nbsp;&nbsp;&nbsp; text black,\\xM-0.2,\\yM-0.2,large,M\n&nbsp;&nbsp;&nbsp;&nbsp; circle \\xM,\\yM,\\TailleDessin/5.2,red)",
+                  "enonce_Html_sauve": "<div>draw(<span contenteditable=\"false\"><span class=\"surligneVar classTailleDessin\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">TailleDessin</span></span> ,<span contenteditable=\"false\"><span class=\"surligneVar classTailleDessin\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">TailleDessin</span></span></div><div>&nbsp;&nbsp;&nbsp;&nbsp; xrange -5.2, 5.2</div><div>&nbsp;&nbsp;&nbsp;&nbsp; yrange -5.2, 5.2</div><div>&nbsp;&nbsp;&nbsp;&nbsp; hline 0,0, gray</div><div>&nbsp;&nbsp;&nbsp;&nbsp; vline 0,0, gray</div><div>&nbsp;&nbsp;&nbsp;&nbsp; dlines gray,0,0,<span contenteditable=\"false\"><span class=\"surligneVar classxM\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">xM</span></span> ,<span contenteditable=\"false\"><span class=\"surligneVar classyM\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">yM</span></span>&nbsp; &nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp; fcircle <span contenteditable=\"false\"><span class=\"surligneVar classxM\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">xM</span></span>,<span contenteditable=\"false\"><span class=\"surligneVar classyM\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">yM</span></span>,5,black</div><div>&nbsp;&nbsp;&nbsp;&nbsp; text black,<span contenteditable=\"false\"><span class=\"surligneVar classxM\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">xM</span></span>-0.2,<span contenteditable=\"false\"><span class=\"surligneVar classyM\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">yM</span></span>-0.2,large,M</div><div>&nbsp;&nbsp;&nbsp;&nbsp; circle <span contenteditable=\"false\"><span class=\"surligneVar classxM\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">xM</span></span>,<span contenteditable=\"false\"><span class=\"surligneVar classyM\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">yM</span></span>,<span contenteditable=\"false\"><span class=\"surligneVar classTailleDessin\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">TailleDessin</span></span>/5.2,red)</div><div><br></div><div><br></div>",
+                  "selection": "",
+                  "edit": "null"
+            },
+            {
+                  "nom": "valuePP",
+                  "enonce_Txt": "<div>slib(draw/convpixel <span contenteditable=\"false\"><span class=\"surligneVar classpointx\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">pointx</span></span>,<span contenteditable=\"false\"><span class=\"surligneVar classpointy\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">pointy</span></span>,<span contenteditable=\"false\"><span class=\"surligneVar classTailleDessin\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">TailleDessin</span></span>,<span contenteditable=\"false\"><span class=\"surligneVar classTailleDessin\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">TailleDessin</span></span>,-5.2,5.2,-5.2,5.2,0,pixels)</div>",
+                  "enonce_Html": "slib(draw/convpixel \\pointx,\\pointy,\\TailleDessin,\\TailleDessin,-5.2,5.2,-5.2,5.2,0,pixels)",
+                  "enonce_Html_sauve": "<div>slib(draw/convpixel <span contenteditable=\"false\"><span class=\"surligneVar classpointx\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">pointx</span></span>,<span contenteditable=\"false\"><span class=\"surligneVar classpointy\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">pointy</span></span>,<span contenteditable=\"false\"><span class=\"surligneVar classTailleDessin\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">TailleDessin</span></span>,<span contenteditable=\"false\"><span class=\"surligneVar classTailleDessin\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">TailleDessin</span></span>,-5.2,5.2,-5.2,5.2,0,pixels)</div>",
+                  "selection": "",
+                  "edit": "null"
+            },
+            {
+                  "nom": "valuePx",
+                  "enonce_Txt": "<div><span contenteditable=\"false\"><span class=\"surligneVar classPP\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">PP</span></span> [1]</div>",
+                  "enonce_Html": "\\PP[1]",
+                  "enonce_Html_sauve": "<div><span contenteditable=\"false\"><span class=\"surligneVar classPP\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">PP</span></span> [1]</div>",
+                  "selection": "",
+                  "edit": "null"
+            },
+            {
+                  "nom": "valuePy",
+                  "enonce_Txt": "<div><span contenteditable=\"false\"><span class=\"surligneVar classPP\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">PP</span></span> [2]</div>",
+                  "enonce_Html": "\\PP[2]",
+                  "enonce_Html_sauve": "<div><span contenteditable=\"false\"><span class=\"surligneVar classPP\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">PP</span></span> [2]</div>",
+                  "selection": "",
+                  "edit": "null"
+            },
+            {
+                  "nom": "resultatreponse1",
+                  "enonce_Txt": "<div><span contenteditable=\"false\"><span class=\"surligneVar classDess\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">Dess</span></span> ;point,<span contenteditable=\"false\"><span class=\"surligneVar classPx\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">Px</span></span> ,<span contenteditable=\"false\"><span class=\"surligneVar classPy\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">Py</span></span>&nbsp;</div>",
+                  "enonce_Html": "\\Dess ;point,\\Px ,\\Py&nbsp;",
+                  "enonce_Html_sauve": "<div><span contenteditable=\"false\"><span class=\"surligneVar classDess\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">Dess</span></span> ;point,<span contenteditable=\"false\"><span class=\"surligneVar classPx\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">Px</span></span> ,<span contenteditable=\"false\"><span class=\"surligneVar classPy\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">Py</span></span>&nbsp;</div>",
+                  "selection": 16,
+                  "edit": "null"
+            }
+      ],
+      "listeClasseEssaim": [
+            null
+      ],
+      "listeAutre": [],
+      "listeOrdonnee_sauve": null,
+      "nb_latex": 0,
+      "nb_reponse": 1,
+      "nb_condition": 0,
+      "nb_for": 0,
+      "nb_classeEssaim": 1,
+      "nb_essaim": 0,
+      "nb_imageEssaim": 0,
+      "nbrepcodelibre": 0,
+      "nbrepcondition": 0,
+      "nbrepaide": 0,
+      "nb_codeLibre": 0,
+      "nbrepfeedback": 0,
+      "nbrepindication": 0,
+      "enonce": {
+            "nom": "ql-editor-1",
+            "enonce_Txt": "On considère un point M de coordonnées cartésiennes (xM,yM) dans le plan, et on voudrait identifier les vecteurs de la base locale en coordonnées polaires au point M.\n\n\n\n   On considère l'origine des vecteurs de la base locale en M. Cliquer sur le point du cercle rouge qui vous semble être le plus proche de l'extrémité du vecteur \\vec{u}_\\theta \n",
+            "enonce_Html": "<div>On considère un point \\(M\\) de coordonnées cartésiennes \\((\\xM,\\yM)\\) dans le plan, et on voudrait identifier les vecteurs de la base locale en coordonnées polaires au point \\(M\\).</div>\n<div><br></div>\n<div style=\"text-align: center;\">\\embed{reply1,10}</div>\n<div style=\"text-align: center;\"><br></div>\n<div>&nbsp;&nbsp; On considère l'origine des vecteurs de la base locale en \\(M\\). Cliquer sur le point du cercle rouge qui vous semble être le plus proche de l'extrémité du vecteur \\(\\vec{u}_\\theta\\)&nbsp;</div>\n",
+            "enonce_Html_sauve": "<div>On considère un point <span style=\"background-color: rgb(255, 202, 143);\">M</span> de coordonnées cartésiennes <span style=\"background-color: rgb(255, 202, 143);\">(<span contenteditable=\"false\"><span class=\"surligneVar classxM\" id=\"spanxM\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">xM</span></span>,<span contenteditable=\"false\"><span class=\"surligneVar classyM\" id=\"spanyM\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">yM</span></span>)</span> dans le plan, et on voudrait identifier les vecteurs de la base locale en coordonnées polaires au point <span style=\"background-color: rgb(255, 202, 143);\">M</span>.</div><div><br></div><div style=\"text-align: center;\"><img id=\"reponse1\" class=\"reponsesupprimable\" src=\"reponse.png\"></div><div style=\"text-align: center;\"><br></div><div>&nbsp;&nbsp; On considère l'origine des vecteurs de la base locale en <span style=\"background-color: rgb(255, 202, 143);\">M</span>. Cliquer sur le point du cercle rouge qui vous semble être le plus proche de l'extrémité du vecteur <span style=\"background-color: rgb(255, 202, 143);\">\\vec{u}_\\theta</span>&nbsp;</div>",
+            "selection": "",
+            "edit": "null"
+      },
+      "entete": {
+            "title": "Direction des vecteurs de la base locale",
+            "langage": "fr",
+            "auteur": "Damir Buskulic",
+            "email": "",
+            "computeanswer": "no",
+            "format": "\\format{ html }\n",
+            "precision": "\\precision{ 1000 }\n",
+            "range": "\\range{ -5..5 }\n\n",
+            "libre": "",
+            "edit": "null"
+      },
+      "edit": "null"
+}

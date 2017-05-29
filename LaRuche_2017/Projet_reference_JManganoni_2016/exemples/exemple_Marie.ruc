@@ -1,0 +1,137 @@
+{
+      "listeOrdonnee": [
+            {
+                  "nom": "Vdon",
+                  "format": {
+                        "valeur": "",
+                        "nom": "real",
+                        "edit": "null"
+                  },
+                  "valeur": "",
+                  "proto": "Variable",
+                  "edit": "null"
+            },
+            {
+                  "nom": "rdon",
+                  "format": {
+                        "valeur": "",
+                        "nom": "real",
+                        "edit": "null"
+                  },
+                  "valeur": "",
+                  "proto": "Variable",
+                  "edit": "null"
+            },
+            {
+                  "nom": "V_res",
+                  "format": {
+                        "valeur": "",
+                        "nom": "real",
+                        "edit": "null"
+                  },
+                  "valeur": "",
+                  "proto": "Variable",
+                  "edit": "null"
+            }
+      ],
+      "listeReponse": [
+            {
+                  "nom": "reponse1",
+                  "idt": "reponse1",
+                  "format": {
+                        "typ": "numeric",
+                        "resultat": "",
+                        "nom": "reponse1",
+                        "valeur": "",
+                        "_status_options_sauv": [
+                              false,
+                              false
+                        ],
+                        "edit": "null"
+                  },
+                  "type": "core",
+                  "nomEssaimGerant": "",
+                  "proto": "Reponse",
+                  "edit": "null"
+            }
+      ],
+      "tableauVariables": [
+            null,
+            null,
+            null
+      ],
+      "listeEditeur": [
+            {
+                  "nom": "valueVdon",
+                  "enonce_Txt": "<div>randint(1..100)/10.</div>",
+                  "enonce_Html": "randint(1..100)/10.",
+                  "enonce_Html_sauve": "<div>randint(1..100)/10.</div>",
+                  "selection": "",
+                  "edit": "null"
+            },
+            {
+                  "nom": "valuerdon",
+                  "enonce_Txt": "<div>randint(10..100)/10.</div>",
+                  "enonce_Html": "randint(10..100)/10.",
+                  "enonce_Html_sauve": "<div>randint(10..100)/10.</div>",
+                  "selection": "",
+                  "edit": "null"
+            },
+            {
+                  "nom": "valueV_res",
+                  "enonce_Txt": "<div><span contenteditable=\"false\"><span class=\"surligneVar classVdon\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">Vdon</span></span> /<span contenteditable=\"false\"><span class=\"surligneVar classrdon\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">rdon</span></span>&nbsp;</div>",
+                  "enonce_Html": "\\Vdon /\\rdon&nbsp;",
+                  "enonce_Html_sauve": "<div><span contenteditable=\"false\"><span class=\"surligneVar classVdon\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">Vdon</span></span> /<span contenteditable=\"false\"><span class=\"surligneVar classrdon\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">rdon</span></span>&nbsp;</div>",
+                  "selection": 6,
+                  "edit": "null"
+            },
+            {
+                  "nom": "resultatreponse1",
+                  "enonce_Txt": "<div><span contenteditable=\"false\"><span class=\"surligneVar classV_res\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">V_res</span></span>&nbsp;</div>",
+                  "enonce_Html": "\\V_res&nbsp;",
+                  "enonce_Html_sauve": "<div><span contenteditable=\"false\"><span class=\"surligneVar classV_res\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">V_res</span></span>&nbsp;</div>",
+                  "selection": 0,
+                  "edit": "null"
+            }
+      ],
+      "listeClasseEssaim": [
+            null,
+            null
+      ],
+      "listeAutre": [],
+      "listeOrdonnee_sauve": null,
+      "nb_latex": 0,
+      "nb_reponse": 1,
+      "nb_condition": 0,
+      "nb_for": 0,
+      "nb_classeEssaim": 2,
+      "nb_essaim": 0,
+      "nb_imageEssaim": 0,
+      "nbrepcodelibre": 0,
+      "nbrepcondition": 0,
+      "nbrepaide": 0,
+      "nb_codeLibre": 0,
+      "nbrepfeedback": 0,
+      "nbrepindication": 0,
+      "enonce": {
+            "nom": "ql-editor-1",
+            "enonce_Txt": "Un Gaz parfait monoatomique initialement dans l'état (P_0, V_0, T_0) subit une compression adiabatique, avec un taux de compression r = rdon. On donne : V_0 = Vdon L.\nCalculez les caractéristiques de son nouvel état (P_1, V_1, T_1) à la fin de cette transformation.\nVos réponses sont :\nV_1 =   L.\n\n",
+            "enonce_Html": "<div>Un Gaz parfait monoatomique initialement dans l'état \\((P_0, V_0, T_0)\\) subit une compression adiabatique, avec un taux de compression \\(r = \\)\\\\(rdon\\). On donne : \\(V_0 = \\)\\Vdon L.</div>\n<div>Calculez les caractéristiques de son nouvel état \\((P_1, V_1, T_1)\\) à la fin de cette transformation.</div>\n<div>Vos réponses sont :</div>\n<div>\\(V_1\\) =&nbsp;&nbsp;\\embed{reply1,10} L.</div>\n<div><br></div>\n",
+            "enonce_Html_sauve": "<div>Un Gaz parfait monoatomique initialement dans l'état <span style=\"background-color: rgb(255, 202, 143);\">(P_0, V_0, T_0)</span> subit une compression adiabatique, avec un taux de compression <span style=\"background-color: rgb(255, 202, 143);\">r = </span><span contenteditable=\"false\"><span class=\"surligneVar classrdon\" id=\"spanrdon\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\"><span style=\"background-color: rgb(255, 202, 143);\">rdon</span></span></span>. On donne : <span style=\"background-color: rgb(255, 202, 143);\">V_0 = </span><span contenteditable=\"false\"><span class=\"surligneVar classVdon\" id=\"spanVdon\" style=\"background-color: rgb(175, 217, 235);\" contenteditable=\"true\">Vdon</span></span> L.</div><div>Calculez les caractéristiques de son nouvel état <span style=\"background-color: rgb(255, 202, 143);\">(P_1, V_1, T_1)</span> à la fin de cette transformation.</div><div>Vos réponses sont :</div><div><span style=\"background-color: rgb(255, 202, 143);\">V_1</span> =&nbsp;&nbsp;<img id=\"reponse1\" class=\"reponsesupprimable\" src=\"reponse.png\"> L.</div><div><br></div>",
+            "selection": "",
+            "edit": "null"
+      },
+      "entete": {
+            "title": "",
+            "langage": "",
+            "auteur": "",
+            "email": "",
+            "computeanswer": "",
+            "format": "\\format{ html }\n",
+            "precision": "\\precision{ 1000 }\n",
+            "range": "\\range{ -5..5 }\n\n",
+            "libre": "",
+            "edit": "null"
+      },
+      "edit": "null"
+}

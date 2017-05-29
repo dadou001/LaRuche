@@ -1,0 +1,18 @@
+\title{Angles et angles solides}
+\language{ fr }
+\author{Damir Buskulic}
+
+\computeanswer{ no }
+\format{ html }
+\precision{ 1000 }
+\text{ quantity = angle solide de tout l'espace, angle solide d'un hémisphère, angle solide d'un disque vu de face sous un angle \(\alpha\), angle solide élémentaire en coordonnées sphériques, surface élémentaire d'une sphère de rayon \(R\), longueur d'un arc de cercle de rayon R soustendu par un angle \(\alpha\)}
+\text{ value = \(4\pi\), \(2\pi\), \(2\pi(1-\cos\alpha)\), \(\sin\theta\,d\theta\,d\phi\), \(R\sin\theta\,d\theta\,d\phi\), \(R\alpha\)}
+
+\statement{
+<p>Relier par glisser-déposer les quantités aux valeurs correspondantes.</p>
+
+<br>
+\embed{r1}
+} 
+
+\answer{ surfvol }{ \quantity;\value }{ type = correspond }

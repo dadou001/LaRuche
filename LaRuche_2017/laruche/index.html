@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" dir="ltr">
+<head>
+  <title>LaRuche - éditeur d'exercices</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="language" content="english">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="LaRuche is an editor of exercizes for the WIMS platform">
+
+  <!-- Foundation style sheets -->
+  <link rel="stylesheet" href="css/foundation.css"/>
+  <link rel="stylesheet" href="css/ruche.css"/>
+  <link rel="stylesheet" href="css/foundation-icons/foundation-icons.css"/>
+
+  <!-- Style sheets of tools for the Quill editor -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css" />
+  <link rel="stylesheet" href="js_tools/quill/highlight.js-master/src/styles/atom-one-light.css" />
+
+  <!-- Customized style sheet of Quill -->
+  <link rel="stylesheet" href="js_tools/quill/quill.snow-custom.css" />
+
+</head>
+<body>
+
+  <div class="row">
+    <div class="large-12 columns RCl_Titre_Editeur">
+      <img src="images/logo.png">
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-12 medium-12">
+      <div class="RCl_Menu_Onglets">
+        <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Entete" onclick="change_onglet('Entete');">Entête</span>
+        <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Enonce" onclick="change_onglet('Enonce');">Enoncé</span>
+        <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Preparation" onclick="change_onglet('Preparation');">Préparation</span>
+        <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Analyse" onclick="change_onglet('Analyse');">Analyse</span>
+        <span class="RCl_Onglet_Fake RCl_Onglet"></span>
+        <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Code" onclick="change_onglet('Code');">Code</span>
+        <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Sauvegarde" onclick="change_onglet('Sauvegarde');">Sauvegarde</span>
+      </div>
+    </div>
+
+    <div class="large-12 medium-12 columns">
+      <div class="callout">
+        <div class="row">
+
+          <!-- ONGLET ENTETE -->
+          <div class="RCl_Contenu_Onglet_Cache large-12 columns" id="RId_Contenu_Onglet_Entete">
+          </div>
+
+          <!-- ONGLET ENONCE -->
+          <div class="large-12 columns RCl_Contenu_Onglet_Cache" id="RId_Contenu_Onglet_Enonce">
+
+            <div id="enonce-container">
+              <div id="toolbar-container">
+                <span class="ql-formats">
+                  <select class="ql-font"></select>
+                  <select class="ql-size"></select>
+                </span>
+                <span class="ql-formats">
+                  <button class="ql-bold"></button>
+                  <button class="ql-italic"></button>
+                  <button class="ql-underline"></button>
+                  <button class="ql-strike"></button>
+                </span>
+                <span class="ql-formats">
+                  <select class="ql-color"></select>
+                  <select class="ql-background"></select>
+                </span>
+                <span class="ql-formats">
+                  <button class="ql-script" value="sub"></button>
+                  <button class="ql-script" value="super"></button>
+                </span>
+                <span class="ql-formats">
+                  <button class="ql-header" value="1"></button>
+                  <button class="ql-header" value="2"></button>
+                  <button class="ql-blockquote"></button>
+                  <button class="ql-code-block"></button>
+                </span>
+                <span class="ql-formats">
+                  <button class="ql-list" value="ordered"></button>
+                  <button class="ql-list" value="bullet"></button>
+                  <button class="ql-indent" value="-1"></button>
+                  <button class="ql-indent" value="+1"></button>
+                </span>
+                <span class="ql-formats">
+                  <button class="ql-direction" value="rtl"></button>
+                  <select class="ql-align"></select>
+                </span>
+                <span class="ql-formats">
+                  <button class="ql-link"></button>
+                  <button class="ql-image"></button>
+                  <button class="ql-video"></button>
+                  <button class="ql-formula"></button>
+                </span>
+                <span class="ql-formats">
+                  <button class="ql-clean"></button>
+                </span>
+              </div>
+              <div id="editor-enonce"></div>
+            </div>
+          </div>
+
+          <!-- ONGLET PREPARATION -->
+          <div class="RCl_Contenu_Onglet_Cache large-12 columns" id="RId_Contenu_Onglet_Preparation">
+          </div>
+
+
+          <!-- ONGLET ANALYSE -->
+          <div class="RCl_Contenu_Onglet_Cache large-12 columns" id="RId_Contenu_Onglet_Analyse">
+          </div>
+
+          <!-- ONGLET CODE -->
+          <div class="RCl_Contenu_Onglet_Cache large-12 columns" id="RId_Contenu_Onglet_Code">
+          </div>
+
+          <!-- ONGLET SAUVEGARDE -->
+          <div class="RCl_Contenu_Onglet_Cache large-12 columns" id="RId_Contenu_Onglet_Sauvegarde">
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js_tools/vendor/jquery.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js_tools/vendor/what-input.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js_tools/vendor/foundation.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+  <script type="text/javascript" src="js_tools/quill/quill.min.js"></script>
+  <script src="src/app.js" type="text/javascript" charset="utf-8"></script>
+
+
+</body>
+</html>

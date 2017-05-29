@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <meta name="author" content=""/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <title>Editeur WIMS - USMB</title>
+    <!-- IMPORT JS :: jquery -->
+    <script type="text/javascript" src="scripts/jquery-2.1.4.min.js"></script>
+    <!-- IMPORT JS :: zTree -->
+    <script type="text/javascript" src="scripts/jquery.ztree.all-3.5.min.js"></script>
+    <!-- IMPORT JS :: onglet-part1.js -->
+    <script type="text/javascript" src="scripts/onglet-part1.js"></script>
+    <!-- IMPORT JS :: JSXGraph.js -->
+    <script type="text/javascript" src="./jsxgraph/jsxgraphcore.js"></script>
+    <!-- IMPORT CSS :: reset.css & skeleton1200.css -->
+    <link rel="stylesheet" type="text/css" href="styles/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="styles/skeleton1200.css"/>
+    <!-- IMPORT CSS :: quill.css -->
+    <link rel="stylesheet" type="text/css" href="styles/quill.base.css"/>
+    <link rel="stylesheet" type="text/css" href="styles/quill.css"/>
+    <!-- IMPORT CSS :: style.css -->
+    <link rel="stylesheet" type="text/css" href="styles/style.css"/>
+    <!-- IMPORT CSS :: zTree.css -->
+    <link rel="stylesheet" type="text/css" href="styles/zTree/zTreeStyle/zTreeStyle.css">
+    <link rel="stylesheet" type="text/css" href="styles/zTree/zTreeLaRuche.css">
+    <link rel="stylesheet" type="jsxgraph/jsxgraph.css" />
+
+</head>
+
+<body>
+<div class="Rcl_Ruche_Onglets">
+
+    <!-- EN-TÊTE ET MENU ONGLETS (TABs) -->
+    <header>
+        <div class="container">
+            <h1>La Ruche</h1>
+
+            <div class="Rcl_Menu_Onglets">
+                <span class="Rcl_Tab_Onglet_0 Rcl_Tab_Onglet" id="Rid_Tab_Onglet_Entete"
+                      onclick="change_onglet('Entete');">En-tête</span>
+                <span class="Rcl_Tab_Onglet_0 Rcl_Tab_Onglet" id="Rid_Tab_Onglet_Enonce"
+                      onclick="change_onglet('Enonce');">Enoncé</span>
+                <span class="Rcl_Tab_Onglet_0 Rcl_Tab_Onglet" id="Rid_Tab_Onglet_Preparation"
+                      onclick="rucheSys.verifReponse();change_onglet('Preparation');">Préparation</span>
+                <span class="Rcl_Tab_Onglet_0 Rcl_Tab_Onglet" id="Rid_Tab_Onglet_Analyse"
+                      onclick="rucheSys.verifReponse();change_onglet('Analyse');">Analyse</span>
+                <span class="Rcl_Tab_Onglet_Fake Rcl_Tab_Onglet"></span>
+                <span class="Rcl_Tab_Onglet_0 Rcl_Tab_Onglet" id="Rid_Tab_Onglet_Previsu"
+                      onclick="change_onglet('Previsu');rucheSys.verifReponse();rucheSys.genereCode();">Code OEF</span>
+                <span class="Rcl_Tab_Onglet_0 Rcl_Tab_Onglet" id="Rid_Tab_Onglet_JSON" onclick="change_onglet('JSON');">Sauvegarde</span>
+
+            </div>
+        </div>
+    </header>
+
+    <div class="container Rcl_Contenu_Onglets">
+        <!-- ONGLET EN-TÊTE DE L'EXERCICE -->
+        <div class="Rcl_Contenu_Onglet" id="Rid_Contenu_Onglet_Entete">
+            <div class="columns sixteen">
+                <h2>En-tête</h2>
+
+                <div id="Rid_Entete_Declaration">
+                    <ul>
+                        <li><label>Titre</label> : <input type="text" id="Rid_Entete_Zone_Titre"
+                                                          placeholder="Titre de l'exercice"/></li>
+                        <li><label>Langue</label> : <input type="text" id="Rid_Entete_Zone_Langue"
+                                                           placeholder="fr, en..."/></li>
+                        <li><label>Auteur</label> : <input type="text" id="Rid_Entete_Zone_Auteur"
+                                                           placeholder="Yves Dupont"/></li>
+                        <li><label>Email</label> : <input type="email" id="Rid_Entete_Zone_Email"
+                                                          placeholder="yves.dupont@myrucheSys.org"/></li>
+                        <li><label>Réponses calculées</label> : <input type="text" id="computeanswer"
+                                                                       placeholder="yes / no"/></li>
+                    </ul>
+                    <div class="Rid_Entete_CodeLibre">
+                        <p>Code libre :</p>
+                        <textarea id="Rid_Entete_Editeur_CodeLibre" placeholder="Code OEF libre"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ONGLET ENONCE -->
+        <div class="Rcl_Contenu_Onglet" id="Rid_Contenu_Onglet_Enonce">
+
+            <!-- EDITEUR QUILL -->
+            <div class="columns twelve">
+                <div id="content-container">
+                    <div id="editor-wrapper">
+                        <div id="formatting-container">
+                            <button title="Bold" class="ql-bold"></button> <!-- Bouton gras -->
+                            <span class="bouton-separateur"></span>
+                            <button title="Italic" class="ql-italic"></button> <!-- Bouton italic -->
+                            <span class="bouton-separateur"></span>
+                            <button title="Underline" class="ql-underline"></button> <!-- Bouton souligner -->
+                            <span class="bouton-separateur"></span>
+                            <button title="Strikethrough" class="ql-strike"></button> <!-- Bouton rayer -->
+                            <span class="bouton-separateur"></span>
+                            <button title="Link" class="ql-link"></button> <!-- Bouton associer un lien -->
+                            <span class="bouton-separateur"></span>
+                            <button title="Image" class="ql-image"></button>
+                            <!-- Bouton insérer une image à partir d'un URL -->
+                            <span class="bouton-separateur"></span>
+                            <button title="Bullet" class="ql-bullet"></button> <!-- Bouton liste à bulles -->
+                            <span class="bouton-separateur"></span>
+                            <button title="List" class="ql-list"></button> <!-- Bouton liste numérotée -->
+                            <select title="Font" class="ql-font"> <!-- Liste des différentes polices disponibles -->
+                                <option value="sans-serif" selected>Sans Serif</option>
+                                <option value="Georgia, serif">Serif</option>
+                                <option value="Monaco, 'Courier New', monospace">Monospace</option>
+                            </select>
+                            <select title="Text Alignment" class="ql-align">
+                                <option value="left" selected>Left</option>
+                                <option value="center">Center</option>
+                                <option value="right">Right</option>
+                                <option value="justify">Justify</option>
+                            </select>
+                            <button title="Latex" class="Rcl_Editor_Button_Latex"
+                                    onclick="rucheSys.etiqueterTexteEnLatex();">Latex
+                            </button> <!-- Bouton pour insérer du latex -->
+                            <span class="bouton-separateur"></span>
+                            <button title="Variable" class="Rcl_Editor_Button_Variable"
+                                    onclick="rucheSys.ajoutVariable();">Var
+                            </button> <!-- Bouton pour insérer une variable -->
+                            <span class="bouton-separateur"></span>
+                            <button title="Libre" class="Rcl_Editor_Button_Libre"
+                                    onclick="rucheSys.etiqueterTexteEnCodeLibre();">Libre
+                            </button> <!-- Bouton pour insérer du code libre -->
+                            <span class="bouton-separateur"></span>
+                            <button title="Réponse" class="Rcl_Editor_Button_Reponse"
+                                    onclick="rucheSys.ajoutReponse();">Réponse
+                            </button> <!-- Bouton pour insérer une réponse -->
+                        </div>
+                        <div id="editor-container"></div> <!-- Content de l'éditeur -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- COLONNE DE VARIABLES -->
+            <div class="columns four">
+                <h3>Variables</h3>
+
+                <div id="Rid_Enonce_Vars">
+                    <ul id="Rid_Enonce_Vars_List">
+                    </ul>
+                </div>
+                <h3>Essaims</h3>
+
+                <div id="Rid_Enonce_Essaims">
+                    <ul id="Rid_Enonce_Essaims_List">
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ONGLET PREPARATION -->
+        <div class="Rcl_Contenu_Onglet" id="Rid_Contenu_Onglet_Preparation">
+
+            <!-- COLONNE DE GAUCHE -->
+            <div class="columns four">
+                <h3>Ensembles d'instructions</h3>
+
+                <div id="Rid_Prep_Menu" class="Rcl_Prep_Menu">
+                    <div id="Rid_Warning_Variable_Exists" class="Rcl_Error" style="display : none;">Variable deja
+                        définie
+                    </div>
+                    <div class="Rcl_Prep_Define_Variable">
+                        <input type="text" id="RidPrMe_Champ_New_Var" placeholder="Variable..."/>
+                        <button class="Rcl_Side_Menu_Button" id="RidPrMe_Ajout_Variable"
+                                onclick="rucheSys.ajoutVariablePreparation()">Créer variable
+                        </button>
+                    </div>
+                    <button class="Rcl_Side_Menu_Button" id="RidPrMe_Boucle_For"
+                            onclick="rucheSys.ajoutForPreparation()">Boucle de ... à
+                    </button>
+                    <button class="Rcl_Side_Menu_Button" id="RidPrMe_Condition" onclick="rucheSys.ajoutIfPreparation()">
+                        Si ... alors ...
+                    </button>
+                    <button class="Rcl_Side_Menu_Button" id="RidPrMe_Code_Libre"
+                            onclick="rucheSys.ajoutCodeLibrePreparation()">Code Libre
+                    </button>
+                </div>
+            </div>
+            <!-- COLONNE DU CENTRE -->
+            <div class="columns eight">
+                <h3>Opérations / Instructions</h3>
+                <button onclick="rucheSys.toutReduire()"> tout réduire  </button>
+                <button onclick="rucheSys.toutAgrandir()"> tout déplier  </button>
+
+                <div class="Rcl_Prep_Blocs">
+                    <ul id="Rid_Prep_Blocs"></ul>
+                </div>
+            </div>
+            <!-- COLONNE DE DROITE -->
+            <div class="columns four">
+                <h3>Variables</h3>
+
+                <div class="Rcl_Var_List">
+                    <div id="Rid_Prep_Vars" focusedit=""></div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ONGLET ANALYSE -->
+        <div class="Rcl_Contenu_Onglet" id="Rid_Contenu_Onglet_Analyse">
+            <!-- COLONNE DE GAUCHE -->
+            <div class="columns four">
+                <h3>Ensembles d'instructions</h3>
+
+                <div class="Rcl_Menu_Analyse">
+                    <button class="Rcl_Side_Menu_Button" id="RidAnMe_Code_Libre"
+                            onclick="rucheSys.ajoutCodeLibreAnalyse()">Code libre
+                    </button>
+                    <button class="Rcl_Side_Menu_Button" id="RidAnMe_Condition"
+                            onclick="rucheSys.ajoutConditionAnalyse()">Condition
+                    </button>
+                    <button class="Rcl_Side_Menu_Button" id="RidAnMe_Aide" onclick="rucheSys.ajoutAideAnalyse()">Aide
+                    </button>
+                    <button class="Rcl_Side_Menu_Button" id="RidAnMe_Indication"
+                            onclick="rucheSys.ajoutIndicationAnalyse()">Indication
+                    </button>
+                    <button class="Rcl_Side_Menu_Button" id="RidAnMe_Feedback"
+                            onclick="rucheSys.ajoutFeedbackAnalyse()">Feedback
+                    </button>
+                </div>
+            </div>
+            <!-- COLONNE DU CENTRE -->
+            <div class="columns eight">
+                <h3>Analyse des réponses</h3>
+
+                <div id="Rid_Analyse_Blocs">
+                    <p id="Rid_Warning_No_Answer" class="Rcl_Error" display="inline">Vous n'avez pas encore défini de
+                        réponse(s), utilisez le bouton "Réponse" de l'énoncé pour en déclarer une.</p>
+                    <ul id="Rid_Analyse_Blocs_Reponses"></ul>
+                    <ul id="Rid_Analyse_Blocs_Instructions"></ul>
+                </div>
+            </div>
+            <!-- COLONNE DE DROITE -->
+            <div class="columns four">
+                <h3>Variables</h3>
+
+                <div class="Rcl_Var_List">
+                    <div id="Rid_Analyse_Vars" focusedit=""></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ONGLET CODE OEF -->
+        <div class="Rcl_Contenu_Onglet" id="Rid_Contenu_Onglet_Previsu">
+            <div class="columns sixteen">
+                <textarea id="Rcl_Code_Genere"></textarea>
+            </div>
+        </div>
+
+        <!-- ONGLET SAUVEGARDE -->
+        <div class="Rcl_Contenu_Onglet" id="Rid_Contenu_Onglet_JSON">
+            <div class="columns sixteen">
+                <div class="Rcl_Sauvegarde">
+                    <button class="Rcl_Button_Save" onclick="rucheSys.sauvegarde()">Sauvegarder</button>
+                    <div class="Rcl_OK_Light_SaveLoad" style="visibility:hidden">OK</div>
+                    <button class="Rcl_Button_Load" onclick="rucheSys.charge()">Charger</button>
+                </div>
+                <textarea id="Rid_Zone_Sauvegarde"></textarea>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<footer>
+    <!-- IMPORT JS :: onglet-part2.js -->
+    <script type="text/javascript" src="scripts/onglet-part2.js"></script>
+    <!-- IMPORT JS :: quill.min.js & quill-init.js -->
+    <script type="text/javascript" src="scripts/quill.js"></script>
+    <script type="text/javascript" src="scripts/quill-init.js"></script>
+
+    <!-- IMPORT JS :: les classes -->
+    <script type="text/javascript" src="scripts/classes/editeur.js"></script>
+    <script type="text/javascript" src="scripts/classes/entete.js"></script>
+    <script type="text/javascript" src="scripts/classes/ruche.js"></script>
+    <script type="text/javascript" src="scripts/classes/blocProgramme.js"></script>
+    <script type="text/javascript" src="scripts/classes/variable.js"></script>
+    <script type="text/javascript" src="scripts/classes/reponse.js"></script>
+    <script type="text/javascript" src="scripts/classes/TypeReponse/typeReponse.js"></script>
+    <script type="text/javascript" src="scripts/classes/TypeBlocPrepa/condition.js"></script>
+    <script type="text/javascript" src="scripts/classes/TypeBlocPrepa/boucleFor.js"></script>
+    <script type="text/javascript" src="scripts/classes/TypeBlocPrepa/codeLibrePrepa.js"></script>
+    <script type="text/javascript" src="scripts/classes/composant.js"></script>
+    <script type="text/javascript" src="scripts/classes/Composants/coInclusionImage.js"></script>
+    <script type="text/javascript" src="scripts/classes/essaim.js"></script>
+    <script type="text/javascript" src="scripts/classes/TypeEssaim/essaimQCM.js"></script>
+    <script type="text/javascript" src="scripts/classes/TypeEssaim/essaimDessinFlydraw.js"></script>
+    <script type="text/javascript" src="scripts/classes/TypeEssaim/essaimDessinJSXGraph.js"></script>
+    <script type="text/javascript" src="scripts/classes/typeVariable.js"></script>
+    <script type="text/javascript" src="scripts/classes/TypeVariable/autre.js"></script>
+    <script type="text/javascript" src="scripts/classes/TypeVariable/float.js"></script>
+    <script type="text/javascript" src="scripts/classes/TypeVariable/matrix.js"></script>
+    <script type="text/javascript" src="scripts/classes/TypeVariable/complex.js"></script>
+    <script type="text/javascript" src="scripts/classes/TypeVariable/text.js"></script>
+    <script type="text/javascript" src="scripts/classes/TypeVariable/function.js"></script>
+    <script type="text/javascript" src="scripts/classes/TypeVariable/integer.js"></script>
+    <script type="text/javascript" src="scripts/classes/TypeVariable/dessinFlydraw.js"></script>
+    <script type="text/javascript" src="scripts/classes/TypeVariable/dessinJSXGraph.js"></script>
+    <script type="text/javascript" src="jsxgraph/jsxgraphcore.js"></script>
+
+    <script type="text/javascript" src="scripts/classes/blocFocus.js"></script>
+    <script src="libs/store.js"></script>
+
+</footer>
+</body>
+</html>

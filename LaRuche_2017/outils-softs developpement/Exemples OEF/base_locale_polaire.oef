@@ -1,0 +1,65 @@
+\title{ Direction des vecteurs de la base locale }
+\language{ fr }
+\author{ Damir Buskulic}
+
+\computeanswer{ no }
+\format{ html }
+\precision{ 10000 }
+\range{ -5..5 }
+
+\real{ xM = randint( 1..4 )* random(1,-1) }
+\real{ yM = randint( 1..4 )* random(1,-1) }
+\real{ rM = sqrt((\xM)^2+(\yM)^2) }
+\real{ urMx = \xM/\rM }
+\real{ urMy = \yM/\rM }
+\real{ utMx = -\urMy }
+\real{ utMy = \urMx }
+\real{ pointx = \xM + \utMx }
+\real{ pointy = \yM + \utMy }
+
+\integer{TailleDessin = 400}
+\integer{TailleDessin = 400}
+\text{ Dess = draw(\TailleDessin,\TailleDessin 
+     xrange -5.2, 5.2
+     yrange -5.2, 5.2
+     hline 0,0, gray
+     vline 0,0, gray
+     dlines gray,0,0,\xM,\yM     
+     fcircle \xM,\yM,5,black
+     text black,\xM-0.2,\yM-0.2,large,M
+     circle \xM,\yM,\TailleDessin/5.2,red)
+     }
+
+\text{ PP = slib(draw/convpixel \pointx,\pointy,\TailleDessin,\TailleDessin,-5.2,5.2,-5.2,5.2,0,pixels) }
+\integer{ Px = \PP[1] }
+\integer{ Py = \PP[2] }
+
+
+\statement{
+   On considère un point \(M\) de coordonnées cartésiennes \( (\xM,\yM)\) dans le plan, et on voudrait identifier les vecteurs de la base locale en coordonnées polaires au point \(M\).
+   \Px, \Py, \Dess
+   <p>
+    <center>
+       \embed{ reply1 }
+    </center>
+   </p>
+
+   On considère l'origine des vecteurs de la base locale en \(M\). Cliquer sur le point du cercle rouge qui vous semble \^etre le plus proche de l'extrémité du vecteur \(\vec{u}_\theta\)
+
+}
+ 
+\answer{ Clic sur le point }{\Dess; point,\Px,\Py  }{ type = coord }
+
+\feedback{ \result1 = -1 }{ Voici la réponse
+    <p class="wimscenter">
+     \draw{ \TailleDessin,\TailleDessin }{  
+      xrange -5.2, 5.2
+      yrange -5.2, 5.2
+      hline 0,0, gray
+      vline 0,0, gray
+      dlines gray,0,0,\xM,\yM     
+      fcircle \xM,\yM,5,black
+      text black,\xM-0.2,\yM-0.2,large,M
+      circle \xM,\yM,\TailleDessin/5.2,red
+      disk \pointx,\pointy,10,blue } </p>
+} 

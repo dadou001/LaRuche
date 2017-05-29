@@ -1,0 +1,137 @@
+{
+      "listeOrdonnee": [],
+      "listeReponse": [
+            {
+                  "nom": "reponse1",
+                  "idt": "reponse1",
+                  "format": {
+                        "typ": "menu",
+                        "resultat": "",
+                        "nom": "reponse1",
+                        "valeur": "",
+                        "_status_options_sauv": [
+                              false,
+                              true,
+                              false,
+                              false,
+                              false
+                        ],
+                        "edit": "null"
+                  },
+                  "nomEssaimGerant": "",
+                  "type": "core",
+                  "proto": "Reponse",
+                  "edit": "null"
+            },
+            {
+                  "nom": "reponse2",
+                  "idt": "reponse2",
+                  "format": {
+                        "typ": "menu",
+                        "resultat": "",
+                        "nom": "reponse2",
+                        "valeur": "",
+                        "_status_options_sauv": [
+                              false,
+                              true,
+                              false,
+                              false,
+                              false
+                        ],
+                        "edit": "null"
+                  },
+                  "nomEssaimGerant": "",
+                  "type": "core",
+                  "proto": "Reponse",
+                  "edit": "null"
+            },
+            {
+                  "nom": "reponse3",
+                  "idt": "reponse3",
+                  "format": {
+                        "typ": "menu",
+                        "resultat": "",
+                        "nom": "reponse3",
+                        "valeur": "",
+                        "_status_options_sauv": [
+                              false,
+                              true,
+                              false,
+                              false,
+                              false
+                        ],
+                        "edit": "null"
+                  },
+                  "nomEssaimGerant": "",
+                  "type": "core",
+                  "proto": "Reponse",
+                  "edit": "null"
+            }
+      ],
+      "tableauVariables": [],
+      "listeEditeur": [
+            {
+                  "nom": "resultatreponse1",
+                  "enonce_Txt": "<div>1;une, deux, trois</div>",
+                  "enonce_Html": "1;une, deux, trois",
+                  "enonce_Html_sauve": "<div>1;une, deux, trois</div>",
+                  "selection": "",
+                  "edit": "null"
+            },
+            {
+                  "nom": "resultatreponse2",
+                  "enonce_Txt": "<div>1; princesse, sorcière, lingère</div>",
+                  "enonce_Html": "1; princesse, sorcière, lingère",
+                  "enonce_Html_sauve": "<div>1; princesse, sorcière, lingère</div>",
+                  "selection": "",
+                  "edit": "null"
+            },
+            {
+                  "nom": "resultatreponse3",
+                  "enonce_Txt": "<div>1; dormant, croulant, sifflant, pétaradant</div>",
+                  "enonce_Html": "1; dormant, croulant, sifflant, pétaradant",
+                  "enonce_Html_sauve": "<div>1; dormant, croulant, sifflant, pétaradant</div>",
+                  "selection": "",
+                  "edit": "null"
+            }
+      ],
+      "listeClasseEssaim": [
+            null
+      ],
+      "listeAutre": [],
+      "listeOrdonnee_sauve": null,
+      "nb_latex": 0,
+      "nb_reponse": 3,
+      "nb_condition": 0,
+      "nb_for": 0,
+      "nb_classeEssaim": 1,
+      "nb_essaim": 0,
+      "nb_imageEssaim": 0,
+      "nbrepcodelibre": 0,
+      "nbrepcondition": 0,
+      "nbrepaide": 0,
+      "nb_codeLibre": 0,
+      "nbrepfeedback": 0,
+      "nbrepindication": 0,
+      "enonce": {
+            "nom": "ql-editor-1",
+            "enonce_Txt": "Il était  fois une  au bois  qui ne dormait pas\n",
+            "enonce_Html": "<div>Il était \\embed{reply1,10} fois une \\embed{reply2,10} au bois \\embed{reply3,10} qui ne dormait pas</div>\n",
+            "enonce_Html_sauve": "<div>Il était <img id=\"reponse1\" class=\"reponsesupprimable\" src=\"reponse.png\"> fois une <img id=\"reponse2\" class=\"reponsesupprimable\" src=\"reponse.png\"> au bois <img id=\"reponse3\" class=\"reponsesupprimable\" src=\"reponse.png\"> qui ne dormait pas</div>",
+            "selection": "",
+            "edit": "null"
+      },
+      "entete": {
+            "title": "Princesse",
+            "langage": "fr",
+            "auteur": "Damir, Buskulic",
+            "email": "",
+            "computeanswer": "no",
+            "format": "\\format{ html }\n",
+            "precision": "\\precision{ 1000 }\n",
+            "range": "\\range{ -5..5 }\n\n",
+            "libre": "",
+            "edit": "null"
+      },
+      "edit": "null"
+}

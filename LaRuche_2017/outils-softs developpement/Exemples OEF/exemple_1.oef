@@ -1,0 +1,30 @@
+\title{ Angle solide sous lequel on voit un télescope }
+\language{ fr }
+\author{Damir Buskulic}
+\computeanswer{ no }
+\format{ html }
+\precision{ 10000 }
+\range{ -5..5 }
+
+\real{Pi=3.14159265953}
+\real{R=randint(5..30)/100.}
+\real{D=379500000}
+\real{Om = \Pi*\R^2/(\D^2)}
+\integer{OmE = log(\Om)/log(10)}
+\real{OmM = \Om/(10^(\OmE))}
+\if{\OmM<1.}{
+   \real{OmM = \OmM*10}
+   \integer{OmE=\OmE-1}
+}
+
+\statement{
+Un astronaute qui s'est posé sur la lune observe la terre avec un télescope dont le miroir a un rayon  \(R= \R\) m. Sous quel angle solide un observateur terrestre situé à l'équateur et juste en face de la lune voit-il le miroir du télescope ?
+  <p> La distance observateur-télescope sera prise égale à \(D=379500\) km </p><br>
+  <p class="wimscenter">
+    L'angle solide \(\Omega =\)\embed{reply1,7} \(10\,{}^{\{}\)\embed{reply2,4}\({}^{\}}\)
+  </p>
+
+}
+
+\answer{ mantisse de \(\Omega\) }{ \OmM }{ type = numeric }
+\answer{ exposant de \(\Omega\) }{ \OmE }{ type = numeric }

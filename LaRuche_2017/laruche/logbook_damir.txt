@@ -1,0 +1,28 @@
+Editeur Quill
+==============
+
+- variables : doit étendre le blot "Embed" (je crois) pour fabriquer une vue de variable non éditable
+
+- pb de curseur qui fait n'importe quoi, ne se met pas au bon endroit, ne détruit pas un embed lorsqu'il est non éditable, etc... : https://github.com/quilljs/quill/issues/1172
+
+- quill.min.js.map : source map, permet d'afficher les lignes de code de quill dans le débogueur même lorsque le source a été minifié.
+
+*** code-blocks ****
+--------------------
+  - peut configurer la bibliothèque highlight pour OEF -> demander à Bernadette ?
+   avant de construire les éditeurs Quill avec
+  hljs.configure({   // optionally configure hljs
+    languages: ['TeX','HTML']
+  });
+
+  - code-blocks : les fichiers css de highlight.js ne sont pas pris en compte tels quels, il faut regarder le fichier css quill.snow.css, classes pre.ql-syntax (si utilise la coloration de syntaxe), changer les couleurs par défaut.
+  Egalement changer :
+  .ql-snow .ql-editor code,
+  .ql-snow .ql-editor pre {
+  background-color: #efefbf;
+  color: #686a72;
+  border-radius: 3px;
+  }
+  --> fichier quill.snow-custom.css
+
+-
