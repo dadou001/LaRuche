@@ -76,9 +76,22 @@
 
 /* Editeur Quill principal */
 #enonce-container {
-	margin: 50px auto;
-	width: 720px;
+	margin: 50px 50px 50px 50px;
+	/*width: 720px;*/
 }
 #editor-enonce {
 	height: 350px;
+}
+
+.surligne_Variable{
+	background-color: rgb(175,217,235);
+	padding: 2px 5px 2px 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.variable_List_Enonce{
+	list-style: none;
+
 }

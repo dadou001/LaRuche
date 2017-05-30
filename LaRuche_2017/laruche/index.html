@@ -21,6 +21,7 @@
   <!-- Customized style sheet of Quill -->
   <link rel="stylesheet" href="js_tools/quill/quill.snow-custom.css" />
 
+
 </head>
 <body>
 
@@ -51,57 +52,72 @@
           </div>
 
           <!-- ONGLET ENONCE -->
-          <div class="large-12 columns RCl_Contenu_Onglet_Cache" id="RId_Contenu_Onglet_Enonce">
+          <div id="RId_Contenu_Onglet_Enonce" class="RCl_Contenu_Onglet_Cache">
+              <div id="enonce-container" class="row">
+                <div class="large-9 columns" >
+                  <div id="toolbar-container">
+                    <span class="ql-formats">
+                      <select class="ql-font"></select>
+                      <select class="ql-size"></select>
+                    </span>
+                    <span class="ql-formats">
+                      <button class="ql-bold"></button>
+                      <button class="ql-italic"></button>
+                      <button class="ql-underline"></button>
+                      <button class="ql-strike"></button>
+                    </span>
+                    <span class="ql-formats">
+                      <select class="ql-color"></select>
+                      <select class="ql-background"></select>
+                    </span>
+                    <span class="ql-formats">
+                      <button class="ql-script" value="sub"></button>
+                      <button class="ql-script" value="super"></button>
+                    </span>
+                    <span class="ql-formats">
+                      <button class="ql-header" value="1"></button>
+                      <button class="ql-header" value="2"></button>
+                      <button class="ql-blockquote"></button>
+                      <button class="ql-code-block"></button>
+                    </span>
+                    <span class="ql-formats">
+                      <button class="ql-list" value="ordered"></button>
+                      <button class="ql-list" value="bullet"></button>
+                      <button class="ql-indent" value="-1"></button>
+                      <button class="ql-indent" value="+1"></button>
+                    </span>
+                    <span class="ql-formats">
+                      <button class="ql-direction" value="rtl"></button>
+                      <select class="ql-align"></select>
+                    </span>
+                    <span class="ql-formats">
+                      <button class="ql-link"></button>
+                      <button class="ql-image"></button>
+                      <button class="ql-video"></button>
+                      <button class="ql-formula"></button>
+                    </span>
+                    <span class="ql-formats">
+                      <button title="variable" onclick="change_to_var(quill,variable_List)">Var</button>
+                      <button title="latex" onclick="">Latex</button>
+                    </span>
+                    <span class="ql-formats">
+                      <button class="ql-clean"></button>
+                    </span>
+                  </div>
 
-            <div id="enonce-container">
-              <div id="toolbar-container">
-                <span class="ql-formats">
-                  <select class="ql-font"></select>
-                  <select class="ql-size"></select>
-                </span>
-                <span class="ql-formats">
-                  <button class="ql-bold"></button>
-                  <button class="ql-italic"></button>
-                  <button class="ql-underline"></button>
-                  <button class="ql-strike"></button>
-                </span>
-                <span class="ql-formats">
-                  <select class="ql-color"></select>
-                  <select class="ql-background"></select>
-                </span>
-                <span class="ql-formats">
-                  <button class="ql-script" value="sub"></button>
-                  <button class="ql-script" value="super"></button>
-                </span>
-                <span class="ql-formats">
-                  <button class="ql-header" value="1"></button>
-                  <button class="ql-header" value="2"></button>
-                  <button class="ql-blockquote"></button>
-                  <button class="ql-code-block"></button>
-                </span>
-                <span class="ql-formats">
-                  <button class="ql-list" value="ordered"></button>
-                  <button class="ql-list" value="bullet"></button>
-                  <button class="ql-indent" value="-1"></button>
-                  <button class="ql-indent" value="+1"></button>
-                </span>
-                <span class="ql-formats">
-                  <button class="ql-direction" value="rtl"></button>
-                  <select class="ql-align"></select>
-                </span>
-                <span class="ql-formats">
-                  <button class="ql-link"></button>
-                  <button class="ql-image"></button>
-                  <button class="ql-video"></button>
-                  <button class="ql-formula"></button>
-                </span>
-                <span class="ql-formats">
-                  <button class="ql-clean"></button>
-                </span>
+                  <div id="editor-enonce" ></div>
+
+                </div>
+                <div class="large-3 card">
+                  <div class="card-divider">
+                    Variables
+                  </div>
+                  <div class="card-section" id="card_Enonce_Variable">
+                    <!--Rajouter une fonction javascript pour afficher toutes les variables -->
+                  </div>
+                </div>
               </div>
-              <div id="editor-enonce"></div>
             </div>
-          </div>
 
           <!-- ONGLET PREPARATION -->
           <div class="RCl_Contenu_Onglet_Cache large-12 columns" id="RId_Contenu_Onglet_Preparation">
@@ -131,7 +147,12 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
   <script type="text/javascript" src="js_tools/quill/quill.min.js"></script>
+  <script src="src/ImageVariable.js" type="text/javascript" charset="utf-8"></script>
+  <script src="src/typeVariable.js" type="text/javascript" charset="utf-8"></script>
+  <script src="src/Variable.js" type="text/javascript" charset="utf-8"></script>
   <script src="src/app.js" type="text/javascript" charset="utf-8"></script>
+
+
 
 
 </body>
