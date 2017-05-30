@@ -12,6 +12,3 @@ class Variable{
     return "Variable "+this.name+" of type "+ this.type
   }
 }
-
-var myV = new Variable("test1",typeVariable.Real);
-console.log(myV.toString());

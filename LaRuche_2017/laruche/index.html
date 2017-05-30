@@ -24,6 +24,7 @@
 
 </head>
 <body>
+  <div class="popup_hidden" id="popup"></div> <!-- va servir pour tous les popups -->
 
   <div class="row">
     <div class="large-12 columns RCl_Titre_Editeur">
@@ -48,7 +49,34 @@
         <div class="row">
 
           <!-- ONGLET ENTETE -->
-          <div class="RCl_Contenu_Onglet_Cache large-12 columns" id="RId_Contenu_Onglet_Entete">
+          <div class="RCl_Contenu_Onglet_Cache" id="RId_Contenu_Onglet_Entete">
+            <div class="row" style="margin:15px;">
+              <div class="medium-3 columns">
+                <label>Titre
+                  <input type="text" placeholder="Votre titre" id="title_EnTete">
+                </label>
+              </div>
+              <div class="medium-3 columns">
+                <label>Langue
+                  <input type="text" placeholder="Fr,En.." id="language_EnTete">
+                </label>
+              </div>
+              <div class="medium-3 columns">
+                <label>Auteur
+                  <input type="text" placeholder="Votre Nom" id="name_EnTete">
+                </label>
+              </div>
+              <div class="medium-3 columns">
+                <label>Email
+                  <input type="text" placeholder="Votre email" id="email_EnTete">
+                </label>
+              </div>
+            </div>
+            <div class="row" style="margin:15px;padding:15px;">
+              <label>Code Libre :
+                <textarea placeholder="Votre code" id="free_Code_EnTete"></textarea>
+              </label>
+            </div>
           </div>
 
           <!-- ONGLET ENONCE -->
@@ -97,8 +125,8 @@
                       <button class="ql-formula"></button>
                     </span>
                     <span class="ql-formats">
-                      <button title="variable" onclick="change_to_var(quill,variable_List)">Var</button>
-                      <button title="latex" onclick="">Latex</button>
+                      <button title="variable" id="variable_creation_button" onclick="change_to_var(quill,variable_List)">Var</button>
+                      <button title="latex" onclick="change_to_latex(quill)">Latex</button>
                     </span>
                     <span class="ql-formats">
                       <button class="ql-clean"></button>
@@ -120,7 +148,28 @@
             </div>
 
           <!-- ONGLET PREPARATION -->
-          <div class="RCl_Contenu_Onglet_Cache large-12 columns" id="RId_Contenu_Onglet_Preparation">
+          <div class="RCl_Contenu_Onglet_Cache" id="RId_Contenu_Onglet_Preparation">
+            <div class="row">
+                <div class="large-3 card">
+                  <div class="card-divider">
+                    Ensemble d'instructions
+                  </div>
+                  <div class="card-section">
+                  </div>
+                </div>
+                <div class="large-5 column">
+                  <div class="primary callout">
+                  Operateurs/instructions/ A Changer
+                </div>
+                </div>
+                <!--<div class="large-3 card">
+                  <div class="card-divider">
+                    Variables
+                  </div>
+                  <div class="card-section"> du texte
+                  </div>
+                </div>-->
+            </div>
           </div>
 
 
@@ -148,6 +197,7 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
   <script type="text/javascript" src="js_tools/quill/quill.min.js"></script>
   <script src="src/ImageVariable.js" type="text/javascript" charset="utf-8"></script>
+  <script src="src/LatexImage.js" type="text/javascript" charset="utf-8"></script>
   <script src="src/typeVariable.js" type="text/javascript" charset="utf-8"></script>
   <script src="src/Variable.js" type="text/javascript" charset="utf-8"></script>
   <script src="src/app.js" type="text/javascript" charset="utf-8"></script>

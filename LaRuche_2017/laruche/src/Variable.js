@@ -11,5 +11,3 @@ var Variable = (function () {
     };
     return Variable;
 }());
-var myV = new Variable("test1", typeVariable.Real);
-console.log(myV.toString());

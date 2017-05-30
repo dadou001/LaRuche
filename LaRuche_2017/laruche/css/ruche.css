@@ -91,7 +91,26 @@
 	border-radius: 5px;
 }
 
+.surligne_Latex{
+	background-color: rgb(253,255,187);
+	padding: 2px 5px 2px 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
 .variable_List_Enonce{
 	list-style: none;
+
+}
+
+.popup_hidden{
+	visibility: hidden;
+	position: absolute;
+}
+
+.popup_variable_visible{
+	visibility: visible;
+	z-index: 50000;
 
 }
