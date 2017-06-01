@@ -16,13 +16,18 @@ var VariableImage = (function (_super) {
     }
     VariableImage.create = function (value) {
         var node = _super.create.call(this, value); //On utilise la fonction create de Embed
-        node.innerHTML = "<span contenteditable=false class=\"surligne_Variable\">" + value + "</span>"; //On écrit notre valeur entre les span qui nous intéresses
+        node.innerHTML = value;
+        node.setAttribute('data-value', value);
+        node.setAttribute('contenteditable', false);
         return node;
+    };
+    VariableImage.value = function (domNode) {
+        return domNode.getAttribute('data-value');
     };
     return VariableImage;
 }(Embed));
 VariableImage.blotName = 'VariableImage'; //on définit le BlotName (celui à utiliser dans insertEmbered par exemple)
-//ImageVariable.className = 'surligne_Variable'; //On définit sa classe
+VariableImage.className = 'surligne_Variable'; //On définit sa classe
 VariableImage.tagName = 'span'; //On définit les balises qui vont entourer cette class
 Quill.register({
     'formats/variableImage': VariableImage

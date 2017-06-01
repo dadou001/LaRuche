@@ -3,7 +3,7 @@ $(document).ready();
 
 $(document).foundation();
 
-var variable_List = [];
+var variable_List = {};
 
 
 function change_onglet(name) {
@@ -48,8 +48,13 @@ function change_to_var(editor,var_list){
 		if (test_valid_expression(nameVar)){
 			editor.deleteText(positionSelection.index,positionSelection.length); //On enlève le texte séléctionné
 			editor.insertEmbed(positionSelection.index, 'VariableImage',nameVar); //On le remplace par Variable possédant le nom que l'utilisateur avait sélectionné
-			var_list.push(new Variable(nameVar,typeVariable.Real));
-			update_variables_view("card_Enonce_Variable",var_list);
+			if (var_list[nameVar] == null){
+				var_list[nameVar] = new Variable(nameVar,typeVariable.Real);
+				update_variables_view("card_Enonce_Variable",var_list);
+			}
+			/*console.log(quill.getContents());
+			console.log(quill.getContents()['ops'][2]);
+			console.log(quill.getContents()['ops'][2]);*/
 		}
 	}
 }
@@ -69,8 +74,8 @@ function change_to_latex(editor){
 
 function update_variables_view(id_to_updt, variable_list){
 	var result = "";
-	for(var i =0 ; i<variable_list.length;i++){
-		result += "<li style='margin-bottom:5px;'><span class='surligne_Variable'>"+variable_list[i].getName()+"</span></li>"
+	for(var key in variable_list){
+		result += '<li style="margin-bottom:5px;position:relative;"><span class="surligne_Variable" onclick="add_variable_editor(quill,\''+key+'\');">'+key+'</span><button id="button_destroy_'+key+'" class="close-button" aria-label="Close alert" type="button" style="float:right;clear:right;font-size:1.6em;top:0px;" onclick="destroy_variable(this.id,variable_List);"><span aria-hidden="true">&times;</span></button></li>'
 	}
 	result = "<ul class='variable_List_Enonce'>"+result+"</ul>";
 	document.getElementById(id_to_updt).innerHTML = result;
@@ -154,4 +159,32 @@ function create_variable_choice_popup(id_to_popup){
   +'</select>'
 +'</label></div>'
 	console.log(rect);
+}
+
+
+function destroy_variable(id_var_destroy,var_list){
+	//A variable id look like : button_destroy_variableName
+	var varName = id_var_destroy.substring(15);
+	delete var_list[varName];
+	update_variables_view("card_Enonce_Variable",var_list);
+	destroy_var_editor(quill,varName);
+}
+
+function destroy_var_editor(editor,varName){
+	var content = editor.getContents(); //On obtient le delta de l'éditeur
+	var tab = content['ops']; //On récupère le tableau d'insert
+	var tabRes = []; //On initialise notre tableau de résultat final que l'on enverra à l'éditeur
+	for (var i = 0;i<content['ops'].length;i++){
+		if ((content['ops'][i]['insert']['VariableImage'] == null) || (content['ops'][i]['insert']['VariableImage'] != varName)){
+			tabRes.push(content['ops'][i]); //On prend toutes les valeurs qui ne sont pas notre variable
+		}
+	}
+	content['ops'] = tabRes; //On recrée un 'content' cohérent
+	editor.setContents(content);
+}
+
+function add_variable_editor(editor,nameVar){
+	editor.focus(); //On regarde l'editeur
+	var selection = editor.getSelection(); //on obtient l'index de la selection de l'utilisateur
+	editor.insertEmbed(selection.index,'VariableImage',nameVar); //On insere une imageVariable à cet endroit
 }
