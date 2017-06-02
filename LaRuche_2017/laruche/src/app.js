@@ -36,12 +36,25 @@ function test_valid_expression(str){
 	return patt.test(str);
 }
 
+function create_variable_editor(id_select_type_popup,id_input_name_popup,index){
+	var type = document.getElementById(id_select_type_popup).options[document.getElementById(id_select_type_popup).selectedIndex].value;
+	var name = document.getElementById(id_input_name_popup).value;
+	if(test_valid_expression(name)){
+		quill.insertEmbed(index, 'VariableImage',name);
+		if (variable_List[name] == null){
+			variable_List[name] = new Variable(name,type);
+			update_variables_view("card_Enonce_Variable",variable_List);
+			$('#popup').toggleClass('popup_variable_visible');
+		}
+	}
+}
+
 function change_to_var(editor,var_list){
+	editor.focus();
 	var positionSelection = editor.getSelection(); //On obtient la sélection de l'utilisateur
 	if (positionSelection.length == 0){
 		//Ajouter un popup pour créer directement la variable
-		create_variable_choice_popup("variable_creation_button")
-		gather_all_info(editor);
+		create_variable_choice_popup("variable_creation_button",positionSelection.index);
 	}
 	else{
 		var nameVar = editor.getText(positionSelection.index,positionSelection.length); //On récupère le contenu de la séléction
@@ -83,22 +96,21 @@ function update_variables_view(id_to_updt, variable_list){
 
 /* FONCTION POUR CLEAN OBJET EDITEUR */
 function clear_editor_var(content){
-	content = content.split('<span><span contenteditable="false" class="surligne_Variable">').join("<var>"); //On remplace toutes les balises entourants nos variables par un <var>
-	var startVar = content.search("<var>"); //On cherche la première occurence de <var>
-	var result =""; //On initialise notre résultat final
-	if (startVar != -1){ //Si on trouve au moins un <var>
-		var stopVar; //On initialise le pointeur sur la fin du contenu à considérer comme variable
-		while(startVar != -1){ //Tant qu'on a des variables à traiter
-			stopVar = content.search("</span></span>"); //On trouve la position de la fin de notre variable
-			result += content.substring(0,stopVar) + "</var>"; //On ajoute le contenu jusqu'a ce point là en plus de </var>
-			content = content.substring(stopVar+14,content.length); //On enlève du contenu ce qui à été mis dans le résultat
-			startVar = content.search("<var>"); //On cherche la prochaine itération de <var>
-		}
-		result += content; //On ajoute le dernier morceau de contenu
+	var startVar = content.search('<span class="surligne_Variable"'); //On initialise notre pointeur de début d'une balise variable
+	var stopStartVar; //On initialise notre pointeur sur la fin de la balise ouvrante variable
+	var stopVar;//on initialise notre variable pointant sur le début de la balise fermante de variable
+	var result = ""; //On initialise notre chaine contanenat le resultat final.
+
+	while(startVar != -1){ //Tant qu'il y a des variables à traiter
+		result += content.substring(0,startVar); //On ajoute au résultat tout jusqu'a la baslise pour les variables
+		content = content.substring(startVar,content.length); //On enlève ce qui a été ajouté du contenu
+		stopStartVar = content.search(">"); //On regarde ou ferme la balise ouvrant pour les variables
+		stopVar = content.search("</span>"); //On regarde ou commence la balise fermante des variables
+		result += "\\"+content.substring(stopStartVar+1,stopVar);//On ajoute notre varibale précédé d'un \ au résultat
+		content = content.substring(stopVar+7,content.length);//On enlève la variables + ses balises du contenu
+		startVar = content.search('<span class="surligne_Variable"'); //On cherche une nouvelle variable
 	}
-	else{
-		result = content; //Sinon il n'y a rien à changer
-	}
+	result += content;//On ajoute le dernier morceau de contenu au résultat
 	return result;
 }
 
@@ -140,24 +152,26 @@ function gather_all_info(editor){
 	all_info["email"] = document.getElementById("email_EnTete").value;
 	all_info["OEF_code"] = document.getElementById("free_Code_EnTete").value;
 	all_info["enonce"] = clear_editor_content(document.getElementById("editor-enonce").innerHTML);
-	console.log(all_info);
-	//return all_info;
+	return all_info;
 }
 
-function create_variable_choice_popup(id_to_popup){
+function create_variable_choice_popup(id_to_popup,index){
 	var rect = document.getElementById(id_to_popup).getBoundingClientRect();
 	$('#popup').toggleClass('popup_variable_visible');
 	$('#popup').addClass('large-3');
 	$('#popup').addClass('columns');
 	$('#popup').css({'top':rect.top + ((rect.bottom - rect.top)/2),'left':rect.left + ((rect.right - rect.left)/1.3), 'position':'absolute'});
 	document.getElementById("popup").innerHTML = '<div class="callout"><label>Variable type'
-  +'<select>'
-    +'<option value="typeVariable.Real">Real</option>'
-    +'<option value="typeVariable.Draw">Draw</option>'
-    +'<option value="typeVariable.Fun">Function</option>'
-    +'<option value="typeVariable.Int">Integer</option>'
+  +'<select id = "popup_select">'
+    +'<option value="Real">Real</option>'
+    +'<option value="Draw">Draw</option>'
+    +'<option value="Fun">Function</option>'
+    +'<option value="Int">Integer</option>'
   +'</select>'
-+'</label></div>'
++'</label>'
++'<input placeholder="Nom de la variable" type="text" id="popup_input"></input>'
++'<a href="#" class="button" onclick="create_variable_editor(\'popup_select\',\'popup_input\','+index+')">Créer</a>'
++'</div>'
 	console.log(rect);
 }
 
@@ -187,4 +201,35 @@ function add_variable_editor(editor,nameVar){
 	editor.focus(); //On regarde l'editeur
 	var selection = editor.getSelection(); //on obtient l'index de la selection de l'utilisateur
 	editor.insertEmbed(selection.index,'VariableImage',nameVar); //On insere une imageVariable à cet endroit
+}
+
+function clear_enonce_info(str){
+	console.log(str);
+	str = str.split("<p>").join("").split("</p>").join("\n").split("<br>").join("\n");
+	console.log(str);
+	return str;
+}
+
+function update_final_code(){
+	var result = "";
+	var infos = gather_all_info(quill);
+	/* HEAD DU CODE */
+	result += "\\title{"+infos.title+"}\n";
+	result += "\\language{"+infos.language+"}\n";
+	result += "\\author{"+infos.author+"}\n";
+	result += "\\email{"+infos.email+"}\n";
+	result += "\\computeanswer{}\n";
+	result += "\\format{html}\n";
+	result += "\\precision{1000}\n";
+	result += "\\range{-5..5)}\n";
+	/* INSERER LES VARIABLES ICI */
+
+	/*DEBUT DU CODE EN SOI*/
+	result += "\n\n\n";
+	result += "\\statement{\n";
+	/* RAJOUTER LE CODE TRANSFORMé DE L'ONGLET ENONCE */
+	result += clear_enonce_info(infos.enonce);//A faire
+	/*ON FERME LE DOCUMENT */
+	result += "}";
+	document.getElementById("final_OEF_code").innerHTML = result;
 }

@@ -3,7 +3,8 @@ var Embed = Quill.import('blots/embed'); //On récupère la bonne class
 class LatexImage extends Embed { //On crée notre class fille de Embed pour que nos variables soit intouchables
   static create(value) {
       let node = super.create(value);//On utilise la fonction create de Embed
-      node.innerHTML = `${value}`; //On écrit notre valeur entre les span qui nous intéresses
+      node.innerHTML = value;
+
       return node;
     }
 }

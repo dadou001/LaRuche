@@ -39,7 +39,7 @@
         <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Preparation" onclick="change_onglet('Preparation');">Préparation</span>
         <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Analyse" onclick="change_onglet('Analyse');">Analyse</span>
         <span class="RCl_Onglet_Fake RCl_Onglet"></span>
-        <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Code" onclick="change_onglet('Code');">Code</span>
+        <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Code" onclick="change_onglet('Code'); update_final_code()">Code</span>
         <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Sauvegarde" onclick="change_onglet('Sauvegarde');">Sauvegarde</span>
       </div>
     </div>
@@ -144,15 +144,15 @@
                     <!--Rajouter une fonction javascript pour afficher toutes les variables -->
                   </div>
                 </div>
-              </div> 
+              </div>
             </div>
 
           <!-- ONGLET PREPARATION -->
           <div class="RCl_Contenu_Onglet_Cache" id="RId_Contenu_Onglet_Preparation">
             <div class="row" style="margin:15px;">
-              <div class="large-3 columns"><div class="callout"> ducaca</div> </div>
-              <div class="large-6 columns"> <div class="callout">encore plus de caca </div></div>
-              <div class="large-3 columns"> <div class="callout">un peu plus de caca ? </div></div>
+              <div class="large-3 columns"><div class="callout"> text</div> </div>
+              <div class="large-6 columns"> <div class="callout">encore plus de texte </div></div>
+              <div class="large-3 columns"> <div class="callout">un peu plus de texte ? </div></div>
             </div>
           </div>
 
@@ -162,7 +162,12 @@
           </div>
 
           <!-- ONGLET CODE -->
-          <div class="RCl_Contenu_Onglet_Cache large-12 columns" id="RId_Contenu_Onglet_Code">
+          <div class="RCl_Contenu_Onglet_Cache" id="RId_Contenu_Onglet_Code">
+            <div class="large-12 columns">
+              <div class="callout" >
+                <textarea id="final_OEF_code" style="height:650px;"></textarea>
+              </div>
+            </div>
           </div>
 
           <!-- ONGLET SAUVEGARDE -->

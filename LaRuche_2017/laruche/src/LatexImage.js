@@ -16,7 +16,7 @@ var LatexImage = (function (_super) {
     }
     LatexImage.create = function (value) {
         var node = _super.create.call(this, value); //On utilise la fonction create de Embed
-        node.innerHTML = "" + value; //On écrit notre valeur entre les span qui nous intéresses
+        node.innerHTML = value;
         return node;
     };
     return LatexImage;
