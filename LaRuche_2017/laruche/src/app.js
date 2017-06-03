@@ -31,6 +31,19 @@ var quill = new Quill('#editor-enonce', {
 	theme: 'snow'
 });
 
+var quill_EnTete = new Quill('#editor-EnTete', {
+	modules: {
+		toolbar: false
+	},
+	placeholder: 'Compose an exercise...',
+	theme: 'snow'
+});
+
+/* CONFIGURATION DU QUILL DE L'ENTETE, VARIABLE GLOBAL = MOCHE*/
+quill_EnTete.format('code-block',true);
+/* SE DEMENER POUR ENLEVER SES VARIABLES GLOBALES */
+
+
 function test_valid_expression(str){
 	var patt = /^[a-zA-Z][a-zA-Z0-9-]*$/;
 	return patt.test(str);
@@ -75,13 +88,20 @@ function change_to_var(editor,var_list){
 function change_to_latex(editor){
 	var positionSelection = editor.getSelection(); //On obtient la sélection de l'utilisateur
 	if (positionSelection.length == 0){
-		//Ajouter un popup pour créer directement la variable
-		gather_all_info(editor);
+		if(editor.getFormat()['LatexImage'] == true){
+			editor.format('LatexImage',false);
+		}
+		else{
+			editor.format('LatexImage',true);
+		}
 	}
 	else{
-		var nameVar = editor.getText(positionSelection.index,positionSelection.length); //On récupère le contenu de la séléction
-		editor.deleteText(positionSelection.index,positionSelection.length); //On enlève le texte séléctionné
-		editor.insertEmbed(positionSelection.index, 'LatexImage',nameVar); //On le remplace par Variable possédant le nom que l'utilisateur avait sélectionné
+		if(editor.getFormat()['LatexImage'] == true){
+			editor.formatText(positionSelection.index,positionSelection.length,'LatexImage',false);
+		}
+		else{
+			editor.formatText(positionSelection.index,positionSelection.length,'LatexImage',true);
+		}
 	}
 }
 
@@ -115,16 +135,16 @@ function clear_editor_var(content){
 }
 
 function clear_editor_latex(content){
-	content = content.split('<span class="surligne_Latex">').join("<latex>"); //On remplace tous les <span> ayant la classe surligne-latex par des <latex>
-	var startLat = content.search("<latex>"); //On va au premier <latex>
+	content = content.split('<latex class="surligne_Latex">').join("\\("); //On remplace tous les <span> ayant la classe surligne-latex par des <latex>
+	var startLat = content.search("\\("); //On va au premier <latex>
 	var result =""; //On initialise notre résultat
 	if (startLat != -1){ //Si on trouve au moins un <latex>
 		var stopLat; //On initialise notre valeur de fin de balise <latex>
 		while(startLat != -1){ //On répète tant qu'il y a du <latex> à gérer
-			stopLat = content.search("</span>"); //On va chercher le prochain <span> (la fin de la balise latex en fait)
-			result += content.substring(0,stopLat) + "</latex>"; //On ajoute tout le contenu du contenu jusqu'a <latex> et on ajoute la bonne valeur
+			stopLat = content.search("</latex>"); //On va chercher le prochain <span> (la fin de la balise latex en fait)
+			result += content.substring(0,stopLat) + "\\)"; //On ajoute tout le contenu du contenu jusqu'a <latex> et on ajoute la bonne valeur
 			content = content.substring(stopLat+7,content.length); //On enlève ce qui vient d'être ajouté du contenu
-			startLat = content.search("<latex>"); //On cherche une nouvelle apparition de Latex
+			startLat = content.search("\\("); //On cherche une nouvelle apparition de Latex
 		}
 		result += content; //On ajoute le dernier morceau de contenu à notre résultat
 	}
@@ -134,12 +154,34 @@ function clear_editor_latex(content){
 	return result;
 }
 
+function clear_editor_code(content){
+	var startLat = content.search('<pre spellcheck="false">'); //On va au premier <latex>
+	var result =""; //On initialise notre résultat
+	if (startLat != -1){ //Si on trouve au moins un <latex>
+		var stopLat; //On initialise notre valeur de fin de balise <latex>
+		while(startLat != -1){ //On répète tant qu'il y a du <latex> à gérer
+			stopLat = content.search("</pre>"); //On va chercher le prochain <span> (la fin de la balise latex en fait)
+			result += content.substring(0,stopLat) ; //On ajoute tout le contenu du contenu jusqu'a <latex> et on ajoute la bonne valeur
+			content = content.substring(stopLat+6,content.length); //On enlève ce qui vient d'être ajouté du contenu
+			startLat = content.search('<pre spellcheck ="false"'); //On cherche une nouvelle apparition de Latex
+		}
+		result += content; //On ajoute le dernier morceau de contenu à notre résultat
+	}
+	else{
+		result = content; //Le résultat est directement le contenue initial
+	}
+	result = result.split('<pre spellcheck="false">').join("");
+	return result;
+}
+
+
 function clear_editor_content(str){
 	var start = str.search("<p>"); //On récupère la position de début du contenu qui nous intéresse
 	var stop = str.search("</div>"); //On récupère la position de fin du contenu qui nous intéresse
 	var content = str.substring(start,stop); //On obtient la chaine de contenu voulu
 	content = clear_editor_var(content); //On entoure les variables par des "<var></var"
 	content = clear_editor_latex(content); //On entoure le Latex par des "<latex></latex>"
+	content = clear_editor_code(content);
 	return content;
 }
 /*****************************************************/
@@ -150,7 +192,7 @@ function gather_all_info(editor){
 	all_info["language"] = document.getElementById("language_EnTete").value;
 	all_info["name"] = document.getElementById("name_EnTete").value;
 	all_info["email"] = document.getElementById("email_EnTete").value;
-	all_info["OEF_code"] = document.getElementById("free_Code_EnTete").value;
+	all_info["OEF_code"] = clear_editor_content(document.getElementById("editor-EnTete").innerHTML);
 	all_info["enonce"] = clear_editor_content(document.getElementById("editor-enonce").innerHTML);
 	return all_info;
 }
@@ -210,6 +252,20 @@ function clear_enonce_info(str){
 	return str;
 }
 
+function declaration_variable_OEFcode(){
+	var result = "";
+	for (var nameVar in variable_List){
+		console.log(variable_List[nameVar].getType());
+		if (variable_List[nameVar].getType() == "Real"){
+			result += "\\real{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
+		}
+		else if (variable_List[nameVar].getType() == "Int"){
+			result += "\\integer{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
+		}
+	}
+	return result;
+}
+
 function update_final_code(){
 	var result = "";
 	var infos = gather_all_info(quill);
@@ -222,8 +278,12 @@ function update_final_code(){
 	result += "\\format{html}\n";
 	result += "\\precision{1000}\n";
 	result += "\\range{-5..5)}\n";
-	/* INSERER LES VARIABLES ICI */
+	result += "\n\n\n"
+	result += infos.OEF_code
+	result += "\n\n\n"
 
+	/* INSERER LES VARIABLES ICI */
+	result += declaration_variable_OEFcode();
 	/*DEBUT DU CODE EN SOI*/
 	result += "\n\n\n";
 	result += "\\statement{\n";
@@ -231,5 +291,5 @@ function update_final_code(){
 	result += clear_enonce_info(infos.enonce);//A faire
 	/*ON FERME LE DOCUMENT */
 	result += "}";
-	document.getElementById("final_OEF_code").innerHTML = result;
+	document.getElementById("final_OEF_code").value = result;
 }
