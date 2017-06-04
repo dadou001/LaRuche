@@ -8,14 +8,14 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var Embed = Quill.import('blots/embed'); //On récupère la bonne class
+var Embed = Quill.import('blots/embed'); //On récupère la bonne classe
 var VariableImage = (function (_super) {
     __extends(VariableImage, _super);
     function VariableImage() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     VariableImage.create = function (value) {
-        var node = _super.create.call(this, value); //On utilise la fonction create de Embed
+        var node = _super.create.call(this, value); //On utilise la fonction create de Embed test
         node.innerHTML = value;
         node.setAttribute('data-value', value);
         node.setAttribute('contenteditable', false);
