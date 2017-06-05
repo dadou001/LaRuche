@@ -1,6 +1,6 @@
 var Inline = Quill.import('blots/inline'); //On récupère la bonne class
 
-class LatexImage extends Inline { //On crée notre class fille de Embed pour que nos variables soit intouchables
+class LatexImage extends Inline { //On crée notre class fille de Inline pour que nos variables soit intouchables
   static create() {
     return super.create();
   }
