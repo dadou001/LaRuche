@@ -25,4 +25,16 @@ Editeur Quill
   }
   --> fichier quill.snow-custom.css
 
--
+  TypeScript
+  ==========
+
+  * Doit ajouter fichier "tsconfig.json" (configuration de TypeScript)
+  * Doit ajouter fichier "reference.ts" (modules/frameworks/etc... liés au projet)
+    -> comment traiter les bibliothèques et dépendances
+    -> ici JQuery et foundation
+    * Doit charger les fichiers de description des dépendances TypeScript :
+      -> se placer dans le dossier projet
+      -> npm install --save-dev @types/xxxx
+      avec xxxx = jquery ou foundation ou...
+        -> installe des fichiers index.d.ts dans le dossier nodes_modules
+      voir definitelytyped.org pour les fichiers de description
