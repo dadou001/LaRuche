@@ -78,9 +78,6 @@ function change_to_var(editor,var_list){
 				var_list[nameVar] = new Variable(nameVar,typeVariable.Real);
 				update_variables_view("card_Enonce_Variable",var_list);
 			}
-			/*console.log(quill.getContents());
-			console.log(quill.getContents()['ops'][2]);
-			console.log(quill.getContents()['ops'][2]);*/
 		}
 	}
 }
@@ -192,8 +189,8 @@ function gather_all_info(editor){
 	all_info["language"] = document.getElementById("language_EnTete").value;
 	all_info["name"] = document.getElementById("name_EnTete").value;
 	all_info["email"] = document.getElementById("email_EnTete").value;
-	all_info["OEF_code"] = clear_editor_content(document.getElementById("editor-EnTete").innerHTML);
-	all_info["enonce"] = clear_editor_content(document.getElementById("editor-enonce").innerHTML);
+	all_info["OEF_code"] = content_to_OEFcode(quill_EnTete.getContents());
+	all_info["enonce"] = content_to_OEFcode(quill.getContents());
 	return all_info;
 }
 
@@ -214,7 +211,6 @@ function create_variable_choice_popup(id_to_popup,index){
 +'<input placeholder="Nom de la variable" type="text" id="popup_input"></input>'
 +'<a href="#" class="button" onclick="create_variable_editor(\'popup_select\',\'popup_input\','+index+')">Créer</a>'
 +'</div>'
-	console.log(rect);
 }
 
 
@@ -246,16 +242,13 @@ function add_variable_editor(editor,nameVar){
 }
 
 function clear_enonce_info(str){
-	console.log(str);
 	str = str.split("<p>").join("").split("</p>").join("\n").split("<br>").join("\n");
-	console.log(str);
 	return str;
 }
 
 function declaration_variable_OEFcode(){
 	var result = "";
 	for (var nameVar in variable_List){
-		console.log(variable_List[nameVar].getType());
 		if (variable_List[nameVar].getType() == "Real"){
 			result += "\\real{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
 		}
@@ -266,7 +259,26 @@ function declaration_variable_OEFcode(){
 	return result;
 }
 
+function content_to_OEFcode(content){
+	var tabContent = content['ops'];
+	console.log(tabContent);
+	var result = "";
+	for(var i = 0; i<tabContent.length;i++){
+		if(tabContent[i]['insert']['VariableImage'] != null){
+			result += "\\" + tabContent[i]['insert']['VariableImage'];
+		}
+		else if((tabContent[i]['attributes']!= null) && (tabContent[i]['attributes']['LatexImage'] != null)){
+			result += "\\("+tabContent[i]['insert']+"\\)"
+		}
+		else{
+			result += tabContent[i]['insert'];
+		}
+	}
+	return result;
+}
+
 function update_final_code(){
+	content_to_OEFcode(quill.getContents());
 	var result = "";
 	var infos = gather_all_info(quill);
 	/* HEAD DU CODE */
@@ -288,7 +300,7 @@ function update_final_code(){
 	result += "\n\n\n";
 	result += "\\statement{\n";
 	/* RAJOUTER LE CODE TRANSFORMé DE L'ONGLET ENONCE */
-	result += clear_enonce_info(infos.enonce);//A faire
+	result += infos.enonce;//A faire
 	/*ON FERME LE DOCUMENT */
 	result += "}";
 	document.getElementById("final_OEF_code").value = result;
