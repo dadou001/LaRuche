@@ -112,7 +112,7 @@ function update_variables_view(id_to_updt, variable_list){
 }
 
 /* FONCTION POUR CLEAN OBJET EDITEUR */
-function clear_editor_var(content){
+/*function clear_editor_var(content){
 	var startVar = content.search('<span class="surligne_Variable"'); //On initialise notre pointeur de début d'une balise variable
 	var stopStartVar; //On initialise notre pointeur sur la fin de la balise ouvrante variable
 	var stopVar;//on initialise notre variable pointant sur le début de la balise fermante de variable
@@ -259,7 +259,7 @@ function declaration_variable_OEFcode(){
 	return result;
 }
 
-function content_to_OEFcode(content){
+/*function content_to_OEFcode(content){
 	var tabContent = content['ops'];
 	console.log(tabContent);
 	var result = "";
@@ -273,6 +273,80 @@ function content_to_OEFcode(content){
 		else{
 			result += tabContent[i]['insert'];
 		}
+	}
+	return result;
+}*/
+
+function add_content_line(element,was_variable){
+	var result = "";
+	if (was_variable){
+		result += " ";
+	}
+	if (element['insert']['VariableImage'] != null){
+		result += "\\"+element['insert']['VariableImage'];
+	}
+	else if(element['attributes']!=null){
+		var text = element['insert'];
+		result = text;
+		for (var key in element['attributes']){
+			switch(key){
+				case 'bold':
+					result = '<strong>'+result+'</strong>';
+					break;
+				case 'italic':
+					result = '<em>'+result+'</em>'
+					break;
+				case 'strike':
+					result = '<s>'+result+'</s>'
+					break;
+				case 'underline':
+					result = '<u>'+result+'</u>'
+					break;
+				case 'LatexImage':
+					result = '\\('+result+'\\)'
+					break;
+			}
+		}
+	}
+	else{
+		result += element['insert'];
+	}
+	return result;
+}
+
+function apllied_attributes_line(line,attributes_dic){
+	var result = line;
+	for (var key in attributes_dic){
+		switch(key){
+			case 'list':
+				result = "<li>"+result+"</li>"
+				break;
+		}
+	}
+	return result;
+}
+
+
+function content_to_OEFcode(content){
+	var tabContent= content['ops'];
+	var result = "";
+	var line = "";
+	var i = 0;
+	var was_variable = false;
+	
+	while(i<tabContent.length){
+		line = "";
+		while((i<tabContent.length) && (tabContent[i]['insert'] != "\n")){
+			line += add_content_line(tabContent[i],was_variable);
+			was_variable = (tabContent[i]['insert']['VariableImage'] != null);
+			i++;
+		}
+		if (i<tabContent.length){
+			line = apllied_attributes_line(line,tabContent[i]['attributes']);
+		}
+		result += line + "\n";
+		console.log(line);
+		i++;
 	}
 	return result;
 }
