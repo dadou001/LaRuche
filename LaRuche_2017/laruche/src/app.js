@@ -189,8 +189,8 @@ function gather_all_info(editor){
 	all_info["language"] = document.getElementById("language_EnTete").value;
 	all_info["name"] = document.getElementById("name_EnTete").value;
 	all_info["email"] = document.getElementById("email_EnTete").value;
-	all_info["OEF_code"] = content_to_OEFcode(quill_EnTete.getContents());
-	all_info["enonce"] = content_to_OEFcode(quill.getContents());
+	all_info["OEF_code"] = clean_OEFcode(content_to_OEFcode(quill_EnTete.getContents()));
+	all_info["enonce"] = clean_OEFcode(content_to_OEFcode(quill.getContents()));
 	return all_info;
 }
 
@@ -277,6 +277,7 @@ function declaration_variable_OEFcode(){
 	return result;
 }*/
 
+/**************************A SUPPRIMER PEUT ETRE*****************/
 function add_content_line(element,was_variable){
 	var result = "";
 	if (was_variable){
@@ -314,18 +315,41 @@ function add_content_line(element,was_variable){
 	return result;
 }
 
-function apllied_attributes_line(line,attributes_dic){
+function apllied_attributes_line(line,attributes_dic,was_list){
 	var result = line;
+	console.log(attributes_dic['list'],was_list['unordered']);
+
 	for (var key in attributes_dic){
 		switch(key){
 			case 'list':
 				result = "<li>"+result+"</li>"
+				if(attributes_dic['list'] == 'bullet'){
+					if(was_list['unordered']==false){
+						result = "<ul>"+result;
+						was_list['unordered']=true;
+					}
+				}
+				if(attributes_dic['list'] == 'ordered'){
+					if(was_list['ordered']==false){
+						result = "<ol>"+result;
+						was_list['ordered']=true;
+					}
+				}
 				break;
 		}
 	}
+	if((attributes_dic['list']==null) && (was_list['unordered']==true)){
+		console.log("ok2");
+		result = "</ul>"+result;
+		was_list['unordered']=false;
+	}
+	else if((attributes_dic['list']==null) && (was_list['ordered']==true)){
+		console.log("ok3");
+		result = "</ol>"+result;
+		was_list['ordered']=false;
+	}
 	return result;
 }
-
 
 function content_to_OEFcode(content){
 	var tabContent= content['ops'];
@@ -333,7 +357,9 @@ function content_to_OEFcode(content){
 	var line = "";
 	var i = 0;
 	var was_variable = false;
-	
+	var was_list = {};
+	was_list['ordered']=false;
+	was_list['unordered']=false;
 	while(i<tabContent.length){
 		line = "";
 		while((i<tabContent.length) && (tabContent[i]['insert'] != "\n")){
@@ -342,12 +368,77 @@ function content_to_OEFcode(content){
 			i++;
 		}
 		if (i<tabContent.length){
-			line = apllied_attributes_line(line,tabContent[i]['attributes']);
+			line = apllied_attributes_line(line,tabContent[i]['attributes'],was_list);
+
 		}
 		result += line + "\n";
-		console.log(line);
 		i++;
 	}
+	return result;
+}
+
+function find_balise_block(str){
+	var end = false;
+	var result = [];
+	var start_balise = str.search("<");
+	var end_balise;
+	var name_balise = "";
+	var counter = 0;
+	result.push(start_balise);
+	while(str[start_balise] == "<" && !end){
+		end_balise = str.search(">");
+		name_balise = str.substring(start_balise+1,end_balise);
+		counter += name_balise.length+2;
+		str = str.substring(end_balise+1);
+		start_balise = 0;
+	}
+	result.push(result[0]+counter);
+	return result;
+}
+
+function clean_balise_block(str){
+	var result = "";
+	if(str.length>0){
+		var start_balise = 0;
+		var end_balise = str.search(">");
+		var name_balise = "";
+		var name_complement = "";
+		var pos_complement;
+		while(str.length>0){
+			end_balise = str.search(">");
+			name_balise = str.substring(start_balise+1,end_balise);
+
+			if(name_balise[0] == "/"){
+				name_complement = name_balise.substring(1);
+			}
+			else{
+				name_complement = "/"+name_balise;
+			}
+			pos_complement = str.search("<"+name_complement+">");
+			if(pos_complement == -1){
+				result += "<"+name_balise+">";
+				str = str.substring(end_balise+1);
+			}
+			else{
+				str = str.substring(name_balise.length+2,pos_complement)+str.substring(pos_complement+name_complement.length+2);
+
+			}
+		}
+	}
+	return result;
+}
+
+function clean_OEFcode(str){
+	var tab = find_balise_block(str);
+	var result = "";
+	var balise_block = "";
+	while(tab[0] != tab[1]){
+		balise_block = clean_balise_block(str.substring(tab[0],tab[1]));
+		result += str.substring(0,tab[0]) + balise_block;
+		str = str.substring(tab[1]);
+		tab = find_balise_block(str);
+	}
+	result += str;
 	return result;
 }
 
