@@ -104,9 +104,6 @@ function change_to_var(editor,var_list){
 				var_list[nameVar] = new Variable(nameVar,typeVariable.Real);
 				update_variables_view("card_Enonce_Variable",var_list);
 			}
-			/*console.log(quill.getContents());
-			console.log(quill.getContents()['ops'][2]);
-			console.log(quill.getContents()['ops'][2]);*/
 		}
 	}
 }
@@ -141,7 +138,7 @@ function update_variables_view(id_to_updt, variable_list){
 }
 
 /* FONCTION POUR CLEAN OBJET EDITEUR */
-function clear_editor_var(content){
+/*function clear_editor_var(content){
 	var startVar = content.search('<span class="surligne_Variable"'); //On initialise notre pointeur de début d'une balise variable
 	var stopStartVar; //On initialise notre pointeur sur la fin de la balise ouvrante variable
 	var stopVar;//on initialise notre variable pointant sur le début de la balise fermante de variable
@@ -218,8 +215,8 @@ function gather_all_info(editor){
 	all_info["language"] = document.getElementById("language_EnTete").value;
 	all_info["name"] = document.getElementById("name_EnTete").value;
 	all_info["email"] = document.getElementById("email_EnTete").value;
-	all_info["OEF_code"] = clear_editor_content(document.getElementById("editor-EnTete").innerHTML);
-	all_info["enonce"] = clear_editor_content(document.getElementById("editor-enonce").innerHTML);
+	all_info["OEF_code"] = clean_OEFcode(content_to_OEFcode(quill_EnTete.getContents()));
+	all_info["enonce"] = clean_OEFcode(content_to_OEFcode(quill.getContents()));
 	return all_info;
 }
 
@@ -240,7 +237,6 @@ function create_variable_choice_popup(id_to_popup,index){
 +'<input placeholder="Nom de la variable" type="text" id="popup_input"></input>'
 +'<a href="#" class="button" onclick="create_variable_editor(\'popup_select\',\'popup_input\','+index+')">Créer</a>'
 +'</div>'
-	console.log(rect);
 }
 
 
@@ -272,16 +268,13 @@ function add_variable_editor(editor,nameVar){
 }
 
 function clear_enonce_info(str){
-	console.log(str);
 	str = str.split("<p>").join("").split("</p>").join("\n").split("<br>").join("\n");
-	console.log(str);
 	return str;
 }
 
 function declaration_variable_OEFcode(){
 	var result = "";
 	for (var nameVar in variable_List){
-		console.log(variable_List[nameVar].getType());
 		if (variable_List[nameVar].getType() == "Real"){
 			result += "\\real{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
 		}
@@ -292,7 +285,191 @@ function declaration_variable_OEFcode(){
 	return result;
 }
 
+/*function content_to_OEFcode(content){
+	var tabContent = content['ops'];
+	console.log(tabContent);
+	var result = "";
+	for(var i = 0; i<tabContent.length;i++){
+		if(tabContent[i]['insert']['VariableImage'] != null){
+			result += "\\" + tabContent[i]['insert']['VariableImage'];
+		}
+		else if((tabContent[i]['attributes']!= null) && (tabContent[i]['attributes']['LatexImage'] != null)){
+			result += "\\("+tabContent[i]['insert']+"\\)"
+		}
+		else{
+			result += tabContent[i]['insert'];
+		}
+	}
+	return result;
+}*/
+
+/**************************A SUPPRIMER PEUT ETRE*****************/
+function add_content_line(element,was_variable){
+	var result = "";
+	if (was_variable){
+		result += " ";
+	}
+	if (element['insert']['VariableImage'] != null){
+		result += "\\"+element['insert']['VariableImage'];
+	}
+	else if(element['attributes']!=null){
+		var text = element['insert'];
+		result = text;
+		for (var key in element['attributes']){
+			switch(key){
+				case 'bold':
+					result = '<strong>'+result+'</strong>';
+					break;
+				case 'italic':
+					result = '<em>'+result+'</em>'
+					break;
+				case 'strike':
+					result = '<s>'+result+'</s>'
+					break;
+				case 'underline':
+					result = '<u>'+result+'</u>'
+					break;
+				case 'LatexImage':
+					result = '\\('+result+'\\)'
+					break;
+			}
+		}
+	}
+	else{
+		result += element['insert'];
+	}
+	return result;
+}
+
+function apllied_attributes_line(line,attributes_dic,was_list){
+	var result = line;
+	console.log(attributes_dic['list'],was_list['unordered']);
+
+	for (var key in attributes_dic){
+		switch(key){
+			case 'list':
+				result = "<li>"+result+"</li>"
+				if(attributes_dic['list'] == 'bullet'){
+					if(was_list['unordered']==false){
+						result = "<ul>"+result;
+						was_list['unordered']=true;
+					}
+				}
+				if(attributes_dic['list'] == 'ordered'){
+					if(was_list['ordered']==false){
+						result = "<ol>"+result;
+						was_list['ordered']=true;
+					}
+				}
+				break;
+		}
+	}
+	if((attributes_dic['list']==null) && (was_list['unordered']==true)){
+		console.log("ok2");
+		result = "</ul>"+result;
+		was_list['unordered']=false;
+	}
+	else if((attributes_dic['list']==null) && (was_list['ordered']==true)){
+		console.log("ok3");
+		result = "</ol>"+result;
+		was_list['ordered']=false;
+	}
+	return result;
+}
+
+function content_to_OEFcode(content){
+	var tabContent= content['ops'];
+	var result = "";
+	var line = "";
+	var i = 0;
+	var was_variable = false;
+	var was_list = {};
+	was_list['ordered']=false;
+	was_list['unordered']=false;
+	while(i<tabContent.length){
+		line = "";
+		while((i<tabContent.length) && (tabContent[i]['insert'] != "\n")){
+			line += add_content_line(tabContent[i],was_variable);
+			was_variable = (tabContent[i]['insert']['VariableImage'] != null);
+			i++;
+		}
+		if (i<tabContent.length){
+			line = apllied_attributes_line(line,tabContent[i]['attributes'],was_list);
+
+		}
+		result += line + "\n";
+		i++;
+	}
+	return result;
+}
+
+function find_balise_block(str){
+	var end = false;
+	var result = [];
+	var start_balise = str.search("<");
+	var end_balise;
+	var name_balise = "";
+	var counter = 0;
+	result.push(start_balise);
+	while(str[start_balise] == "<" && !end){
+		end_balise = str.search(">");
+		name_balise = str.substring(start_balise+1,end_balise);
+		counter += name_balise.length+2;
+		str = str.substring(end_balise+1);
+		start_balise = 0;
+	}
+	result.push(result[0]+counter);
+	return result;
+}
+
+function clean_balise_block(str){
+	var result = "";
+	if(str.length>0){
+		var start_balise = 0;
+		var end_balise = str.search(">");
+		var name_balise = "";
+		var name_complement = "";
+		var pos_complement;
+		while(str.length>0){
+			end_balise = str.search(">");
+			name_balise = str.substring(start_balise+1,end_balise);
+
+			if(name_balise[0] == "/"){
+				name_complement = name_balise.substring(1);
+			}
+			else{
+				name_complement = "/"+name_balise;
+			}
+			pos_complement = str.search("<"+name_complement+">");
+			if(pos_complement == -1){
+				result += "<"+name_balise+">";
+				str = str.substring(end_balise+1);
+			}
+			else{
+				str = str.substring(name_balise.length+2,pos_complement)+str.substring(pos_complement+name_complement.length+2);
+
+			}
+		}
+	}
+	return result;
+}
+
+function clean_OEFcode(str){
+	var tab = find_balise_block(str);
+	var result = "";
+	var balise_block = "";
+	while(tab[0] != tab[1]){
+		balise_block = clean_balise_block(str.substring(tab[0],tab[1]));
+		result += str.substring(0,tab[0]) + balise_block;
+		str = str.substring(tab[1]);
+		tab = find_balise_block(str);
+	}
+	result += str;
+	return result;
+}
+
 function update_final_code(){
+	content_to_OEFcode(quill.getContents());
 	var result = "";
 	var infos = gather_all_info(quill);
 	/* HEAD DU CODE */
@@ -314,7 +491,7 @@ function update_final_code(){
 	result += "\n\n\n";
 	result += "\\statement{\n";
 	/* RAJOUTER LE CODE TRANSFORMé DE L'ONGLET ENONCE */
-	result += clear_enonce_info(infos.enonce);//A faire
+	result += infos.enonce;//A faire
 	/*ON FERME LE DOCUMENT */
 	result += "}";
 	document.getElementById("final_OEF_code").value = result;
