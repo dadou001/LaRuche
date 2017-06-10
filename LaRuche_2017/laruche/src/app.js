@@ -5,33 +5,6 @@ $(document).foundation();
 
 var variable_List = {};
 
-function blockly_init() {
-	var blocklyArea = document.getElementById('RId_programPrep');
-	var blocklyDiv = document.getElementById('RId_programPrep_blockly');
-	var workspace = Blockly.inject(blocklyDiv,
-			{media: 'js_tools/blockly/media/',
-			 toolbox: document.getElementById('RId_toolbox_programPrep')});
-	var onresize = function(e) {
-		// Compute the absolute coordinates and dimensions of blocklyArea.
-		var element = blocklyArea;
-		var x = 0;
-		var y = 0;
-		do {
-			x += element.offsetLeft;
-			y += element.offsetTop;
-			element = element.offsetParent;
-		} while (element);
-		// Position blocklyDiv over blocklyArea.
-		blocklyDiv.style.left = x + 'px';
-		blocklyDiv.style.top = y + 'px';
-		blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
-		blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
-	};
-	window.addEventListener('resize', onresize, false);
-	onresize();
-	Blockly.svgResize(workspace);
-}
-
 function change_onglet(name) {
 	$('#RId_Onglet_'+anc_onglet).removeClass('RCl_Onglet_Affiche').addClass('RCl_Onglet_Cache');
 	$('#RId_Onglet_'+name).removeClass('RCl_Onglet_Cache').addClass('RCl_Onglet_Affiche');
@@ -496,5 +469,3 @@ function update_final_code(){
 	result += "}";
 	document.getElementById("final_OEF_code").value = result;
 }
-
-blockly_init();
