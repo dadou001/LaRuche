@@ -4,6 +4,7 @@ $(document).ready();
 $(document).foundation();
 
 var variable_List = {};
+var prepEditor;
 
 function change_onglet(name) {
 	$('#RId_Onglet_'+anc_onglet).removeClass('RCl_Onglet_Affiche').addClass('RCl_Onglet_Cache');
@@ -11,6 +12,10 @@ function change_onglet(name) {
 	$('#RId_Contenu_Onglet_'+anc_onglet).addClass('RCl_Contenu_Onglet_Cache');
 	$('#RId_Contenu_Onglet_'+name).removeClass('RCl_Contenu_Onglet_Cache');
 	anc_onglet = name;
+	if (typeof(prepEditor)!='undefined') {
+		prepEditor.onResize();
+		Blockly.svgResize(prepEditor.mBlocklyWorkspace);
+	}
 }
 
 var anc_onglet = 'Enonce';
@@ -469,3 +474,5 @@ function update_final_code(){
 	result += "}";
 	document.getElementById("final_OEF_code").value = result;
 }
+
+//blockly_init();

@@ -9,16 +9,35 @@ var SProgramEditor = (function () {
     function SProgramEditor(idToolboxXml, idDiv, idArea) {
         this.mArea = $('#' + idArea)[0];
         this.mDiv = $('#' + idDiv)[0];
-        var workspace = Blockly.inject(this.mDiv, { media: 'js_tools/blockly/media/',
-            toolbox: document.getElementById(idToolboxXml) });
+        this.mBlocklyWorkspace = Blockly.inject(this.mDiv, { media: 'js_tools/blockly/media/',
+            toolbox: document.getElementById(idToolboxXml),
+            collapse: true,
+            comments: true,
+            trashcan: true,
+            scrollbars: true,
+            sounds: false,
+            grid: {
+                spacing: 24,
+                length: 1,
+                colour: '#ddd',
+                snap: true
+            },
+            zoom: {
+                controls: true,
+                wheel: false,
+                startScale: 1,
+                maxScale: 2,
+                minScale: 0.5,
+                scaleSpeed: 1.2
+            }
+        });
         var calling_object = this; //keep the calling object in "closure" for callbacks
         // callback on resize event
-        $.resize(function (e) {
-            calling_object.onResize.call(this, e); // keep closure context
+        $(window).resize(function (e) {
+            calling_object.onResize.call(calling_object, e); // keep closure context
         });
-        ;
         this.onResize();
-        Blockly.svgResize(workspace);
+        Blockly.svgResize(this.mBlocklyWorkspace);
     }
     // ***********  méthodes de l'éditeur graphique de programme ************
     SProgramEditor.prototype.init = function () {
