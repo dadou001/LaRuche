@@ -150,8 +150,9 @@
           <!-- ONGLET PREPARATION -->
           <div class="RCl_Contenu_Onglet_Cache" id="RId_Contenu_Onglet_Preparation">
             <div class="row" style="margin:15px;">
-              <div class="large-3 columns"><div class="callout"> text</div> </div>
-              <div class="large-6 columns"> <div class="callout">encore plus de texte </div></div>
+              <div class="large-9 columns">
+                <div id="RId_programPrep" style="position: relative; height:400px"></div>
+              </div>
               <div class="large-3 columns"> <div class="callout">un peu plus de texte ? </div></div>
             </div>
           </div>
@@ -179,17 +180,34 @@
     </div>
   </div>
 
+  <!-- Div programme préparation Blockly -->
+  <div id="RId_programPrep_blockly" style="position: absolute"></div>
+  <xml id="RId_toolbox_programPrep" style="display: none">
+    <block type="controls_if"></block>
+    <block type="logic_compare"></block>
+    <block type="controls_repeat_ext"></block>
+    <block type="math_number"></block>
+    <block type="math_arithmetic"></block>
+    <block type="text"></block>
+    <block type="text_print"></block>
+  </xml>
+
+
   <script src="js_tools/vendor/jquery.js" type="text/javascript" charset="utf-8"></script>
   <script src="js_tools/vendor/what-input.js" type="text/javascript" charset="utf-8"></script>
   <script src="js_tools/vendor/foundation.js" type="text/javascript" charset="utf-8"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+  <script src="js_tools/blockly/blockly_compressed.js"></script>
+  <script src="js_tools/blockly/blocks_compressed.js"></script>
+  <script src="js_tools/blockly/msg/js/en.js"></script>
   <script type="text/javascript" src="js_tools/quill/quill.min.js"></script>
   <script src="src/ImageVariable.js" type="text/javascript" charset="utf-8"></script>
   <script src="src/LatexImage.js" type="text/javascript" charset="utf-8"></script>
   <script src="src/typeVariable.js" type="text/javascript" charset="utf-8"></script>
   <script src="src/Variable.js" type="text/javascript" charset="utf-8"></script>
   <script src="src/SEditeur.js" type="text/javascript" charset="utf-8"></script>
+  <script src="src/SProgramEditor.js" type="text/javascript" charset="utf-8"></script>
   <script src="src/app.js" type="text/javascript" charset="utf-8"></script>
 
 

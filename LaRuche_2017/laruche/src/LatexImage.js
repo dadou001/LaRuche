@@ -8,7 +8,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var Inline = Quill.import('blots/inline'); //On récupère la bonne class
+var Inline = Quill.import('blots/inline'); //On récupère la bonne classe
 var LatexImage = (function (_super) {
     __extends(LatexImage, _super);
     function LatexImage() {
@@ -22,7 +22,7 @@ var LatexImage = (function (_super) {
     };
     return LatexImage;
 }(Inline));
-LatexImage.blotName = 'LatexImage'; //on définit le BlotName (celui à utiliser dans insertEmbered par exemple)
+LatexImage.blotName = 'LatexImage'; //on définit le BlotName (celui à utiliser dans insertEmbeded par exemple)
 LatexImage.className = 'surligne_Latex'; //On définit sa classe
 LatexImage.tagName = 'latex'; //On définit les balises qui vont entourer cette class
 Quill.register({
