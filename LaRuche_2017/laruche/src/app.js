@@ -6,6 +6,7 @@ $(document).foundation();
 var variable_List = {};
 var prepEditor;
 
+
 function change_onglet(name) {
 	$('#RId_Onglet_'+anc_onglet).removeClass('RCl_Onglet_Affiche').addClass('RCl_Onglet_Cache');
 	$('#RId_Onglet_'+name).removeClass('RCl_Onglet_Cache').addClass('RCl_Onglet_Affiche');
@@ -43,9 +44,11 @@ var quill_EnTete = new Quill('#editor-EnTete', {
 	theme: 'snow'
 });
 
+var editor_EnTete = new SEditor(quill_EnTete);
+var editor_Enonce = new SEditor(quill);
 /* CONFIGURATION DU QUILL DE L'ENTETE, VARIABLE GLOBAL = MOCHE*/
 quill_EnTete.format('code-block',true);
-/* SE DEMENER POUR ENLEVER SES VARIABLES GLOBALES */
+/* SE DEMENER POUR ENLEVER CES VARIABLES GLOBALES */
 
 
 function test_valid_expression(str){
@@ -54,15 +57,20 @@ function test_valid_expression(str){
 }
 
 function create_variable_editor(id_select_type_popup,id_input_name_popup,index){
+	//On récupère le type de la variable_List
 	var type = document.getElementById(id_select_type_popup).options[document.getElementById(id_select_type_popup).selectedIndex].value;
+	//On récupère le nom de la variable
 	var name = document.getElementById(id_input_name_popup).value;
 	if(test_valid_expression(name)){
-		quill.insertEmbed(index, 'VariableImage',name);
-		if (variable_List[name] == null){
-			variable_List[name] = new Variable(name,type);
-			update_variables_view("card_Enonce_Variable",variable_List);
-			$('#popup').toggleClass('popup_variable_visible');
+		quill.insertEmbed(index, 'VariableImage',name);//On insère la variable dans l'éditeur sous la forme d'un Embed
+		if (variable_List[name] == null){ //Si la variable n'existe pas encore
+			variable_List[name] = new Variable(name,type); //On ajoute la nouvelle variable à notre liste de variable
+			update_variables_view("card_Enonce_Variable",variable_List); //On met à jour l'affichage ds variables
+			$('#popup').toggleClass('popup_variable_visible');//On désactive le popup
 		}
+	}
+	else{
+		window.alert("Le nom de la variable ne doit contenir que des caractères alphanumérique !");
 	}
 }
 
@@ -115,76 +123,7 @@ function update_variables_view(id_to_updt, variable_list){
 	document.getElementById(id_to_updt).innerHTML = result;
 }
 
-/* FONCTION POUR CLEAN OBJET EDITEUR */
-/*function clear_editor_var(content){
-	var startVar = content.search('<span class="surligne_Variable"'); //On initialise notre pointeur de début d'une balise variable
-	var stopStartVar; //On initialise notre pointeur sur la fin de la balise ouvrante variable
-	var stopVar;//on initialise notre variable pointant sur le début de la balise fermante de variable
-	var result = ""; //On initialise notre chaine contanenat le resultat final.
 
-	while(startVar != -1){ //Tant qu'il y a des variables à traiter
-		result += content.substring(0,startVar); //On ajoute au résultat tout jusqu'a la baslise pour les variables
-		content = content.substring(startVar,content.length); //On enlève ce qui a été ajouté du contenu
-		stopStartVar = content.search(">"); //On regarde ou ferme la balise ouvrant pour les variables
-		stopVar = content.search("</span>"); //On regarde ou commence la balise fermante des variables
-		result += "\\"+content.substring(stopStartVar+1,stopVar);//On ajoute notre varibale précédé d'un \ au résultat
-		content = content.substring(stopVar+7,content.length);//On enlève la variables + ses balises du contenu
-		startVar = content.search('<span class="surligne_Variable"'); //On cherche une nouvelle variable
-	}
-	result += content;//On ajoute le dernier morceau de contenu au résultat
-	return result;
-}
-
-function clear_editor_latex(content){
-	content = content.split('<latex class="surligne_Latex">').join("\\("); //On remplace tous les <span> ayant la classe surligne-latex par des <latex>
-	var startLat = content.search("\\("); //On va au premier <latex>
-	var result =""; //On initialise notre résultat
-	if (startLat != -1){ //Si on trouve au moins un <latex>
-		var stopLat; //On initialise notre valeur de fin de balise <latex>
-		while(startLat != -1){ //On répète tant qu'il y a du <latex> à gérer
-			stopLat = content.search("</latex>"); //On va chercher le prochain <span> (la fin de la balise latex en fait)
-			result += content.substring(0,stopLat) + "\\)"; //On ajoute tout le contenu du contenu jusqu'a <latex> et on ajoute la bonne valeur
-			content = content.substring(stopLat+7,content.length); //On enlève ce qui vient d'être ajouté du contenu
-			startLat = content.search("\\("); //On cherche une nouvelle apparition de Latex
-		}
-		result += content; //On ajoute le dernier morceau de contenu à notre résultat
-	}
-	else{
-		result = content; //Le résultat est directement le contenue initial
-	}
-	return result;
-}
-
-function clear_editor_code(content){
-	var startLat = content.search('<pre spellcheck="false">'); //On va au premier <latex>
-	var result =""; //On initialise notre résultat
-	if (startLat != -1){ //Si on trouve au moins un <latex>
-		var stopLat; //On initialise notre valeur de fin de balise <latex>
-		while(startLat != -1){ //On répète tant qu'il y a du <latex> à gérer
-			stopLat = content.search("</pre>"); //On va chercher le prochain <span> (la fin de la balise latex en fait)
-			result += content.substring(0,stopLat) ; //On ajoute tout le contenu du contenu jusqu'a <latex> et on ajoute la bonne valeur
-			content = content.substring(stopLat+6,content.length); //On enlève ce qui vient d'être ajouté du contenu
-			startLat = content.search('<pre spellcheck ="false"'); //On cherche une nouvelle apparition de Latex
-		}
-		result += content; //On ajoute le dernier morceau de contenu à notre résultat
-	}
-	else{
-		result = content; //Le résultat est directement le contenue initial
-	}
-	result = result.split('<pre spellcheck="false">').join("");
-	return result;
-}
-
-
-function clear_editor_content(str){
-	var start = str.search("<p>"); //On récupère la position de début du contenu qui nous intéresse
-	var stop = str.search("</div>"); //On récupère la position de fin du contenu qui nous intéresse
-	var content = str.substring(start,stop); //On obtient la chaine de contenu voulu
-	content = clear_editor_var(content); //On entoure les variables par des "<var></var"
-	content = clear_editor_latex(content); //On entoure le Latex par des "<latex></latex>"
-	content = clear_editor_code(content);
-	return content;
-}
 /*****************************************************/
 function gather_all_info(editor){
 	var all_info = {};
@@ -193,17 +132,19 @@ function gather_all_info(editor){
 	all_info["language"] = document.getElementById("language_EnTete").value;
 	all_info["name"] = document.getElementById("name_EnTete").value;
 	all_info["email"] = document.getElementById("email_EnTete").value;
-	all_info["OEF_code"] = clean_OEFcode(content_to_OEFcode(quill_EnTete.getContents()));
-	all_info["enonce"] = clean_OEFcode(content_to_OEFcode(quill.getContents()));
+	all_info["OEF_code"] = editor_EnTete.to_OEFcode();
+	all_info["enonce"] = editor_Enonce.to_OEFcode();
 	return all_info;
 }
 
 function create_variable_choice_popup(id_to_popup,index){
-	var rect = document.getElementById(id_to_popup).getBoundingClientRect();
-	$('#popup').toggleClass('popup_variable_visible');
+	var rect = document.getElementById(id_to_popup).getBoundingClientRect(); //On obtient la position du bouton var
+	$('#popup').toggleClass('popup_variable_visible');//On active le popup
 	$('#popup').addClass('large-3');
 	$('#popup').addClass('columns');
+	//On place le popup là ou il faut
 	$('#popup').css({'top':rect.top + ((rect.bottom - rect.top)/2),'left':rect.left + ((rect.right - rect.left)/1.3), 'position':'absolute'});
+	//On crée le contenu du popup
 	document.getElementById("popup").innerHTML = '<div class="callout"><label>Variable type'
   +'<select id = "popup_select">'
     +'<option value="Real">Real</option>'
@@ -220,10 +161,10 @@ function create_variable_choice_popup(id_to_popup,index){
 
 function destroy_variable(id_var_destroy,var_list){
 	//A variable id look like : button_destroy_variableName
-	var varName = id_var_destroy.substring(15);
-	delete var_list[varName];
-	update_variables_view("card_Enonce_Variable",var_list);
-	destroy_var_editor(quill,varName);
+	var varName = id_var_destroy.substring(15); //On obtient le nom de la variable à supprimer
+	delete var_list[varName]; //On l'enlève de la liste des variables connues
+	update_variables_view("card_Enonce_Variable",var_list); //On met à jour le contenu de la vue variable
+	destroy_var_editor(quill,varName);//On enlève cette variable de l'éditeur
 }
 
 function destroy_var_editor(editor,varName){
@@ -245,209 +186,237 @@ function add_variable_editor(editor,nameVar){
 	editor.insertEmbed(selection.index,'VariableImage',nameVar); //On insere une imageVariable à cet endroit
 }
 
-function clear_enonce_info(str){
-	str = str.split("<p>").join("").split("</p>").join("\n").split("<br>").join("\n");
-	return str;
-}
-
 function declaration_variable_OEFcode(){
+	//FONCTION A COMPLETER
 	var result = "";
-	for (var nameVar in variable_List){
-		if (variable_List[nameVar].getType() == "Real"){
+	for (var nameVar in variable_List){ //Pour toutes les variables connues
+		if (variable_List[nameVar].getType() == "Real"){ //dans le cas d'un réel
 			result += "\\real{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
 		}
-		else if (variable_List[nameVar].getType() == "Int"){
+		else if (variable_List[nameVar].getType() == "Int"){ //dans le cas d'un entier
 			result += "\\integer{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
 		}
 	}
 	return result;
 }
 
-/*function content_to_OEFcode(content){
-	var tabContent = content['ops'];
-	console.log(tabContent);
-	var result = "";
-	for(var i = 0; i<tabContent.length;i++){
-		if(tabContent[i]['insert']['VariableImage'] != null){
-			result += "\\" + tabContent[i]['insert']['VariableImage'];
-		}
-		else if((tabContent[i]['attributes']!= null) && (tabContent[i]['attributes']['LatexImage'] != null)){
-			result += "\\("+tabContent[i]['insert']+"\\)"
-		}
-		else{
-			result += tabContent[i]['insert'];
-		}
-	}
-	return result;
-}*/
+// function find_balise_block(str){
+// 	var result = []; //on initialise notre résultat qui sera sous la forme [positionDébut,positionFin]
+// 	var start_balise = str.search("<"); //On initialise notre position de début de balise
+// 	var end_balise; //On initialise notre position de fin de balise
+// 	var name_balise = ""; //on initialise le nom de la balise courante (INUTILE POUR LE MOMENT)
+// 	var counter = 0; //On initialise notre compteur qui va nous permettre de retrouver le block de balise dans la chaine originale
+// 	result.push(start_balise); //On entre le début du block de balise
+// 	while(str[start_balise] == "<"){
+// 		end_balise = str.search(">"); //On va chercher ou se ferme la balise courante
+// 		name_balise = str.substring(start_balise+1,end_balise);//On obtient le nom de la balise (INUTILE POUR LE MOMENT)
+// 		counter += name_balise.length+2; //On ajoute au compteur la taille de la balise
+// 		str = str.substring(end_balise+1);//On récupère la suite de la chaine
+// 		start_balise = 0;//On regarde le premier caractère
+// 	}
+// 	result.push(result[0]+counter); //On ajoute le pointeur vers la fin de block au résultat
+// 	return result;
+// }
+//
+// function clean_balise_block(str){
+// 	var result = "";
+// 	if(str.length>0){ //Si la chaine comprend des choses à nettoyer
+// 		var start_balise = 0; //On initialise la position du début de notre balise
+// 		var end_balise = str.search(">"); //On initialise la position de la fin de la balise courante
+// 		var name_balise = "";//On initialise le nom de la balise
+// 		var name_complement = "";//On initialise le complément du nom de la balise
+// 		var pos_complement; //On initialise la position de la balise complémentaire
+// 		while(str.length>0){ //Tant qu'il y a des caractères à traiter
+// 			end_balise = str.search(">"); //On va voir la fin de la balise
+// 			name_balise = str.substring(start_balise+1,end_balise);//On récupère le nom de la balise courante
+// 			//On obtient le nom du complément de la balise
+// 			if(name_balise[0] == "/"){
+// 				name_complement = name_balise.substring(1);
+// 			}
+// 			else{
+// 				name_complement = "/"+name_balise;
+// 			}
+// 			//On cherche la position de la balise complémentaire
+// 			pos_complement = str.search("<"+name_complement+">");
+// 			//Si elle n'existe pas, on ajoute la balise courant au résultat
+// 			if(pos_complement == -1){
+// 				result += "<"+name_balise+">";
+// 				str = str.substring(end_balise+1);//On obtient la suite de la chaine
+// 			}
+// 			else{
+// 				//Sinon on supprime la balise courante et la balise complémentaire dans la chaine
+// 				str = str.substring(name_balise.length+2,pos_complement)+str.substring(pos_complement+name_complement.length+2);
+// 			}
+// 		}
+// 	}
+// 	return result;
+// }
+//
+// function clean_OEFcode(str){
+// 	var tab = find_balise_block(str); //On obtient la position du premier block de balises
+// 	var result = ""; //On initialise notre résultat
+// 	var balise_block = ""; //On initialise le contenu du block de balise
+// 	while(tab[0] != tab[1]){
+// 		balise_block = clean_balise_block(str.substring(tab[0],tab[1])); //On nettoie le block de balise
+// 		result += str.substring(0,tab[0]) + balise_block; //On ajoute le contenu nettoyer au résultat
+// 		str = str.substring(tab[1]); //On obtient la suite de la chaine
+// 		tab = find_balise_block(str); //On trouve le block suivant
+// 	}
+// 	result += str;
+// 	return result;
+// }
 
-/**************************A SUPPRIMER PEUT ETRE*****************/
-function add_content_line(element,was_variable){
-	var result = "";
-	if (was_variable){
-		result += " ";
-	}
-	if (element['insert']['VariableImage'] != null){
-		result += "\\"+element['insert']['VariableImage'];
-	}
-	else if(element['attributes']!=null){
-		var text = element['insert'];
-		result = text;
-		for (var key in element['attributes']){
-			switch(key){
-				case 'bold':
-					result = '<strong>'+result+'</strong>';
-					break;
-				case 'italic':
-					result = '<em>'+result+'</em>'
-					break;
-				case 'strike':
-					result = '<s>'+result+'</s>'
-					break;
-				case 'underline':
-					result = '<u>'+result+'</u>'
-					break;
-				case 'LatexImage':
-					result = '\\('+result+'\\)'
-					break;
-			}
-		}
-	}
-	else{
-		result += element['insert'];
-	}
-	return result;
-}
-
-function apllied_attributes_line(line,attributes_dic,was_list){
-	var result = line;
-	console.log(attributes_dic['list'],was_list['unordered']);
-
-	for (var key in attributes_dic){
-		switch(key){
-			case 'list':
-				result = "<li>"+result+"</li>"
-				if(attributes_dic['list'] == 'bullet'){
-					if(was_list['unordered']==false){
-						result = "<ul>"+result;
-						was_list['unordered']=true;
-					}
-				}
-				if(attributes_dic['list'] == 'ordered'){
-					if(was_list['ordered']==false){
-						result = "<ol>"+result;
-						was_list['ordered']=true;
-					}
-				}
-				break;
-		}
-	}
-	if((attributes_dic['list']==null) && (was_list['unordered']==true)){
-		console.log("ok2");
-		result = "</ul>"+result;
-		was_list['unordered']=false;
-	}
-	else if((attributes_dic['list']==null) && (was_list['ordered']==true)){
-		console.log("ok3");
-		result = "</ol>"+result;
-		was_list['ordered']=false;
-	}
-	return result;
-}
-
-function content_to_OEFcode(content){
-	var tabContent= content['ops'];
-	var result = "";
-	var line = "";
-	var i = 0;
-	var was_variable = false;
-	var was_list = {};
-	was_list['ordered']=false;
-	was_list['unordered']=false;
-	while(i<tabContent.length){
-		line = "";
-		while((i<tabContent.length) && (tabContent[i]['insert'] != "\n")){
-			line += add_content_line(tabContent[i],was_variable);
-			was_variable = (tabContent[i]['insert']['VariableImage'] != null);
-			i++;
-		}
-		if (i<tabContent.length){
-			line = apllied_attributes_line(line,tabContent[i]['attributes'],was_list);
-
-		}
-		result += line + "\n";
-		i++;
-	}
-	return result;
-}
-
-function find_balise_block(str){
-	var end = false;
-	var result = [];
-	var start_balise = str.search("<");
-	var end_balise;
-	var name_balise = "";
-	var counter = 0;
-	result.push(start_balise);
-	while(str[start_balise] == "<" && !end){
-		end_balise = str.search(">");
-		name_balise = str.substring(start_balise+1,end_balise);
-		counter += name_balise.length+2;
-		str = str.substring(end_balise+1);
-		start_balise = 0;
-	}
-	result.push(result[0]+counter);
-	return result;
-}
-
-function clean_balise_block(str){
-	var result = "";
-	if(str.length>0){
-		var start_balise = 0;
-		var end_balise = str.search(">");
-		var name_balise = "";
-		var name_complement = "";
-		var pos_complement;
-		while(str.length>0){
-			end_balise = str.search(">");
-			name_balise = str.substring(start_balise+1,end_balise);
-
-			if(name_balise[0] == "/"){
-				name_complement = name_balise.substring(1);
-			}
-			else{
-				name_complement = "/"+name_balise;
-			}
-			pos_complement = str.search("<"+name_complement+">");
-			if(pos_complement == -1){
-				result += "<"+name_balise+">";
-				str = str.substring(end_balise+1);
-			}
-			else{
-				str = str.substring(name_balise.length+2,pos_complement)+str.substring(pos_complement+name_complement.length+2);
-
-			}
-		}
-	}
-	return result;
-}
-
-function clean_OEFcode(str){
-	var tab = find_balise_block(str);
-	var result = "";
-	var balise_block = "";
-	while(tab[0] != tab[1]){
-		balise_block = clean_balise_block(str.substring(tab[0],tab[1]));
-		result += str.substring(0,tab[0]) + balise_block;
-		str = str.substring(tab[1]);
-		tab = find_balise_block(str);
-	}
-	result += str;
-	return result;
-}
+// function cut_insert(delta_element){
+// 	var text = delta_element['insert']; //on obtien de le contenu textuel de l'élement
+// 	var return_line_search = text.search("\n"); //on initialise la position du premier retour chariot
+// 	var result = [];//on initialise notre résultat
+// 	while (return_line_search != -1){
+// 		//On ajoute le contenu jusqu'au retour chariot avec les mêmes attributs
+// 		result.push({'insert':text.substring(0,return_line_search),'attributes':delta_element['attributes']});
+// 		//on ajoute un retour chariot seul
+// 		result.push({'insert':"\n",'attributes':{}});
+// 		//On obtient la suite du texte
+// 		text = text.substring(return_line_search+1);
+// 		//on cherche le prochain retour chariot
+// 		return_line_search = text.search("\n");
+// 	}
+// 	if(text.length>0){
+// 		//S'il reste des choses à traiter on l'ajoute au résultat
+// 		result.push({'insert':text,'attributes':delta_element['attributes']});
+// 	}
+// 	if(delta_element['insert'] == "\n"){
+// 		//si l'élément était un retour chariot à la base, on le laisse tel quel
+// 		result = [delta_element];
+// 	}
+// 	return result;
+// }
+//
+//
+//
+// function add_element_line(element){
+// 	var result = element['insert']; //on initialise notre résultat
+// 	if (element['insert']['VariableImage']!= null){
+// 		//si c'est une variable on la traite avec un \ devant
+// 		result = "\\"+element['insert']['VariableImage'];
+// 	}
+// 	else if (element['attributes'] != null) {
+// 		if(element['attributes']['LatexImage'] != null){
+// 			//Si c'est du latex, on le traite en premier pour ne pas le polluer avec des balises
+// 			result = "\\("+result+"\\)"
+// 		}
+// 		for (var key in element['attributes']){
+// 			//On ajoute les bonnes balises autour du texte selon les attributs
+// 			switch(key){
+// 				case 'bold':
+// 					result = "<strong>"+result+"</strong>"
+// 					break;
+// 				case 'italic':
+// 					result = "<em>"+result+"</em>"
+// 					break;
+// 				case 'underline':
+// 					result = "<u>"+result+"</u>"
+// 					break;
+// 				case 'strike':
+// 					result = "<s>"+result+"</s>"
+// 					break;
+// 			}
+// 		}
+// 	}
+// 	return result;
+// }
+//
+//
+// function applied_attributes(line,element,was_list){
+// 	var attributes = element['attributes']; //on récupère les attributs
+// 	var result = line; //on initialise notre résultat avec le contenu de la ligne en cours
+// 	if(Object.keys(attributes).length == 0){ //S'il n'y a pas d'attributs, on entoure juste la ligne de balise <p>
+// 		result = "<p>"+result+"</p>\n";
+// 	}
+// 	for(var key in attributes){
+// 		//On regarde tous les attributs
+// 		switch(key){
+// 			case 'list':
+// 				if(attributes['list'] == 'bullet'){
+// 					if(was_list['unordered'] == false){
+// 						//on gèr la cas de début de liste unorderde
+// 						result = "<ul><li>"+result+"</li>\n";
+// 						was_list['unordered'] = true;
+// 					}
+// 					else{
+// 						//le cas d'une liste en cours
+// 						result = "<li>"+result+"</li>\n";
+// 					}
+// 				}
+// 				if(attributes['list'] == 'ordered'){
+// 					if(was_list['ordered'] == false){
+// 						//on gère le cas de début d'une liste ordered
+// 						result = "<ol><li>"+result+"</li>\n";
+// 						was_list['ordered'] = true;
+// 					}
+// 					else{
+// 						result = "<li>"+result+"</li>\n";
+// 					}
+// 				}
+// 				break;
+// 		}
+// 	}
+// 	if (attributes['list'] == null){
+// 		//on cherche à voir s'il faut fermer les listes ou non
+// 		if(was_list['ordered']){
+// 			result ="</ol>\n"+result;
+// 			was_list['ordered'] = false;
+// 		}
+// 		if(was_list['unordered']){
+// 			result ="</ul>\n"+result;
+// 			was_list['unordered'] = false;
+// 		}
+// 	}
+// 	else if(attributes['list'] == 'bullet'){
+// 		if(was_list['ordered']){
+// 			result ="</ol>"+result;
+// 			was_list['ordered'] = false;
+// 		}
+// 	}
+// 	else if(attributes['list'] == 'ordered'){
+// 		if(was_list['unordered']){
+// 			result ="</ul>"+result;
+// 			was_list['unordered'] = false;
+// 		}
+// 	}
+// 	return {'line':result,'was_list':was_list};
+// }
+//
+// function to_OEFcode(content){
+// 	var tabContent = content['ops']; //on obtient notre tableau de contenu
+// 	var line = ""; //on intialise notre ligne courante
+// 	var tabTmp = []; //on initialise notre tableau temporaire (celui qui découpe sur les retours chariots)
+// 	var result = ""; //On initialise notre résultat final
+// 	var resTmp; //on initialise notre résultat temporaire
+// 	var was_list = {'ordered':false,'unordered':false}; //On initialise notre tableau pour savoir si une liste est active ou non
+// 	for (var i = 0;i<tabContent.length;i++){
+// 		tabTmp = cut_insert(tabContent[i]); //on découpe le contenu de la case i du tableau
+// 		for(var j = 0;j<tabTmp.length;j++){
+// 			if(tabTmp[j]['insert'] != "\n"){ //Si on arrive pas sur une in de ligne, on ajoute les élements à la ligne
+// 				line += add_element_line(tabTmp[j]);
+// 			}
+// 			else{
+// 				//Sinon on applique les bons attributs à la ligne
+// 				resTmp = applied_attributes(line,tabTmp[j],was_list);
+// 				//on met à jour nos informations
+// 				was_list = resTmp['was_list'];
+// 				result += resTmp['line'];
+// 				line = "";
+// 			}
+// 		}
+// 	}
+// 	if (line != ""){
+// 		result += line;
+// 	}
+// 	return result;
+// }
 
 function update_final_code(){
-	content_to_OEFcode(quill.getContents());
+	//content_to_OEFcode(quill.getContents());
 	var result = "";
 	var infos = gather_all_info(quill);
 	/* HEAD DU CODE */
