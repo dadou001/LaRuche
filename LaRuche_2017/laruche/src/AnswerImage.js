@@ -8,27 +8,31 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var Embed = Quill.import('blots/embed'); //On récupère la bonne classe
-var VariableImage = (function (_super) {
-    __extends(VariableImage, _super);
-    function VariableImage() {
+var Embed = Quill.import('blots/embed');
+// const ATTRIBUTES = [
+//   'alt',
+//   'height',
+//   'width'
+// ];
+var AnswerImage = (function (_super) {
+    __extends(AnswerImage, _super);
+    function AnswerImage() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    VariableImage.create = function (value) {
-        var node = _super.create.call(this, value); //On utilise la fonction create de Embed
-        node.innerHTML = value;
+    AnswerImage.create = function (value) {
+        var node = _super.create.call(this, value);
         node.setAttribute('data-value', value);
         node.setAttribute('contenteditable', false);
+        node.innerHTML = "<img src='./img/reponse.png'/>";
         return node;
     };
-    VariableImage.value = function (domNode) {
+    AnswerImage.value = function (domNode) {
         return domNode.getAttribute('data-value');
     };
-    return VariableImage;
+    return AnswerImage;
 }(Embed));
-VariableImage.blotName = 'VariableImage'; //on définit le BlotName (celui à utiliser dans insertEmbered par exemple)
-VariableImage.className = 'surligne_Variable'; //On définit sa classe
-VariableImage.tagName = 'span'; //On définit les balises qui vont entourer cette class
+AnswerImage.blotName = 'answerImage';
+AnswerImage.tagName = 'answer';
 Quill.register({
-    'formats/variableImage': VariableImage
+    'formats/AnswerImage': AnswerImage
 });

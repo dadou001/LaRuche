@@ -33,34 +33,43 @@ var SEditor = (function () {
         return this.clean_OEFcode(result);
     };
     SEditor.prototype.cut_insert = function (delta_element) {
-        var text = delta_element['insert']; //on obtien de le contenu textuel de l'élement
-        var return_line_search = text.search("\n"); //on initialise la position du premier retour chariot
-        var result = []; //on initialise notre résultat
-        while (return_line_search != -1) {
-            //On ajoute le contenu jusqu'au retour chariot avec les mêmes attributs
-            result.push({ 'insert': text.substring(0, return_line_search), 'attributes': delta_element['attributes'] });
-            //on ajoute un retour chariot seul
-            result.push({ 'insert': "\n", 'attributes': {} });
-            //On obtient la suite du texte
-            text = text.substring(return_line_search + 1);
-            //on cherche le prochain retour chariot
-            return_line_search = text.search("\n");
+        if (typeof delta_element['insert'] === "string") {
+            var text = delta_element['insert']; //on obtien de le contenu textuel de l'élement
+            var return_line_search = text.search("\n"); //on initialise la position du premier retour chariot
+            var result = []; //on initialise notre résultat
+            while (return_line_search != -1) {
+                //On ajoute le contenu jusqu'au retour chariot avec les mêmes attributs
+                result.push({ 'insert': text.substring(0, return_line_search), 'attributes': delta_element['attributes'] });
+                //on ajoute un retour chariot seul
+                result.push({ 'insert': "\n", 'attributes': {} });
+                //On obtient la suite du texte
+                text = text.substring(return_line_search + 1);
+                //on cherche le prochain retour chariot
+                return_line_search = text.search("\n");
+            }
+            if (text.length > 0) {
+                //S'il reste des choses à traiter on l'ajoute au résultat
+                result.push({ 'insert': text, 'attributes': delta_element['attributes'] });
+            }
+            if (delta_element['insert'] == "\n") {
+                //si l'élément était un retour chariot à la base, on le laisse tel quel
+                result = [delta_element];
+            }
+            return result;
         }
-        if (text.length > 0) {
-            //S'il reste des choses à traiter on l'ajoute au résultat
-            result.push({ 'insert': text, 'attributes': delta_element['attributes'] });
+        else {
+            return [delta_element];
         }
-        if (delta_element['insert'] == "\n") {
-            //si l'élément était un retour chariot à la base, on le laisse tel quel
-            result = [delta_element];
-        }
-        return result;
     };
     SEditor.prototype.add_element_line = function (element) {
         var result = element['insert']; //on initialise notre résultat
         if (element['insert']['VariableImage'] != null) {
             //si c'est une variable on la traite avec un \ devant
             result = "\\" + element['insert']['VariableImage'];
+        }
+        else if (element['insert']['answerImage'] != null) {
+            //si c'est une answer on la traite avec un <answer> devant
+            result = "<imgAnwer>" + element['insert']['answerImage'] + "</imgAnswer>";
         }
         else if (element['attributes'] != null) {
             if (element['attributes']['LatexImage'] != null) {
@@ -89,6 +98,9 @@ var SEditor = (function () {
     };
     SEditor.prototype.applied_attributes = function (line, element, was_list) {
         var attributes = element['attributes']; //on récupère les attributs
+        if (attributes == undefined) {
+            attributes = {};
+        }
         var result = line; //on initialise notre résultat avec le contenu de la ligne en cours
         if (Object.keys(attributes).length == 0) {
             result = "<p>" + result + "</p>\n";
