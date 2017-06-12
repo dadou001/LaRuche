@@ -105,7 +105,7 @@
                     <span class="ql-formats">
                       <button class="ql-header" value="1"></button>
                       <button class="ql-header" value="2"></button>
-                      <button class="ql-blockquote"></button>
+                      <!--<button class="ql-blockquote"></button>-->
                       <button class="ql-code-block"></button>
                     </span>
                     <span class="ql-formats">
@@ -122,11 +122,12 @@
                       <button class="ql-link"></button>
                       <button class="ql-image"></button>
                       <button class="ql-video"></button>
-                      <button class="ql-formula"></button>
+                      <!--<button class="ql-formula"></button>-->
                     </span>
                     <span class="ql-formats">
                       <button title="variable" id="variable_creation_button" onclick="change_to_var(quill,variable_List)">Var</button>
-                      <button title="latex" onclick="change_to_latex(quill)">Latex</button>
+                      <button style="margin-right:8px;" title="latex" onclick="change_to_latex(quill)">Latex</button>
+                      <button style="margin-left:8px;margin-right:8px" title="answer" onclick="add_answer(quill,variable_List)">Answer</button>
                     </span>
                     <span class="ql-formats">
                       <button class="ql-clean"></button>
@@ -235,6 +236,7 @@
   <script type="text/javascript" src="js_tools/quill/quill.min.js"></script>
   <script src="src/ImageVariable.js" type="text/javascript" charset="utf-8"></script>
   <script src="src/LatexImage.js" type="text/javascript" charset="utf-8"></script>
+  <script src="src/AnswerImage.js" type="text/javascript" charset="utf-8"></script>
   <script src="src/typeVariable.js" type="text/javascript" charset="utf-8"></script>
   <script src="src/Variable.js" type="text/javascript" charset="utf-8"></script>
   <script src="src/SEditeur.js" type="text/javascript" charset="utf-8"></script>

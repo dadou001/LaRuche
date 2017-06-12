@@ -7,6 +7,7 @@ var variable_List = {};
 var prepEditor;
 
 
+
 function change_onglet(name) {
 	$('#RId_Onglet_'+anc_onglet).removeClass('RCl_Onglet_Affiche').addClass('RCl_Onglet_Cache');
 	$('#RId_Onglet_'+name).removeClass('RCl_Onglet_Cache').addClass('RCl_Onglet_Affiche');
@@ -50,6 +51,25 @@ var editor_Enonce = new SEditor(quill);
 quill_EnTete.format('code-block',true);
 /* SE DEMENER POUR ENLEVER CES VARIABLES GLOBALES */
 
+function add_answer(editor,var_list){
+	//AJOUTER A LA LISTE DE VARIABLES AUSSI
+	editor.focus();
+	var positionSelection = editor.getSelection(); //On obtient la sélection de l'utilisateur
+	if (positionSelection.length == 0){
+		//Ajouter un popup pour créer directement la variable
+	}
+	else{
+		var nameVar = editor.getText(positionSelection.index,positionSelection.length); //On récupère le contenu de la séléction
+		if (test_valid_expression(nameVar)){
+			editor.deleteText(positionSelection.index,positionSelection.length); //On enlève le texte séléctionné
+			editor.insertEmbed(positionSelection.index, 'answerImage',nameVar); //On le remplace par Variable possédant le nom que l'utilisateur avait sélectionné
+			if (var_list[nameVar] == null){
+				var_list[nameVar] = new Variable(nameVar,"answer");
+				update_variables_view("card_Enonce_Variable",var_list);
+			}
+		}
+	}
+}
 
 function test_valid_expression(str){
 	var patt = /^[a-zA-Z][a-zA-Z0-9-]*$/;
@@ -417,6 +437,7 @@ function declaration_variable_OEFcode(){
 
 function update_final_code(){
 	//content_to_OEFcode(quill.getContents());
+	console.log(quill.getContents());
 	var result = "";
 	var infos = gather_all_info(quill);
 	/* HEAD DU CODE */
