@@ -183,7 +183,14 @@
   <!-- Div programme préparation Blockly -->
   <div id="RId_programPrep_blockly" style="position: absolute"></div>
   <xml id="RId_toolbox_programPrep" xmlns="http://www.w3.org/1999/xhtml" style="display: none;">
-    <category name="WIMS Variables"></category>
+    <category name="WIMS">
+      <block type="wims_while">
+        <field name="WIMS_EDITOR">true</field>
+      </block>
+      <block type="wims_editor">
+        <field name="WIMS_EDITOR">true</field>
+      </block>
+    </category>
     <category name="Variables" colour="#a55b6d" custom="VARIABLE"></category>
     <category name="Contrôle">
       <block type="controls_for">
@@ -231,6 +238,7 @@
   <script src="src/typeVariable.js" type="text/javascript" charset="utf-8"></script>
   <script src="src/Variable.js" type="text/javascript" charset="utf-8"></script>
   <script src="src/SEditeur.js" type="text/javascript" charset="utf-8"></script>
+  <script src="src/BlocklyCustom.js" type="text/javascript" charset="utf-8"></script>
   <script src="src/SProgramEditor.js" type="text/javascript" charset="utf-8"></script>
   <script src="src/app.js" type="text/javascript" charset="utf-8"></script>
 

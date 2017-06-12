@@ -70,7 +70,7 @@ function create_variable_editor(id_select_type_popup,id_input_name_popup,index){
 		}
 	}
 	else{
-		window.alert("Le nom de la variable ne doit contenir que des caractères alphanumérique !");
+		window.alert("Le nom de la variable ne doit contenir que des caractères alphanumériques !");
 	}
 }
 
