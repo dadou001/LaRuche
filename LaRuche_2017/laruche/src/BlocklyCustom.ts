@@ -19,7 +19,7 @@ Blockly.Blocks['wims_editor'] = {
   init: function() {
     this.appendDummyInput()
         .appendField(":")
-        .appendField(new Blockly.FieldTextInput("true"), "WIMS_EDITOR");
+        .appendField(new Blockly.FieldWIMSEditor("","testQuillInBlockly"), "WIMS_EDITOR");
     this.setOutput(true, null);
     this.setColour(300);
     this.setTooltip('');
