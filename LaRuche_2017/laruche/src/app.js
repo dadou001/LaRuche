@@ -7,8 +7,6 @@ var variable_List = {};
 var answer_List = [];
 var prepEditor;
 
-
-
 function change_onglet(name) {
 	$('#RId_Onglet_'+anc_onglet).removeClass('RCl_Onglet_Affiche').addClass('RCl_Onglet_Cache');
 	$('#RId_Onglet_'+name).removeClass('RCl_Onglet_Cache').addClass('RCl_Onglet_Affiche');
@@ -100,7 +98,7 @@ function create_variable_editor(id_select_type_popup,id_input_name_popup,index){
 		}
 	}
 	else{
-		window.alert("Le nom de la variable ne doit contenir que des caractères alphanumérique !");
+		window.alert("Le nom de la variable ne doit contenir que des caractères alphanumériques !");
 	}
 }
 
