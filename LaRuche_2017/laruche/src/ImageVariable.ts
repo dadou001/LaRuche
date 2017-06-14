@@ -2,7 +2,7 @@ var Embed = Quill.import('blots/embed'); //On récupère la bonne classe
 
 class VariableImage extends Embed { //On crée notre class fille de Embed pour que nos variables soit intouchables
   static create(value) {
-      let node = super.create(value);//On utilise la fonction create de Embed
+      let node = super.create(value);//On utilise la fonction create de Embed test
       node.innerHTML = value;
       node.setAttribute('data-value',value);
       node.setAttribute('contenteditable',false);

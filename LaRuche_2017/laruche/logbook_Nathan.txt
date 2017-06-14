@@ -1,0 +1,4 @@
+--------------PROBLEMES A REGLER---------------
+ - Remettre de l'ordre dans les fonctions, créer de nouvelles classes etc...
+ - Bug sur les Embed ou s'ils sont en fin de ligne, impossible de continuer à droite sans passer à la ligne et revenir
+ - Ne pas oublier de checker la taille du tableau de réponses avant de créer la liste pour l'analyse
