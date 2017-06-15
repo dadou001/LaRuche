@@ -4,7 +4,7 @@ $(document).ready();
 $(document).foundation();
 
 var variable_List = {};
-var answer_List = [];
+var answer_List = {};
 var prepEditor;
 
 function change_onglet(name) {
@@ -45,17 +45,26 @@ var quill_EnTete = new Quill('#editor-EnTete', {
 });
 
 /**********************************************************/
-var caca = new AnswerBlock('reply_1');
-caca.change_to_type('numeric');
-document.getElementById('answer_list_analyse').innerHTML = caca.get_html();
-var lol = new Quill('#'+caca.get_editeur_div_id(), {
-	modules: {
-		toolbar: false
-	},
-	placeholder: 'Compose an exercise...',
-	theme: 'snow'
-});
-caca.set_editor(new SEditor(lol));
+var jerome = new Answer('jerome','numeric','reply_1');
+jerome.get_block_html().create_editor();
+answer_List['reply_1'] = jerome;
+var jerome2 = new Answer('jerome2','function','reply_2');
+answer_List['reply_2'] = jerome2;
+var jerome3 = new Answer('jerome3','menu','reply_3');
+answer_List['reply_3'] = jerome3;
+var jerome4 = new Answer('jerome4','range','reply_4');
+answer_List['reply_4'] = jerome4;
+jerome.get_block_html().create_editor();
+jerome2.get_block_html().create_editor();
+jerome3.get_block_html().create_editor();
+jerome4.get_block_html().create_editor();
+jerome.get_block_html().get_editor().add_variable("1");
+jerome2.get_block_html().get_editor().add_variable("2");
+jerome3.get_block_html().get_editor().add_variable("3");
+jerome4.get_block_html().get_editor().add_variable("4");
+// clean_answer_list(answer_List);
+
+
 
 /**********************************************************/
 
@@ -72,7 +81,6 @@ function add_answer(editor,ans_list){
 	if (positionSelection.length == 0){
 		editor.insertEmbed(positionSelection.index,'answerImage','reply'+(ans_list.length+1));
 		ans_list.push(new Answer('reply'+(ans_list.length+1)));
-		console.log(ans_list);
 	}
 	else{
 
@@ -131,10 +139,42 @@ function check_answer_tab(answer_tab){
 	return answer_tab;
 }
 
-function create_html_analyse_answer(){
-	var result = "";
+
+ /****************************EN CHANTIER*****************************/
+function change_type_answer(id_answer,type,ans_list){
+ 	ans_list[id_answer].get_block_html().change_to_type(type);
+}
+
+// function add_new_answer(number){
+//
+// }
+
+function delete_element_answer_list(id){
+	answer_List[id].get_block_html().destroy();
+	answer_List = clean_answer_list(answer_List);
+}
+
+function clean_answer_list(ans_list){
+	var result = {};
+	var vrai_id = "";
+	var counter = 1;
+	for(var key in ans_list){
+		if(ans_list[key].get_block_html().get_html() != ""){
+			vrai_id = "reply_"+counter;
+			result[vrai_id] = ans_list[key];
+			result[vrai_id].change_id(vrai_id);
+			counter++;
+		}
+	}
+	return result;
 
 }
+ /****************************FIN DU CHANTIER*****************************/
+
+// function create_html_analyse_answer(){
+// 	var result = "";
+//
+// }
 
 function create_list_variables(variable_list){
 	var result = "";
@@ -166,38 +206,38 @@ function update_variables_answers_view(id_to_updt, variable_list,answer_tab){
 	document.getElementById(id_to_updt).innerHTML = result;
 }
 
-function create_answer_basic_div(name_id){
-	var result = '<div class="large-12 columns callout">'
-		+'<div class="large-11 columns">'
-		+'Answer '+name_id
-			+'<label>Answer Type'
-				+'<select oninput="$(\'#'+name_id+'\').toggleClass(\'answer_hidden\');console.log(\''+name_id+'\')">'
-					+'<option value="Numeric">Numeric</option>'
-					+'<option value="Function">Function</option>'
-					+'<option value="range">Range</option>'
-					+'<option value="menu">Menu</option>'
-				+'</select>'
-			+'</label>'
-			+'<div id="'+name_id+'" class="answer_hidden">'
-				+'Chaine d\'analyse'
-				+'<div id="editor_'+name_id+'">'
-				+'</div>'
-				+'<fieldset>'
-					+'<legend>Option(s)</legend>'
-					+'<input id="checkbox1" type="checkbox"><label for="checkbox1">Option 1</label>'
-					+'<input id="checkbox2" type="checkbox"><label for="checkbox2">Option 2</label>'
-					+'<input id="checkbox3" type="checkbox"><label for="checkbox3">Option 3</label>'
-				+'</fieldset>'
-			+'</div>'
-			+'<div class="large-1 columns">'
-				+'<button class="close-button" aria-label="Close alert" type="button">'
-					+'<span aria-hidden="true">&times;</span>'
-				+'</button>'
-			+'</div>'
-		+'</div>'
-	+'</div>';
-	return result;
-}
+// function create_answer_basic_div(name_id){
+// 	var result = '<div class="large-12 columns callout">'
+// 		+'<div class="large-11 columns">'
+// 		+'Answer '+name_id
+// 			+'<label>Answer Type'
+// 				+'<select oninput="$(\'#'+name_id+'\').toggleClass(\'answer_hidden\');console.log(\''+name_id+'\')">'
+// 					+'<option value="Numeric">Numeric</option>'
+// 					+'<option value="Function">Function</option>'
+// 					+'<option value="range">Range</option>'
+// 					+'<option value="menu">Menu</option>'
+// 				+'</select>'
+// 			+'</label>'
+// 			+'<div id="'+name_id+'" class="answer_hidden">'
+// 				+'Chaine d\'analyse'
+// 				+'<div id="editor_'+name_id+'">'
+// 				+'</div>'
+// 				+'<fieldset>'
+// 					+'<legend>Option(s)</legend>'
+// 					+'<input id="checkbox1" type="checkbox"><label for="checkbox1">Option 1</label>'
+// 					+'<input id="checkbox2" type="checkbox"><label for="checkbox2">Option 2</label>'
+// 					+'<input id="checkbox3" type="checkbox"><label for="checkbox3">Option 3</label>'
+// 				+'</fieldset>'
+// 			+'</div>'
+// 			+'<div class="large-1 columns">'
+// 				+'<button class="close-button" aria-label="Close alert" type="button">'
+// 					+'<span aria-hidden="true">&times;</span>'
+// 				+'</button>'
+// 			+'</div>'
+// 		+'</div>'
+// 	+'</div>';
+// 	return result;
+// }
 
 
 

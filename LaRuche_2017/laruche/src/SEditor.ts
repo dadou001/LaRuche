@@ -1,7 +1,7 @@
 class SEditor{
   //attributs
   // Un editeur quill
-  private editor:any;
+  public editor:any;
 
   //Constructeur
   constructor(editor:any){
@@ -86,6 +86,10 @@ class SEditor{
       }
     }
     return counter;
+  }
+
+  public focus(){
+    this.editor.focus();
   }
 
   // public add_answer(var_list){

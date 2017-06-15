@@ -78,6 +78,9 @@ var SEditor = (function () {
         }
         return counter;
     };
+    SEditor.prototype.focus = function () {
+        this.editor.focus();
+    };
     // public add_answer(var_list){
     // 	//AJOUTER A LA LISTE DE VARIABLES AUSSI
     // 	this.editor.focus();
