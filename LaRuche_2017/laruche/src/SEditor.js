@@ -32,6 +32,75 @@ var SEditor = (function () {
         }
         return this.clean_OEFcode(result);
     };
+    SEditor.prototype.add_variable = function (nameVar) {
+        this.editor.focus(); //On regarde l'editeur
+        var selection = this.editor.getSelection(); //on obtient l'index de la selection de l'utilisateur
+        this.editor.insertEmbed(selection.index, 'VariableImage', nameVar); //On insere une imageVariable à cet endroit
+    };
+    SEditor.prototype.destroy_var = function (varName) {
+        var content = this.editor.getContents(); //On obtient le delta de l'éditeur
+        var tab = content['ops']; //On récupère le tableau d'insert
+        var tabRes = []; //On initialise notre tableau de résultat final que l'on enverra à l'éditeur
+        for (var i = 0; i < content['ops'].length; i++) {
+            if ((content['ops'][i]['insert']['VariableImage'] == null) || (content['ops'][i]['insert']['VariableImage'] != varName)) {
+                tabRes.push(content['ops'][i]); //On prend toutes les valeurs qui ne sont pas notre variable
+            }
+        }
+        content['ops'] = tabRes; //On recrée un 'content' cohérent
+        this.editor.setContents(content);
+    };
+    SEditor.prototype.change_to_latex = function () {
+        var positionSelection = this.editor.getSelection(); //On obtient la sélection de l'utilisateur
+        if (positionSelection.length == 0) {
+            if (this.editor.getFormat()['LatexImage'] == true) {
+                this.editor.format('LatexImage', false);
+            }
+            else {
+                this.editor.format('LatexImage', true);
+            }
+        }
+        else {
+            if (this.editor.getFormat()['LatexImage'] == true) {
+                this.editor.formatText(positionSelection.index, positionSelection.length, 'LatexImage', false);
+            }
+            else {
+                this.editor.formatText(positionSelection.index, positionSelection.length, 'LatexImage', true);
+            }
+        }
+    };
+    SEditor.prototype.count_answer = function () {
+        var content = this.editor.getContents()['ops'];
+        var counter = 0;
+        for (var i = 0; i < content.length; i++) {
+            if (content[i]['insert']['answerImage'] != null) {
+                counter += 1;
+            }
+        }
+        return counter;
+    };
+    SEditor.prototype.focus = function () {
+        this.editor.focus();
+    };
+    // public add_answer(var_list){
+    // 	//AJOUTER A LA LISTE DE VARIABLES AUSSI
+    // 	this.editor.focus();
+    // 	var positionSelection = this.editor.getSelection(); //On obtient la sélection de l'utilisateur
+    // 	if (positionSelection.length == 0){
+    // 		//Ajouter un popup pour créer directement la variable
+    // 	}
+    // 	else{
+    // 		var nameVar = this.editor.getText(positionSelection.index,positionSelection.length); //On récupère le contenu de la séléction
+    // 		if (test_valid_expression(nameVar)){
+    // 			this.editor.deleteText(positionSelection.index,positionSelection.length); //On enlève le texte séléctionné
+    // 			editor.insertEmbed(positionSelection.index, 'answerImage',nameVar); //On le remplace par Variable possédant le nom que l'utilisateur avait sélectionné
+    // 			if (var_list[nameVar] == null){
+    // 				var_list[nameVar] = new Variable(nameVar,"answer");
+    // 				//Faire ça après, le sortir de l'éditeur
+    // 				update_variables_view("card_Enonce_Variable",var_list);
+    // 			}
+    // 		}
+    // 	}
+    // }
     SEditor.prototype.cut_insert = function (delta_element) {
         if (typeof delta_element['insert'] === "string") {
             var text = delta_element['insert']; //on obtien de le contenu textuel de l'élement
@@ -130,6 +199,9 @@ var SEditor = (function () {
                             result = "<li>" + result + "</li>\n";
                         }
                     }
+                    break;
+                case 'code-block':
+                    result += "\n";
                     break;
             }
         }

@@ -39,7 +39,7 @@
         <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Preparation" onclick="change_onglet('Preparation');">Préparation</span>
         <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Analyse" onclick="change_onglet('Analyse');">Analyse</span>
         <span class="RCl_Onglet_Fake RCl_Onglet"></span>
-        <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Code" onclick="change_onglet('Code'); update_final_code()">Code</span>
+        <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Code" onclick="change_onglet('Code'); update_final_code();">Code</span>
         <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Sauvegarde" onclick="change_onglet('Sauvegarde');">Sauvegarde</span>
       </div>
     </div>
@@ -126,8 +126,8 @@
                     </span>
                     <span class="ql-formats">
                       <button title="variable" id="variable_creation_button" onclick="change_to_var(quill,variable_List)">Var</button>
-                      <button style="margin-right:8px;" title="latex" onclick="change_to_latex(quill)">Latex</button>
-                      <button style="margin-left:8px;margin-right:8px" title="answer" onclick="add_answer(quill,variable_List)">Answer</button>
+                      <button style="margin-right:8px;" title="latex" onclick="editor_Enonce.change_to_latex()">Latex</button>
+                      <button style="margin-left:8px;margin-right:8px" title="answer" onclick="add_answer(quill,answer_List)">Answer</button>
                     </span>
                     <span class="ql-formats">
                       <button class="ql-clean"></button>
@@ -160,7 +160,25 @@
 
 
           <!-- ONGLET ANALYSE -->
-          <div class="RCl_Contenu_Onglet_Cache large-12 columns" id="RId_Contenu_Onglet_Analyse">
+          <div class="RCl_Contenu_Onglet_Cache" id="RId_Contenu_Onglet_Analyse">
+            <div class="row" style="margin:15px;">
+              <div id="Contenu_all_answer" class="large-9 columns callout">
+                <!-- DU TESTING COMMENCE -->
+                <div id="answer_list_analyse"></div>
+
+                <!-- DU TESTING A PRIS FIN -->
+              </div>
+              <div class="large-3 card">
+                <div class="card-divider">
+                  Variables & Answers
+                </div>
+                <div class="card-section" id="card_Analyse_Variable">
+                  <!--Rajouter une fonction javascript pour afficher toutes les variables -->
+
+                  <!-- DU TESTING A PRIS FIN -->
+                </div>
+              </div>
+            </div>
           </div>
 
           <!-- ONGLET CODE -->
@@ -244,7 +262,9 @@
   <script src="src/AnswerImage.js" type="text/javascript" charset="utf-8"></script>
   <script src="src/typeVariable.js" type="text/javascript" charset="utf-8"></script>
   <script src="src/Variable.js" type="text/javascript" charset="utf-8"></script>
-  <script src="src/SEditeur.js" type="text/javascript" charset="utf-8"></script>
+  <script src="src/Answer.js" type="text/javascript" charset="utf-8"></script>
+  <script src="src/AnswerBlock.js" type="text/javascript" charset="utf-8"></script>
+  <script src="src/SEditor.js" type="text/javascript" charset="utf-8"></script>
   <script src="src/BlocklyFieldWIMSEditor.js" type="text/javascript" charset="utf-8"></script>
   <script src="src/BlocklyCustom.js" type="text/javascript" charset="utf-8"></script>
   <script src="src/SProgramEditor.js" type="text/javascript" charset="utf-8"></script>

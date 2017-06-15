@@ -112,5 +112,9 @@
 .popup_variable_visible{
 	visibility: visible;
 	z-index: 50000;
+}
 
+.answer_hidden{
+	visibility: hidden;
+	height:0px;
 }
