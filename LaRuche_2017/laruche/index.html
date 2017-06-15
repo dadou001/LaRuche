@@ -7,7 +7,7 @@
   <meta name="language" content="english">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta name="description" content="LaRuche is an editor of exercizes for the WIMS platform">
+  <meta name="description" content="LaRuche is an editor of exercises for the WIMS platform">
 
   <!-- Foundation style sheets -->
   <link rel="stylesheet" href="css/foundation.css"/>
@@ -181,6 +181,7 @@
     </div>
   </div>
 
+
   <!-- Div programme préparation Blockly -->
   <div id="RId_programPrep_blockly" style="position: absolute"></div>
   <xml id="RId_toolbox_programPrep" xmlns="http://www.w3.org/1999/xhtml" style="display: none;">
@@ -190,6 +191,9 @@
       </block>
       <block type="wims_editor">
         <field name="WIMS_EDITOR">true</field>
+      </block>
+      <block type="text">
+        <field name="TEXT"></field>
       </block>
     </category>
     <category name="Variables" colour="#a55b6d" custom="VARIABLE"></category>
@@ -230,7 +234,8 @@
   <script src="js_tools/vendor/foundation.js" type="text/javascript" charset="utf-8"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
-  <script src="js_tools/blockly/blockly_compressed.js"></script>
+  <script src="js_tools/blockly/blockly_uncompressed.js"></script>
+  <script src="js_tools/html2canvas.js"></script>
   <script src="js_tools/blockly/blocks_compressed.js"></script>
   <script src="js_tools/blockly/msg/js/en.js"></script>
   <script type="text/javascript" src="js_tools/quill/quill.min.js"></script>

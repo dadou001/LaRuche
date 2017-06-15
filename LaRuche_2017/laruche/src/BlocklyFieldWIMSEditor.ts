@@ -62,20 +62,21 @@ Blockly.FieldWIMSEditor.prototype.init = function() {
 
   this.foreignElement_ = Blockly.utils.createSvgElement('foreignObject',
       {}, this.fieldGroup_);
+  this.foreignElement_.setAttribute("requiredExtensions","http://www.w3.org/1999/xhtml");
   this.setValue(this.content_);
   // if (goog.userAgent.GECKO) {
   //   // Due to a Firefox bug which eats mouse events on image elements,
   //   // a transparent rectangle needs to be placed on top of the image.
   //   // TODO: Check if this bug holds for foreignelement also.
-  //   this.rectElement_ = Blockly.createSvgElement('rect',
+  //   this.rectElement_ = Blockly.utils.createSvgElement('rect',
   //       {'fill-opacity': 0}, this.fieldGroup_);
   // }
   this.sourceBlock_.getSvgRoot().appendChild(this.fieldGroup_);
 
-  // // Configure the field to be transparent with respect to tooltips.
-  // var topElement = this.rectElement_ || this.foreignElement_;
-  // topElement.tooltip = this.sourceBlock_;
-  // Blockly.Tooltip.bindMouseEvents(topElement);
+  // Configure the field to be transparent with respect to tooltips.
+  var topElement = this.rectElement_ || this.foreignElement_;
+//  topElement.tooltip = this.sourceBlock_;
+//  Blockly.Tooltip.bindMouseEvents(topElement);
 };
 
 Blockly.FieldWIMSEditor.prototype.setSize_ = function(width, height) {
@@ -141,8 +142,9 @@ Blockly.FieldWIMSEditor.prototype.setValue = function(content) {
 
   // Create the div and the quill editor
   if ( !this.editorDiv_ ) {
+    this.foreignDiv_ = document.createElement("div");
+    this.foreignDiv_.setAttribute("xmlns", document.body.namespaceURI);
     this.editorDiv_ = document.createElement("div");
-    this.editorDiv_.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
     // Temporarily add div to document so that we can get its size.
     // Set visibility to hidden so it will not display.
     this.editorDiv_.style.visibility = "visible";
@@ -151,7 +153,8 @@ Blockly.FieldWIMSEditor.prototype.setValue = function(content) {
     Blockly.FieldWIMSEditor.UNIQUE_QUILL_ID++;
     this.editorDivId_ = "Blockly_quill_"+Blockly.FieldWIMSEditor.UNIQUE_QUILL_ID;
     this.editorDiv_.id = this.editorDivId_
-    document.body.appendChild( this.editorDiv_ );
+    document.body.appendChild( this.foreignDiv_ );
+    this.foreignDiv_.appendChild(this.editorDiv_);
     this.editorDiv_.style.width="200px";
     this.editorDiv_.style.height="50px";
   }
@@ -164,12 +167,20 @@ Blockly.FieldWIMSEditor.prototype.setValue = function(content) {
     	placeholder: 'expression...',
     	theme: 'snow'
     });
+//    $("#"+this.editorDivId_).append("<textarea id='testId1' rows='1' cols='20'></textarea>");
   }
   /* Workaround for a Chrome/Safari bug - see http://stackoverflow.com/questions/8185845/svg-foreignobject-behaves-as-though-absolutely-positioned-in-webkit-browsers */
   if( goog.userAgent.WEBKIT ) {
     this.editorDiv_.style.position = "fixed";
   }
-  this.foreignElement_.appendChild(this.editorDiv_);
+  this.foreignElement_.appendChild(this.foreignDiv_);
+  var zzz=document.getElementById(this.editorDivId_);
+  // function callback_mine(e) {
+  //   window.alert("yes");
+  //   console.log(e);
+  // }
+//  goog.events.listen(this.quillEditor_,goog.events.EventType.CLICK,callback_mine);
+//  window.alert(document.body.namespaceURI);
 };
 
 /**
