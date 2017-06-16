@@ -15,7 +15,7 @@ var VariableImage = (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     VariableImage.create = function (value) {
-        var node = _super.create.call(this, value); //On utilise la fonction create de Embed
+        var node = _super.create.call(this, value); //On utilise la fonction create de Embed test
         node.innerHTML = value;
         node.setAttribute('data-value', value);
         node.setAttribute('contenteditable', false);
