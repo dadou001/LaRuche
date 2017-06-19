@@ -25,8 +25,13 @@ goog.require('goog.userAgent');
  * @constructor
  */
 Blockly.FieldWIMSEditor = function(content, opt_alt) {
+
+  Blockly.FieldWIMSEditor.superClass_.constructor.call(this, content,
+      null);
+
   this.sourceBlock_ = null;
-  this.editorDiv_ = null;
+  this.editorDivId_ = null;
+  this.quillEditor_ = null;
   this.content_ = content;
   // Ensure height and width are numbers.  Strings are bad at math.
   this.size_ = new goog.math.Size(0,0);  /* Size cannot be determined until after rendering */
@@ -44,7 +49,8 @@ Blockly.FieldWIMSEditor.UNIQUE_QUILL_ID = 0;
  * Install the editor on a block.
  */
 Blockly.FieldWIMSEditor.prototype.init = function() {
-  if (this.editorDiv_) {
+
+  if (this.editorDivId_) {
     // Field has already been initialized once.
     return;
   }
@@ -54,29 +60,25 @@ Blockly.FieldWIMSEditor.prototype.init = function() {
     return;
   }
   // Build the DOM.
-  /** @type {SVGElement} */
-  this.fieldGroup_ = Blockly.utils.createSvgElement('g', {}, null);
-  if (!this.visible_) {
-    this.fieldGroup_.style.display = 'none';
-  }
+  Blockly.FieldWIMSEditor.superClass_.init.call(this);
 
   // Build the quill editor in a special div (invisible at the start)
-  this.editorDiv_ = document.createElement("div");
+  var editorDiv = document.createElement("div");
   // Temporarily add div to document so that we can get its size.
   // Set visibility to hidden so it will not display.
-  this.editorDiv_.style.visibility = "visible";
-  this.editorDiv_.style.position = "relative";
+  editorDiv.style.visibility = "visible";
+  editorDiv.style.position = "relative";
   // Get a unique ID for the div
   Blockly.FieldWIMSEditor.UNIQUE_QUILL_ID++;
   this.editorDivId_ = "Blockly_quill_"+Blockly.FieldWIMSEditor.UNIQUE_QUILL_ID;
-  this.editorDiv_.id = this.editorDivId_
-  document.body.appendChild( this.editorDiv_ );
-  this.editorDiv_.style.width="200px";
-  this.editorDiv_.style.height="50px";
+  editorDiv.id = this.editorDivId_
+  document.body.appendChild( editorDiv );
+  editorDiv.style.width="200px";
+  editorDiv.style.height="50px";
 
-  Blockly.ExternalDiv.register(this.editorDiv_);
+  Blockly.ExternalDiv.register(editorDiv);
 
-  this.setSize_(this.editorDiv_.offsetWidth, this.editorDiv_.offsetHeight);
+  this.setSize_(editorDiv.offsetWidth, editorDiv.offsetHeight);
   if (!this.quillEditor_) {
     this.quillEditor_ = new Quill('#'+this.editorDivId_, {
     	modules: {
@@ -100,11 +102,12 @@ Blockly.FieldWIMSEditor.prototype.init = function() {
 };
 
 Blockly.FieldWIMSEditor.prototype.computePlaceholderImage_ = function() {
-  if (this.placeholderImageElement_ && this.editorDiv_) {
+  if (this.placeholderImageElement_ && this.editorDivId_) {
     var fieldTmp = {x:this};
-    html2canvas(this.editorDiv_, {
+    var editorDiv = document.getElementById(this.editorDivId_)
+    html2canvas(editorDiv, {
         onrendered: function (canvas) {
-            var canvas_url = canvas.toDataURL("image/jpeg");
+            var canvas_url = canvas.toDataURL();
             var width = fieldTmp.x.width_;
             var height = fieldTmp.x.height_;
             fieldTmp.x.placeholderImageElement_.setAttribute("href", canvas_url);
@@ -120,21 +123,20 @@ Blockly.FieldWIMSEditor.prototype.setSize_ = function(width, height) {
   this.size_ = new goog.math.Size(this.width_,
     this.height_ + 2 * Blockly.BlockSvg.INLINE_PADDING_Y);
 
-  this.editorDiv_.setAttribute("width", width + "px");
-  this.editorDiv_.setAttribute("height", height + "px");
+  var editorDiv = document.getElementById(this.editorDivId_)
+  editorDiv.setAttribute("width", width + "px");
+  editorDiv.setAttribute("height", height + "px");
 };
 
 /**
- * Dispose of all DOM objects belonging to this text.
+ * Dispose of all DOM objects belonging to this editor field.
  */
 Blockly.FieldWIMSEditor.prototype.dispose = function() {
   goog.dom.removeNode(this.fieldGroup_);
   this.fieldGroup_ = null;
   Blockly.ExternalDiv.dispose(this.editorDivId_);
-  this.editorDiv_ = null;
-  this.editElem_=null;
-  this.quillEditor_=null;
-  this.placeholderImageElement_=null;
+  this.quillEditor_ = null;
+  this.placeholderImageElement_ = null;
 };
 
 // /**
@@ -153,12 +155,12 @@ Blockly.FieldWIMSEditor.prototype.dispose = function() {
 //  * @override
 //  */
 // Blockly.FieldWIMSEditor.prototype.getValue = function() {
-//   return this.editElem_;
+//   return ...;
 // };
 //
 /**
- * Set the editor of this field.
- * @param {?string} editElem div containing the editor.
+ * Set the contents of the editor of this field.
+ * @param {?string} content new content of the editor. In Quill's case, the type of contents is Delta (defined in Quill)
  * @override
  */
 Blockly.FieldWIMSEditor.prototype.setValue = function(content) {
@@ -167,51 +169,18 @@ Blockly.FieldWIMSEditor.prototype.setValue = function(content) {
     return;
   }
   this.content_ = content;
-//   if( !this.foreignElement_ ) {
-//     /* Block hasn't been initialised yet. Store string for later. */
-//     return;
-//   }
-//
-//   // Create the div and the quill editor
-//   if ( !this.editorDiv_ ) {
-//     this.foreignDiv_ = document.createElement("div");
-//     this.foreignDiv_.setAttribute("xmlns", document.body.namespaceURI);
-//     this.editorDiv_ = document.createElement("div");
-//     // Temporarily add div to document so that we can get its size.
-//     // Set visibility to hidden so it will not display.
-//     this.editorDiv_.style.visibility = "visible";
-//     this.editorDiv_.style.position = "relative";
-//     // Get a unique ID for the div
-//     Blockly.FieldWIMSEditor.UNIQUE_QUILL_ID++;
-//     this.editorDivId_ = "Blockly_quill_"+Blockly.FieldWIMSEditor.UNIQUE_QUILL_ID;
-//     this.editorDiv_.id = this.editorDivId_
-//     document.body.appendChild( this.foreignDiv_ );
-//     this.foreignDiv_.appendChild(this.editorDiv_);
-//     this.editorDiv_.style.width="200px";
-//     this.editorDiv_.style.height="50px";
-//   }
-//   this.setSize_(this.editorDiv_.offsetWidth, this.editorDiv_.offsetHeight);
-//   if (!this.quillEditor_) {
-//     this.quillEditor_ = new Quill('#'+this.editorDivId_, {
-//     	modules: {
-//     		toolbar: false
-//     	},
-//     	placeholder: 'expression...',
-//     	theme: 'snow'
-//     });
-// //    $("#"+this.editorDivId_).append("<textarea id='testId1' rows='1' cols='20'></textarea>");
-//   }
-//   /* Workaround for a Chrome/Safari bug - see http://stackoverflow.com/questions/8185845/svg-foreignobject-behaves-as-though-absolutely-positioned-in-webkit-browsers */
-//   if( goog.userAgent.WEBKIT ) {
-//     this.editorDiv_.style.position = "fixed";
-//   }
-//   this.foreignElement_.appendChild(this.foreignDiv_);
-//   var zzz=document.getElementById(this.editorDivId_);
-//   // function callback_mine(e) {
-//   //   window.alert("yes");
-//   //   console.log(e);
-//   // }
-// //  goog.events.listen(this.quillEditor_,goog.events.EventType.CLICK,callback_mine);
+  if( !this.sourceBlock_ ) {
+    /* Block hasn't been initialised yet */
+    return;
+  }
+
+  if (!this.quillEditor_) {
+    /* Editor hasn't been initialised */
+    return;
+  }
+  this.quillEditor_.setContents(contents);
+
+// goog.events.listen(this.quillEditor_,goog.events.EventType.CLICK,callback_mine);
 // //  window.alert(document.body.namespaceURI);
 };
 
@@ -227,6 +196,78 @@ Blockly.FieldWIMSEditor.prototype.setText = function(alt) {
   }
   this.text_ = alt;
 };
+
+/**
+ * Show the editor on top of the placeholder image.
+ * @param {boolean=} opt_quietInput True if editor should be created without
+ *     focus.  Defaults to false.
+ * @private
+ */
+Blockly.FieldWIMSEditor.prototype.showEditor_ = function(opt_quietInput) {
+  this.workspace_ = this.sourceBlock_.workspace;
+  var quietInput = opt_quietInput || false;
+  if (!quietInput && (goog.userAgent.MOBILE || goog.userAgent.ANDROID ||
+                      goog.userAgent.IPAD)) {
+    // Mobile browsers have issues with in-line textareas (focus & keyboards).
+    var fieldText = this;
+    Blockly.prompt(Blockly.Msg.CHANGE_VALUE_TITLE, this.text_,
+      function(newValue) {
+        fieldText.setValue(newValue);
+      });
+    return;
+  }
+
+  Blockly.ExternalDiv.show(this.editorDivId_);
+
+  // Needs Bounding Box only for positioning, not for resizing the editor
+  // No resizing for the moment.
+  var bBox = this.fieldGroup_.getBBox();
+  var xy = this.getAbsoluteXY_();
+  // In RTL mode block fields and LTR input fields the left edge moves,
+  // whereas the right edge is fixed.  Reposition the editor.
+  if (this.sourceBlock_.RTL) {
+    var borderBBox = this.getScaledBBox_();
+    xy.x += borderBBox.width;
+    xy.x -= div.offsetWidth;
+  }
+  // Shift by a few pixels to line up exactly.
+  xy.y += 1;
+  if (goog.userAgent.GECKO && Blockly.WidgetDiv.DIV.style.top) {
+    // Firefox mis-reports the location of the border by a pixel
+    // once the WidgetDiv is moved into position.
+    xy.x -= 1;
+    xy.y -= 1;
+  }
+  if (goog.userAgent.WEBKIT) {
+    xy.y -= 3;
+  }
+  var editorDiv = document.getElementById(this.editorDivId_)
+  editorDiv.style.left = xy.x + 'px';
+//  editorDiv.style.top = xy.y + 'px';
+  editorDiv.style.top = '0px';
+  editorDiv.display = 'block';
+//  this.resizeEditor_();
+  if (!quietInput) {
+    this.quillEditor_.focus();
+//    htmlInput.select();
+  }
+
+  // Bind to keydown -- trap Enter without IME and Esc to hide.
+  // htmlInput.onKeyDownWrapper_ =
+  // Blockly.bindEventWithChecks_(htmlInput, 'keydown', this,
+  // this.onHtmlInputKeyDown_);
+  // // Bind to keyup -- trap Enter; resize after every keystroke.
+  // htmlInput.onKeyUpWrapper_ =
+  // Blockly.bindEventWithChecks_(htmlInput, 'keyup', this,
+  // this.onHtmlInputChange_);
+  // // Bind to keyPress -- repeatedly resize when holding down a key.
+  // htmlInput.onKeyPressWrapper_ =
+  // Blockly.bindEventWithChecks_(htmlInput, 'keypress', this,
+  // this.onHtmlInputChange_);
+  // htmlInput.onWorkspaceChangeWrapper_ = this.resizeEditor_.bind(this);
+  // this.workspace_.addChangeListener(htmlInput.onWorkspaceChangeWrapper_);
+};
+
 
 /**
  * Editors are fixed width, no need to render.
@@ -245,9 +286,16 @@ Blockly.FieldWIMSEditor.prototype.updateWidth = function() {
 };
 
 /**
- * Define ExternalDiv array,
+ *===========================================================================
+ * Define ExternalDiv array class,
  * All external divs that are used by Blockly elements and float above them
+ *===========================================================================
  */
+/**
+ * @name Blockly.ExternalDiv
+ * @namespace
+ **/
+goog.provide('Blockly.ExternalDiv');
 
 Blockly.ExternalDiv.DIV = [];
 
@@ -291,9 +339,12 @@ Blockly.ExternalDiv.show = function(id) {
  */
 Blockly.ExternalDiv.dispose = function(id) {
   if (Blockly.ExternalDiv.DIV.length>0) {
-    for (var iDiv = 0; iDiv<Blockly.ExternalDiv.DIV.length;iDiv++) {
+    var iDiv=0;
+    while(iDiv<Blockly.ExternalDiv.DIV.length) {
       if (Blockly.ExternalDiv.DIV[iDiv].id == id) {
         goog.dom.removeNode(Blockly.ExternalDiv.DIV[iDiv]);
+        Blockly.ExternalDiv.DIV.splice(iDiv,1);
+        iDiv++;
       }
     }
   }
@@ -308,7 +359,7 @@ Blockly.ExternalDiv.register = function(div) {
   var testExist = false;
   if (Blockly.ExternalDiv.DIV.length>0) {
     for (var iDiv = 0; iDiv<Blockly.ExternalDiv.DIV.length;iDiv++) {
-      if (Blockly.ExternalDiv.DIV[iDiv].id == id) {
+      if (Blockly.ExternalDiv.DIV[iDiv].id == div.id) {
         Console.log("Internal error in Blockly ExternalDiv: already registered div");
         testExist = true;
         break;
@@ -331,7 +382,7 @@ Blockly.ExternalDiv.register = function(div) {
 Blockly.hideChaff = function(opt_allowToolbox) {
   Blockly.Tooltip.hide();
   Blockly.WidgetDiv.hide();
-  // Here comes the "hide only" part
+  // Here comes the "hide only" part for External Divs
   Blockly.ExternalDiv.hide();
   if (!opt_allowToolbox) {
     var workspace = Blockly.getMainWorkspace();
