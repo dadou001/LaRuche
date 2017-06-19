@@ -45,34 +45,6 @@ var quill_EnTete = new Quill('#editor-EnTete', {
 	theme: 'snow'
 });
 
-/**********************************************************/
-// var jerome = new Answer('jerome','numeric','reply_1');
-// // jerome.get_block_html().create_editor();
-// answer_List['jerome'] = jerome;
-// var jerome2 = new Answer('jerome2','function','reply_2');
-// answer_List['jerome2'] = jerome2;
-// var jerome3 = new Answer('jerome3','menu','reply_3');
-// answer_List['jerome3'] = jerome3;
-// var jerome4 = new Answer('jerome4','range','reply_4');
-// answer_List['jerome4'] = jerome4;
-// jerome.get_block_html().create_editor();
-// jerome2.get_block_html().create_editor();
-// jerome3.get_block_html().create_editor();
-// jerome4.get_block_html().create_editor();
-// jerome.get_block_html().get_editor().add_variable("1");
-// jerome2.get_block_html().get_editor().add_variable("2");
-// jerome3.get_block_html().get_editor().add_variable("3");
-// jerome4.get_block_html().get_editor().add_variable("4");
-// // answer_List = add_new_answer(2,answer_List);
-// // console.log(answer_List);
-// // clean_answer_list(answer_List);
-// // jerome2.get_block_html().destroy();
-// // answer_List['reply_2'] = jerome3;
-// // jerome3.change_id("reply_2");
-// // console.log(jerome3);
-// // console.log($('#answer_list_analyse').find('fieldset')[1]);
-// $('#answer_list_analyse .callout').eq(0).before($('#answer_all_jerome4'));
-/**********************************************************/
 
 var editor_EnTete = new SEditor(quill_EnTete);
 var editor_Enonce = new SEditor(quill);
@@ -93,6 +65,7 @@ function add_answer(editor,ans_list){
 			ans_list[name].get_block_html().get_editor().editor.on('editor-change',
 				function(){
 					if( (active_editor_analyse != null) || (active_editor_analyse != ans_list[name].get_block_html().get_editor())){
+						//REVOIR CE IF, IL VA PAS
 						active_editor_analyse = ans_list[name].get_block_html().get_editor();}});
 			editor.insertEmbed(positionSelection.index,'answerImage',name);
 		}
@@ -154,11 +127,6 @@ function change_to_var(editor,var_list){
 function change_type_answer(id_answer,type,ans_list){
  	ans_list[id_answer].get_block_html().change_to_type(type);
 }
-
-// function add_new_answer(name){
-// 	answer_List[name] = new Answer(name,'numeric','au_hasard');
-// 	answer_List[name].get_block_html().create_editor();
-// }
 
 function delete_element_answer_list(name){
 	answer_List[name].get_block_html().destroy();
