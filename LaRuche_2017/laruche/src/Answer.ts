@@ -11,7 +11,7 @@ class Answer{
     this.name = name;
     this.type = type;
     this.id = id;
-    this.block_html = new AnswerBlock(id,type);
+    this.block_html = new AnswerBlock(name,id,type);
   }
 
   public get_block_html(){

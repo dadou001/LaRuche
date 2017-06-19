@@ -4,7 +4,7 @@ var Answer = (function () {
         this.name = name;
         this.type = type;
         this.id = id;
-        this.block_html = new AnswerBlock(id, type);
+        this.block_html = new AnswerBlock(name, id, type);
     }
     Answer.prototype.get_block_html = function () {
         return this.block_html;

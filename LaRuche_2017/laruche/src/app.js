@@ -5,6 +5,7 @@ $(document).foundation();
 
 var variable_List = {};
 var answer_List = {};
+var active_editor_analyse = null;
 var prepEditor;
 
 function change_onglet(name) {
@@ -45,27 +46,32 @@ var quill_EnTete = new Quill('#editor-EnTete', {
 });
 
 /**********************************************************/
-var jerome = new Answer('jerome','numeric','reply_1');
-jerome.get_block_html().create_editor();
-answer_List['reply_1'] = jerome;
-var jerome2 = new Answer('jerome2','function','reply_2');
-answer_List['reply_2'] = jerome2;
-var jerome3 = new Answer('jerome3','menu','reply_3');
-answer_List['reply_3'] = jerome3;
-var jerome4 = new Answer('jerome4','range','reply_4');
-answer_List['reply_4'] = jerome4;
-jerome.get_block_html().create_editor();
-jerome2.get_block_html().create_editor();
-jerome3.get_block_html().create_editor();
-jerome4.get_block_html().create_editor();
-jerome.get_block_html().get_editor().add_variable("1");
-jerome2.get_block_html().get_editor().add_variable("2");
-jerome3.get_block_html().get_editor().add_variable("3");
-jerome4.get_block_html().get_editor().add_variable("4");
-// clean_answer_list(answer_List);
-
-
-
+// var jerome = new Answer('jerome','numeric','reply_1');
+// // jerome.get_block_html().create_editor();
+// answer_List['jerome'] = jerome;
+// var jerome2 = new Answer('jerome2','function','reply_2');
+// answer_List['jerome2'] = jerome2;
+// var jerome3 = new Answer('jerome3','menu','reply_3');
+// answer_List['jerome3'] = jerome3;
+// var jerome4 = new Answer('jerome4','range','reply_4');
+// answer_List['jerome4'] = jerome4;
+// jerome.get_block_html().create_editor();
+// jerome2.get_block_html().create_editor();
+// jerome3.get_block_html().create_editor();
+// jerome4.get_block_html().create_editor();
+// jerome.get_block_html().get_editor().add_variable("1");
+// jerome2.get_block_html().get_editor().add_variable("2");
+// jerome3.get_block_html().get_editor().add_variable("3");
+// jerome4.get_block_html().get_editor().add_variable("4");
+// // answer_List = add_new_answer(2,answer_List);
+// // console.log(answer_List);
+// // clean_answer_list(answer_List);
+// // jerome2.get_block_html().destroy();
+// // answer_List['reply_2'] = jerome3;
+// // jerome3.change_id("reply_2");
+// // console.log(jerome3);
+// // console.log($('#answer_list_analyse').find('fieldset')[1]);
+// $('#answer_list_analyse .callout').eq(0).before($('#answer_all_jerome4'));
 /**********************************************************/
 
 var editor_EnTete = new SEditor(quill_EnTete);
@@ -79,8 +85,21 @@ function add_answer(editor,ans_list){
 	editor.focus();
 	var positionSelection = editor.getSelection(); //On obtient la sélection de l'utilisateur
 	if (positionSelection.length == 0){
-		editor.insertEmbed(positionSelection.index,'answerImage','reply'+(ans_list.length+1));
-		ans_list.push(new Answer('reply'+(ans_list.length+1)));
+		var name = window.prompt('Entrez le nom de votre réponse','Answer');
+
+		if((name != null) && (test_valid_expression(name)) && (ans_list[name] == null)){
+			ans_list[name] = new Answer(name,'numeric','reply-LOLLLLOLO');
+			ans_list[name].get_block_html().create_editor();
+			ans_list[name].get_block_html().get_editor().editor.on('editor-change',
+				function(){
+					if( (active_editor_analyse != null) || (active_editor_analyse != ans_list[name].get_block_html().get_editor())){
+						active_editor_analyse = ans_list[name].get_block_html().get_editor();}});
+			editor.insertEmbed(positionSelection.index,'answerImage',name);
+		}
+		else{
+			window.alert('Casse toi');
+		}
+		// ans_list.push(new Answer('reply'+(ans_list.length+1)));
 	}
 	else{
 
@@ -130,66 +149,82 @@ function change_to_var(editor,var_list){
 	}
 }
 
-function check_answer_tab(answer_tab){
-	var answer_count = editor_Enonce.count_answer();
-	var dif = answer_tab.length - answer_count;
-	for(var i = 0;i<dif;i++){
-		answer_tab.splice(answer_count - dif,1);
-	}
-	return answer_tab;
-}
-
 
  /****************************EN CHANTIER*****************************/
 function change_type_answer(id_answer,type,ans_list){
  	ans_list[id_answer].get_block_html().change_to_type(type);
 }
 
-// function add_new_answer(number){
-//
+// function add_new_answer(name){
+// 	answer_List[name] = new Answer(name,'numeric','au_hasard');
+// 	answer_List[name].get_block_html().create_editor();
 // }
 
-function delete_element_answer_list(id){
-	answer_List[id].get_block_html().destroy();
-	answer_List = clean_answer_list(answer_List);
+function delete_element_answer_list(name){
+	answer_List[name].get_block_html().destroy();
+	delete answer_List[name];
 }
 
-function clean_answer_list(ans_list){
-	var result = {};
-	var vrai_id = "";
-	var counter = 1;
+function update_analyse_answer(editor,ans_list){
+	var tab_answer = editor.get_answer_tab(); //On obtient le tableau des réponses dans l'énoncé dans l'ordre
+	var pos;//on initialise notre position courante
 	for(var key in ans_list){
-		if(ans_list[key].get_block_html().get_html() != ""){
-			vrai_id = "reply_"+counter;
-			result[vrai_id] = ans_list[key];
-			result[vrai_id].change_id(vrai_id);
-			counter++;
+		pos = tab_answer.indexOf(key);//On obtient la position de la réponse que l'on regarde
+		if(pos != -1){ //si cette réponse est encore valide
+			//On l'ajoute au bon endroit
+			if(pos > 0){
+				$('#answer_list_analyse .callout').eq(pos-1).after($('#answer_all_'+key));
+			}
+			else{
+				$('#answer_list_analyse .callout').eq(0).before($('#answer_all_'+key));
+			}
+		}
+		else{
+			delete_element_answer_list(key);
+		}
+	}
+}
+
+function get_active_editor_analyse(){
+	var result = null;
+	for(var key in answer_List){
+		if(answer_List[key].get_block_html().get_editor().editor.hasFocus()){
+			result = answer_List[key].get_block_html().get_editor();
 		}
 	}
 	return result;
+}
 
+function destroy_answer(name){
+	delete_element_answer_list(name);
+	editor_Enonce.destroy_answer(name);
+	for(var key in answer_List){
+		answer_List[key].get_block_html().get_editor().destroy_answer(name);
+	}
 }
  /****************************FIN DU CHANTIER*****************************/
 
-// function create_html_analyse_answer(){
-// 	var result = "";
-//
-// }
 
 function create_list_variables(variable_list){
 	var result = "";
 	for(var key in variable_list){
-		result += '<li style="margin-bottom:5px;position:relative;"><span class="surligne_Variable" onclick="editor_Enonce.add_variable(\''+key+'\');">'+key+'</span><button id="button_destroy_'+key+'" class="close-button" aria-label="Close alert" type="button" style="float:right;clear:right;font-size:1.6em;top:0px;" onclick="destroy_variable(this.id,variable_List);"><span aria-hidden="true">&times;</span></button></li>'
+		result += '<li style="margin-bottom:5px;position:relative;"><span class="surligne_Variable" onclick="if(active_editor_analyse!=null){editor_Enonce.add_variable(\''+key+'\');}">'+key+'</span><button id="button_destroy_'+key+'" class="close-button" aria-label="Close alert" type="button" style="float:right;clear:right;font-size:1.6em;top:0px;" onclick="destroy_variable(\''+key+'\');update_all_view();"><span aria-hidden="true">&times;</span></button></li>'
+	}
+	return result;
+}
+
+function create_list_variables_analyse(variable_list){
+	var result = "";
+	for(var key in variable_list){
+		result += '<li style="margin-bottom:5px;position:relative;"><span class="surligne_Variable" onclick="active_editor_analyse.add_variable(\''+key+'\');">'+key+'</span><button id="button_destroy_'+key+'" class="close-button" aria-label="Close alert" type="button" style="float:right;clear:right;font-size:1.6em;top:0px;" onclick="destroy_variable(\''+key+'\');update_all_view();"><span aria-hidden="true">&times;</span></button></li>'
 	}
 	return result;
 }
 
 function create_list_answer(answer_tab){
 	var result = "";
-	var key = "";
-	for(var i = 0;i<answer_tab.length;i++){
-		key = "reply"+(i+1);
-		result += '<li style="margin-bottom:5px;position:relative;"><span class="surligne_Variable" onclick="editor_Enonce.add_variable(\''+key+'\');">'+key+'</span><button id="button_destroy_'+key+'" class="close-button" aria-label="Close alert" type="button" style="float:right;clear:right;font-size:1.6em;top:0px;" onclick="destroy_variable(this.id,variable_List);"><span aria-hidden="true">&times;</span></button></li>'
+	for(var  key in answer_tab){
+		result += '<li style="margin-bottom:5px;position:relative;"><span class="surligne_Answer" onclick="active_editor_analyse.add_answer(\''+key+'\');">'+key+'</span><button id="button_destroy_'+key+'" class="close-button" aria-label="Close alert" type="button" style="float:right;clear:right;font-size:1.6em;top:0px;" onclick="destroy_answer(\''+key+'\');update_all_view();"><span aria-hidden="true">&times;</span></button></li>'
 	}
 	return result;
 }
@@ -200,44 +235,16 @@ function update_variables_view(id_to_updt, variable_list){
 	document.getElementById(id_to_updt).innerHTML = result;
 }
 
-function update_variables_answers_view(id_to_updt, variable_list,answer_tab){
+function update_variables_answers_view(id_to_updt,variable_list,answer_tab){
 	var result = "";
-	result = "<ul class='variable_List_Enonce'>"+create_list_variables(variable_list)+create_list_answer(answer_tab)+"</ul>";
+	result = "<ul class='variable_List_Enonce'>"+create_list_variables_analyse(variable_list)+create_list_answer(answer_tab)+"</ul>";
 	document.getElementById(id_to_updt).innerHTML = result;
 }
 
-// function create_answer_basic_div(name_id){
-// 	var result = '<div class="large-12 columns callout">'
-// 		+'<div class="large-11 columns">'
-// 		+'Answer '+name_id
-// 			+'<label>Answer Type'
-// 				+'<select oninput="$(\'#'+name_id+'\').toggleClass(\'answer_hidden\');console.log(\''+name_id+'\')">'
-// 					+'<option value="Numeric">Numeric</option>'
-// 					+'<option value="Function">Function</option>'
-// 					+'<option value="range">Range</option>'
-// 					+'<option value="menu">Menu</option>'
-// 				+'</select>'
-// 			+'</label>'
-// 			+'<div id="'+name_id+'" class="answer_hidden">'
-// 				+'Chaine d\'analyse'
-// 				+'<div id="editor_'+name_id+'">'
-// 				+'</div>'
-// 				+'<fieldset>'
-// 					+'<legend>Option(s)</legend>'
-// 					+'<input id="checkbox1" type="checkbox"><label for="checkbox1">Option 1</label>'
-// 					+'<input id="checkbox2" type="checkbox"><label for="checkbox2">Option 2</label>'
-// 					+'<input id="checkbox3" type="checkbox"><label for="checkbox3">Option 3</label>'
-// 				+'</fieldset>'
-// 			+'</div>'
-// 			+'<div class="large-1 columns">'
-// 				+'<button class="close-button" aria-label="Close alert" type="button">'
-// 					+'<span aria-hidden="true">&times;</span>'
-// 				+'</button>'
-// 			+'</div>'
-// 		+'</div>'
-// 	+'</div>';
-// 	return result;
-// }
+function update_all_view(){
+	update_variables_view('card_Enonce_Variable',variable_List);
+	update_variables_answers_view('card_Analyse_Variable',variable_List,answer_List);
+}
 
 
 
@@ -276,13 +283,15 @@ function create_variable_choice_popup(id_to_popup,index){
 }
 
 
-function destroy_variable(id_var_destroy,var_list){
-	//A variable id look like : button_destroy_variableName
-	var varName = id_var_destroy.substring(15); //On obtient le nom de la variable à supprimer
-	delete var_list[varName]; //On l'enlève de la liste des variables connues
-	update_variables_view("card_Enonce_Variable",var_list); //On met à jour le contenu de la vue variable
-	editor_Enonce.destroy_var(varName);//On enlève cette variable de l'éditeur
+function destroy_variable(name){
+	delete variable_List[name];
+	editor_Enonce.destroy_var(name);
+	for(var key in answer_List){
+		answer_List[key].get_block_html().get_editor().destroy_var(name);
+	}
 }
+
+
 
 function declaration_variable_OEFcode(){
 	//FONCTION A COMPLETER

@@ -8,13 +8,17 @@ class AnswerBlock{
   private html:string;
   public editor:SEditor;
   private id:string;
+  private name:string;
+
   //Constructeur
-  constructor(id,type){
+  constructor(name,id,type){
+      this.name = name;
       this.id = id;
       this.html = this.construct_basic_html();
-      document.getElementById('answer_list_analyse').innerHTML += this.html;
-      this.change_to_type(type);
-      this.create_editor();
+      $('#answer_list_analyse').append(this.html);
+      // document.getElementById('answer_list_analyse').innerHTML += this.html;
+      // this.change_to_type(type);
+      // this.create_editor();
       //$('#'+this.get_div_id_change()).addClass('answer_hidden');
   }
 
@@ -61,7 +65,7 @@ class AnswerBlock{
   }
 
   public get_editeur_div_id(){
-    return 'editor_'+this.id;
+    return 'editor_'+this.name;
   }
 
   public get_editor(){
@@ -93,34 +97,24 @@ class AnswerBlock{
     this.id = "JE DEVRAIS APS ETRE LA";
   }
 
-  public change_id(new_id){
-    var old_id = this.id;
-    this.id = new_id;
-    this.html = this.html.split(old_id).join(this.id);
-    this.update_all_html();
-    var cont = this.editor.editor.getContents();
-    this.create_editor();
-    this.editor.editor.setContents(cont);
-  }
-
   //Methodes private
   private construct_basic_html(){
-    var result = '<div class="large-12 columns callout">'
+    var result = '<div class="large-12 columns callout" id="answer_all_'+this.name+'">'
   		+'<div class="large-11 columns">'
-  		+'Answer '+this.id
+  		+this.name
   			+'<label>Answer Type'
-  				+'<select oninput="$(\'#ans_'+this.id+'\').removeClass(\'answer_hidden\');change_type_answer(\''+this.id+'\',this.value,answer_List)">'//Rajouter le moyen de changer le type
+  				+'<select oninput="$(\'#ans_'+this.name+'\').removeClass(\'answer_hidden\');change_type_answer(\''+this.name+'\',this.value,answer_List)">'//Rajouter le moyen de changer le type
             +'<option value="numeric">Numeric</option>'
   					+'<option value="function">Function</option>'
   					+'<option value="range">Range</option>'
   					+'<option value="menu">Menu</option>'
   				+'</select>'
   			+'</label>'
-  			+'<div id="ans_'+this.id+'">'
+  			+'<div id="ans_'+this.name+'">'
   				+'Chaine d\'analyse'
-  				+'<div id="editor_'+this.id+'">'
+  				+'<div id="editor_'+this.name+'">'
   				+'</div>'
-  				+'<fieldset id="fieldset_ans_'+this.id+'">'
+  				+'<fieldset id="fieldset_ans_'+this.name+'">'
   					+'<legend>Option(s)</legend>'
   					+'<input id="checkbox1" type="checkbox"><label for="checkbox1">Option 1</label>'
   					+'<input id="checkbox2" type="checkbox"><label for="checkbox2">Option 2</label>'
@@ -128,7 +122,7 @@ class AnswerBlock{
   				+'</fieldset>'
   			+'</div>'
   			+'<div class="large-1 columns">'
-  				+'<button class="close-button" onclick="delete_element_answer_list(\''+this.id+'\');" aria-label="Close alert" type="button">'
+  				+'<button class="close-button" onclick="destroy_answer(\''+this.name+'\');update_variables_answers_view(\'card_Analyse_Variable\',variable_List,answer_List)" aria-label="Close alert" type="button">'
   					+'<span aria-hidden="true">&times;</span>'
   				+'</button>'
   			+'</div>'
@@ -146,60 +140,62 @@ class AnswerBlock{
   }
 
   private generate_numeric_fieldset(){
-    var result = '<fieldset id="fieldset_ans_'+this.id+'">'
+    var result = '<fieldset id="fieldset_ans_'+this.name+'">'
       +'<legend>Option(s)</legend>'
-      +'<input id="checkbox_'+this.id+'_coma" type="checkbox"><label for="checkbox_'+this.id+'_coma">virgule (et non point)</label>'
-      +'<input id="checkbox_'+this.id+'_noanalyze" type="checkbox"><label for="checkbox_'+this.id+'_noanalyze">sans affichage de l\'analyse réponse</label>'
+      +'<input id="checkbox_'+this.name+'_coma" type="checkbox"><label for="checkbox_'+this.name+'_coma">virgule (et non point)</label>'
+      +'<input id="checkbox_'+this.name+'_noanalyze" type="checkbox"><label for="checkbox_'+this.name+'_noanalyze">sans affichage de l\'analyse réponse</label>'
     +'</fieldset>';
     return result;
   }
 
   private generate_function_fieldset(){
-    var result = '<fieldset id="fieldset_ans_'+this.id+'">'
+    var result = '<fieldset id="fieldset_ans_'+this.name+'">'
       +'<legend>Option(s)</legend>'
-      +'<input id="checkbox_'+this.id+'_noanalyze" type="checkbox"><label for="checkbox_'+this.id+'_noanalyze">sans affichage de l\'analyse réponse</label>'
+      +'<input id="checkbox_'+this.name+'_noanalyze" type="checkbox"><label for="checkbox_'+this.name+'_noanalyze">sans affichage de l\'analyse réponse</label>'
     +'</fieldset>';
     return result;
   }
 
   private generate_range_fieldset(){
-    var result = '<fieldset id="fieldset_ans_'+this.id+'">'
+    var result = '<fieldset id="fieldset_ans_'+this.name+'">'
       +'<legend>Option(s)</legend>'
-      +'<input id="checkbox_'+this.id+'_noanalyze" type="checkbox"><label for=""checkbox_'+this.id+'_noanalyze"">sans affichage de l\'analyse réponse</label>'
+      +'<input id="checkbox_'+this.name+'_noanalyze" type="checkbox"><label for=""checkbox_'+this.name+'_noanalyze"">sans affichage de l\'analyse réponse</label>'
     +'</fieldset>';
     return result;
   }
 
   private generate_menu_fieldset(){
-    var result = '<fieldset id="fieldset_ans_'+this.id+'">'
+    var result = '<fieldset id="fieldset_ans_'+this.name+'">'
       +'<legend>Option(s)</legend>'
-      +'<input id="checkbox_'+this.id+'_partial_answer" type="checkbox"><label for="checkbox_'+this.id+'_partial_answer">Accepte les réponses partielles</label>'
-      +'<input id="checkbox_'+this.id+'_shuffle" type="checkbox"><label for="checkbox_'+this.id+'_shuffle">Bat aléatoirement les propositions</label>'
-      +'<input id="checkbox_'+this.id+'_multiple_choice" type="checkbox"><label for="checkbox_'+this.id+'_multiple_choice">Choix multiple</label>'
-      +'<input id="checkbox_'+this.id+'_ordered_choice" type="checkbox"><label for="checkbox_'+this.id+'_ordered_choice">Tri les propositions</label>'
-      +'<input id="checkbox_'+this.id+'_noanalyze" type="checkbox"><label for=""checkbox_'+this.id+'_noanalyze"">sans affichage de l\'analyse réponse</label>'
+      +'<input id="checkbox_'+this.name+'_partial_answer" type="checkbox"><label for="checkbox_'+this.name+'_partial_answer">Accepte les réponses partielles</label>'
+      +'<input id="checkbox_'+this.name+'_shuffle" type="checkbox"><label for="checkbox_'+this.name+'_shuffle">Bat aléatoirement les propositions</label>'
+      +'<input id="checkbox_'+this.name+'_multiple_choice" type="checkbox"><label for="checkbox_'+this.name+'_multiple_choice">Choix multiple</label>'
+      +'<input id="checkbox_'+this.name+'_ordered_choice" type="checkbox"><label for="checkbox_'+this.name+'_ordered_choice">Tri les propositions</label>'
+      +'<input id="checkbox_'+this.name+'_noanalyze" type="checkbox"><label for=""checkbox_'+this.name+'_noanalyze"">sans affichage de l\'analyse réponse</label>'
     +'</fieldset>';
     return result;
   }
 
   private update_html(){
     var result = "";
-    var start = this.html.search('<legend>');
+    var start = this.html.search('<fieldset');
     var end = this.html.search('</fieldset>');
-    var number = Number(this.id.substring(6,7))-1;
-    result = this.html.substring(start,end);
-    $('#answer_list_analyse .callout').eq(number).find('fieldset').get(0).innerHTML = result;
-    // $('#answer_list_analyse .callout').eq(number).find('div').get(0)
+    result = this.html.substring(start,end+11);
+    $('#fieldset_ans_'+this.name).replaceWith(result);
   }
 
   private destroy_html(){
-    var number = Number(this.id.substring(6,7))-1;
-    // console.log($('#answer_list_analyse .callout').eq(1).get(0).innerHTML);
-    $('#answer_list_analyse .callout').eq(number).remove();
+    $('#answer_all_'+this.name).remove();
   }
 
   private update_all_html(){
     var number = Number(this.id.substring(6,7))-1;
-    $('#answer_list_analyse .callout').eq(number).replaceWith(this.html);
+    // console.log($('#answer_list_analyse .callout').eq(number).get(0));
+    // if($('#answer_list_analyse .callout').eq(number).get(0) == undefined){
+    //   $('#answer_list_analyse .callout').append(this.html);
+    // }
+    // else {
+      $('#answer_list_analyse .callout').eq(number).replaceWith(this.html);
+    // }
   }
 }
