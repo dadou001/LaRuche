@@ -37,6 +37,11 @@ var SEditor = (function () {
         var selection = this.editor.getSelection(); //on obtient l'index de la selection de l'utilisateur
         this.editor.insertEmbed(selection.index, 'VariableImage', nameVar); //On insere une imageVariable à cet endroit
     };
+    SEditor.prototype.add_answer = function (nameAns) {
+        this.editor.focus(); //On regarde l'editeur
+        var selection = this.editor.getSelection(); //on obtient l'index de la selection de l'utilisateur
+        this.editor.insertEmbed(selection.index, 'answerImage', nameAns); //On insere une imageVariable à cet endroit
+    };
     SEditor.prototype.destroy_var = function (varName) {
         var content = this.editor.getContents(); //On obtient le delta de l'éditeur
         var tab = content['ops']; //On récupère le tableau d'insert
@@ -44,6 +49,18 @@ var SEditor = (function () {
         for (var i = 0; i < content['ops'].length; i++) {
             if ((content['ops'][i]['insert']['VariableImage'] == null) || (content['ops'][i]['insert']['VariableImage'] != varName)) {
                 tabRes.push(content['ops'][i]); //On prend toutes les valeurs qui ne sont pas notre variable
+            }
+        }
+        content['ops'] = tabRes; //On recrée un 'content' cohérent
+        this.editor.setContents(content);
+    };
+    SEditor.prototype.destroy_answer = function (ansName) {
+        var content = this.editor.getContents(); //On obtient le delta de l'éditeur
+        var tab = content['ops']; //On récupère le tableau d'insert
+        var tabRes = []; //On initialise notre tableau de résultat final que l'on enverra à l'éditeur
+        for (var i = 0; i < content['ops'].length; i++) {
+            if ((content['ops'][i]['insert']['answerImage'] == null) || (content['ops'][i]['insert']['answerImage'] != ansName)) {
+                tabRes.push(content['ops'][i]); //On prend toutes les valeurs qui ne sont pas notre réponse
             }
         }
         content['ops'] = tabRes; //On recrée un 'content' cohérent
@@ -77,6 +94,16 @@ var SEditor = (function () {
             }
         }
         return counter;
+    };
+    SEditor.prototype.get_answer_tab = function () {
+        var cont = this.editor.getContents()['ops'];
+        var result = [];
+        for (var i = 0; i < cont.length; i++) {
+            if (cont[i]['insert']['answerImage'] != null) {
+                result.push(cont[i]['insert']['answerImage']);
+            }
+        }
+        return result;
     };
     SEditor.prototype.focus = function () {
         this.editor.focus();

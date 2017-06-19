@@ -44,6 +44,12 @@ class SEditor{
   	this.editor.insertEmbed(selection.index,'VariableImage',nameVar); //On insere une imageVariable à cet endroit
   }
 
+  public add_answer(nameAns){
+  	this.editor.focus(); //On regarde l'editeur
+  	var selection = this.editor.getSelection(); //on obtient l'index de la selection de l'utilisateur
+  	this.editor.insertEmbed(selection.index,'answerImage',nameAns); //On insere une imageVariable à cet endroit
+  }
+
   public destroy_var(varName){
   	var content = this.editor.getContents(); //On obtient le delta de l'éditeur
   	var tab = content['ops']; //On récupère le tableau d'insert
@@ -51,6 +57,19 @@ class SEditor{
   	for (var i = 0;i<content['ops'].length;i++){
   		if ((content['ops'][i]['insert']['VariableImage'] == null) || (content['ops'][i]['insert']['VariableImage'] != varName)){
   			tabRes.push(content['ops'][i]); //On prend toutes les valeurs qui ne sont pas notre variable
+  		}
+  	}
+  	content['ops'] = tabRes; //On recrée un 'content' cohérent
+  	this.editor.setContents(content);
+  }
+
+  public destroy_answer(ansName){
+  	var content = this.editor.getContents(); //On obtient le delta de l'éditeur
+  	var tab = content['ops']; //On récupère le tableau d'insert
+  	var tabRes = []; //On initialise notre tableau de résultat final que l'on enverra à l'éditeur
+  	for (var i = 0;i<content['ops'].length;i++){
+  		if ((content['ops'][i]['insert']['answerImage'] == null) || (content['ops'][i]['insert']['answerImage'] != ansName)){
+  			tabRes.push(content['ops'][i]); //On prend toutes les valeurs qui ne sont pas notre réponse
   		}
   	}
   	content['ops'] = tabRes; //On recrée un 'content' cohérent
@@ -88,9 +107,22 @@ class SEditor{
     return counter;
   }
 
+  public get_answer_tab(){
+    var cont = this.editor.getContents()['ops'];
+    var result = [];
+    for(var i = 0;i<cont.length;i++){
+      if(cont[i]['insert']['answerImage'] != null){
+        result.push(cont[i]['insert']['answerImage']);
+      }
+    }
+    return result;
+  }
+
   public focus(){
     this.editor.focus();
   }
+
+
 
   // public add_answer(var_list){
   // 	//AJOUTER A LA LISTE DE VARIABLES AUSSI

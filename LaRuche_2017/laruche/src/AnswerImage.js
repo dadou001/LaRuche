@@ -21,9 +21,9 @@ var AnswerImage = (function (_super) {
     }
     AnswerImage.create = function (value) {
         var node = _super.create.call(this, value);
+        node.innerHTML = value;
         node.setAttribute('data-value', value);
         node.setAttribute('contenteditable', false);
-        node.innerHTML = "<img src='./img/reponse.png'/>";
         return node;
     };
     AnswerImage.value = function (domNode) {
@@ -32,7 +32,8 @@ var AnswerImage = (function (_super) {
     return AnswerImage;
 }(Embed));
 AnswerImage.blotName = 'answerImage';
-AnswerImage.tagName = 'answer';
+AnswerImage.tagName = 'span';
+AnswerImage.className = 'surligne_Answer';
 Quill.register({
     'formats/AnswerImage': AnswerImage
 });
