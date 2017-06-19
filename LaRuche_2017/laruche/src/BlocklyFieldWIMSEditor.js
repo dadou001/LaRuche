@@ -53,9 +53,7 @@ Blockly.FieldWIMSEditor.prototype.init = function () {
     // Build the quill editor in a special div (invisible at the start)
     var editorDiv = document.createElement("div");
     // Temporarily add div to document so that we can get its size.
-    // Set visibility to hidden so it will not display.
-    editorDiv.style.visibility = "visible";
-    editorDiv.style.position = "relative";
+    editorDiv.style.position = "absolute";
     // Get a unique ID for the div
     Blockly.FieldWIMSEditor.UNIQUE_QUILL_ID++;
     this.editorDivId_ = "Blockly_quill_" + Blockly.FieldWIMSEditor.UNIQUE_QUILL_ID;
@@ -192,6 +190,7 @@ Blockly.FieldWIMSEditor.prototype.showEditor_ = function (opt_quietInput) {
     // Needs Bounding Box only for positioning, not for resizing the editor
     // No resizing for the moment.
     var bBox = this.fieldGroup_.getBBox();
+    var editorDiv = document.getElementById(this.editorDivId_);
     var xy = this.getAbsoluteXY_();
     // In RTL mode block fields and LTR input fields the left edge moves,
     // whereas the right edge is fixed.  Reposition the editor.
@@ -202,19 +201,18 @@ Blockly.FieldWIMSEditor.prototype.showEditor_ = function (opt_quietInput) {
     }
     // Shift by a few pixels to line up exactly.
     xy.y += 1;
-    if (goog.userAgent.GECKO && Blockly.WidgetDiv.DIV.style.top) {
+    if (goog.userAgent.GECKO && editorDiv.style.top) {
         // Firefox mis-reports the location of the border by a pixel
         // once the WidgetDiv is moved into position.
-        xy.x -= 1;
+        xy.x += 5;
         xy.y -= 1;
     }
-    if (goog.userAgent.WEBKIT) {
-        xy.y -= 3;
+    if (goog.userAgent.WEBKIT && editorDiv.style.top) {
+        xy.x += 4;
+        xy.y -= 1;
     }
-    var editorDiv = document.getElementById(this.editorDivId_);
     editorDiv.style.left = xy.x + 'px';
-    //  editorDiv.style.top = xy.y + 'px';
-    editorDiv.style.top = '0px';
+    editorDiv.style.top = xy.y + 'px';
     editorDiv.display = 'block';
     //  this.resizeEditor_();
     if (!quietInput) {
@@ -305,8 +303,8 @@ Blockly.ExternalDiv.dispose = function (id) {
             if (Blockly.ExternalDiv.DIV[iDiv].id == id) {
                 goog.dom.removeNode(Blockly.ExternalDiv.DIV[iDiv]);
                 Blockly.ExternalDiv.DIV.splice(iDiv, 1);
-                iDiv++;
             }
+            iDiv++;
         }
     }
 };
