@@ -74,7 +74,7 @@ Blockly.FieldWIMSEditor.prototype.init = function() {
   editorDiv.style.width="200px";
   editorDiv.style.height="50px";
 
-  Blockly.ExternalDiv.register(editorDiv);
+  Blockly.ExternalDiv.register(editorDiv,this);
 
   this.setSize_(editorDiv.offsetWidth, editorDiv.offsetHeight);
   if (!this.quillEditor_) {
@@ -296,20 +296,28 @@ Blockly.FieldWIMSEditor.prototype.updateWidth = function() {
 goog.provide('Blockly.ExternalDiv');
 
 Blockly.ExternalDiv.DIV = [];
+Blockly.ExternalDiv.owner = [];
+Blockly.ExternalDiv.activeDivId = null;
 
 /*
  * Hide all the external divs.
  * @type {Function}
  */
 Blockly.ExternalDiv.hide = function() {
+  var activeIndex = -1;
   if (Blockly.ExternalDiv.DIV.length>0) {
     for (var iDiv = 0; iDiv<Blockly.ExternalDiv.DIV.length;iDiv++) {
       var div = Blockly.ExternalDiv.DIV[iDiv];
       div.style.display = 'none';
       div.style.left = '';
       div.style.top = '';
+      if (div.id == Blockly.ExternalDiv.activeDivId) activeIndex=iDiv;
     }
   }
+  if (activeIndex>=0) {
+    Blockly.ExternalDiv.owner[activeIndex].computePlaceholderImage_();
+  }
+  Blockly.ExternalDiv.activeDivId = null;
 }
 
 /*
@@ -325,6 +333,7 @@ Blockly.ExternalDiv.show = function(id) {
         var xy = goog.style.getViewportPageOffset(document);
         Blockly.ExternalDiv.DIV[iDiv].style.top = xy.y + 'px';
         Blockly.ExternalDiv.DIV[iDiv].style.display = 'block';
+        Blockly.ExternalDiv.activeDivId = id;
       }
     }
   }
@@ -342,6 +351,8 @@ Blockly.ExternalDiv.dispose = function(id) {
       if (Blockly.ExternalDiv.DIV[iDiv].id == id) {
         goog.dom.removeNode(Blockly.ExternalDiv.DIV[iDiv]);
         Blockly.ExternalDiv.DIV.splice(iDiv,1);
+        Blockly.ExternalDiv.owner.splice(iDiv,1);
+        if (Blockly.ExternalDiv.activeDivId == id) Blockly.ExternalDiv.activeDivId = null;
       }
       iDiv++;
     }
@@ -353,7 +364,7 @@ Blockly.ExternalDiv.dispose = function(id) {
  * @type {Function}
  *
  */
-Blockly.ExternalDiv.register = function(div) {
+Blockly.ExternalDiv.register = function(div,fieldEditor) {
   var testExist = false;
   if (Blockly.ExternalDiv.DIV.length>0) {
     for (var iDiv = 0; iDiv<Blockly.ExternalDiv.DIV.length;iDiv++) {
@@ -364,7 +375,10 @@ Blockly.ExternalDiv.register = function(div) {
       }
     }
   }
-  if (!testExist) Blockly.ExternalDiv.DIV.push(div);
+  if (!testExist){
+      Blockly.ExternalDiv.DIV.push(div);
+      Blockly.ExternalDiv.owner.push(fieldEditor);
+  }
 }
 
 /**
