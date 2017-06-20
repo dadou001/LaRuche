@@ -10,12 +10,13 @@ var SEditor = (function () {
         var tabTmp = []; //on initialise notre tableau temporaire (celui qui découpe sur les retours chariots)
         var result = ""; //On initialise notre résultat final
         var resTmp; //on initialise notre résultat temporaire
+        var answer_count = { 'value': 1 };
         var was_list = { 'ordered': false, 'unordered': false }; //On initialise notre tableau pour savoir si une liste est active ou non
         for (var i = 0; i < tabContent.length; i++) {
             tabTmp = this.cut_insert(tabContent[i]); //on découpe le contenu de la case i du tableau
             for (var j = 0; j < tabTmp.length; j++) {
                 if (tabTmp[j]['insert'] != "\n") {
-                    line += this.add_element_line(tabTmp[j]);
+                    line += this.add_element_line(tabTmp[j], answer_count);
                 }
                 else {
                     //Sinon on applique les bons attributs à la ligne
@@ -85,16 +86,16 @@ var SEditor = (function () {
             }
         }
     };
-    SEditor.prototype.count_answer = function () {
-        var content = this.editor.getContents()['ops'];
-        var counter = 0;
-        for (var i = 0; i < content.length; i++) {
-            if (content[i]['insert']['answerImage'] != null) {
-                counter += 1;
-            }
-        }
-        return counter;
-    };
+    // public count_answer(){
+    //   var content = this.editor.getContents()['ops'];
+    //   var counter = 0;
+    //   for(var i = 0;i<content.length;i++){
+    //     if(content[i]['insert']['answerImage'] != null){
+    //       counter += 1;
+    //     }
+    //   }
+    //   return counter;
+    // }
     SEditor.prototype.get_answer_tab = function () {
         var cont = this.editor.getContents()['ops'];
         var result = [];
@@ -157,7 +158,7 @@ var SEditor = (function () {
             return [delta_element];
         }
     };
-    SEditor.prototype.add_element_line = function (element) {
+    SEditor.prototype.add_element_line = function (element, count_answer) {
         var result = element['insert']; //on initialise notre résultat
         if (element['insert']['VariableImage'] != null) {
             //si c'est une variable on la traite avec un \ devant
@@ -165,7 +166,8 @@ var SEditor = (function () {
         }
         else if (element['insert']['answerImage'] != null) {
             //si c'est une answer on la traite avec un <answer> devant
-            result = "<imgAnwer>" + element['insert']['answerImage'] + "</imgAnswer>";
+            result = "\\embed{reply" + count_answer['value'] + ",10}";
+            count_answer['value']++;
         }
         else if (element['attributes'] != null) {
             if (element['attributes']['LatexImage'] != null) {

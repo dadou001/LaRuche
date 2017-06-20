@@ -9,9 +9,29 @@ var Answer = (function () {
     Answer.prototype.get_block_html = function () {
         return this.block_html;
     };
-    Answer.prototype.change_id = function (new_id) {
-        this.id = new_id;
-        this.get_block_html().change_id(new_id);
+    Answer.prototype.get_type = function () {
+        return this.type;
+    };
+    Answer.prototype.get_option = function () {
+        var result = "";
+        var tab = $('#fieldset_ans_' + this.name).find('input:checked');
+        // console.log($('#fieldset_ans_'+this.name).find('input:checked'));
+        for (var i = 0; i < tab.length; i++) {
+            result += $('#fieldset_ans_' + this.name).find('input:checked').eq(i).val() + ",";
+            // console.log(tab[i]);
+        }
+        if (result.length > 0) {
+            result = result.substring(0, result.length - 1);
+            result = "{option = " + result + "}";
+        }
+        return result;
+    };
+    // public change_id(new_id){
+    //   this.id = new_id;
+    //   this.get_block_html().change_id(new_id);
+    // }
+    Answer.prototype.to_OEF = function () {
+        return this.block_html.editor.to_OEFcode().split("<p>").join("").split("</p>").join("").split("\n").join("");
     };
     return Answer;
 }());

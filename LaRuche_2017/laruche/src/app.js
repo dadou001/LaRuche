@@ -126,6 +126,7 @@ function change_to_var(editor,var_list){
  /****************************EN CHANTIER*****************************/
 function change_type_answer(id_answer,type,ans_list){
  	ans_list[id_answer].get_block_html().change_to_type(type);
+	ans_list[id_answer].type = type;
 }
 
 function delete_element_answer_list(name){
@@ -176,7 +177,7 @@ function destroy_answer(name){
 function create_list_variables(variable_list){
 	var result = "";
 	for(var key in variable_list){
-		result += '<li style="margin-bottom:5px;position:relative;"><span class="surligne_Variable" onclick="if(active_editor_analyse!=null){editor_Enonce.add_variable(\''+key+'\');}">'+key+'</span><button id="button_destroy_'+key+'" class="close-button" aria-label="Close alert" type="button" style="float:right;clear:right;font-size:1.6em;top:0px;" onclick="destroy_variable(\''+key+'\');update_all_view();"><span aria-hidden="true">&times;</span></button></li>'
+		result += '<li style="margin-bottom:5px;position:relative;"><span class="surligne_Variable" onclick="editor_Enonce.add_variable(\''+key+'\');">'+key+'</span><button id="button_destroy_'+key+'" class="close-button" aria-label="Close alert" type="button" style="float:right;clear:right;font-size:1.6em;top:0px;" onclick="destroy_variable(\''+key+'\');update_all_view();"><span aria-hidden="true">&times;</span></button></li>'
 	}
 	return result;
 }
@@ -211,6 +212,7 @@ function update_variables_answers_view(id_to_updt,variable_list,answer_tab){
 
 function update_all_view(){
 	update_variables_view('card_Enonce_Variable',variable_List);
+	update_variables_view('card_Prep_Variable',variable_List);
 	update_variables_answers_view('card_Analyse_Variable',variable_List,answer_List);
 }
 
@@ -259,6 +261,22 @@ function destroy_variable(name){
 	}
 }
 
+function create_answer_OEF(answer){
+	var result = "\\answer{}";
+	result += "{"+answer.to_OEF()+"}";
+	result += "{type="+answer.get_type()+"}";
+	result += answer.get_option();
+	return result;
+}
+
+function get_all_answer_OEF(){
+	var result = "";
+	for(var key in answer_List){
+		result += create_answer_OEF(answer_List[key]) + "\n";
+	}
+	return result;
+}
+
 
 
 function declaration_variable_OEFcode(){
@@ -301,7 +319,8 @@ function update_final_code(){
 	/* RAJOUTER LE CODE TRANSFORMé DE L'ONGLET ENONCE */
 	result += infos.enonce;//A faire
 	/*ON FERME LE DOCUMENT */
-	result += "}";
+	result += "}\n\n";
+	result += get_all_answer_OEF();
 	document.getElementById("final_OEF_code").value = result;
 }
 

@@ -123,33 +123,33 @@ var AnswerBlock = (function () {
     AnswerBlock.prototype.generate_numeric_fieldset = function () {
         var result = '<fieldset id="fieldset_ans_' + this.name + '">'
             + '<legend>Option(s)</legend>'
-            + '<input id="checkbox_' + this.name + '_coma" type="checkbox"><label for="checkbox_' + this.name + '_coma">virgule (et non point)</label>'
-            + '<input id="checkbox_' + this.name + '_noanalyze" type="checkbox"><label for="checkbox_' + this.name + '_noanalyze">sans affichage de l\'analyse réponse</label>'
+            + '<input id="checkbox_' + this.name + '_coma" value="coma" type="checkbox"><label for="checkbox_' + this.name + '_coma">virgule (et non point)</label>'
+            + '<input id="checkbox_' + this.name + '_noanalyze" value="noanalyze" type="checkbox"><label for="checkbox_' + this.name + '_noanalyze">sans affichage de l\'analyse réponse</label>'
             + '</fieldset>';
         return result;
     };
     AnswerBlock.prototype.generate_function_fieldset = function () {
         var result = '<fieldset id="fieldset_ans_' + this.name + '">'
             + '<legend>Option(s)</legend>'
-            + '<input id="checkbox_' + this.name + '_noanalyze" type="checkbox"><label for="checkbox_' + this.name + '_noanalyze">sans affichage de l\'analyse réponse</label>'
+            + '<input id="checkbox_' + this.name + '_noanalyze" value="noanalyze" type="checkbox"><label for="checkbox_' + this.name + '_noanalyze">sans affichage de l\'analyse réponse</label>'
             + '</fieldset>';
         return result;
     };
     AnswerBlock.prototype.generate_range_fieldset = function () {
         var result = '<fieldset id="fieldset_ans_' + this.name + '">'
             + '<legend>Option(s)</legend>'
-            + '<input id="checkbox_' + this.name + '_noanalyze" type="checkbox"><label for=""checkbox_' + this.name + '_noanalyze"">sans affichage de l\'analyse réponse</label>'
+            + '<input id="checkbox_' + this.name + '_noanalyze" value="noanalyze" type="checkbox"><label for=""checkbox_' + this.name + '_noanalyze"">sans affichage de l\'analyse réponse</label>'
             + '</fieldset>';
         return result;
     };
     AnswerBlock.prototype.generate_menu_fieldset = function () {
         var result = '<fieldset id="fieldset_ans_' + this.name + '">'
             + '<legend>Option(s)</legend>'
-            + '<input id="checkbox_' + this.name + '_partial_answer" type="checkbox"><label for="checkbox_' + this.name + '_partial_answer">Accepte les réponses partielles</label>'
-            + '<input id="checkbox_' + this.name + '_shuffle" type="checkbox"><label for="checkbox_' + this.name + '_shuffle">Bat aléatoirement les propositions</label>'
-            + '<input id="checkbox_' + this.name + '_multiple_choice" type="checkbox"><label for="checkbox_' + this.name + '_multiple_choice">Choix multiple</label>'
-            + '<input id="checkbox_' + this.name + '_ordered_choice" type="checkbox"><label for="checkbox_' + this.name + '_ordered_choice">Tri les propositions</label>'
-            + '<input id="checkbox_' + this.name + '_noanalyze" type="checkbox"><label for=""checkbox_' + this.name + '_noanalyze"">sans affichage de l\'analyse réponse</label>'
+            + '<input id="checkbox_' + this.name + '_partial_answer" value="partialAnswer" type="checkbox"><label for="checkbox_' + this.name + '_partial_answer">Accepte les réponses partielles</label>'
+            + '<input id="checkbox_' + this.name + '_shuffle" value="shuffle" type="checkbox"><label for="checkbox_' + this.name + '_shuffle">Bat aléatoirement les propositions</label>'
+            + '<input id="checkbox_' + this.name + '_multiple_choice" value="multipleChoice" type="checkbox"><label for="checkbox_' + this.name + '_multiple_choice">Choix multiple</label>'
+            + '<input id="checkbox_' + this.name + '_ordered_choice" value="ordered" type="checkbox"><label for="checkbox_' + this.name + '_ordered_choice">Tri les propositions</label>'
+            + '<input id="checkbox_' + this.name + '_noanalyze" value="noanalyze" type="checkbox"><label for=""checkbox_' + this.name + '_noanalyze"">sans affichage de l\'analyse réponse</label>'
             + '</fieldset>';
         return result;
     };
