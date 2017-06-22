@@ -94,7 +94,9 @@ function create_variable_editor(id_select_type_popup,id_input_name_popup,index){
 		if (variable_List[name] == null){ //Si la variable n'existe pas encore
 			variable_List[name] = new Variable(name,type); //On ajoute la nouvelle variable à notre liste de variable
 			update_variables_view("card_Enonce_Variable",variable_List); //On met à jour l'affichage ds variables
+			update_all_view();
 			$('#popup').toggleClass('popup_variable_visible');//On désactive le popup
+			add_blockly_variable(name);
 		}
 	}
 	else{
@@ -117,6 +119,8 @@ function change_to_var(editor,var_list){
 			if (var_list[nameVar] == null){
 				var_list[nameVar] = new Variable(nameVar,typeVariable.Real);
 				update_variables_view("card_Enonce_Variable",var_list);
+				update_all_view();
+				add_blockly_variable(nameVar);
 			}
 		}
 	}
@@ -198,10 +202,26 @@ function create_list_answer(answer_tab){
 	return result;
 }
 
+/****************LES MODIFS A FAIRE SONT LA****************************/
+function create_list_var_prep(variable_list){
+	// var result = "";
+	// for(var key in variable_list){
+	// 	result += '<li style="margin-bottom:5px;position:relative;"><span class="surligne_Variable" onclick="Blockly.ExternalDiv.add_variable(\''+key+'\');">'+key+'</span><button id="button_destroy_'+key+'" class="close-button" aria-label="Close alert" type="button" style="float:right;clear:right;font-size:1.6em;top:0px;" onclick="destroy_variable(\''+key+'\');update_all_view();"><span aria-hidden="true">&times;</span></button></li>'
+	// }
+	// return result;
+}
+/**************************************************************************/
+
 function update_variables_view(id_to_updt, variable_list){
 	var result = "";
 	result = "<ul class='variable_List_Enonce'>"+create_list_variables(variable_list)+"</ul>";
 	document.getElementById(id_to_updt).innerHTML = result;
+}
+
+function update_variables_prep_view(variable_list){
+	// var result ="";
+	// result = "<ul class='variable_List_Enonce'>"+create_list_var_prep(variable_list)+"</ul>";
+	// document.getElementById('card_prep_variable').innerHTML = result;
 }
 
 function update_variables_answers_view(id_to_updt,variable_list,answer_tab){
@@ -212,7 +232,7 @@ function update_variables_answers_view(id_to_updt,variable_list,answer_tab){
 
 function update_all_view(){
 	update_variables_view('card_Enonce_Variable',variable_List);
-	update_variables_view('card_Prep_Variable',variable_List);
+	update_variables_prep_view(variable_List);
 	update_variables_answers_view('card_Analyse_Variable',variable_List,answer_List);
 }
 
@@ -255,6 +275,7 @@ function create_variable_choice_popup(id_to_popup,index){
 
 function destroy_variable(name){
 	delete variable_List[name];
+	delete_blockly_variable(name);
 	editor_Enonce.destroy_var(name);
 	for(var key in answer_List){
 		answer_List[key].get_block_html().get_editor().destroy_var(name);
@@ -325,3 +346,16 @@ function update_final_code(){
 }
 
 //blockly_init();
+
+
+
+
+/***************************CHANTIER**************************/
+function add_blockly_variable(name){
+	prepEditor.mBlocklyWorkspace.createVariable(name);
+	console.log("AHHAHAHAHAHA");
+}
+
+function delete_blockly_variable(name){
+	prepEditor.mBlocklyWorkspace.deleteVariable(name);
+}
