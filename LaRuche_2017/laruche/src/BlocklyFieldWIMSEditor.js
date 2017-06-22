@@ -152,7 +152,7 @@ Blockly.FieldWIMSEditor.prototype.setValue = function (content) {
         /* Editor hasn't been initialised */
         return;
     }
-    this.quillEditor_.setContents(contents);
+    this.quillEditor_.setContents(content);
     // goog.events.listen(this.quillEditor_,goog.events.EventType.CLICK,callback_mine);
     // //  window.alert(document.body.namespaceURI);
 };
