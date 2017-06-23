@@ -3,6 +3,10 @@ var SEditor = (function () {
     function SEditor(editor) {
         this.editor = editor;
     }
+    SEditor.prototype.to_variable_value = function () {
+        var res = this.to_OEFcode().split('<p>').join("").split('</p>').join("");
+        return res.substring(0, res.length - 1);
+    };
     SEditor.prototype.to_OEFcode = function () {
         var content = this.editor.getContents();
         var tabContent = content['ops']; //on obtient notre tableau de contenu

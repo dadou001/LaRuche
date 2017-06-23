@@ -119,8 +119,7 @@ Blockly.OEF.init = function(workspace) {
       defvars[i] = Blockly.OEF.variableDB_.getName(variables[i],
           Blockly.Variables.NAME_TYPE);
     }
-    Blockly.OEF.definitions_['variables'] =
-        'var ' + defvars.join(', ') + ';';
+    Blockly.OEF.definitions_['variables'] = "";
   }
 };
 

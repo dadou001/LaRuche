@@ -11,12 +11,12 @@ goog.require('Blockly.OEF');
 
 Blockly.OEF['wims_editor'] = function(block) {
   var editorTmp = new SEditor(block.getFieldValue('WIMS_EDITOR'));
-  return [editorTmp.to_OEFcode(),1];
+  return [editorTmp.to_variable_value(),1];
 };
 
 Blockly.OEF['wims_up_down_editor'] = function(block) {
   var editorTmp = new SEditor(block.getFieldValue('WIMS_EDITOR'));
-  return editorTmp.to_OEFcode();
+  return editorTmp.to_variable_value()+'\n';
 };
 
 Blockly.OEF['wims_while'] = function(block) {

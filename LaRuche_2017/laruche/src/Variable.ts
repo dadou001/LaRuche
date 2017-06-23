@@ -6,16 +6,22 @@ class Variable{
     this.name=name;
     this.type=type;
   }
-  getName(){
+  public getName(){
     return this.name;
   }
-  getType(){
+  public getType(){
     return this.type;
   }
-  getValue(){
+  public setType(type){
+    this.type = type;
+  }
+  public getValue(){
     return this.value;
   }
-  toString(){
+  public setValue(val){
+    this.value = val;
+  }
+  public toString(){
     return "Variable "+this.name+" of type "+ this.type
   }
 }

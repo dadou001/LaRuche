@@ -334,8 +334,9 @@ function update_final_code(){
 	result += "\n\n\n"
 
 	/* INSERER LES VARIABLES ICI */
-	result += declaration_variable_OEFcode();
+	result += declaration_variable_OEFcode() + '\n\n';
 	/*DEBUT DU CODE EN SOI*/
+	result += generate_prep_code() + '\n\n';
 	result += "\n\n\n";
 	result += "\\statement{\n";
 	/* RAJOUTER LE CODE TRANSFORMé DE L'ONGLET ENONCE */
@@ -373,12 +374,14 @@ function add_variable_editor_blockly(name){
 			}
 		}
 		console.log(index);
-		Blockly.ExternalDiv.owner[index].quillEditor_.insertEmbed(0,'VariableImage',name);
+		var tmp = new SEditor(Blockly.ExternalDiv.owner[index].quillEditor_);
+		tmp.add_variable(name)
+		// Blockly.ExternalDiv.owner[index].quillEditor_.insertEmbed(0,'VariableImage',name);
 	}
 }
 
-function generate_code(){
+function generate_prep_code(){
 	Blockly.OEF.addReservedWords('code');
 	var code = Blockly.OEF.workspaceToCode(prepEditor.mBlocklyWorkspace);
-	console.log(code);
+	return code;
 }

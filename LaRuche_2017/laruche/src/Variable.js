@@ -9,8 +9,14 @@ var Variable = (function () {
     Variable.prototype.getType = function () {
         return this.type;
     };
+    Variable.prototype.setType = function (type) {
+        this.type = type;
+    };
     Variable.prototype.getValue = function () {
         return this.value;
+    };
+    Variable.prototype.setValue = function (val) {
+        this.value = val;
     };
     Variable.prototype.toString = function () {
         return "Variable " + this.name + " of type " + this.type;
