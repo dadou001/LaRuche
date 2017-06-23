@@ -36,7 +36,7 @@
       <div class="RCl_Menu_Onglets">
         <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Entete" onclick="change_onglet('Entete');">Entête</span>
         <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Enonce" onclick="change_onglet('Enonce');">Enoncé</span>
-        <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Preparation" onclick="change_onglet('Preparation');">Préparation</span>
+        <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Preparation" onclick="change_onglet('Preparation');update_all_view();">Préparation</span>
         <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Analyse" onclick="change_onglet('Analyse');update_analyse_answer(editor_Enonce,answer_List);update_variables_answers_view('card_Analyse_Variable',variable_List,answer_List)">Analyse</span>
         <span class="RCl_Onglet_Fake RCl_Onglet"></span>
         <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Code" onclick="change_onglet('Code'); update_final_code();">Code</span>
@@ -247,7 +247,7 @@
     <category name="Essaims"></category>
   </xml>
 
-  <button name="TESTOUILLE" onclick="add_blockly_variable()" value="TEST">Hello</button>
+  <!-- <button name="TESTOUILLE" onclick="test()" value="TEST">Hello</button> -->
 
   <script src="js_tools/vendor/jquery.js" type="text/javascript" charset="utf-8"></script>
   <script src="js_tools/vendor/what-input.js" type="text/javascript" charset="utf-8"></script>

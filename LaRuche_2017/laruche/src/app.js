@@ -37,6 +37,7 @@ var quill = new Quill('#editor-enonce', {
 	theme: 'snow'
 });
 
+
 var quill_EnTete = new Quill('#editor-EnTete', {
 	modules: {
 		toolbar: false
@@ -204,11 +205,11 @@ function create_list_answer(answer_tab){
 
 /****************LES MODIFS A FAIRE SONT LA****************************/
 function create_list_var_prep(variable_list){
-	// var result = "";
-	// for(var key in variable_list){
-	// 	result += '<li style="margin-bottom:5px;position:relative;"><span class="surligne_Variable" onclick="Blockly.ExternalDiv.add_variable(\''+key+'\');">'+key+'</span><button id="button_destroy_'+key+'" class="close-button" aria-label="Close alert" type="button" style="float:right;clear:right;font-size:1.6em;top:0px;" onclick="destroy_variable(\''+key+'\');update_all_view();"><span aria-hidden="true">&times;</span></button></li>'
-	// }
-	// return result;
+	var result = "";
+	for(var key in variable_list){
+		result += '<li style="margin-bottom:5px;position:relative;"><span class="surligne_Variable" onclick="add_variable_editor_blockly(\''+key+'\');">'+key+'</span><button id="button_destroy_'+key+'" class="close-button" aria-label="Close alert" type="button" style="float:right;clear:right;font-size:1.6em;top:0px;" onclick="destroy_variable(\''+key+'\');update_all_view();"><span aria-hidden="true">&times;</span></button></li>'
+	}
+	return result;
 }
 /**************************************************************************/
 
@@ -219,9 +220,9 @@ function update_variables_view(id_to_updt, variable_list){
 }
 
 function update_variables_prep_view(variable_list){
-	// var result ="";
-	// result = "<ul class='variable_List_Enonce'>"+create_list_var_prep(variable_list)+"</ul>";
-	// document.getElementById('card_prep_variable').innerHTML = result;
+	var result ="";
+	result = "<ul class='variable_List_Enonce'>"+create_list_var_prep(variable_list)+"</ul>";
+	document.getElementById('card_Prep_Variable').innerHTML = result;
 }
 
 function update_variables_answers_view(id_to_updt,variable_list,answer_tab){
@@ -358,4 +359,20 @@ function add_blockly_variable(name){
 
 function delete_blockly_variable(name){
 	prepEditor.mBlocklyWorkspace.deleteVariable(name);
+}
+
+function add_variable_editor_blockly(name){
+	var monDiv = Blockly.ExternalDiv.activeDivId;
+	var index = -1;
+	console.log(monDiv);
+	console.log(Blockly.ExternalDiv.DIV);
+	if(monDiv){
+		for(var i = 0;i<Blockly.ExternalDiv.DIV.length;i++){
+			if(Blockly.ExternalDiv.DIV[i].id = monDiv){
+				index = i;
+			}
+		}
+		console.log(index);
+		Blockly.ExternalDiv.owner[index].quillEditor_.insertEmbed(0,'VariableImage',name);
+	}
 }
