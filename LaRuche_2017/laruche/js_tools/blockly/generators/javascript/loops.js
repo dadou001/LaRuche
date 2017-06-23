@@ -28,6 +28,28 @@ goog.provide('Blockly.JavaScript.loops');
 
 goog.require('Blockly.JavaScript');
 
+Blockly.JavaScript['wims_editor'] = function(block) {
+  var editorTmp = new SEditor(block.getFieldValue('WIMS_EDITOR'));
+  return [editorTmp.to_OEFcode(),1];
+};
+
+Blockly.JavaScript['wims_up_down_editor'] = function(block) {
+  var editorTmp = new SEditor(block.getFieldValue('WIMS_EDITOR'));
+  return editorTmp.to_OEFcode();
+};
+
+Blockly.JavaScript['wims_while'] = function(block) {
+  var code = '';
+  var innerString = block.getFieldValue('WIMS_EDITOR');
+  // console.log(Blockly.OEF.statementToCode(block, 'HELLO'));
+  var subCode =  Blockly.JavaScript.statementToCode(block, 'WHILE');
+  // subCode = Blockly.OEF.addLoopTrap()
+  console.log(subCode);
+  code = 'while ('+innerString+'){\n'+
+          subCode+
+          '}\n';
+  return code;
+};
 
 Blockly.JavaScript['controls_repeat_ext'] = function(block) {
   // Repeat n times.

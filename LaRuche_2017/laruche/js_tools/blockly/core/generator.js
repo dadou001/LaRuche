@@ -173,6 +173,7 @@ Blockly.Generator.prototype.blockToCode = function(block) {
   }
 
   var func = this[block.type];
+  // console.log(func);
   goog.asserts.assertFunction(func,
       'Language "%s" does not know how to generate code for block type "%s".',
       this.name_, block.type);

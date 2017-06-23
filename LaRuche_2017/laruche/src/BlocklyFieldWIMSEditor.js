@@ -234,6 +234,10 @@ Blockly.FieldWIMSEditor.prototype.showEditor_ = function (opt_quietInput) {
     // htmlInput.onWorkspaceChangeWrapper_ = this.resizeEditor_.bind(this);
     // this.workspace_.addChangeListener(htmlInput.onWorkspaceChangeWrapper_);
 };
+Blockly.FieldWIMSEditor.prototype.getValue = function () {
+    // console.log('BON',this.quillEditor_);
+    return this.quillEditor_;
+};
 /**
  * Editors are fixed width, no need to render.
  * @private
@@ -331,7 +335,7 @@ Blockly.ExternalDiv.register = function (div, fieldEditor) {
     if (Blockly.ExternalDiv.DIV.length > 0) {
         for (var iDiv = 0; iDiv < Blockly.ExternalDiv.DIV.length; iDiv++) {
             if (Blockly.ExternalDiv.DIV[iDiv].id == div.id) {
-                Console.log("Internal error in Blockly ExternalDiv: already registered div");
+                console.log("Internal error in Blockly ExternalDiv: already registered div");
                 testExist = true;
                 break;
             }

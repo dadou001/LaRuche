@@ -376,3 +376,9 @@ function add_variable_editor_blockly(name){
 		Blockly.ExternalDiv.owner[index].quillEditor_.insertEmbed(0,'VariableImage',name);
 	}
 }
+
+function generate_code(){
+	Blockly.OEF.addReservedWords('code');
+	var code = Blockly.OEF.workspaceToCode(prepEditor.mBlocklyWorkspace);
+	console.log(code);
+}

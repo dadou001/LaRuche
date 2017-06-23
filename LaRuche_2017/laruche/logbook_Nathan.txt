@@ -3,3 +3,4 @@
  - Bug sur les Embed ou s'ils sont en fin de ligne, impossible de continuer à droite sans passer à la ligne et revenir
  - Ne pas oublier de checker la taille du tableau de réponses avant de créer la liste pour l'analyse
  - Ne pas créer le quill dans le constructeur de "answerBlock" sinon ca bug. Pourquoi ? 42
+ - AJOUTER LES ELEMENTS DE DESTRUCTION DANS ANALYSE

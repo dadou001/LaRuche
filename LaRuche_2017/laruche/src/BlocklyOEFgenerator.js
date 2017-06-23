@@ -149,7 +149,7 @@ Blockly.OEF.finish = function(code) {
  * @return {string} Legal line of code.
  */
 Blockly.OEF.scrubNakedValue = function(line) {
-  return line + ';\n';
+  return line + '\n';
 };
 
 /**

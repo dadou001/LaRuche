@@ -266,6 +266,11 @@ Blockly.FieldWIMSEditor.prototype.showEditor_ = function(opt_quietInput) {
   // this.workspace_.addChangeListener(htmlInput.onWorkspaceChangeWrapper_);
 };
 
+Blockly.FieldWIMSEditor.prototype.getValue = function(){
+  // console.log('BON',this.quillEditor_);
+  return this.quillEditor_;
+}
+
 
 /**
  * Editors are fixed width, no need to render.

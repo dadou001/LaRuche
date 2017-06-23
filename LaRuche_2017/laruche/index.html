@@ -39,7 +39,7 @@
         <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Preparation" onclick="change_onglet('Preparation');update_all_view();">Préparation</span>
         <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Analyse" onclick="change_onglet('Analyse');update_analyse_answer(editor_Enonce,answer_List);update_variables_answers_view('card_Analyse_Variable',variable_List,answer_List)">Analyse</span>
         <span class="RCl_Onglet_Fake RCl_Onglet"></span>
-        <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Code" onclick="change_onglet('Code'); update_final_code();">Code</span>
+        <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Code" onclick="change_onglet('Code'); update_final_code(); generate_code();">Code</span>
         <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Sauvegarde" onclick="change_onglet('Sauvegarde');">Sauvegarde</span>
       </div>
     </div>
@@ -210,6 +210,9 @@
       <block type="wims_editor">
         <field name="WIMS_EDITOR">true</field>
       </block>
+      <block type="wims_up_down_editor">
+        <field name="WIMS_EDITOR">true</field>
+      </block>
       <block type="text">
         <field name="TEXT"></field>
       </block>
@@ -269,9 +272,14 @@
   <script src="src/SEditor.js" type="text/javascript" charset="utf-8"></script>
   <script src="src/BlocklyFieldWIMSEditor.js" type="text/javascript" charset="utf-8"></script>
   <script src="src/BlocklyOEFgenerator.js" type="text/javascript" charset="utf-8"></script>
+  <script src="src/variablesOEFGenerator.js" type="text/javascript" charset="utf-8"></script>
   <script src="src/BlocklyWIMSBlocks.js" type="text/javascript" charset="utf-8"></script>
   <script src="src/BlocklyCustom.js" type="text/javascript" charset="utf-8"></script>
   <script src="src/SProgramEditor.js" type="text/javascript" charset="utf-8"></script>
+  <!-- <script src="js_tools/blockly/generators/javascript.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js_tools/blockly/generators/javascript/loops.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js_tools/blockly/generators/javascript/variables.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js_tools/blockly/generators/javascript/text.js" type="text/javascript" charset="utf-8"></script> -->
   <script src="src/app.js" type="text/javascript" charset="utf-8"></script>
 
 

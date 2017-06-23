@@ -9,6 +9,30 @@ goog.provide('Blockly.OEF.wims');
 goog.require('Blockly.OEF');
 
 
+Blockly.OEF['wims_editor'] = function(block) {
+  var editorTmp = new SEditor(block.getFieldValue('WIMS_EDITOR'));
+  return [editorTmp.to_OEFcode(),1];
+};
+
+Blockly.OEF['wims_up_down_editor'] = function(block) {
+  var editorTmp = new SEditor(block.getFieldValue('WIMS_EDITOR'));
+  return editorTmp.to_OEFcode();
+};
+
+Blockly.OEF['wims_while'] = function(block) {
+  var code = '';
+  var innerString = block.getFieldValue('WIMS_EDITOR');
+  // console.log(Blockly.OEF.statementToCode(block, 'HELLO'));
+  var subCode =  Blockly.OEF.statementToCode(block, 'WHILE');
+  // subCode = Blockly.OEF.addLoopTrap()
+  // console.log(subCode);
+  code = 'while ('+innerString+'){\n'+
+          subCode+
+          '}\n';
+  return code;
+};
+
+
 Blockly.OEF['controls_repeat_ext'] = function(block) {
   // Repeat n times.
   if (block.getField('TIMES')) {
