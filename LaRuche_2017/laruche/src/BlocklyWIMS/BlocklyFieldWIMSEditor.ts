@@ -196,6 +196,8 @@ Blockly.FieldWIMSEditor.prototype.setText = function(alt) {
   this.text_ = alt;
 };
 
+
+
 /**
  * Show the editor on top of the placeholder image.
  * @param {boolean=} opt_quietInput True if editor should be created without
@@ -217,6 +219,7 @@ Blockly.FieldWIMSEditor.prototype.showEditor_ = function(opt_quietInput) {
   }
 
   Blockly.ExternalDiv.show(this.editorDivId_);
+
 
   // Needs Bounding Box only for positioning, not for resizing the editor
   // No resizing for the moment.
@@ -245,6 +248,8 @@ Blockly.FieldWIMSEditor.prototype.showEditor_ = function(opt_quietInput) {
   editorDiv.style.left = xy.x + 'px';
   editorDiv.style.top = xy.y + 'px';
   editorDiv.display = 'block';
+
+  generate_popup_list_var(xy.x+210,xy.y);
 //  this.resizeEditor_();
   if (!quietInput) {
     this.quillEditor_.focus();
@@ -324,6 +329,7 @@ Blockly.ExternalDiv.hide = function() {
     Blockly.ExternalDiv.owner[activeIndex].computePlaceholderImage_();
   }
   Blockly.ExternalDiv.activeDivId = null;
+  $('#popup_var_blockly').remove();
 }
 
 /*

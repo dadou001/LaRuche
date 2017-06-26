@@ -214,6 +214,7 @@ Blockly.FieldWIMSEditor.prototype.showEditor_ = function (opt_quietInput) {
     editorDiv.style.left = xy.x + 'px';
     editorDiv.style.top = xy.y + 'px';
     editorDiv.display = 'block';
+    generate_popup_list_var(xy.x + 210, xy.y);
     //  this.resizeEditor_();
     if (!quietInput) {
         this.quillEditor_.focus();
@@ -286,6 +287,7 @@ Blockly.ExternalDiv.hide = function () {
         Blockly.ExternalDiv.owner[activeIndex].computePlaceholderImage_();
     }
     Blockly.ExternalDiv.activeDivId = null;
+    $('#popup_var_blockly').remove();
 };
 /*
  * Show the external div with id .

@@ -5,6 +5,16 @@
 var AnswerBlock = (function () {
     //Constructeur
     function AnswerBlock(name, id, type) {
+        this.all_type = { 'numeric': { 'coma': 'Utiliser des virgules',
+                'noanalyze': 'Sans affichage de l\'analyse réponse' },
+            'function': { 'noanalyze': 'Sans affichage de l\'analyse réponse' },
+            'range': { 'noanalyze': 'Sans affichage de l\'analyse réponse' },
+            'menu': { 'partialAnswer': 'Autoriser les réponses partiels',
+                'shuffle': 'mélanger les réponses',
+                'multipleChoice': 'Réponse à choix multiple',
+                'orderedChoice': 'Réponse ordonnées',
+                'noanalyze': 'Sans affichage de l\'analyse réponse' }
+        };
         this.name = name;
         this.id = id;
         this.html = this.construct_basic_html();
@@ -30,24 +40,26 @@ var AnswerBlock = (function () {
     // }
     //Methodes public
     AnswerBlock.prototype.change_to_type = function (type) {
-        switch (type) {
-            case 'numeric':
-                this.html = this.change_html_fieldset(this.generate_numeric_fieldset());
-                this.update_html();
-                break;
-            case 'function':
-                this.html = this.change_html_fieldset(this.generate_function_fieldset());
-                this.update_html();
-                break;
-            case 'range':
-                this.html = this.change_html_fieldset(this.generate_range_fieldset());
-                this.update_html();
-                break;
-            case 'menu':
-                this.html = this.change_html_fieldset(this.generate_menu_fieldset());
-                this.update_html();
-                break;
-        }
+        // switch(type){
+        //   case 'numeric':
+        //     this.html = this.change_html_fieldset(this.generate_numeric_fieldset());
+        //     this.update_html();
+        //     break;
+        //   case 'function':
+        //     this.html = this.change_html_fieldset(this.generate_function_fieldset());
+        //     this.update_html();
+        //     break;
+        //   case 'range':
+        //     this.html = this.change_html_fieldset(this.generate_range_fieldset());
+        //     this.update_html();
+        //     break;
+        //   case 'menu':
+        //     this.html = this.change_html_fieldset(this.generate_menu_fieldset());
+        //     this.update_html();
+        //     break;
+        // }
+        this.html = this.change_html_fieldset(this.generate_fieldset_code(type));
+        this.update_html();
     };
     //Getteurs/stteurs
     AnswerBlock.prototype.get_html = function () {
@@ -120,28 +132,30 @@ var AnswerBlock = (function () {
         result = this.html.substring(0, start) + str + this.html.substring(end + 11, this.html.length);
         return result;
     };
-    AnswerBlock.prototype.generate_numeric_fieldset = function () {
-        var result = '<fieldset id="fieldset_ans_' + this.name + '">'
-            + '<legend>Option(s)</legend>'
-            + '<input id="checkbox_' + this.name + '_coma" value="coma" type="checkbox"><label for="checkbox_' + this.name + '_coma">virgule (et non point)</label>'
-            + '<input id="checkbox_' + this.name + '_noanalyze" value="noanalyze" type="checkbox"><label for="checkbox_' + this.name + '_noanalyze">sans affichage de l\'analyse réponse</label>'
-            + '</fieldset>';
-        return result;
-    };
-    AnswerBlock.prototype.generate_function_fieldset = function () {
-        var result = '<fieldset id="fieldset_ans_' + this.name + '">'
-            + '<legend>Option(s)</legend>'
-            + '<input id="checkbox_' + this.name + '_noanalyze" value="noanalyze" type="checkbox"><label for="checkbox_' + this.name + '_noanalyze">sans affichage de l\'analyse réponse</label>'
-            + '</fieldset>';
-        return result;
-    };
-    AnswerBlock.prototype.generate_range_fieldset = function () {
-        var result = '<fieldset id="fieldset_ans_' + this.name + '">'
-            + '<legend>Option(s)</legend>'
-            + '<input id="checkbox_' + this.name + '_noanalyze" value="noanalyze" type="checkbox"><label for=""checkbox_' + this.name + '_noanalyze"">sans affichage de l\'analyse réponse</label>'
-            + '</fieldset>';
-        return result;
-    };
+    // private generate_numeric_fieldset(){
+    //   var result = '<fieldset id="fieldset_ans_'+this.name+'">'
+    //     +'<legend>Option(s)</legend>'
+    //     +'<input id="checkbox_'+this.name+'_coma" value="coma" type="checkbox"><label for="checkbox_'+this.name+'_coma">virgule (et non point)</label>'
+    //     +'<input id="checkbox_'+this.name+'_noanalyze" value="noanalyze" type="checkbox"><label for="checkbox_'+this.name+'_noanalyze">sans affichage de l\'analyse réponse</label>'
+    //   +'</fieldset>';
+    //   return result;
+    // }
+    //
+    // private generate_function_fieldset(){
+    //   var result = '<fieldset id="fieldset_ans_'+this.name+'">'
+    //     +'<legend>Option(s)</legend>'
+    //     +'<input id="checkbox_'+this.name+'_noanalyze" value="noanalyze" type="checkbox"><label for="checkbox_'+this.name+'_noanalyze">sans affichage de l\'analyse réponse</label>'
+    //   +'</fieldset>';
+    //   return result;
+    // }
+    //
+    // private generate_range_fieldset(){
+    //   var result = '<fieldset id="fieldset_ans_'+this.name+'">'
+    //     +'<legend>Option(s)</legend>'
+    //     +'<input id="checkbox_'+this.name+'_noanalyze" value="noanalyze" type="checkbox"><label for=""checkbox_'+this.name+'_noanalyze"">sans affichage de l\'analyse réponse</label>'
+    //   +'</fieldset>';
+    //   return result;
+    // }
     AnswerBlock.prototype.generate_menu_fieldset = function () {
         var result = '<fieldset id="fieldset_ans_' + this.name + '">'
             + '<legend>Option(s)</legend>'
@@ -172,6 +186,15 @@ var AnswerBlock = (function () {
         // else {
         $('#answer_list_analyse .callout').eq(number).replaceWith(this.html);
         // }
+    };
+    AnswerBlock.prototype.generate_fieldset_code = function (type) {
+        var result = '<fieldset id="fieldset_ans_' + this.name + '">'
+            + '<legend>Option(s)</legend>';
+        for (var key in this.all_type[type]) {
+            result += '<input value="' + key + '" type="checkbox"><label>' + this.all_type[type][key] + '</label>';
+        }
+        result += '</fieldset>';
+        return result;
     };
     return AnswerBlock;
 }());

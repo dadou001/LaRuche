@@ -3,13 +3,24 @@
 /// <reference path="../js_tools/vendor/jquery.js"/>
 /// <reference path="../node_modules/@types/quill/index.d.ts"/>
 
+
+
 class AnswerBlock{
   //Attributs
   private html:string;
   public editor:SEditor;
   private id:string;
   private name:string;
-
+  all_type = {'numeric':{'coma':'Utiliser des virgules',
+                          'noanalyze':'Sans affichage de l\'analyse réponse'},
+              'function':{'noanalyze':'Sans affichage de l\'analyse réponse'},
+              'range':{'noanalyze':'Sans affichage de l\'analyse réponse'}
+              'menu':{'partialAnswer':'Autoriser les réponses partiels',
+                      'shuffle':'mélanger les réponses',
+                      'multipleChoice': 'Réponse à choix multiple',
+                      'orderedChoice': 'Réponse ordonnées'
+                      'noanalyze':'Sans affichage de l\'analyse réponse'}
+            };
   //Constructeur
   constructor(name,id,type){
       this.name = name;
@@ -39,24 +50,26 @@ class AnswerBlock{
 
   //Methodes public
   public change_to_type(type){
-    switch(type){
-      case 'numeric':
-        this.html = this.change_html_fieldset(this.generate_numeric_fieldset());
-        this.update_html();
-        break;
-      case 'function':
-        this.html = this.change_html_fieldset(this.generate_function_fieldset());
-        this.update_html();
-        break;
-      case 'range':
-        this.html = this.change_html_fieldset(this.generate_range_fieldset());
-        this.update_html();
-        break;
-      case 'menu':
-        this.html = this.change_html_fieldset(this.generate_menu_fieldset());
-        this.update_html();
-        break;
-    }
+    // switch(type){
+    //   case 'numeric':
+    //     this.html = this.change_html_fieldset(this.generate_numeric_fieldset());
+    //     this.update_html();
+    //     break;
+    //   case 'function':
+    //     this.html = this.change_html_fieldset(this.generate_function_fieldset());
+    //     this.update_html();
+    //     break;
+    //   case 'range':
+    //     this.html = this.change_html_fieldset(this.generate_range_fieldset());
+    //     this.update_html();
+    //     break;
+    //   case 'menu':
+    //     this.html = this.change_html_fieldset(this.generate_menu_fieldset());
+    //     this.update_html();
+    //     break;
+    // }
+    this.html = this.change_html_fieldset(this.generate_fieldset_code(type));
+    this.update_html();
   }
 
   //Getteurs/stteurs
@@ -139,30 +152,30 @@ class AnswerBlock{
     return result;
   }
 
-  private generate_numeric_fieldset(){
-    var result = '<fieldset id="fieldset_ans_'+this.name+'">'
-      +'<legend>Option(s)</legend>'
-      +'<input id="checkbox_'+this.name+'_coma" value="coma" type="checkbox"><label for="checkbox_'+this.name+'_coma">virgule (et non point)</label>'
-      +'<input id="checkbox_'+this.name+'_noanalyze" value="noanalyze" type="checkbox"><label for="checkbox_'+this.name+'_noanalyze">sans affichage de l\'analyse réponse</label>'
-    +'</fieldset>';
-    return result;
-  }
-
-  private generate_function_fieldset(){
-    var result = '<fieldset id="fieldset_ans_'+this.name+'">'
-      +'<legend>Option(s)</legend>'
-      +'<input id="checkbox_'+this.name+'_noanalyze" value="noanalyze" type="checkbox"><label for="checkbox_'+this.name+'_noanalyze">sans affichage de l\'analyse réponse</label>'
-    +'</fieldset>';
-    return result;
-  }
-
-  private generate_range_fieldset(){
-    var result = '<fieldset id="fieldset_ans_'+this.name+'">'
-      +'<legend>Option(s)</legend>'
-      +'<input id="checkbox_'+this.name+'_noanalyze" value="noanalyze" type="checkbox"><label for=""checkbox_'+this.name+'_noanalyze"">sans affichage de l\'analyse réponse</label>'
-    +'</fieldset>';
-    return result;
-  }
+  // private generate_numeric_fieldset(){
+  //   var result = '<fieldset id="fieldset_ans_'+this.name+'">'
+  //     +'<legend>Option(s)</legend>'
+  //     +'<input id="checkbox_'+this.name+'_coma" value="coma" type="checkbox"><label for="checkbox_'+this.name+'_coma">virgule (et non point)</label>'
+  //     +'<input id="checkbox_'+this.name+'_noanalyze" value="noanalyze" type="checkbox"><label for="checkbox_'+this.name+'_noanalyze">sans affichage de l\'analyse réponse</label>'
+  //   +'</fieldset>';
+  //   return result;
+  // }
+  //
+  // private generate_function_fieldset(){
+  //   var result = '<fieldset id="fieldset_ans_'+this.name+'">'
+  //     +'<legend>Option(s)</legend>'
+  //     +'<input id="checkbox_'+this.name+'_noanalyze" value="noanalyze" type="checkbox"><label for="checkbox_'+this.name+'_noanalyze">sans affichage de l\'analyse réponse</label>'
+  //   +'</fieldset>';
+  //   return result;
+  // }
+  //
+  // private generate_range_fieldset(){
+  //   var result = '<fieldset id="fieldset_ans_'+this.name+'">'
+  //     +'<legend>Option(s)</legend>'
+  //     +'<input id="checkbox_'+this.name+'_noanalyze" value="noanalyze" type="checkbox"><label for=""checkbox_'+this.name+'_noanalyze"">sans affichage de l\'analyse réponse</label>'
+  //   +'</fieldset>';
+  //   return result;
+  // }
 
   private generate_menu_fieldset(){
     var result = '<fieldset id="fieldset_ans_'+this.name+'">'
@@ -197,5 +210,15 @@ class AnswerBlock{
     // else {
       $('#answer_list_analyse .callout').eq(number).replaceWith(this.html);
     // }
+  }
+
+  private generate_fieldset_code(type){
+    var result = '<fieldset id="fieldset_ans_'+this.name+'">'
+      +'<legend>Option(s)</legend>';
+    for(var key in this.all_type[type]){
+      result += '<input value="'+key+'" type="checkbox"><label>'+this.all_type[type][key]+'</label>'
+    }
+    result += '</fieldset>'
+    return result;
   }
 }
