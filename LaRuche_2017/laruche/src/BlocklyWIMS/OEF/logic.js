@@ -37,15 +37,15 @@ Blockly.OEF['controls_if'] = function(block) {
     conditionCode = Blockly.OEF.valueToCode(block, 'IF' + n,
       Blockly.OEF.ORDER_NONE) || 'false';
     branchCode = Blockly.OEF.statementToCode(block, 'DO' + n);
-    code += (n > 0 ? ' else ' : '') +
-        'if (' + conditionCode + ') {\n' + branchCode + '}';
+    code += (n > 0 ? '' : '') +
+        '\\if {' + conditionCode + '} \n{' + branchCode.substring(0,branchCode.length-1) + '}';
 
     ++n;
   } while (block.getInput('IF' + n));
 
   if (block.getInput('ELSE')) {
     branchCode = Blockly.OEF.statementToCode(block, 'ELSE');
-    code += ' else {\n' + branchCode + '}';
+    code += ' \n{' + branchCode + '}';
   }
   return code + '\n';
 };

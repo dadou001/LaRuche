@@ -375,7 +375,7 @@ function add_variable_editor_blockly(name){
 		}
 		console.log(index);
 		var tmp = new SEditor(Blockly.ExternalDiv.owner[index].quillEditor_);
-		tmp.add_variable(name)
+		tmp.add_variable(name);
 		// Blockly.ExternalDiv.owner[index].quillEditor_.insertEmbed(0,'VariableImage',name);
 	}
 }
@@ -384,4 +384,33 @@ function generate_prep_code(){
 	Blockly.OEF.addReservedWords('code');
 	var code = Blockly.OEF.workspaceToCode(prepEditor.mBlocklyWorkspace);
 	return code;
+}
+
+function generate_list_var_popup(){
+	 var result = '<ul style="margin-left:5px;">';
+	 for(var key in variable_List){
+		 result += '<li style="margin-bottom:5px;position:relative;list-style: none;">'+
+		 							'<span class="surligne_Variable" style="font-size:0.7em;" onclick="add_variable_editor_blockly(\''+key+'\');">'+key+'</span>'+
+								'</li>';
+	 }
+	 result += '</ul>';
+	 return result;
+}
+
+function generate_popup_list_var(x,y){
+	console.log('TIENS JY PASSE LOL',x,y);
+	var maDiv = document.createElement('div');
+	maDiv.id = 'popup_var_blockly';
+	maDiv.innerHTML = generate_list_var_popup();
+	maDiv.style.top = y+'px';
+	maDiv.style.left = x+'px';
+	maDiv.style.height = '100px';
+	maDiv.style.position = 'absolute';
+	maDiv.style.overflow = 'scroll';
+	maDiv.style.backgroundColor = 'blue';
+	// maDiv.style.zIndex = '9000';
+	// maDiv.style.font.size = '0.2em';
+	// $('#popup_var_blockly').css('background-color','white');
+	// console.log($('#popup_var_blockly').find('li'));
+	document.body.appendChild(maDiv);
 }
