@@ -392,7 +392,7 @@ function add_variable_editor_blockly(name){
 	console.log(Blockly.ExternalDiv.DIV);
 	if(monDiv){
 		for(var i = 0;i<Blockly.ExternalDiv.DIV.length;i++){
-			if(Blockly.ExternalDiv.DIV[i].id = monDiv){
+			if(Blockly.ExternalDiv.DIV[i].id == monDiv){
 				index = i;
 			}
 		}

@@ -72,7 +72,7 @@ Blockly.FieldWIMSEditor.prototype.init = function() {
   editorDiv.id = this.editorDivId_
   document.body.appendChild( editorDiv );
   editorDiv.style.width="200px";
-  editorDiv.style.height="50px";
+  editorDiv.style.height="40px";
 
   Blockly.ExternalDiv.register(editorDiv,this);
 
@@ -108,9 +108,10 @@ Blockly.FieldWIMSEditor.prototype.computePlaceholderImage_ = function() {
             var width = fieldTmp.x.width_;
             var height = fieldTmp.x.height_;
             fieldTmp.x.placeholderImageElement_.setAttribute("href", canvas_url);
+            canvas.remove();
           }, function(err){
 
-            console.log("html2canvas error:");}
+            console.log("html2canvas error:"+err);}
           );
   }
 }
