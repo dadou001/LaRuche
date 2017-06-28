@@ -7,6 +7,7 @@ var variable_List = {};
 var answer_List = {};
 var active_editor_analyse = null;
 var prepEditor;
+var analyseEditor;
 
 function change_onglet(name) {
 	$('#RId_Onglet_'+anc_onglet).removeClass('RCl_Onglet_Affiche').addClass('RCl_Onglet_Cache');
@@ -17,6 +18,10 @@ function change_onglet(name) {
 	if (typeof(prepEditor)!='undefined') {
 		prepEditor.onResize();
 		Blockly.svgResize(prepEditor.mBlocklyWorkspace);
+	}
+	if (typeof(analyseEditor)!='undefined') {
+		analyseEditor.onResize();
+		Blockly.svgResize(analyseEditor.mBlocklyWorkspace);
 	}
 }
 
@@ -281,6 +286,10 @@ function destroy_variable(name){
 	for(var key in answer_List){
 		answer_List[key].get_block_html().get_editor().destroy_var(name);
 	}
+	for(var i = 0; i<Blockly.ExternalDiv.owner.length;i++){
+		var tmpEditor = new SEditor(Blockly.ExternalDiv.owner[i].quillEditor_);
+		tmpEditor.destroy_var(name);
+	}
 }
 
 function create_answer_OEF(answer){
@@ -340,7 +349,7 @@ function declaration_variable_OEFcode(){
 
 function update_final_code(){
 	//content_to_OEFcode(quill.getContents());
-	console.log(quill.getContents());
+	// console.log(quill.getContents());
 	var result = "";
 	var infos = gather_all_info(quill);
 	/* HEAD DU CODE */
@@ -388,15 +397,15 @@ function delete_blockly_variable(name){
 function add_variable_editor_blockly(name){
 	var monDiv = Blockly.ExternalDiv.activeDivId;
 	var index = -1;
-	console.log(monDiv);
-	console.log(Blockly.ExternalDiv.DIV);
+	// console.log(monDiv);
+	// console.log(Blockly.ExternalDiv.DIV);
 	if(monDiv){
 		for(var i = 0;i<Blockly.ExternalDiv.DIV.length;i++){
 			if(Blockly.ExternalDiv.DIV[i].id == monDiv){
 				index = i;
 			}
 		}
-		console.log(index);
+		// console.log(index);
 		var tmp = new SEditor(Blockly.ExternalDiv.owner[index].quillEditor_);
 		tmp.add_variable(name);
 		// Blockly.ExternalDiv.owner[index].quillEditor_.insertEmbed(0,'VariableImage',name);

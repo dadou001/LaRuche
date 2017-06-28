@@ -1,4 +1,5 @@
 var prepEditor;
+var analyseEditor;
 // ----------------------------------------------------
 // SProgramEditor : éditeur graphique de programmes
 // Version basée sur Blockly (https://developers.google.com/blockly/)
@@ -65,4 +66,6 @@ var SProgramEditor = (function () {
 // Ne doit construire les editeurs que lorsque la page est complètement chargée
 $(document).ready(function () {
     prepEditor = new SProgramEditor('RId_toolbox_programPrep', 'RId_programPrep_blockly', 'RId_programPrep');
+    analyseEditor = new SProgramEditor('RId_toolbox_programAnalyse', 'RId_programAnalyse_blockly', 'RId_programAnalyse');
+    // console.log(prepEditor.mBlocklyWorkspace.id);
 });
