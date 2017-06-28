@@ -12,8 +12,8 @@ goog.require('goog.dom');
 goog.require('goog.math.Size');
 goog.require('goog.userAgent');
 /**
- * Class for a Quill editor on a block. The Quill editor should have been
- * initialized and placed in a (possibly invisible) div element
+ * Class for a Quill editor on a block. The Quill editor is initialized
+ * and placed in a div element that is managed by the Blockly.ExternalDiv class
  * @param {string} content The text to be put in the editor.
  * @param {string=} opt_alt Optional alt text for when block is collapsed.
  * @extends {Blockly.Field}
@@ -86,13 +86,13 @@ Blockly.FieldWIMSEditor.prototype.computePlaceholderImage_ = function () {
     if (this.placeholderImageElement_ && this.editorDivId_) {
         var fieldTmp = { x: this };
         var editorDiv = document.getElementById(this.editorDivId_);
-        html2canvas(editorDiv, {
-            onrendered: function (canvas) {
-                var canvas_url = canvas.toDataURL();
-                var width = fieldTmp.x.width_;
-                var height = fieldTmp.x.height_;
-                fieldTmp.x.placeholderImageElement_.setAttribute("href", canvas_url);
-            }
+        html2canvas(editorDiv, { logging: true }).then(function (canvas) {
+            var canvas_url = canvas.toDataURL();
+            var width = fieldTmp.x.width_;
+            var height = fieldTmp.x.height_;
+            fieldTmp.x.placeholderImageElement_.setAttribute("href", canvas_url);
+        }, function (err) {
+            console.log("html2canvas error:");
         });
     }
 };
