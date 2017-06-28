@@ -270,6 +270,11 @@ Blockly.Workspace.prototype.createVariable = function(name) {
   if (index == -1) {
     this.variableList.push(name);
   }
+  //AJOUT POUR LE PROJET LA RUCHE
+  if(!variable_List[name]){
+    variable_List[name] = new Variable(name,'Real');
+    update_all_view();
+  }
 };
 
 /**
@@ -302,6 +307,14 @@ Blockly.Workspace.prototype.getVariableUses = function(name) {
  * @param {string} name Name of variable to delete.
  */
 Blockly.Workspace.prototype.deleteVariable = function(name) {
+  //AJOUT
+  delete variable_List[name];
+  editor_Enonce.destroy_var(name);
+  for(var key in answer_List){
+    answer_List[key].get_block_html().get_editor().destroy_var(name);
+  }
+  update_all_view();
+  //FIN DE L'AJOUT
   var variableIndex = this.variableIndexOf(name);
   if (variableIndex == -1) {
     return;

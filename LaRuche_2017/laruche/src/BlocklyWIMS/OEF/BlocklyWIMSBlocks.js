@@ -19,6 +19,62 @@ Blockly.OEF['wims_up_down_editor'] = function(block) {
   return editorTmp.to_variable_value()+'\n';
 };
 
+Blockly.OEF['wims_comment'] = function(block) {
+  var result = block.getFieldValue('COMMENT');
+  return '//'+result+'\n';
+};
+
+Blockly.OEF['wims_variable_editor'] = function(block) {
+  var varName = Blockly.OEF.variableDB_.getName(
+      block.getFieldValue('VARIABLE_CHOICE'), Blockly.Variables.NAME_TYPE);
+  var editorTmp = new SEditor(block.getFieldValue('WIMS_EDITOR'));
+  variable_List[varName].setValue(editorTmp.to_variable_value());
+  return '';
+};
+
+Blockly.OEF['wims_if'] = function(block) {
+  var editorTmp = new SEditor(block.getFieldValue('WIMS_EDITOR'));
+  var condition = editorTmp.to_variable_value();
+  var branch1 = Blockly.OEF.statementToCode(block, 'DO');
+  var branch2 = Blockly.OEF.statementToCode(block, 'ELSE');
+  return '\\if{'+condition+'}\n{'+branch1.substring(0,branch1.length-1)+'}\n{'+branch2.substring(0,branch2.length-1)+'}\n';
+};
+
+Blockly.OEF['wims_for'] = function(block) {
+  var varName = Blockly.OEF.variableDB_.getName(
+      block.getFieldValue('VARIABLE_CHOICE'), Blockly.Variables.NAME_TYPE);
+
+  if (block.getField('START')) {
+    // Internal number.
+    var start = String(Number(block.getFieldValue('START')));
+  } else {
+    // External number.
+    var start = Blockly.OEF.valueToCode(block, 'START',
+        Blockly.OEF.ORDER_ASSIGNMENT) || '0';
+  }
+  if (block.getField('END')) {
+    // Internal number.
+    var end = String(Number(block.getFieldValue('END')));
+  } else {
+    // External number.
+    var end = Blockly.OEF.valueToCode(block, 'END',
+        Blockly.OEF.ORDER_ASSIGNMENT) || '0';
+  }
+  if (block.getField('STEP')) {
+    // Internal number.
+    var step = String(Number(block.getFieldValue('STEP')));
+  } else {
+    // External number.
+    var step = Blockly.OEF.valueToCode(block, 'STEP',
+        Blockly.OEF.ORDER_ASSIGNMENT) || '0';
+  }
+  var todo = Blockly.OEF.statementToCode(block,'DO');
+  if (todo[todo.length-1] == '\n'){
+    todo = todo.substring(0,todo.length-1);
+  }
+  return '\\for{'+varName+' = '+start+' to '+end+' step '+step+'}\n{'+todo+'}\n';
+};
+
 Blockly.OEF['wims_while'] = function(block) {
   var code = '';
   var innerString = block.getFieldValue('WIMS_EDITOR');
@@ -30,6 +86,10 @@ Blockly.OEF['wims_while'] = function(block) {
           subCode+
           '}\n';
   return code;
+};
+
+Blockly.OEF['wims_repeat'] = function(block) {
+  var code = ''
 };
 
 

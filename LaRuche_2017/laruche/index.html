@@ -34,13 +34,13 @@
   <div class="row">
     <div class="large-12 medium-12">
       <div class="RCl_Menu_Onglets">
-        <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Entete" onclick="change_onglet('Entete');">Entête</span>
-        <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Enonce" onclick="change_onglet('Enonce');">Enoncé</span>
-        <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Preparation" onclick="change_onglet('Preparation');update_all_view();">Préparation</span>
-        <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Analyse" onclick="change_onglet('Analyse');update_analyse_answer(editor_Enonce,answer_List);update_variables_answers_view('card_Analyse_Variable',variable_List,answer_List)">Analyse</span>
+        <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Entete" onclick="Blockly.ExternalDiv.hide(); change_onglet('Entete');">Entête</span>
+        <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Enonce" onclick="Blockly.ExternalDiv.hide();change_onglet('Enonce');">Enoncé</span>
+        <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Preparation" onclick="Blockly.ExternalDiv.hide();change_onglet('Preparation');update_all_view();">Préparation</span>
+        <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Analyse" onclick="Blockly.ExternalDiv.hide();change_onglet('Analyse');update_analyse_answer(editor_Enonce,answer_List);update_variables_answers_view('card_Analyse_Variable',variable_List,answer_List)">Analyse</span>
         <span class="RCl_Onglet_Fake RCl_Onglet"></span>
-        <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Code" onclick="change_onglet('Code'); generate_prep_code(); update_final_code();">Code</span>
-        <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Sauvegarde" onclick="change_onglet('Sauvegarde');">Sauvegarde</span>
+        <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Code" onclick="Blockly.ExternalDiv.hide();change_onglet('Code'); generate_prep_code(); update_final_code();">Code</span>
+        <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Sauvegarde" onclick="Blockly.ExternalDiv.hide();change_onglet('Sauvegarde');">Sauvegarde</span>
       </div>
     </div>
 
@@ -213,6 +213,32 @@
       <block type="wims_up_down_editor">
         <field name="WIMS_EDITOR">true</field>
       </block>
+      <block type="wims_variable_editor">
+        <field name = "VARIABLE_CHOICE"></field>
+        <field name="WIMS_EDITOR"></field>
+      </block>
+      <block type="wims_if">
+      </block>
+      <block type ="wims_comment">
+        <field name="COMMENT">Mettre ici le commentaire</field>
+      </block>
+      <block type="wims_for">
+        <value name="START">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+        <value name="END">
+          <shadow type="math_number">
+            <field name="NUM">10</field>
+          </shadow>
+        </value>
+        <value name="STEP">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+      </block>
       <block type="wims_change_type">
         <field name="VARIABLE_CHOICE"></field>
         <field name="TYPE"></field>
@@ -259,7 +285,7 @@
     <category name="Essaims"></category>
   </xml>
 
-  <button name="TESTOUILLE" onclick="generate_popup_list_var(536,250)" value="TEST">Hello</button>
+  <button name="TESTOUILLE" onclick="console.log(variable_List)" value="TEST">Hello</button>
 
   <script src="js_tools/vendor/jquery.js" type="text/javascript" charset="utf-8"></script>
   <script src="js_tools/vendor/what-input.js" type="text/javascript" charset="utf-8"></script>

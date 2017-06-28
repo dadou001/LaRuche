@@ -275,8 +275,8 @@ function create_variable_choice_popup(id_to_popup,index){
 
 
 function destroy_variable(name){
-	delete variable_List[name];
 	delete_blockly_variable(name);
+	delete variable_List[name];
 	editor_Enonce.destroy_var(name);
 	for(var key in answer_List){
 		answer_List[key].get_block_html().get_editor().destroy_var(name);
@@ -305,11 +305,34 @@ function declaration_variable_OEFcode(){
 	//FONCTION A COMPLETER
 	var result = "";
 	for (var nameVar in variable_List){ //Pour toutes les variables connues
-		if (variable_List[nameVar].getType() == "Real"){ //dans le cas d'un réel
-			result += "\\real{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
-		}
-		else if (variable_List[nameVar].getType() == "Int"){ //dans le cas d'un entier
-			result += "\\integer{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
+		// if (variable_List[nameVar].type == "Real"){ //dans le cas d'un réel
+		// 	result += "\\real{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
+		// }
+		// else if (variable_List[nameVar].type == "Int"){ //dans le cas d'un entier
+		// 	result += "\\integer{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
+		// }
+		switch(variable_List[nameVar].type){
+			case 'Real':
+				result += "\\real{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
+				break;
+			case 'Int':
+				result += "\\integer{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
+				break;
+			case 'Rational':
+				result += "\\rational{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
+				break;
+			case 'Complex':
+				result += "\\complex{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
+				break;
+			case 'Matrix':
+				result += "\\matrix{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
+				break;
+			case 'Fun':
+				result += "\\function{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
+				break;
+			case 'Text':
+				result += "\\text{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
+				break;
 		}
 	}
 	return result;
@@ -398,7 +421,7 @@ function generate_list_var_popup(){
 }
 
 function generate_popup_list_var(x,y){
-	console.log('TIENS JY PASSE LOL',x,y);
+	// console.log('TIENS JY PASSE LOL',x,y);
 	var maDiv = document.createElement('div');
 	maDiv.id = 'popup_var_blockly';
 	maDiv.innerHTML = generate_list_var_popup();
@@ -408,6 +431,9 @@ function generate_popup_list_var(x,y){
 	maDiv.style.position = 'absolute';
 	maDiv.style.overflow = 'scroll';
 	maDiv.style.backgroundColor = 'blue';
+	if(Object.keys(variable_List).length == 0){
+		maDiv.style.visibility = 'hidden';
+	}
 	// maDiv.style.zIndex = '9000';
 	// maDiv.style.font.size = '0.2em';
 	// $('#popup_var_blockly').css('background-color','white');
