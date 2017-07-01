@@ -87,8 +87,6 @@ Blockly.FieldWIMSEditor.prototype.computePlaceholderImage_ = function () {
     if (this.placeholderImageElement_ && this.editorDivId_) {
         var fieldTmp = { x: this };
         var editorDiv = document.getElementById(this.editorDivId_);
-        var XLink_NS = 'http://www.w3.org/1999/xlink';
-        fieldTmp.x.placeholderImageElement_.setAttributeNS(XLink_NS, "xlink:href", "test.jpeg");
         html2canvas(editorDiv).then(function (canvas) {
             var canvas_url = canvas.toDataURL();
             var width = fieldTmp.x.width_;
