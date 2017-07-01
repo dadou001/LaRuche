@@ -54,22 +54,27 @@
             <div class="row" style="margin:15px;">
               <div class="medium-3 columns">
                 <label>Titre
-                  <input type="text" placeholder="Votre titre" id="title_EnTete">
+                  <input type="text" placeholder="titre" id="title_EnTete">
                 </label>
               </div>
-              <div class="medium-3 columns">
+              <div class="medium-2 columns">
                 <label>Langue
                   <input type="text" placeholder="Fr,En.." id="language_EnTete">
                 </label>
               </div>
-              <div class="medium-3 columns">
-                <label>Auteur
-                  <input type="text" placeholder="Votre Nom" id="name_EnTete">
+              <div class="medium-2 columns">
+                <label>Nom
+                  <input type="text" placeholder="Nom" id="name_EnTete">
+                </label>
+              </div>
+              <div class="medium-2 columns">
+                <label>Prenom
+                  <input type="text" placeholder="Prenom" id="firstName_EnTete">
                 </label>
               </div>
               <div class="medium-3 columns">
                 <label>Email
-                  <input type="text" placeholder="Votre email" id="email_EnTete">
+                  <input type="text" placeholder="email" id="email_EnTete">
                 </label>
               </div>
             </div>
@@ -155,7 +160,7 @@
               <div class="large-9 columns">
                 <div id="RId_programPrep" style="position: relative; height:400px"></div>
               </div>
-              <div class="large-3 columns"> <div class="callout" id="card_Prep_Variable">un peu plus de texte ? </div></div>
+              <div class="large-3 columns" style="visibility:hidden;"> <div class="callout" id="card_Prep_Variable">un peu plus de texte ? </div></div>
             </div>
           </div>
 
@@ -287,15 +292,15 @@
   </xml>
 
 
-<!-- MON TEST -->
+<!-- L'analyse Blockly -->
 <div id="RId_programAnalyse_blockly" style="position: absolute"></div>
 <xml id="RId_toolbox_programAnalyse" xmlns="http://www.w3.org/1999/xhtml" style="display: none;">
-  <category name="WIMS">
-    <block type="wims_while">
-      <field name="WIMS_EDITOR">true</field>
+  <category name="Analyse">
+    <block type="analyse_feedback">
+      <field name="WIMS_EDITOR">conditions du feedback</field>
     </block>
-    <block type="wims_editor">
-      <field name="WIMS_EDITOR">true</field>
+    <block type="analyse_hint">
+      <field name="WIMS_EDITOR">you'r hint</field>
     </block>
     <block type="wims_up_down_editor">
       <field name="WIMS_EDITOR">true</field>

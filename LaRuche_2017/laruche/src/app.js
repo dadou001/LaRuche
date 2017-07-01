@@ -63,7 +63,7 @@ function add_answer(editor,ans_list){
 	editor.focus();
 	var positionSelection = editor.getSelection(); //On obtient la sélection de l'utilisateur
 	if (positionSelection.length == 0){
-		var name = window.prompt('Entrez le nom de votre réponse','Answer');
+		var name = window.prompt('Entrez le nom de votre réponse','Réponse');
 
 		if((name != null) && (test_valid_expression(name)) && (ans_list[name] == null)){
 			ans_list[name] = new Answer(name,'numeric','reply-LOLLLLOLO');
@@ -251,6 +251,7 @@ function gather_all_info(editor){
 	all_info["title"] = document.getElementById("title_EnTete").value;
 	all_info["language"] = document.getElementById("language_EnTete").value;
 	all_info["name"] = document.getElementById("name_EnTete").value;
+	all_info["firstName"] = document.getElementById("firstName_EnTete").value;
 	all_info["email"] = document.getElementById("email_EnTete").value;
 	all_info["OEF_code"] = editor_EnTete.to_OEFcode();
 	all_info["enonce"] = editor_Enonce.to_OEFcode();
@@ -355,7 +356,7 @@ function update_final_code(){
 	/* HEAD DU CODE */
 	result += "\\title{"+infos.title+"}\n";
 	result += "\\language{"+infos.language+"}\n";
-	result += "\\author{"+infos.author+"}\n";
+	result += "\\author{"+infos.firstName+","+infos.name+"}\n";
 	result += "\\email{"+infos.email+"}\n";
 	result += "\\computeanswer{}\n";
 	result += "\\format{html}\n";
@@ -387,7 +388,7 @@ function update_final_code(){
 /***************************CHANTIER**************************/
 function add_blockly_variable(name){
 	prepEditor.mBlocklyWorkspace.createVariable(name);
-	console.log("AHHAHAHAHAHA");
+	// console.log("AHHAHAHAHAHA");
 }
 
 function delete_blockly_variable(name){
@@ -427,6 +428,18 @@ function generate_list_var_popup(){
 	 }
 	 result += '</ul>';
 	 return result;
+}
+
+function changeAllNameVar(oldName,newName){
+	editor_Enonce.changeNameVar(oldName,newName);
+	editor_EnTete.changeNameVar(oldName,newName);
+	for(var key in answer_List){
+		answer_List[key].get_block_html().get_editor().changeNameVar(oldName,newName);
+	}
+	for(var i = 0; i<Blockly.ExternalDiv.owner.length;i++){
+		var tmpEditor = new SEditor(Blockly.ExternalDiv.owner[i].quillEditor_);
+		tmpEditor.changeNameVar(oldName,newName);
+	}
 }
 
 function generate_popup_list_var(x,y){

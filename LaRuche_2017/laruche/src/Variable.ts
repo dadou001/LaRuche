@@ -1,7 +1,7 @@
 class Variable{
   private name:String;
   private type:typeVariable;
-  private value;
+  private value:any;
   constructor(name:String,type:typeVariable){
     this.name=name;
     this.type=type;
@@ -20,6 +20,9 @@ class Variable{
   }
   public setValue(val){
     this.value = val;
+  }
+  public setName(name){
+    this.name = name;
   }
   public toString(){
     return "Variable "+this.name+" of type "+ this.type
