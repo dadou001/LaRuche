@@ -24,7 +24,7 @@ goog.require('goog.userAgent');
  * @extends {Blockly.Field}
  * @constructor
  */
-Blockly.FieldWIMSEditor = function(content, opt_alt) {
+Blockly.FieldWIMSEditor = function(content, opt_alt,toolbar) {
 
   Blockly.FieldWIMSEditor.superClass_.constructor.call(this, content,
       null);
@@ -32,6 +32,7 @@ Blockly.FieldWIMSEditor = function(content, opt_alt) {
   this.sourceBlock_ = null;
   this.editorDivId_ = null;
   this.quillEditor_ = null;
+  this.toolbar = toolbar;
   this.content_ = content;
   // Ensure height and width are numbers.  Strings are bad at math.
   this.size_ = new goog.math.Size(0,0);  /* Size cannot be determined until after rendering */
@@ -78,14 +79,27 @@ Blockly.FieldWIMSEditor.prototype.init = function() {
 
   this.setSize_(editorDiv.offsetWidth, editorDiv.offsetHeight);
   if (!this.quillEditor_) {
-    this.quillEditor_ = new Quill('#'+this.editorDivId_, {
-    	modules: {
-    		toolbar: false
-    	},
-    	placeholder: 'expression...',
-    	theme: 'snow'
-    });
-    this.quillEditor_.insertText(0,"expression...");
+    if(!this.toolbar){
+      this.quillEditor_ = new Quill('#'+this.editorDivId_, {
+      	modules: {
+      		toolbar: false
+      	},
+      	placeholder: 'expression...',
+      	theme: 'snow'
+      });
+      this.quillEditor_.insertText(0,"expression...");
+    }
+    else{
+      var toolbarOptions = [['bold', 'italic'], ['link', 'image']];
+      this.quillEditor_ = new Quill('#'+this.editorDivId_, {
+        modules: {
+          toolbar: toolbarOptions
+        },
+        placeholder: 'expression...',
+        theme: 'snow'
+      });
+      this.quillEditor_.insertText(0,"expression...");
+    }
   }
 
   // Build the placeholder image in the block

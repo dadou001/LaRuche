@@ -18,6 +18,9 @@ var Variable = (function () {
     Variable.prototype.setValue = function (val) {
         this.value = val;
     };
+    Variable.prototype.setName = function (name) {
+        this.name = name;
+    };
     Variable.prototype.toString = function () {
         return "Variable " + this.name + " of type " + this.type;
     };

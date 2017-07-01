@@ -100,6 +100,26 @@ var SEditor = (function () {
     //   }
     //   return counter;
     // }
+    SEditor.prototype.changeNameVar = function (oldname, newName) {
+        var content = this.editor.getContents()['ops'];
+        // console.log(content);
+        var result = [];
+        for (var i = 0; i < content.length; i++) {
+            if (content[i]['insert']['VariableImage']) {
+                if (content[i]['insert']['VariableImage'] == oldname) {
+                    result.push({ 'insert': { 'VariableImage': newName } });
+                }
+                else {
+                    result.push(content[i]);
+                }
+            }
+            else {
+                result.push(content[i]);
+            }
+        }
+        var tmp = { 'ops': result };
+        this.editor.setContents(tmp);
+    };
     SEditor.prototype.get_answer_tab = function () {
         var cont = this.editor.getContents()['ops'];
         var result = [];

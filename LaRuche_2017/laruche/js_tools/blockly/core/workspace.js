@@ -258,6 +258,19 @@ Blockly.Workspace.prototype.renameVariable = function(oldName, newName) {
     this.variableList.push(newName);
     console.log('Tried to rename an non-existent variable.');
   }
+
+  //MES AJOUTS
+  if(this.id = prepEditor.mBlocklyWorkspace.id){
+    if(!variable_List[newName]){
+      variable_List[newName] = variable_List[oldName];
+      variable_List[newName].setName(newName);
+      changeAllNameVar(oldName,newName);
+      //Ajoiter le changement dans tous les quill
+      delete variable_List[oldName];
+      update_all_view();
+    }
+  }
+  //FIN DES AJOUTS
 };
 
 /**
@@ -316,6 +329,10 @@ Blockly.Workspace.prototype.deleteVariable = function(name) {
     for(var key in answer_List){
       answer_List[key].get_block_html().get_editor().destroy_var(name);
     }
+    for(var i = 0; i<Blockly.ExternalDiv.owner.length;i++){
+  		var tmpEditor = new SEditor(Blockly.ExternalDiv.owner[i].quillEditor_);
+  		tmpEditor.destroy_var(name);
+  	}
     update_all_view();
   }
   //FIN DE L'AJOUT
