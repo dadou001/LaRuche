@@ -106,16 +106,17 @@ Blockly.FieldWIMSEditor.prototype.init = function() {
         placeholder: 'expression...',
         theme: 'snow'
       });
-      this.quillEditor_.insertText(0,"expression...");
+      this.quillEditor_.insertText(0,"");
     }
   }
 
   // Build the placeholder image in the block
   this.placeholderImageElement_ = Blockly.utils.createSvgElement('image',
       {}, this.fieldGroup_);
-  // this.placeholderImageElement_.setAttribute("href","data:image/png;base64,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")
-  this.placeholderImageElement_.setAttribute("width", this.width_+"px");
-  this.placeholderImageElement_.setAttribute("height", this.height_+"px");
+  // var SVG_NS = 'http://www.w3.org/2000/svg';
+  // var XLink_NS = 'http://www.w3.org/1999/xlink';
+  this.placeholderImageElement_.setAttributeNS(null, "width", this.width_+"px");
+  this.placeholderImageElement_.setAttributeNS(null, "height", this.height_+"px");
   this.computePlaceholderImage_();
   this.sourceBlock_.getSvgRoot().appendChild(this.fieldGroup_);
 //  this.setValue(this.content_);
@@ -124,15 +125,14 @@ Blockly.FieldWIMSEditor.prototype.init = function() {
 Blockly.FieldWIMSEditor.prototype.computePlaceholderImage_ = function() {
   if (this.placeholderImageElement_ && this.editorDivId_) {
     var fieldTmp = {x:this};
-    var editorDiv = document.getElementById(this.editorDivId_)
-    html2canvas(editorDiv,{logging:true}).then(function(canvas) {
+    var editorDiv = document.getElementById(this.editorDivId_);
+    html2canvas(editorDiv).then(function(canvas) {
             var canvas_url = canvas.toDataURL();
             var width = fieldTmp.x.width_;
             var height = fieldTmp.x.height_;
-            fieldTmp.x.placeholderImageElement_.setAttribute("href", canvas_url);
-            canvas.remove();
+            var XLink_NS = 'http://www.w3.org/1999/xlink';
+            fieldTmp.x.placeholderImageElement_.setAttributeNS(XLink_NS, "xlink:href", canvas_url);
           }, function(err){
-
             console.log("html2canvas error:"+err);}
           );
   }
@@ -353,14 +353,21 @@ Blockly.ExternalDiv.hide = function() {
   if (Blockly.ExternalDiv.DIV.length>0) {
     for (var iDiv = 0; iDiv<Blockly.ExternalDiv.DIV.length;iDiv++) {
       var div = Blockly.ExternalDiv.DIV[iDiv];
-      div.style.display = 'none';
-      div.style.left = '';
-      div.style.top = '';
       if (div.id == Blockly.ExternalDiv.activeDivId) activeIndex=iDiv;
     }
   }
+
+  // Compute placeholder div image BEFORE hiding the div
   if (activeIndex>=0) {
     Blockly.ExternalDiv.owner[activeIndex].computePlaceholderImage_();
+  }
+  if (Blockly.ExternalDiv.DIV.length>0) {
+    for (var iDiv = 0; iDiv<Blockly.ExternalDiv.DIV.length;iDiv++) {
+      var div = Blockly.ExternalDiv.DIV[iDiv];
+      div.style.display = 'none';
+      div.style.left = '';
+      div.style.top = '';
+    }
   }
   Blockly.ExternalDiv.activeDivId = null;
   $('#popup_var_blockly').remove();
