@@ -87,7 +87,7 @@ Blockly.FieldWIMSEditor.prototype.init = function() {
       	placeholder: 'expression...',
       	theme: 'snow'
       });
-      this.quillEditor_.insertText(0,"expression...");
+      this.quillEditor_.insertText(0,"");
     }
     else{
       var toolbarOptions = [['bold', 'italic'], ['link', 'image']];
