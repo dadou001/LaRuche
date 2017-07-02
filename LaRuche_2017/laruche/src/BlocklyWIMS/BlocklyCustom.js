@@ -19,7 +19,7 @@ Blockly.Blocks['wims_change_type'] = {
             .appendField(new Blockly.FieldVariable(""), "VARIABLE_CHOICE")
             .appendField("est de type ")
             .appendField(new Blockly.FieldDropdown([["Nombre réel", "Real"], ["Nombre entier", "Int"], ["Nombre rationnel", "Rational"],
-            ["Matrice", "Matrix"], ["Text", "Text"], ["Function", "Fun"], ["Nombre Complexe", "Complex"]]), "TYPE");
+            ["Matrice", "Matrix"], ["Texte", "Text"], ["Function", "Fun"], ["Nombre Complexe", "Complex"]]), "TYPE");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(100);
@@ -66,7 +66,7 @@ Blockly.Blocks['wims_define_variable'] = {
             .appendField(new Blockly.FieldVariable(""), "VARIABLE_CHOICE")
             .appendField("type to ")
             .appendField(new Blockly.FieldDropdown([["Nombre réel", "Real"], ["Nombre entier", "Int"], ["Nombre rationnel", "Rational"],
-            ["Matrice", "Matrix"], ["Text", "Text"], ["Function", "Fun"], ["Nombre Complexe", "Complex"]]), "TYPE");
+            ["Matrice", "Matrix"], ["Texte", "Text"], ["Function", "Fun"], ["Nombre Complexe", "Complex"]]), "TYPE");
         this.appendDummyInput()
             .appendField("With the value")
             .appendField(new Blockly.FieldWIMSEditor("", "testQuillInBlockly", false), "WIMS_EDITOR");
@@ -160,7 +160,7 @@ Blockly.Blocks['analyse_feedback'] = {
     init: function () {
         this.appendDummyInput()
             .appendField("Feedback when")
-            .appendField(new Blockly.FieldWIMSEditor("", "du quill", true), "WIMS_EDITOR");
+            .appendField(new Blockly.FieldWIMSEditor("", "du quill", false), "WIMS_EDITOR");
         this.appendStatementInput("DO")
             .appendField('do')
             .setCheck(null);

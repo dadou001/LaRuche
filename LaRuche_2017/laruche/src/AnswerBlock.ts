@@ -18,7 +18,7 @@ class AnswerBlock{
               'menu':{'partialAnswer':'Autoriser les réponses partiels',
                       'shuffle':'mélanger les réponses',
                       'multipleChoice': 'Réponse à choix multiple',
-                      'orderedChoice': 'Réponse ordonnées'
+                      'orderedChoice': 'Réponse ordonnées',
                       'noanalyze':'Sans affichage de l\'analyse réponse'}
             };
   //Constructeur

@@ -14,13 +14,15 @@ var SEditor = (function () {
         var tabTmp = []; //on initialise notre tableau temporaire (celui qui découpe sur les retours chariots)
         var result = ""; //On initialise notre résultat final
         var resTmp; //on initialise notre résultat temporaire
+        var was_variable = false; //On regarde si la valeur précédente était une variable ou pas
         var answer_count = { 'value': 1 };
         var was_list = { 'ordered': false, 'unordered': false }; //On initialise notre tableau pour savoir si une liste est active ou non
         for (var i = 0; i < tabContent.length; i++) {
             tabTmp = this.cut_insert(tabContent[i]); //on découpe le contenu de la case i du tableau
             for (var j = 0; j < tabTmp.length; j++) {
                 if (tabTmp[j]['insert'] != "\n") {
-                    line += this.add_element_line(tabTmp[j], answer_count);
+                    line += this.add_element_line(tabTmp[j], answer_count, was_variable);
+                    was_variable = (tabTmp[j]['insert']['VariableImage'] != null);
                 }
                 else {
                     //Sinon on applique les bons attributs à la ligne
@@ -182,7 +184,7 @@ var SEditor = (function () {
             return [delta_element];
         }
     };
-    SEditor.prototype.add_element_line = function (element, count_answer) {
+    SEditor.prototype.add_element_line = function (element, count_answer, was_variable) {
         var result = element['insert']; //on initialise notre résultat
         if (element['insert']['VariableImage'] != null) {
             //si c'est une variable on la traite avec un \ devant
@@ -216,7 +218,22 @@ var SEditor = (function () {
                 }
             }
         }
+        if (was_variable && (result.length > 0) && (this.isAlphaNumeric(result[0]))) {
+            result = ' ' + result;
+        }
         return result;
+    };
+    SEditor.prototype.isAlphaNumeric = function (str) {
+        var code, i, len;
+        for (i = 0, len = str.length; i < len; i++) {
+            code = str.charCodeAt(i);
+            if (!(code > 47 && code < 58) &&
+                !(code > 64 && code < 91) &&
+                !(code > 96 && code < 123)) {
+                return false;
+            }
+        }
+        return true;
     };
     SEditor.prototype.applied_attributes = function (line, element, was_list) {
         var attributes = element['attributes']; //on récupère les attributs
