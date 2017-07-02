@@ -9,10 +9,10 @@ var AnswerBlock = (function () {
                 'noanalyze': 'Sans affichage de l\'analyse réponse' },
             'function': { 'noanalyze': 'Sans affichage de l\'analyse réponse' },
             'range': { 'noanalyze': 'Sans affichage de l\'analyse réponse' },
-            'menu': { 'partialAnswer': 'Autoriser les réponses partiels',
-                'shuffle': 'mélanger les réponses',
-                'multipleChoice': 'Réponse à choix multiple',
-                'orderedChoice': 'Réponse ordonnées',
+            'menu': { 'split': 'Autoriser les réponses partielles',
+                'shuffle': 'Mélanger les réponses',
+                'multiple': 'Plusieurs choix autorisés',
+                'sort': 'Réponse ordonnées par ordre alpha.',
                 'noanalyze': 'Sans affichage de l\'analyse réponse' }
         };
         this.name = name;

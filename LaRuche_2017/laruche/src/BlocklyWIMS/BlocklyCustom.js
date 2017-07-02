@@ -104,7 +104,8 @@ Blockly.Blocks['wims_variable_editor'] = {
 Blockly.Blocks['wims_up_down_editor'] = {
     init: function () {
         this.appendDummyInput()
-            .appendField("OEF")
+            .appendField("Code libre OEF");
+        this.appendDummyInput()
             .appendField(new Blockly.FieldWIMSEditor("", "testQuillInBlockly", false), "WIMS_EDITOR");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
@@ -138,7 +139,7 @@ Blockly.Blocks['wims_for'] = {
             .appendField(new Blockly.FieldVariable(""), "VARIABLE_CHOICE");
         this.appendValueInput("START")
             .setCheck(null)
-            .appendField("Allant de");
+            .appendField("allant de");
         this.appendValueInput("END")
             .setCheck(null)
             .appendField("à");
@@ -159,10 +160,10 @@ Blockly.Blocks['wims_for'] = {
 Blockly.Blocks['analyse_feedback'] = {
     init: function () {
         this.appendDummyInput()
-            .appendField("Feedback when")
+            .appendField("Feedback si")
             .appendField(new Blockly.FieldWIMSEditor("", "du quill", false), "WIMS_EDITOR");
         this.appendStatementInput("DO")
-            .appendField('do')
+            .appendField('faire')
             .setCheck(null);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
@@ -174,7 +175,8 @@ Blockly.Blocks['analyse_feedback'] = {
 Blockly.Blocks['analyse_hint'] = {
     init: function () {
         this.appendDummyInput()
-            .appendField("Hint")
+            .appendField("Indication");
+        this.appendDummyInput()
             .appendField(new Blockly.FieldWIMSEditor("", "du quill", true), "WIMS_EDITOR");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);

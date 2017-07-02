@@ -76,7 +76,7 @@ function add_answer(editor,ans_list){
 			editor.insertEmbed(positionSelection.index,'answerImage',name);
 		}
 		else{
-			window.alert('Casse toi');
+			window.alert('Nom de réponse non valide');
 		}
 		// ans_list.push(new Answer('reply'+(ans_list.length+1)));
 	}

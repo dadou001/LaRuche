@@ -61,7 +61,8 @@ Blockly.Msg.LISTS_HUE = '260';
 /// {{Notranslate}} Hue value for all colour blocks.
 Blockly.Msg.COLOUR_HUE = '20';
 /// {{Notranslate}} Hue value for all variable blocks.
-Blockly.Msg.VARIABLES_HUE = '330';
+//Blockly.Msg.VARIABLES_HUE = '330';
+Blockly.Msg.VARIABLES_HUE = '204';
 /// {{Notranslate}} Hue value for all procedure blocks.
 Blockly.Msg.PROCEDURES_HUE = '290';
 

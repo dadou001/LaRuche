@@ -210,20 +210,21 @@
   <div id="RId_programPrep_blockly" style="position: absolute"></div>
   <xml id="RId_toolbox_programPrep" xmlns="http://www.w3.org/1999/xhtml" style="display: none;">
     <category name="WIMS">
-      <block type="wims_editor">
-        <field name="WIMS_EDITOR">true</field>
+      <block type="wims_change_type">
+        <field name="VARIABLE_CHOICE"></field>
+        <field name="TYPE"></field>
       </block>
-      <block type="wims_up_down_editor">
-        <field name="WIMS_EDITOR">true</field>
+      <block type ="wims_comment">
+        <field name="COMMENT">Commentaire</field>
       </block>
       <block type="wims_variable_editor">
         <field name = "VARIABLE_CHOICE"></field>
         <field name="WIMS_EDITOR"></field>
       </block>
-      <block type="wims_if">
+      <block type="wims_editor">
+        <field name="WIMS_EDITOR">true</field>
       </block>
-      <block type ="wims_comment">
-        <field name="COMMENT">Mettre ici le commentaire</field>
+      <block type="wims_if">
       </block>
       <block type="wims_for">
         <value name="START">
@@ -242,12 +243,12 @@
           </shadow>
         </value>
       </block>
-      <block type="wims_change_type">
-        <field name="VARIABLE_CHOICE"></field>
-        <field name="TYPE"></field>
+      <block type="wims_up_down_editor">
+        <field name="WIMS_EDITOR">true</field>
       </block>
     </category>
-    <category name="Variables" colour="#a55b6d" custom="VARIABLE"></category>
+    <category name="Variables" colour="#0099ff" custom="VARIABLE"></category>
+<!--
     <category name="Contrôle">
       <block type="controls_for">
         <field name="VAR">i</field>
@@ -276,6 +277,7 @@
       </block>
       <block type="controls_if"></block>
     </category>
+-->
     <sep></sep>
     <category name="Essaims"></category>
   </xml>
@@ -289,10 +291,11 @@
       <field name="WIMS_EDITOR">conditions du feedback</field>
     </block>
     <block type="analyse_hint">
-      <field name="WIMS_EDITOR">you'r hint</field>
+      <field name="WIMS_EDITOR">Indication</field>
     </block>
-    <block type="wims_up_down_editor">
-      <field name="WIMS_EDITOR">true</field>
+    <block type="wims_change_type">
+      <field name="VARIABLE_CHOICE"></field>
+      <field name="TYPE"></field>
     </block>
     <block type="wims_variable_editor">
       <field name = "VARIABLE_CHOICE"></field>
@@ -301,7 +304,7 @@
     <block type="wims_if">
     </block>
     <block type ="wims_comment">
-      <field name="COMMENT">Mettre ici le commentaire</field>
+      <field name="COMMENT">Commentaire</field>
     </block>
     <block type="wims_for">
       <value name="START">
@@ -320,11 +323,10 @@
         </shadow>
       </value>
     </block>
-    <block type="wims_change_type">
-      <field name="VARIABLE_CHOICE"></field>
-      <field name="TYPE"></field>
+    <block type="wims_up_down_editor">
+      <field name="WIMS_EDITOR">true</field>
     </block>
-    <block type="wims_define_variable">
+<!--    <block type="wims_define_variable">
       <field name="VARIABLE_CHOICE"></field>
       <field name="TYPE"></field>
       <field name="WIMS_EDITOR">value</field>
@@ -332,9 +334,10 @@
     <block type="text">
       <field name="TEXT"></field>
     </block>
+-->
   </category>
   <category name="Variables" colour="#a55b6d" custom="VARIABLE"></category>
-  <category name="Contrôle">
+<!--  <category name="Contrôle">
     <block type="controls_for">
       <field name="VAR">i</field>
       <value name="FROM">
@@ -364,6 +367,7 @@
   </category>
   <sep></sep>
   <category name="Essaims"></category>
+-->
 </xml>
 <!-- FIN DU TEST -->
 

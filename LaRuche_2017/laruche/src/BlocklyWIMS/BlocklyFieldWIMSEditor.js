@@ -66,7 +66,6 @@ Blockly.FieldWIMSEditor.prototype.init = function () {
     editorDiv.style.width = "200px";
     editorDiv.style.height = "40px";
     if (this.toolbar) {
-        console.log('yolo');
         editorDiv.style.width = "400px";
         editorDiv.style.height = "150px";
         editorDiv.style.backgroundColor = 'white';
