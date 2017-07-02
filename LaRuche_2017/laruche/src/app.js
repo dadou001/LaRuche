@@ -381,7 +381,8 @@ function update_final_code(){
 	result += infos.enonce;//A faire
 	/*ON FERME LE DOCUMENT */
 	result += "}\n";
-	result += get_all_answer_OEF();
+	result += get_all_answer_OEF()+'\n';
+	result += generate_analyse_code();
 	document.getElementById("final_OEF_code").value = result;
 }
 
@@ -421,6 +422,12 @@ function add_variable_editor_blockly(name){
 function generate_prep_code(){
 	Blockly.OEF.addReservedWords('code');
 	var code = Blockly.OEF.workspaceToCode(prepEditor.mBlocklyWorkspace);
+	return code;
+}
+
+function generate_analyse_code(){
+	Blockly.OEF.addReservedWords('code');
+	var code = Blockly.OEF.workspaceToCode(analyseEditor.mBlocklyWorkspace);
 	return code;
 }
 

@@ -175,7 +175,7 @@ Blockly.Blocks['analyse_feedback'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Feedback when")
-        .appendField(new Blockly.FieldWIMSEditor("","du quill",true), "WIMS_EDITOR");
+        .appendField(new Blockly.FieldWIMSEditor("","du quill",false), "WIMS_EDITOR");
     this.appendStatementInput("DO")
         .appendField('do')
         .setCheck(null);
