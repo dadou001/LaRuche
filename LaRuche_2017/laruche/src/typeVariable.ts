@@ -1,5 +1,5 @@
 enum typeVariable{
-  Real = "Real",
-  Fun = "Fun",
-  Int = "Int",
+  Real = "real",
+  Fun = "fun",
+  Int = "integer",
 }
