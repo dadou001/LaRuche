@@ -1,6 +1,6 @@
 var typeVariable;
 (function (typeVariable) {
-    typeVariable[typeVariable["Real"] = "Real"] = "Real";
-    typeVariable[typeVariable["Fun"] = "Fun"] = "Fun";
-    typeVariable[typeVariable["Int"] = "Int"] = "Int";
+    typeVariable[typeVariable["Real"] = "real"] = "Real";
+    typeVariable[typeVariable["Fun"] = "fun"] = "Fun";
+    typeVariable[typeVariable["Int"] = "integer"] = "Int";
 })(typeVariable || (typeVariable = {}));

@@ -28,8 +28,9 @@ Blockly.OEF['wims_variable_editor'] = function(block) {
   var varName = Blockly.OEF.variableDB_.getName(
       block.getFieldValue('VARIABLE_CHOICE'), Blockly.Variables.NAME_TYPE);
   var editorTmp = new SEditor(block.getFieldValue('WIMS_EDITOR'));
-  variable_List[varName].setValue(editorTmp.to_variable_value());
-  return '';
+  var type = variable_List[varName].type;
+  // variable_List[varName].setValue(editorTmp.to_variable_value());
+  return '\\'+type+'{ '+varName+' = '+editorTmp.to_variable_value()+'}\n';
 };
 
 Blockly.OEF['wims_if'] = function(block) {

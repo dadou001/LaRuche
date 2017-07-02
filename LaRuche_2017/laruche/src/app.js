@@ -372,7 +372,7 @@ function update_final_code(){
 	result += "\n"
 
 	/* INSERER LES VARIABLES ICI */
-	result += declaration_variable_OEFcode() + '\n';
+	// result += declaration_variable_OEFcode() + '\n';
 	/*DEBUT DU CODE EN SOI*/
 	result += generate_prep_code() + '\n';
 	// result += "";

@@ -21,8 +21,8 @@ Blockly.Blocks['wims_change_type'] = {
         .appendField(new Blockly.FieldVariable(""), "VARIABLE_CHOICE")
     // this.appendDummyInput()
         .appendField("est de type ")
-        .appendField(new Blockly.FieldDropdown([["Nombre réel","Real"], ["Nombre entier","Int"],["Nombre rationnel","Rational"],
-                                                ["Matrice","Matrix"],["Texte","Text"],["Function","Fun"],["Nombre Complexe","Complex"]])
+        .appendField(new Blockly.FieldDropdown([["Nombre réel","real"], ["Nombre entier","int"],["Nombre rationnel","rational"],
+                                                ["Matrice","matrix"],["Texte","text"],["Function","fun"],["Nombre Complexe","complex"]])
                                                             , "TYPE");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -73,8 +73,8 @@ Blockly.Blocks['wims_define_variable'] = {
         .appendField(new Blockly.FieldVariable(""), "VARIABLE_CHOICE")
     // this.appendDummyInput()
         .appendField("type to ")
-        .appendField(new Blockly.FieldDropdown([["Nombre réel","Real"], ["Nombre entier","Int"],["Nombre rationnel","Rational"],
-                                                ["Matrice","Matrix"],["Texte","Text"],["Function","Fun"],["Nombre Complexe","Complex"]])
+        .appendField(new Blockly.FieldDropdown([["Nombre réel","real"], ["Nombre entier","int"],["Nombre rationnel","rational"],
+                                                ["Matrice","matrix"],["Texte","text"],["Function","fun"],["Nombre Complexe","complex"]])
                                                             , "TYPE");
     this.appendDummyInput()
         .appendField("With the value")
