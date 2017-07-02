@@ -210,9 +210,6 @@
   <div id="RId_programPrep_blockly" style="position: absolute"></div>
   <xml id="RId_toolbox_programPrep" xmlns="http://www.w3.org/1999/xhtml" style="display: none;">
     <category name="WIMS">
-      <block type="wims_while">
-        <field name="WIMS_EDITOR">true</field>
-      </block>
       <block type="wims_editor">
         <field name="WIMS_EDITOR">true</field>
       </block>
@@ -248,14 +245,6 @@
       <block type="wims_change_type">
         <field name="VARIABLE_CHOICE"></field>
         <field name="TYPE"></field>
-      </block>
-      <block type="wims_define_variable">
-        <field name="VARIABLE_CHOICE"></field>
-        <field name="TYPE"></field>
-        <field name="WIMS_EDITOR">value</field>
-      </block>
-      <block type="text">
-        <field name="TEXT"></field>
       </block>
     </category>
     <category name="Variables" colour="#a55b6d" custom="VARIABLE"></category>
@@ -379,7 +368,7 @@
 <!-- FIN DU TEST -->
 
 
-  <button name="TESTOUILLE" onclick="console.log(variable_List)" value="TEST">Hello</button>
+  <button name="TESTOUILLE" onclick="console.log(get_variables_JSON())" value="TEST">Hello</button>
 
   <script src="js_tools/vendor/jquery.js" type="text/javascript" charset="utf-8"></script>
   <script src="js_tools/vendor/what-input.js" type="text/javascript" charset="utf-8"></script>

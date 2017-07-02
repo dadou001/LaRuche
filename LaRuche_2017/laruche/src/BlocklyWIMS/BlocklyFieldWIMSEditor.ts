@@ -71,9 +71,17 @@ Blockly.FieldWIMSEditor.prototype.init = function() {
   Blockly.FieldWIMSEditor.UNIQUE_QUILL_ID++;
   this.editorDivId_ = "Blockly_quill_"+Blockly.FieldWIMSEditor.UNIQUE_QUILL_ID;
   editorDiv.id = this.editorDivId_
+  if(toolbar){
+    editorDiv.innerHTML = create_div_quill_toolbar(this.editorDivId_);
+  }
   document.body.appendChild( editorDiv );
   editorDiv.style.width="200px";
   editorDiv.style.height="40px";
+  if(toolbar){
+    editorDiv.style.width="400px";
+    editorDiv.style.height="150px";
+    editorDiv.style.backgroundColor = 'white';
+  }
 
   Blockly.ExternalDiv.register(editorDiv,this);
 
@@ -91,9 +99,9 @@ Blockly.FieldWIMSEditor.prototype.init = function() {
     }
     else{
       var toolbarOptions = [['bold', 'italic'], ['link', 'image']];
-      this.quillEditor_ = new Quill('#'+this.editorDivId_, {
+      this.quillEditor_ = new Quill('#'+this.editorDivId_+'_quill', {
         modules: {
-          toolbar: toolbarOptions
+          toolbar: '#'+this.editorDivId_+'_toolbar'
         },
         placeholder: 'expression...',
         theme: 'snow'
@@ -211,7 +219,18 @@ Blockly.FieldWIMSEditor.prototype.setText = function(alt) {
   this.text_ = alt;
 };
 
-
+function create_div_quill_toolbar(id){
+  var toolbar = '<div id=\''+id+'_toolbar\'>'+
+                  '<span class="ql-formats">'+
+                    '<button class="ql-bold"></button>'+
+                    '<button class="ql-italic"></button>'+
+                    '<button class="ql-underline"></button>'+
+                    '<button class="ql-strike"></button>'+
+                  '</span>'+
+                '</div>';
+  var quill = '<div id=\''+id+'_quill\'></div>';
+  return toolbar + quill;
+}
 
 /**
  * Show the editor on top of the placeholder image.

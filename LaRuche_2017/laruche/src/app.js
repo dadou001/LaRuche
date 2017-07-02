@@ -129,6 +129,9 @@ function change_to_var(editor,var_list){
 				add_blockly_variable(nameVar);
 			}
 		}
+		else{
+			window.alert('Le nom de la variable ne doit contenir que des caractères alphanumériques !')
+		}
 	}
 }
 
@@ -321,28 +324,30 @@ function declaration_variable_OEFcode(){
 		// else if (variable_List[nameVar].type == "Int"){ //dans le cas d'un entier
 		// 	result += "\\integer{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
 		// }
-		switch(variable_List[nameVar].type){
-			case 'Real':
-				result += "\\real{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
-				break;
-			case 'Int':
-				result += "\\integer{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
-				break;
-			case 'Rational':
-				result += "\\rational{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
-				break;
-			case 'Complex':
-				result += "\\complex{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
-				break;
-			case 'Matrix':
-				result += "\\matrix{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
-				break;
-			case 'Fun':
-				result += "\\function{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
-				break;
-			case 'Text':
-				result += "\\text{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
-				break;
+		if(variable_List[nameVar].value != undefined){
+			switch(variable_List[nameVar].type){
+				case 'Real':
+					result += "\\real{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
+					break;
+				case 'Int':
+					result += "\\integer{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
+					break;
+				case 'Rational':
+					result += "\\rational{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
+					break;
+				case 'Complex':
+					result += "\\complex{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
+					break;
+				case 'Matrix':
+					result += "\\matrix{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
+					break;
+				case 'Fun':
+					result += "\\function{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
+					break;
+				case 'Text':
+					result += "\\text{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
+					break;
+			}
 		}
 	}
 	return result;
@@ -361,21 +366,21 @@ function update_final_code(){
 	result += "\\computeanswer{}\n";
 	result += "\\format{html}\n";
 	result += "\\precision{1000}\n";
-	result += "\\range{-5..5)}\n";
-	result += "\n\n\n"
+	result += "\\range{-5..5}";
+	result += "\n"
 	result += infos.OEF_code
-	result += "\n\n\n"
+	result += "\n"
 
 	/* INSERER LES VARIABLES ICI */
-	result += declaration_variable_OEFcode() + '\n\n';
+	result += declaration_variable_OEFcode() + '\n';
 	/*DEBUT DU CODE EN SOI*/
-	result += generate_prep_code() + '\n\n';
-	result += "\n\n\n";
+	result += generate_prep_code() + '\n';
+	// result += "";
 	result += "\\statement{\n";
 	/* RAJOUTER LE CODE TRANSFORMé DE L'ONGLET ENONCE */
 	result += infos.enonce;//A faire
 	/*ON FERME LE DOCUMENT */
-	result += "}\n\n";
+	result += "}\n";
 	result += get_all_answer_OEF();
 	document.getElementById("final_OEF_code").value = result;
 }
@@ -461,4 +466,37 @@ function generate_popup_list_var(x,y){
 	// $('#popup_var_blockly').css('background-color','white');
 	// console.log($('#popup_var_blockly').find('li'));
 	document.body.appendChild(maDiv);
+}
+
+function get_variables_JSON(){
+	// var result = '"variable_List"[\n\t';
+	// var variables = '';
+	// var i = 0;
+	// var tmp = '';
+	// while(i<Object.keys(variable_List).length-1){
+	// 	tmp = JSON.stringify(variable_List[Object.keys(variable_List)[i]])
+	// 	result += tmp;
+	// 	i++;
+	// }
+	// tmp = variable_List[Object.keys(variable_List)[i]].toJSON().split('\n').join('\n\t')+'\n';
+	// result += tmp;
+	// result += ']\n'
+	// return result;
+	var state = {'variables':variable_List,'answer':answer_List};
+	return JSON.stringify(state);
+}
+
+function beautifuler_JSON(JSON_str){
+	// var tab_counter = 0;
+	// var start = JSON_str.search('{');
+	// var end = '';
+	// while(start != -1)
+}
+
+function good_tab(number){
+	var result = '';
+	for(var i = 0;i<number;i++){
+		result += '\t';
+	}
+	return result;
 }
