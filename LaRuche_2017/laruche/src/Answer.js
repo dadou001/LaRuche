@@ -10,7 +10,12 @@ var Answer = (function () {
         return this.block_html;
     };
     Answer.prototype.get_type = function () {
-        return this.type;
+        if (this.type != 'other')
+            return this.type;
+        else {
+            console.log($('#ans_' + this.name + '_type').find('textarea'));
+            return $('#ans_' + this.name + '_type').find('textarea').get(0).value;
+        }
     };
     Answer.prototype.get_option = function () {
         var result = "";

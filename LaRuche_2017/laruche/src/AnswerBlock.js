@@ -13,7 +13,8 @@ var AnswerBlock = (function () {
                 'shuffle': 'Mélanger les réponses',
                 'multiple': 'Plusieurs choix autorisés',
                 'sort': 'Réponse ordonnées par ordre alpha.',
-                'noanalyze': 'Sans affichage de l\'analyse réponse' }
+                'noanalyze': 'Sans affichage de l\'analyse réponse' },
+            'other': {}
         };
         this.name = name;
         this.id = id;
@@ -40,26 +41,14 @@ var AnswerBlock = (function () {
     // }
     //Methodes public
     AnswerBlock.prototype.change_to_type = function (type) {
-        // switch(type){
-        //   case 'numeric':
-        //     this.html = this.change_html_fieldset(this.generate_numeric_fieldset());
-        //     this.update_html();
-        //     break;
-        //   case 'function':
-        //     this.html = this.change_html_fieldset(this.generate_function_fieldset());
-        //     this.update_html();
-        //     break;
-        //   case 'range':
-        //     this.html = this.change_html_fieldset(this.generate_range_fieldset());
-        //     this.update_html();
-        //     break;
-        //   case 'menu':
-        //     this.html = this.change_html_fieldset(this.generate_menu_fieldset());
-        //     this.update_html();
-        //     break;
-        // }
-        this.html = this.change_html_fieldset(this.generate_fieldset_code(type));
-        this.update_html();
+        if (type == 'other') {
+            this.html = this.change_html_fieldset(this.generate_fieldset_code(type));
+            this.update_html(true);
+        }
+        else {
+            this.html = this.change_html_fieldset(this.generate_fieldset_code(type));
+            this.update_html(false);
+        }
     };
     //Getteurs/stteurs
     AnswerBlock.prototype.get_html = function () {
@@ -103,9 +92,11 @@ var AnswerBlock = (function () {
             + '<option value="function">Function</option>'
             + '<option value="range">Range</option>'
             + '<option value="menu">Menu</option>'
+            + '<option value="other">Other</option>'
             + '</select>'
             + '</label>'
             + '<div id="ans_' + this.name + '">'
+            + '<div id="ans_' + this.name + '_type"></div>'
             + 'Chaine d\'analyse'
             + '<div id="editor_' + this.name + '">'
             + '</div>'
@@ -156,35 +147,41 @@ var AnswerBlock = (function () {
     //   +'</fieldset>';
     //   return result;
     // }
-    AnswerBlock.prototype.generate_menu_fieldset = function () {
-        var result = '<fieldset id="fieldset_ans_' + this.name + '">'
-            + '<legend>Option(s)</legend>'
-            + '<input id="checkbox_' + this.name + '_partial_answer" value="partialAnswer" type="checkbox"><label for="checkbox_' + this.name + '_partial_answer">Accepte les réponses partielles</label>'
-            + '<input id="checkbox_' + this.name + '_shuffle" value="shuffle" type="checkbox"><label for="checkbox_' + this.name + '_shuffle">Bat aléatoirement les propositions</label>'
-            + '<input id="checkbox_' + this.name + '_multiple_choice" value="multipleChoice" type="checkbox"><label for="checkbox_' + this.name + '_multiple_choice">Choix multiple</label>'
-            + '<input id="checkbox_' + this.name + '_ordered_choice" value="ordered" type="checkbox"><label for="checkbox_' + this.name + '_ordered_choice">Tri les propositions</label>'
-            + '<input id="checkbox_' + this.name + '_noanalyze" value="noanalyze" type="checkbox"><label for=""checkbox_' + this.name + '_noanalyze"">sans affichage de l\'analyse réponse</label>'
-            + '</fieldset>';
-        return result;
-    };
-    AnswerBlock.prototype.update_html = function () {
+    // private generate_menu_fieldset(){
+    //   var result = '<fieldset id="fieldset_ans_'+this.name+'">'
+    //     +'<legend>Option(s)</legend>'
+    //     +'<input id="checkbox_'+this.name+'_partial_answer" value="partialAnswer" type="checkbox"><label for="checkbox_'+this.name+'_partial_answer">Accepte les réponses partielles</label>'
+    //     +'<input id="checkbox_'+this.name+'_shuffle" value="shuffle" type="checkbox"><label for="checkbox_'+this.name+'_shuffle">Bat aléatoirement les propositions</label>'
+    //     +'<input id="checkbox_'+this.name+'_multiple_choice" value="multipleChoice" type="checkbox"><label for="checkbox_'+this.name+'_multiple_choice">Choix multiple</label>'
+    //     +'<input id="checkbox_'+this.name+'_ordered_choice" value="ordered" type="checkbox"><label for="checkbox_'+this.name+'_ordered_choice">Tri les propositions</label>'
+    //     +'<input id="checkbox_'+this.name+'_noanalyze" value="noanalyze" type="checkbox"><label for=""checkbox_'+this.name+'_noanalyze"">sans affichage de l\'analyse réponse</label>'
+    //   +'</fieldset>';
+    //   return result;
+    // }
+    AnswerBlock.prototype.update_html = function (textAreaType) {
         var result = "";
         var start = this.html.search('<fieldset');
         var end = this.html.search('</fieldset>');
         result = this.html.substring(start, end + 11);
         $('#fieldset_ans_' + this.name).replaceWith(result);
+        if (textAreaType) {
+            $('#ans_' + this.name + '_type').html('<textarea placeholder="Type"></textarea>');
+        }
+        else {
+            $('#ans_' + this.name + '_type').html('');
+        }
     };
     AnswerBlock.prototype.destroy_html = function () {
         $('#answer_all_' + this.name).remove();
     };
     AnswerBlock.prototype.update_all_html = function () {
-        var number = Number(this.id.substring(6, 7)) - 1;
+        // var number = Number(this.id.substring(6,7))-1;
         // console.log($('#answer_list_analyse .callout').eq(number).get(0));
         // if($('#answer_list_analyse .callout').eq(number).get(0) == undefined){
         //   $('#answer_list_analyse .callout').append(this.html);
         // }
         // else {
-        $('#answer_list_analyse .callout').eq(number).replaceWith(this.html);
+        $('#answer_all_' + this.name).replaceWith(this.html);
         // }
     };
     AnswerBlock.prototype.generate_fieldset_code = function (type) {

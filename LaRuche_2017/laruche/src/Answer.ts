@@ -19,7 +19,12 @@ class Answer{
   }
 
   public get_type(){
-    return this.type;
+    if(this.type != 'other')
+      return this.type;
+    else{
+      console.log($('#ans_'+this.name+'_type').find('textarea'));
+      return $('#ans_'+this.name+'_type').find('textarea').get(0).value;
+    }
   }
 
   public get_option(){
