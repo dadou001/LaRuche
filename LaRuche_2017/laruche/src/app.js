@@ -38,7 +38,7 @@ var quill = new Quill('#editor-enonce', {
 		// syntax: true,
 		toolbar: '#toolbar-container'
 	},
-	placeholder: 'Compose an exercise...',
+	placeholder: Blockly.Msg.WIMS_STATEMENT_EDITOR_PLACEHOLDER,
 	theme: 'snow'
 });
 
@@ -47,7 +47,7 @@ var quill_EnTete = new Quill('#editor-EnTete', {
 	modules: {
 		toolbar: false
 	},
-	placeholder: 'Compose an exercise...',
+	placeholder: Blockly.Msg.WIMS_HEADER_EDITOR_PLACEHOLDER,
 	theme: 'snow'
 });
 
@@ -63,7 +63,7 @@ function add_answer(editor,ans_list){
 	editor.focus();
 	var positionSelection = editor.getSelection(); //On obtient la sélection de l'utilisateur
 	if (positionSelection.length == 0){
-		var name = window.prompt('Entrez le nom de votre réponse','Réponse');
+		var name = window.prompt(Blockly.Msg.WIMS_PROMPT_ANSWER_NAME,Blockly.Msg.WIMS_PROMPT_ANSWER_NAME_PLACEHOLDER);
 
 		if((name != null) && (test_valid_expression(name)) && (ans_list[name] == null)){
 			ans_list[name] = new Answer(name,'numeric','reply-LOLLLLOLO');
@@ -76,7 +76,7 @@ function add_answer(editor,ans_list){
 			editor.insertEmbed(positionSelection.index,'answerImage',name);
 		}
 		else{
-			window.alert('Nom de réponse non valide');
+			window.alert(Blockly.Msg.WIMS_PROMPT_ANSWER_NAME_ERROR);
 		}
 		// ans_list.push(new Answer('reply'+(ans_list.length+1)));
 	}
@@ -106,7 +106,7 @@ function create_variable_editor(id_select_type_popup,id_input_name_popup,index){
 		}
 	}
 	else{
-		window.alert("Le nom de la variable ne doit contenir que des caractères alphanumériques !");
+		window.alert(Blockly.Msg.WIMS_PROMPT_VARIABLE_NAME_ERROR);
 	}
 }
 
@@ -130,7 +130,7 @@ function change_to_var(editor,var_list){
 			}
 		}
 		else{
-			window.alert('Le nom de la variable ne doit contenir que des caractères alphanumériques !')
+			window.alert(Blockly.Msg.WIMS_PROMPT_VARIABLE_NAME_ERROR)
 		}
 	}
 }
@@ -277,8 +277,8 @@ function create_variable_choice_popup(id_to_popup,index){
     +'<option value="Int">Integer</option>'
   +'</select>'
 +'</label>'
-+'<input placeholder="Nom de la variable" type="text" id="popup_input"></input>'
-+'<a href="#" class="button" onclick="create_variable_editor(\'popup_select\',\'popup_input\','+index+')">Créer</a>'
++'<input placeholder="'+Blockly.Msg.WIMS_POPUP_VARIABLE_NAME_PLACEHOLDER+'" type="text" id="popup_input"></input>'
++'<a href="#" class="button" onclick="create_variable_editor(\'popup_select\',\'popup_input\','+index+')">'+Blockly.Msg.WIMS_POPUP_VARIABLE_BUTTON_CREATE+'</a>'
 +'</div>'
 }
 

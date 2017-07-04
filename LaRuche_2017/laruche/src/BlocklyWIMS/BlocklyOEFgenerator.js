@@ -24,7 +24,7 @@ Blockly.OEF = new Blockly.Generator('OEF');
  */
 Blockly.OEF.addReservedWords(
     'Blockly,' +
-    'for,while,do,real,integer,matrix,wims,answer,' +
+    'for,while,do,real,integer,matrix,function,wims,answer,' +
     'const,null,true,false,');
 
 /**

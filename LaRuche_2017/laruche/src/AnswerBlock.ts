@@ -11,15 +11,15 @@ class AnswerBlock{
   public editor:SEditor;
   private id:string;
   private name:string;
-  all_type = {'numeric':{'coma':'Utiliser des virgules',
-                          'noanalyze':'Sans affichage de l\'analyse réponse'},
-              'function':{'noanalyze':'Sans affichage de l\'analyse réponse'},
-              'range':{'noanalyze':'Sans affichage de l\'analyse réponse'},
-              'menu':{'split':'Autoriser les réponses partielles',
-                      'shuffle':'Mélanger les réponses',
-                      'multiple': 'Plusieurs choix autorisés',
-                      'sort': 'Réponse ordonnées par ordre alpha.',
-                      'noanalyze':'Sans affichage de l\'analyse réponse'},
+  all_type = {'numeric':{'coma':Blockly.Msg.WIMS_ANSWER_OPTION_COMA,
+                          'noanalyze':Blockly.Msg.WIMS_ANSWER_OPTION_NOANALYZE},
+              'function':{'noanalyze':Blockly.Msg.WIMS_ANSWER_OPTION_NOANALYZE},
+              'range':{'noanalyze':Blockly.Msg.WIMS_ANSWER_OPTION_NOANALYZE},
+              'menu':{'split':Blockly.Msg.WIMS_ANSWER_OPTION_SPLIT,
+                      'shuffle':Blockly.Msg.WIMS_ANSWER_OPTION_SHUFFLE,
+                      'multiple': Blockly.Msg.WIMS_ANSWER_OPTION_MULTIPLE,
+                      'sort': Blockly.Msg.WIMS_ANSWER_OPTION_SORT,
+                      'noanalyze':Blockly.Msg.WIMS_ANSWER_OPTION_NOANALYZE},
               'other':{}
             };
   //Constructeur
@@ -87,7 +87,7 @@ class AnswerBlock{
     	modules: {
     		toolbar: false
     	},
-    	placeholder: 'Compose an exercise...',
+    	placeholder: Blockly.Msg.WIMS_ANSWER_ANALYSIS_STRING_PLACEHOLDER,
     	theme: 'snow'
     }));
   }
@@ -96,7 +96,7 @@ class AnswerBlock{
     this.html = "";
     this.destroy_html();
     this.editor = null;
-    this.id = "JE DEVRAIS APS ETRE LA";
+    this.id = "I SHOULDN'T BE HERE";
   }
 
   //Methodes private
@@ -106,23 +106,23 @@ class AnswerBlock{
   		+this.name
   			+'<label>Answer Type'
   				+'<select oninput="$(\'#ans_'+this.name+'\').removeClass(\'answer_hidden\');change_type_answer(\''+this.name+'\',this.value,answer_List)">'//Rajouter le moyen de changer le type
-            +'<option value="numeric">Numeric</option>'
-  					+'<option value="function">Function</option>'
-  					+'<option value="range">Range</option>'
-  					+'<option value="menu">Menu</option>'
-            +'<option value="other">Other</option>'
+            +'<option value="numeric">'+Blockly.Msg.WIMS_ANSWER_TYPE_NUMERIC+'</option>'
+  					+'<option value="function">'+Blockly.Msg.WIMS_ANSWER_TYPE_FUNCTION+'</option>'
+  					+'<option value="range">'+Blockly.Msg.WIMS_ANSWER_TYPE_RANGE+'</option>'
+  					+'<option value="menu">'+Blockly.Msg.WIMS_ANSWER_TYPE_MENU+'</option>'
+            +'<option value="other">'+Blockly.Msg.WIMS_ANSWER_TYPE_OTHER+'</option>'
   				+'</select>'
   			+'</label>'
   			+'<div id="ans_'+this.name+'">'
           +'<div id="ans_'+this.name+'_type"></div>'
-  				+'Chaine d\'analyse'
+  				+ Blockly.Msg.WIMS_ANSWER_ANALYSIS_STRING
   				+'<div id="editor_'+this.name+'">'
   				+'</div>'
   				+'<fieldset id="fieldset_ans_'+this.name+'">'
-  					+'<legend>Option(s)</legend>'
-  					+'<input id="checkbox1" type="checkbox"><label for="checkbox1">Option 1</label>'
-  					+'<input id="checkbox2" type="checkbox"><label for="checkbox2">Option 2</label>'
-  					+'<input id="checkbox3" type="checkbox"><label for="checkbox3">Option 3</label>'
+  					+'<legend>'+Blockly.Msg.WIMS_ANSWER_ANALYSIS_OPTIONS+'</legend>'
+  					+'<input id="checkbox1" type="checkbox"><label for="checkbox1">'+Blockly.Msg.WIMS_ANSWER_ANALYSIS_OPTION+' 1</label>'
+  					+'<input id="checkbox2" type="checkbox"><label for="checkbox2">'+Blockly.Msg.WIMS_ANSWER_ANALYSIS_OPTION+' 2</label>'
+  					+'<input id="checkbox3" type="checkbox"><label for="checkbox3">'+Blockly.Msg.WIMS_ANSWER_ANALYSIS_OPTION+' 3</label>'
   				+'</fieldset>'
   			+'</div>'
   			+'<div class="large-1 columns">'
