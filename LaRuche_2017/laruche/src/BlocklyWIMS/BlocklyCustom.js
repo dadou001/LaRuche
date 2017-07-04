@@ -41,7 +41,7 @@ Blockly.Blocks['wims_if'] = {
             .setCheck(null)
             .appendField(Blockly.Msg.WIMS_IF_CONDITION_DO);
         this.appendDummyInput()
-            .appendField(Blockly.Msg.WIMS__IF_CONDITION_ELSE);
+            .appendField(Blockly.Msg.WIMS_IF_CONDITION_ELSE);
         this.appendStatementInput("ELSE")
             .setCheck(null)
             .appendField(Blockly.Msg.WIMS_IF_CONDITION_DO);
