@@ -79,7 +79,7 @@ Blockly.FieldWIMSEditor.prototype.init = function () {
                 modules: {
                     toolbar: false
                 },
-                placeholder: 'expression...',
+                placeholder: Blockly.Msg.WIMS_EDITOR_PLACEHOLDER,
                 theme: 'snow'
             });
             this.quillEditor_.insertText(0, "");
@@ -90,7 +90,7 @@ Blockly.FieldWIMSEditor.prototype.init = function () {
                 modules: {
                     toolbar: '#' + this.editorDivId_ + '_toolbar'
                 },
-                placeholder: 'expression...',
+                placeholder: Blockly.Msg.WIMS_EDITOR_PLACEHOLDER,
                 theme: 'snow'
             });
             this.quillEditor_.insertText(0, "");

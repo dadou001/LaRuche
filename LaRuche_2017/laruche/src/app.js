@@ -9,6 +9,35 @@ var active_editor_analyse = null;
 var prepEditor;
 var analyseEditor;
 
+/*
+ * Set the strings in index.html according to the current language
+ */
+$('#RId_Onglet_Entete').html(Blockly.Msg.WIMS_INTERFACE_TAB_HEADER);
+$('#RId_Onglet_Enonce').html(Blockly.Msg.WIMS_INTERFACE_TAB_STATEMENT);
+$('#RId_Onglet_Preparation').html(Blockly.Msg.WIMS_INTERFACE_TAB_PREPARATION);
+$('#RId_Onglet_Analyse').html(Blockly.Msg.WIMS_INTERFACE_TAB_ANALYSIS);
+$('#RId_Onglet_Code').html(Blockly.Msg.WIMS_INTERFACE_TAB_CODE);
+$('#RId_Onglet_Sauvegarde').html(Blockly.Msg.WIMS_INTERFACE_TAB_SAVING);
+$('#Rid_Entete_Label_Title').html(Blockly.Msg.WIMS_INTERFACE_HEADER_TITLE);
+$('#Rid_Entete_Label_Language').html(Blockly.Msg.WIMS_INTERFACE_HEADER_LANGUAGE);
+$('#Rid_Entete_Label_Name').html(Blockly.Msg.WIMS_INTERFACE_HEADER_NAME);
+$('#Rid_Entete_Label_FirstName').html(Blockly.Msg.WIMS_INTERFACE_HEADER_FIRSTNAME);
+$('#Rid_Entete_Label_Email').html(Blockly.Msg.WIMS_INTERFACE_HEADER_EMAIL);
+$('#Rid_Entete_Label_EOFCode').html(Blockly.Msg.WIMS_INTERFACE_HEADER_OEF_CODE);
+$('#title_EnTete').attr('placeholder',Blockly.Msg.WIMS_INTERFACE_HEADER_TITLE_PLACEHOLDER)
+$('#language_EnTete').attr('placeholder',Blockly.Msg.WIMS_INTERFACE_HEADER_LANGUAGE_PLACEHOLDER)
+$('#name_EnTete').attr('placeholder',Blockly.Msg.WIMS_INTERFACE_HEADER_NAME_PLACEHOLDER_PLACEHOLDER)
+$('#firstName_EnTete').attr('placeholder',Blockly.Msg.WIMS_INTERFACE_HEADER_FIRSTNAME_PLACEHOLDER)
+$('#email_EnTete').attr('placeholder',Blockly.Msg.WIMS_INTERFACE_HEADER_EMAIL_PLACEHOLDER)
+$('#variable_creation_button').html(Blockly.Msg.WIMS_INTERFACE_BUTTON_VAR_CREATION);
+$('#answer_creation_button').html(Blockly.Msg.WIMS_INTERFACE_BUTTON_ANSWER_CREATION);
+$('#Rid_Analysis_Header_VarAnswers').html(Blockly.Msg.WIMS_INTERFACE_ANALYSIS_VARIABLES_AND_ANSWERS);
+$('#Rid_Prep_Blockly_Toolbar_WIMS').attr('name',Blockly.Msg.WIMS_BLOCKLY_PREP_WIMS);
+$('#Rid_Prep_Blockly_Toolbar_Variables').attr('name',Blockly.Msg.WIMS_BLOCKLY_PREP_VARIABLES);
+$('#Rid_Prep_Blockly_Toolbar_Swarms').attr('name',Blockly.Msg.WIMS_BLOCKLY_PREP_SWARMS);
+$('#Rid_Analysis_Blockly_Toolbar_Analysis').attr('name',Blockly.Msg.WIMS_BLOCKLY_ANALYSIS_ANALYSIS);
+$('#Rid_Analysis_Blockly_Toolbar_Variables').attr('name',Blockly.Msg.WIMS_BLOCKLY_ANALYSIS_VARIABLES);
+
 function change_onglet(name) {
 	$('#RId_Onglet_'+anc_onglet).removeClass('RCl_Onglet_Affiche').addClass('RCl_Onglet_Cache');
 	$('#RId_Onglet_'+name).removeClass('RCl_Onglet_Cache').addClass('RCl_Onglet_Affiche');
@@ -38,7 +67,7 @@ var quill = new Quill('#editor-enonce', {
 		// syntax: true,
 		toolbar: '#toolbar-container'
 	},
-	placeholder: 'Compose an exercise...',
+	placeholder: Blockly.Msg.WIMS_STATEMENT_EDITOR_PLACEHOLDER,
 	theme: 'snow'
 });
 
@@ -47,7 +76,7 @@ var quill_EnTete = new Quill('#editor-EnTete', {
 	modules: {
 		toolbar: false
 	},
-	placeholder: 'Compose an exercise...',
+	placeholder: Blockly.Msg.WIMS_HEADER_EDITOR_PLACEHOLDER,
 	theme: 'snow'
 });
 
@@ -63,7 +92,7 @@ function add_answer(editor,ans_list){
 	editor.focus();
 	var positionSelection = editor.getSelection(); //On obtient la sélection de l'utilisateur
 	if (positionSelection.length == 0){
-		var name = window.prompt('Entrez le nom de votre réponse','Réponse');
+		var name = window.prompt(Blockly.Msg.WIMS_PROMPT_ANSWER_NAME,Blockly.Msg.WIMS_PROMPT_ANSWER_NAME_PLACEHOLDER);
 
 		if((name != null) && (test_valid_expression(name)) && (ans_list[name] == null)){
 			ans_list[name] = new Answer(name,'numeric');
@@ -76,7 +105,7 @@ function add_answer(editor,ans_list){
 			editor.insertEmbed(positionSelection.index,'answerImage',name);
 		}
 		else{
-			window.alert('Nom de réponse non valide');
+			window.alert(Blockly.Msg.WIMS_PROMPT_ANSWER_NAME_ERROR);
 		}
 		// ans_list.push(new Answer('reply'+(ans_list.length+1)));
 	}
@@ -106,7 +135,7 @@ function create_variable_editor(id_select_type_popup,id_input_name_popup,index){
 		}
 	}
 	else{
-		window.alert("Le nom de la variable ne doit contenir que des caractères alphanumériques !");
+		window.alert(Blockly.Msg.WIMS_PROMPT_VARIABLE_NAME_ERROR);
 	}
 }
 
@@ -130,7 +159,7 @@ function change_to_var(editor,var_list){
 			}
 		}
 		else{
-			window.alert('Le nom de la variable ne doit contenir que des caractères alphanumériques !')
+			window.alert(Blockly.Msg.WIMS_PROMPT_VARIABLE_NAME_ERROR)
 		}
 	}
 }
@@ -278,8 +307,8 @@ function create_variable_choice_popup(id_to_popup,index){
     +'<option value="Int">Integer</option>'
   +'</select>'
 +'</label>'
-+'<input placeholder="Nom de la variable" type="text" id="popup_input"></input>'
-+'<a href="#" class="button" onclick="create_variable_editor(\'popup_select\',\'popup_input\','+index+')">Créer</a>'
++'<input placeholder="'+Blockly.Msg.WIMS_POPUP_VARIABLE_NAME_PLACEHOLDER+'" type="text" id="popup_input"></input>'
++'<a href="#" class="button" onclick="create_variable_editor(\'popup_select\',\'popup_input\','+index+')">'+Blockly.Msg.WIMS_POPUP_VARIABLE_BUTTON_CREATE+'</a>'
 +'</div>'
 }
 

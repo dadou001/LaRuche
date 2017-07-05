@@ -2,7 +2,7 @@
 Blockly.Blocks['wims_while'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("while")
+        .appendField(Blockly.Msg.WIMS_WHILE)
         .appendField(new Blockly.FieldTextInput("true"), "WIMS_EDITOR");
     this.appendStatementInput("WHILE")
         .setCheck(null)
@@ -20,9 +20,14 @@ Blockly.Blocks['wims_change_type'] = {
     this.appendDummyInput()
         .appendField(new Blockly.FieldVariable(""), "VARIABLE_CHOICE")
     // this.appendDummyInput()
-        .appendField("est de type ")
-        .appendField(new Blockly.FieldDropdown([["Nombre réel","real"], ["Nombre entier","int"],["Nombre rationnel","rational"],
-                                                ["Matrice","matrix"],["Texte","text"],["Function","fun"],["Nombre Complexe","complex"]])
+        .appendField(Blockly.Msg.WIMS_IS_TYPE)
+        .appendField(new Blockly.FieldDropdown([[Blockly.Msg.WIMS_REAL_NUMBER,"real"],
+                            [Blockly.Msg.WIMS_INTEGER_NUMBER,"integer"],
+                            [Blockly.Msg.WIMS_RATIONAL_NUMBER,"rational"],
+                            [Blockly.Msg.WIMS_MATRIX,"matrix"],
+                            [Blockly.Msg.WIMS_TEXT,"text"],
+                            [Blockly.Msg.WIMS_FUNCTION,"function"],
+                            [Blockly.Msg.WIMS_COMPLEX_NUMBER,"complex"]])
                                                             , "TYPE");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -35,16 +40,16 @@ Blockly.Blocks['wims_change_type'] = {
 Blockly.Blocks['wims_if'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("si")
-        .appendField(new Blockly.FieldWIMSEditor("","testQuillInBlockly",false,false), "WIMS_EDITOR");
+        .appendField(Blockly.Msg.WIMS_IF_CONDITION)
+        .appendField(new Blockly.FieldWIMSEditor("","Quill Contents In Blockly",false,false), "WIMS_EDITOR");
     this.appendStatementInput("DO")
         .setCheck(null)
-        .appendField("faire");
+        .appendField(Blockly.Msg.WIMS_IF_CONDITION_DO);
     this.appendDummyInput()
-        .appendField("sinon");
+        .appendField(Blockly.Msg.WIMS_IF_CONDITION_ELSE);
     this.appendStatementInput("ELSE")
         .setCheck(null)
-        .appendField("faire");
+        .appendField(Blockly.Msg.WIMS_IF_CONDITION_DO);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
@@ -55,29 +60,36 @@ Blockly.Blocks['wims_if'] = {
 
 Blockly.Blocks['wims_comment'] = {
   init: function() {
+    var textInput = new Blockly.FieldTextInput('');
+    textInput.setText('Doesn\'t appear');
     this.appendDummyInput()
         .appendField("//")
-        .appendField(new Blockly.FieldTextInput(""), "COMMENT");
+        .appendField(textInput, "COMMENT");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip('');
     this.setHelpUrl('');
+    textInput.setText('default');
   }
 };
 
 Blockly.Blocks['wims_define_variable'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Change ")
         .appendField(new Blockly.FieldVariable(""), "VARIABLE_CHOICE")
+        .appendField(Blockly.Msg.WIMS_IS_TYPE)
     // this.appendDummyInput()
-        .appendField("type to ")
-        .appendField(new Blockly.FieldDropdown([["Nombre réel","real"], ["Nombre entier","int"],["Nombre rationnel","rational"],
-                                                ["Matrice","matrix"],["Texte","text"],["Function","fun"],["Nombre Complexe","complex"]])
+        .appendField(new Blockly.FieldDropdown([[Blockly.Msg.WIMS_REAL_NUMBER,"real"],
+                                [Blockly.Msg.WIMS_INTEGER_NUMBER,"integer"],
+                                [Blockly.Msg.WIMS_RATIONAL_NUMBER,"rational"],
+                                [Blockly.Msg.WIMS_MATRIX,"matrix"],
+                                [Blockly.Msg.WIMS_TEXT,"text"],
+                                [Blockly.Msg.WIMS_FUNCTION,"function"],
+                                [Blockly.Msg.WIMS_COMPLEX_NUMBER,"complex"]])
                                                             , "TYPE");
     this.appendDummyInput()
-        .appendField("With the value")
+        .appendField(Blockly.Msg.WIMS_WITH_VALUE)
         .appendField(new Blockly.FieldWIMSEditor("","testQuillInBlockly",false,false), "WIMS_EDITOR");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -90,7 +102,7 @@ Blockly.Blocks['wims_define_variable'] = {
 Blockly.Blocks['wims_editor'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField(new Blockly.FieldWIMSEditor("","testQuillInBlockly",false,false), "WIMS_EDITOR");
+        .appendField(new Blockly.FieldWIMSEditor("","Quill contents in blockly",false,false), "WIMS_EDITOR");
     this.setOutput(true, null);
     this.setColour(300);
     this.setTooltip('');
@@ -101,10 +113,10 @@ Blockly.Blocks['wims_editor'] = {
 Blockly.Blocks['wims_variable_editor'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("mettre")
+        .appendField(Blockly.Msg.WIMS_VARIABLE_SET)
         .appendField(new Blockly.FieldVariable(""), "VARIABLE_CHOICE")
-        .appendField('à ')
-        .appendField(new Blockly.FieldWIMSEditor("","testQuillInBlockly",false,false), "WIMS_EDITOR");
+        .appendField(Blockly.Msg.WIMS_VARIABLE_TO)
+        .appendField(new Blockly.FieldWIMSEditor("","Quill contents in blockly",false,false), "WIMS_EDITOR");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(300);
@@ -116,9 +128,9 @@ Blockly.Blocks['wims_variable_editor'] = {
 Blockly.Blocks['wims_up_down_editor'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Code libre OEF");
+        .appendField(Blockly.Msg.WIMS_OEF_CODE);
     this.appendDummyInput()
-        .appendField(new Blockly.FieldWIMSEditor("","testQuillInBlockly",false,false), "WIMS_EDITOR");
+        .appendField(new Blockly.FieldWIMSEditor("","Quill contents in blockly",false,false), "WIMS_EDITOR");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(270);
@@ -131,9 +143,9 @@ Blockly.Blocks['wims_repeat'] = {
   init: function() {
     this.appendValueInput("NUM")
         .setCheck(null)
-        .appendField("Repeat ");
+        .appendField(Blockly.Msg.WIMS_LOOP_REPEAT);
     this.appendDummyInput()
-        .appendField("times");
+        .appendField(Blockly.Msg.WIMS_LOOP_TIMES);
     this.appendStatementInput("DO")
         .setCheck(null)
         .appendField("do");
@@ -149,20 +161,20 @@ Blockly.Blocks['wims_repeat'] = {
 Blockly.Blocks['wims_for'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Pour")
+        .appendField(Blockly.Msg.WIMS_LOOP_FOR)
         .appendField(new Blockly.FieldVariable(""), "VARIABLE_CHOICE");
     this.appendValueInput("START")
         .setCheck(null)
-        .appendField("allant de");
+        .appendField(Blockly.Msg.WIMS_LOOP_FROM);
     this.appendValueInput("END")
         .setCheck(null)
-        .appendField("à");
+        .appendField(Blockly.Msg.WIMS_LOOP_TO);
     this.appendValueInput("STEP")
         .setCheck(null)
-        .appendField("par pas de");
+        .appendField(Blockly.Msg.WIMS_LOOP_STEP);
     this.appendStatementInput("DO")
         .setCheck(null)
-        .appendField("Faire");
+        .appendField(Blockly.Msg.WIMS_LOOP_DO);
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -175,11 +187,13 @@ Blockly.Blocks['wims_for'] = {
 Blockly.Blocks['analyse_feedback'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Feedback si")
-        .appendField(new Blockly.FieldWIMSEditor("","du quill",false,true), "WIMS_EDITOR");
-    this.appendStatementInput("DO")
-        .appendField('faire')
-        .setCheck(null);
+        .appendField(Blockly.Msg.WIMS_FEEDBACK);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.WIMS_FEEDBACK_IF)
+        .appendField(new Blockly.FieldWIMSEditor("","Quill contents in blockly",false,true), "WIMS_EDITOR_TEST");
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.WIMS_FEEDBACK_SEND)
+        .appendField(new Blockly.FieldWIMSEditor("","Quill contents in blockly",true,true), "WIMS_EDITOR");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
@@ -191,9 +205,9 @@ Blockly.Blocks['analyse_feedback'] = {
 Blockly.Blocks['analyse_hint'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Indication");
+        .appendField(Blockly.Msg.WIMS_HINT);
     this.appendDummyInput()
-        .appendField(new Blockly.FieldWIMSEditor("","du quill",true,true), "WIMS_EDITOR");
+        .appendField(new Blockly.FieldWIMSEditor("","Quill contents in blockly",true,true), "WIMS_EDITOR");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);

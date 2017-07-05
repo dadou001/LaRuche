@@ -10,10 +10,11 @@ goog.require('Blockly.OEF');
 
 
 Blockly.OEF['analyse_feedback'] = function(block) {
+  var editorTestTmp = new SEditor(block.getFieldValue('WIMS_EDITOR_TEST'));
+  var valTestQuill = editorTestTmp.to_variable_value();
   var editorTmp = new SEditor(block.getFieldValue('WIMS_EDITOR'));
   var valQuill = editorTmp.to_variable_value();
-  var statement = Blockly.OEF.statementToCode(block,'DO');
-  return '\\feedback{'+valQuill+'}{'+statement.substring(0,statement.length-1)+'}\n';
+  return '\\feedback{'+valTestQuill+'}{'+valQuill+'}\n';
 };
 
 Blockly.OEF['analyse_hint'] = function(block) {
