@@ -9,18 +9,15 @@ var SEditor = (function () {
     };
     SEditor.prototype.to_Blockly_Analyse = function () {
         var tmp = this.to_variable_value();
-        console.log(tmp);
         var start = tmp.search('\\embed{');
         var result = '';
         var end;
         var vir;
         while (start != -1) {
-            console.log(tmp.substring(0, start - 1));
             result += tmp.substring(0, start - 1);
             tmp = tmp.substring(start);
             end = tmp.search('}');
             vir = tmp.search(',');
-            console.log(tmp.substring(6, vir));
             result += '\\' + tmp.substring(6, vir);
             tmp = tmp.substring(end + 1);
             start = tmp.search('\\embed{');
@@ -128,7 +125,6 @@ var SEditor = (function () {
     // }
     SEditor.prototype.changeNameVar = function (oldname, newName) {
         var content = this.editor.getContents()['ops'];
-        // console.log(content);
         var result = [];
         for (var i = 0; i < content.length; i++) {
             if (content[i]['insert']['VariableImage']) {

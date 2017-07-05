@@ -542,7 +542,6 @@ function generate_popup_list_var(x,y,withAnswer){
 
 function get_variables_JSON(){
 	var state = {'enonce':editor_Enonce,'variables':variable_List,'answer':answer_List};
-	console.log(editor_Enonce);
 	 function fun2(key,value){
  		if( key != 'editor' && key != 'all_type' && key != 'html') {
  			return value;
@@ -551,13 +550,10 @@ function get_variables_JSON(){
 			return value.getContents();
 		}
 		if(key == 'enonce'){
-			console.log("CACACACAC")
-				return value.editor.getContents();
+			return value.editor.getContents();
 		}
 
  	 };
-	 console.log(JSON.stringify(state,fun2,' '));
-	 console.log(editor_Enonce.editor.getContents());
 	 document.getElementById('save_state').value = JSON.stringify(state,fun2,' ');
 	return JSON.stringify(state,fun2,' ');
 }
