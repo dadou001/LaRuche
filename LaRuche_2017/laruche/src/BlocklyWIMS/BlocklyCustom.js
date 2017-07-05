@@ -31,7 +31,7 @@ Blockly.Blocks['wims_if'] = {
     init: function () {
         this.appendDummyInput()
             .appendField("si")
-            .appendField(new Blockly.FieldWIMSEditor("", "testQuillInBlockly", false), "WIMS_EDITOR");
+            .appendField(new Blockly.FieldWIMSEditor("", "testQuillInBlockly", false, false), "WIMS_EDITOR");
         this.appendStatementInput("DO")
             .setCheck(null)
             .appendField("faire");
@@ -69,7 +69,7 @@ Blockly.Blocks['wims_define_variable'] = {
             ["Matrice", "matrix"], ["Texte", "text"], ["Function", "fun"], ["Nombre Complexe", "complex"]]), "TYPE");
         this.appendDummyInput()
             .appendField("With the value")
-            .appendField(new Blockly.FieldWIMSEditor("", "testQuillInBlockly", false), "WIMS_EDITOR");
+            .appendField(new Blockly.FieldWIMSEditor("", "testQuillInBlockly", false, false), "WIMS_EDITOR");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(100);
@@ -80,7 +80,7 @@ Blockly.Blocks['wims_define_variable'] = {
 Blockly.Blocks['wims_editor'] = {
     init: function () {
         this.appendDummyInput()
-            .appendField(new Blockly.FieldWIMSEditor("", "testQuillInBlockly", false), "WIMS_EDITOR");
+            .appendField(new Blockly.FieldWIMSEditor("", "testQuillInBlockly", false, false), "WIMS_EDITOR");
         this.setOutput(true, null);
         this.setColour(300);
         this.setTooltip('');
@@ -93,7 +93,7 @@ Blockly.Blocks['wims_variable_editor'] = {
             .appendField("mettre")
             .appendField(new Blockly.FieldVariable(""), "VARIABLE_CHOICE")
             .appendField('à ')
-            .appendField(new Blockly.FieldWIMSEditor("", "testQuillInBlockly", false), "WIMS_EDITOR");
+            .appendField(new Blockly.FieldWIMSEditor("", "testQuillInBlockly", false, false), "WIMS_EDITOR");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(300);
@@ -106,7 +106,7 @@ Blockly.Blocks['wims_up_down_editor'] = {
         this.appendDummyInput()
             .appendField("Code libre OEF");
         this.appendDummyInput()
-            .appendField(new Blockly.FieldWIMSEditor("", "testQuillInBlockly", false), "WIMS_EDITOR");
+            .appendField(new Blockly.FieldWIMSEditor("", "testQuillInBlockly", false, false), "WIMS_EDITOR");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(270);
@@ -161,7 +161,7 @@ Blockly.Blocks['analyse_feedback'] = {
     init: function () {
         this.appendDummyInput()
             .appendField("Feedback si")
-            .appendField(new Blockly.FieldWIMSEditor("", "du quill", false), "WIMS_EDITOR");
+            .appendField(new Blockly.FieldWIMSEditor("", "du quill", false, true), "WIMS_EDITOR");
         this.appendStatementInput("DO")
             .appendField('faire')
             .setCheck(null);
@@ -177,7 +177,7 @@ Blockly.Blocks['analyse_hint'] = {
         this.appendDummyInput()
             .appendField("Indication");
         this.appendDummyInput()
-            .appendField(new Blockly.FieldWIMSEditor("", "du quill", true), "WIMS_EDITOR");
+            .appendField(new Blockly.FieldWIMSEditor("", "du quill", true, true), "WIMS_EDITOR");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(230);

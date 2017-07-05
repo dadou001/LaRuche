@@ -8,8 +8,7 @@
 class AnswerBlock{
   //Attributs
   private html:string;
-  public editor:SEditor;
-  private id:string;
+  private editor:SEditor;
   private name:string;
   all_type = {'numeric':{'coma':'Utiliser des virgules',
                           'noanalyze':'Sans affichage de l\'analyse réponse'},
@@ -23,31 +22,13 @@ class AnswerBlock{
               'other':{}
             };
   //Constructeur
-  constructor(name,id,type){
+  constructor(name,type){
       this.name = name;
-      this.id = id;
       this.html = this.construct_basic_html();
       $('#answer_list_analyse').append(this.html);
-      // document.getElementById('answer_list_analyse').innerHTML += this.html;
-      // this.change_to_type(type);
-      // this.create_editor();
-      //$('#'+this.get_div_id_change()).addClass('answer_hidden');
+      console.log($('#answer_list_analyse').get(0));
+      console.log(answer_List);
   }
-
-  // constructor(id,type){
-  //     this.id = id;
-  //     this.html = this.construct_basic_html();
-  //     // document.getElementById('answer_list_analyse').innerHTML += this.html;
-  //     // this.editor = new SEditor(new Quill('#'+this.get_editeur_div_id(), {
-  //     // 	modules: {
-  //     // 		toolbar: false
-  //     // 	},
-  //     // 	placeholder: 'Compose an exercise...',
-  //     // 	theme: 'snow'
-  //     // }));
-  //     //this.change_to_type(type);
-  //     //$('#'+this.get_div_id_change()).addClass('answer_hidden');
-  // }
 
   //Methodes public
   public change_to_type(type){
@@ -105,13 +86,7 @@ class AnswerBlock{
   		+'<div class="large-11 columns">'
   		+this.name
   			+'<label>Answer Type'
-  				+'<select oninput="$(\'#ans_'+this.name+'\').removeClass(\'answer_hidden\');change_type_answer(\''+this.name+'\',this.value,answer_List)">'//Rajouter le moyen de changer le type
-            +'<option value="numeric">Numeric</option>'
-  					+'<option value="function">Function</option>'
-  					+'<option value="range">Range</option>'
-  					+'<option value="menu">Menu</option>'
-            +'<option value="other">Other</option>'
-  				+'</select>'
+  				+this.generate_choice_type()
   			+'</label>'
   			+'<div id="ans_'+this.name+'">'
           +'<div id="ans_'+this.name+'_type"></div>'
@@ -145,42 +120,6 @@ class AnswerBlock{
     return result;
   }
 
-  // private generate_numeric_fieldset(){
-  //   var result = '<fieldset id="fieldset_ans_'+this.name+'">'
-  //     +'<legend>Option(s)</legend>'
-  //     +'<input id="checkbox_'+this.name+'_coma" value="coma" type="checkbox"><label for="checkbox_'+this.name+'_coma">virgule (et non point)</label>'
-  //     +'<input id="checkbox_'+this.name+'_noanalyze" value="noanalyze" type="checkbox"><label for="checkbox_'+this.name+'_noanalyze">sans affichage de l\'analyse réponse</label>'
-  //   +'</fieldset>';
-  //   return result;
-  // }
-  //
-  // private generate_function_fieldset(){
-  //   var result = '<fieldset id="fieldset_ans_'+this.name+'">'
-  //     +'<legend>Option(s)</legend>'
-  //     +'<input id="checkbox_'+this.name+'_noanalyze" value="noanalyze" type="checkbox"><label for="checkbox_'+this.name+'_noanalyze">sans affichage de l\'analyse réponse</label>'
-  //   +'</fieldset>';
-  //   return result;
-  // }
-  //
-  // private generate_range_fieldset(){
-  //   var result = '<fieldset id="fieldset_ans_'+this.name+'">'
-  //     +'<legend>Option(s)</legend>'
-  //     +'<input id="checkbox_'+this.name+'_noanalyze" value="noanalyze" type="checkbox"><label for=""checkbox_'+this.name+'_noanalyze"">sans affichage de l\'analyse réponse</label>'
-  //   +'</fieldset>';
-  //   return result;
-  // }
-
-  // private generate_menu_fieldset(){
-  //   var result = '<fieldset id="fieldset_ans_'+this.name+'">'
-  //     +'<legend>Option(s)</legend>'
-  //     +'<input id="checkbox_'+this.name+'_partial_answer" value="partialAnswer" type="checkbox"><label for="checkbox_'+this.name+'_partial_answer">Accepte les réponses partielles</label>'
-  //     +'<input id="checkbox_'+this.name+'_shuffle" value="shuffle" type="checkbox"><label for="checkbox_'+this.name+'_shuffle">Bat aléatoirement les propositions</label>'
-  //     +'<input id="checkbox_'+this.name+'_multiple_choice" value="multipleChoice" type="checkbox"><label for="checkbox_'+this.name+'_multiple_choice">Choix multiple</label>'
-  //     +'<input id="checkbox_'+this.name+'_ordered_choice" value="ordered" type="checkbox"><label for="checkbox_'+this.name+'_ordered_choice">Tri les propositions</label>'
-  //     +'<input id="checkbox_'+this.name+'_noanalyze" value="noanalyze" type="checkbox"><label for=""checkbox_'+this.name+'_noanalyze"">sans affichage de l\'analyse réponse</label>'
-  //   +'</fieldset>';
-  //   return result;
-  // }
 
   private update_html(textAreaType){
     var result = "";
@@ -219,5 +158,20 @@ class AnswerBlock{
     }
     result += '</fieldset>'
     return result;
+  }
+
+  private generate_choice_type(){
+    var result = '<select oninput="$(\'#ans_'+this.name+'\').removeClass(\'answer_hidden\');change_type_answer(\''+this.name+'\',this.value,answer_List)">';
+    for(var key in this.all_type){
+        result += '<option value="'+key+'">'+key+'</option>';
+    }
+    return result+'</select>'
+    // +'<select oninput="$(\'#ans_'+this.name+'\').removeClass(\'answer_hidden\');change_type_answer(\''+this.name+'\',this.value,answer_List)">'//Rajouter le moyen de changer le type
+    //   +'<option value="numeric">Numeric</option>'
+    //   +'<option value="function">Function</option>'
+    //   +'<option value="range">Range</option>'
+    //   +'<option value="menu">Menu</option>'
+    //   +'<option value="other">Other</option>'
+    // +'</select>'
   }
 }

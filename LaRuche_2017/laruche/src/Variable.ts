@@ -1,8 +1,8 @@
 class Variable{
   private name:String;
-  private type:typeVariable;
+  private type:String;
   private value:any;
-  constructor(name:String,type:typeVariable){
+  constructor(name:String,type:String){
     this.name=name;
     this.type=type;
   }

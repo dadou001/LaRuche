@@ -92,6 +92,9 @@ var SEditor = (function () {
             }
         }
     };
+    SEditor.prototype.getContents = function () {
+        return this.editor.getContents();
+    };
     // public count_answer(){
     //   var content = this.editor.getContents()['ops'];
     //   var counter = 0;

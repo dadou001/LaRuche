@@ -24,7 +24,7 @@ goog.require('goog.userAgent');
  * @extends {Blockly.Field}
  * @constructor
  */
-Blockly.FieldWIMSEditor = function(content, opt_alt,toolbar) {
+Blockly.FieldWIMSEditor = function(content, opt_alt,toolbar,isAnalyze) {
 
   Blockly.FieldWIMSEditor.superClass_.constructor.call(this, content,
       null);
@@ -33,6 +33,7 @@ Blockly.FieldWIMSEditor = function(content, opt_alt,toolbar) {
   this.editorDivId_ = null;
   this.quillEditor_ = null;
   this.toolbar = toolbar;
+  this.isAnalyze = isAnalyze;
   this.content_ = content;
   // Ensure height and width are numbers.  Strings are bad at math.
   this.size_ = new goog.math.Size(0,0);  /* Size cannot be determined until after rendering */
@@ -282,8 +283,12 @@ Blockly.FieldWIMSEditor.prototype.showEditor_ = function(opt_quietInput) {
   editorDiv.style.left = xy.x + 'px';
   editorDiv.style.top = xy.y + 'px';
   editorDiv.display = 'block';
-
-  generate_popup_list_var(xy.x+210,xy.y);
+  if(!this.isAnalyze){
+    generate_popup_list_var(xy.x+210,xy.y,false);
+  }
+  else{
+    generate_popup_list_var(xy.x+210,xy.y,true)
+  }
 //  this.resizeEditor_();
   if (!quietInput) {
     this.quillEditor_.focus();

@@ -1,10 +1,9 @@
 /// <reference path="AnswerBlock.ts"/>
 var Answer = (function () {
-    function Answer(name, type, id) {
+    function Answer(name, type) {
         this.name = name;
         this.type = type;
-        this.id = id;
-        this.block_html = new AnswerBlock(name, id, type);
+        this.block_html = new AnswerBlock(name, type);
     }
     Answer.prototype.get_block_html = function () {
         return this.block_html;

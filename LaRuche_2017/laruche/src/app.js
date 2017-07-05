@@ -66,7 +66,7 @@ function add_answer(editor,ans_list){
 		var name = window.prompt('Entrez le nom de votre réponse','Réponse');
 
 		if((name != null) && (test_valid_expression(name)) && (ans_list[name] == null)){
-			ans_list[name] = new Answer(name,'numeric','reply-LOLLLLOLO');
+			ans_list[name] = new Answer(name,'numeric');
 			ans_list[name].get_block_html().create_editor();
 			ans_list[name].get_block_html().get_editor().editor.on('editor-change',
 				function(){
@@ -138,6 +138,7 @@ function change_to_var(editor,var_list){
 
  /****************************EN CHANTIER*****************************/
 function change_type_answer(id_answer,type,ans_list){
+	console.log(id_answer,ans_list)
  	ans_list[id_answer].get_block_html().change_to_type(type);
 	ans_list[id_answer].type = type;
 }
@@ -419,6 +420,24 @@ function add_variable_editor_blockly(name){
 	}
 }
 
+function add_answer_editor_blockly(name){
+	var monDiv = Blockly.ExternalDiv.activeDivId;
+	var index = -1;
+	// console.log(monDiv);
+	// console.log(Blockly.ExternalDiv.DIV);
+	if(monDiv){
+		for(var i = 0;i<Blockly.ExternalDiv.DIV.length;i++){
+			if(Blockly.ExternalDiv.DIV[i].id == monDiv){
+				index = i;
+			}
+		}
+		// console.log(index);
+		var tmp = new SEditor(Blockly.ExternalDiv.owner[index].quillEditor_);
+		tmp.add_answer(name);
+		// Blockly.ExternalDiv.owner[index].quillEditor_.insertEmbed(0,'VariableImage',name);
+	}
+}
+
 function generate_prep_code(){
 	Blockly.OEF.addReservedWords('code');
 	var code = Blockly.OEF.workspaceToCode(prepEditor.mBlocklyWorkspace);
@@ -442,6 +461,23 @@ function generate_list_var_popup(){
 	 return result;
 }
 
+function generate_list_var_answer_popup(){
+	 var result = '<ul style="margin-left:5px;">';
+	 for(var key in variable_List){
+		 result += '<li style="margin-bottom:5px;position:relative;list-style: none;">'+
+		 							'<span class="surligne_Variable" style="font-size:0.7em;" onclick="add_variable_editor_blockly(\''+key+'\');">'+key+'</span>'+
+								'</li>';
+	 }
+	 for(var key in answer_List){
+		 result += '<li style="margin-bottom:5px;position:relative;list-style: none;">'+
+		 							'<span class="surligne_Answer" style="font-size:0.7em;" onclick="add_answer_editor_blockly(\''+key+'\');">'+key+'</span>'+
+								'</li>';
+	 }
+
+	 result += '</ul>';
+	 return result;
+}
+
 function changeAllNameVar(oldName,newName){
 	editor_Enonce.changeNameVar(oldName,newName);
 	editor_EnTete.changeNameVar(oldName,newName);
@@ -454,11 +490,15 @@ function changeAllNameVar(oldName,newName){
 	}
 }
 
-function generate_popup_list_var(x,y){
-	// console.log('TIENS JY PASSE LOL',x,y);
+function generate_popup_list_var(x,y,withAnswer){
 	var maDiv = document.createElement('div');
 	maDiv.id = 'popup_var_blockly';
-	maDiv.innerHTML = generate_list_var_popup();
+	if(!withAnswer){
+		maDiv.innerHTML = generate_list_var_popup();
+	}
+	else{
+		maDiv.innerHTML = generate_list_var_answer_popup();
+	}
 	maDiv.style.top = y+'px';
 	maDiv.style.left = x+'px';
 	maDiv.style.height = '100px';
@@ -468,29 +508,103 @@ function generate_popup_list_var(x,y){
 	if(Object.keys(variable_List).length == 0){
 		maDiv.style.visibility = 'hidden';
 	}
-	// maDiv.style.zIndex = '9000';
-	// maDiv.style.font.size = '0.2em';
-	// $('#popup_var_blockly').css('background-color','white');
-	// console.log($('#popup_var_blockly').find('li'));
 	document.body.appendChild(maDiv);
 }
 
 function get_variables_JSON(){
-	// var result = '"variable_List"[\n\t';
-	// var variables = '';
-	// var i = 0;
-	// var tmp = '';
-	// while(i<Object.keys(variable_List).length-1){
-	// 	tmp = JSON.stringify(variable_List[Object.keys(variable_List)[i]])
-	// 	result += tmp;
-	// 	i++;
+	var state = {'enonce':editor_Enonce,'variables':variable_List,'answer':answer_List};
+	console.log(editor_Enonce);
+	 function fun2(key,value){
+ 		if( key != 'editor' && key != 'all_type' && key != 'html') {
+ 			return value;
+ 		}
+		if(key == 'editor'){
+			return value.getContents();
+		}
+		if(key == 'enonce'){
+			console.log("CACACACAC")
+				return value.editor.getContents();
+		}
+
+ 	 };
+	 console.log(JSON.stringify(state,fun2,' '));
+	 console.log(editor_Enonce.editor.getContents());
+	 document.getElementById('save_state').value = JSON.stringify(state,fun2,' ');
+	return JSON.stringify(state,fun2,' ');
+}
+
+function parse_save(save){
+	function reviver(key,value){
+		if(key == 'editor'){
+			return new SEditor(value);
+		}
+		if(typeof key == Variable){
+			console.log('YAYAYAYAYAYA');
+		}
+		else{
+			return value;
+		}
+	}
+	var state = JSON.parse(save,reviver);
+	console.log(JSON.parse(save,reviver));
+	var var_list_tmp = {};
+	var ans_list_tmp = {};
+	var res = {};
+	for(var key in state['variables']){
+		var_list_tmp[key] = new Variable(state['variables'][key]['name'],state['variables'][key]['type']);
+	}
+	variable_List = var_list_tmp;
+	$('#answer_list_analyse').html('');
+	for(var key in state['answer']){
+		ans_list_tmp[key] = new Answer(state['answer'][key]['name'],state['answer'][key]['type']);
+		ans_list_tmp[key].get_block_html().create_editor();
+		ans_list_tmp[key].get_block_html().get_editor().editor.on('editor-change',
+			function(){
+				if( (active_editor_analyse != null) || (active_editor_analyse != ans_list_tmp[key].get_block_html().get_editor())){
+					//REVOIR CE IF, IL VA PAS
+					active_editor_analyse = ans_list_tmp[key].get_block_html().get_editor();
+				}
+			}
+		);
+		ans_list_tmp[key].get_block_html().editor.editor.setContents(state['answer'][key]['block_html']['editor']);
+		ans_list_tmp[key].get_block_html().change_to_type(state['answer'][key]['type']);
+	}
+	editor_Enonce.editor.setContents(state['enonce']['editor'].editor);
+	console.log('JPP',state['enonce']['editor']);
+	// console.log('A',ans_list_tmp);
+	// ans['x'] = ans_list_tmp;
+	// console.log('B',answer_List);
+	// answer_List = ans_list_tmp;
+	// console.log('B',answer_List);
+	res['answer'] = ans_list_tmp;
+	return res;
+
+
+
+
+	// var contentTmp;
+	// for(var key in answer_List){
+	// 	contentTmp = answer_List[key].block_html.editor.editor;
+	// 	console.log(answer_List[key].block_html);
+	// 	answer_List[key].block_html.html = answer_List[key].block_html.construct_basic_html();
+	// 	$('#answer_list_analyse').append(answer_List[key].block_html.html);
+	// 	answer_List[key].block_html.change_to_type(answer_List[key].type);
+	// 	answer_List[name].block_html.create_editor();
+	// 	answer_List[name].block_html.get_editor().editor.on('editor-change',
+	// 		function(){
+	// 			if( (active_editor_analyse != null) || (active_editor_analyse != answer_List[name].block_html.get_editor())){
+	// 				//REVOIR CE IF, IL VA PAS
+	// 				active_editor_analyse = answer_List[name].block_html.get_editor();
+	// 			}
+	// 		}
+	// 	);
+	// 	answer_List[key].block_html.editor.editor.setContents(contentTmp);
 	// }
-	// tmp = variable_List[Object.keys(variable_List)[i]].toJSON().split('\n').join('\n\t')+'\n';
-	// result += tmp;
-	// result += ']\n'
-	// return result;
-	var state = {'variables':variable_List,'answer':answer_List};
-	return JSON.stringify(state);
+}
+
+function use_save_state(ans){
+	ans['x'] = parse_save(document.getElementById('save_state').value)['answer'];
+	console.log(ans['x']);
 }
 
 function beautifuler_JSON(JSON_str){

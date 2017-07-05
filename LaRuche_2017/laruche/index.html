@@ -198,7 +198,10 @@
           </div>
 
           <!-- ONGLET SAUVEGARDE -->
-          <div class="RCl_Contenu_Onglet_Cache large-12 columns" id="RId_Contenu_Onglet_Sauvegarde">
+          <div class="RCl_Contenu_Onglet_Cache" id="RId_Contenu_Onglet_Sauvegarde">
+            <div class="callout" >
+              <textarea id="save_state" style="height:650px;"></textarea>
+            </div>
           </div>
 
         </div>
@@ -373,6 +376,7 @@
 
 
   <button name="TESTOUILLE" onclick="console.log(get_variables_JSON())" value="TEST">Hello</button>
+  <button name="TESTOUILLE2" onclick="use_save_state({'x':answer_List})" value="23">restore</button>
 
   <script src="js_tools/vendor/jquery.js" type="text/javascript" charset="utf-8"></script>
   <script src="js_tools/vendor/what-input.js" type="text/javascript" charset="utf-8"></script>

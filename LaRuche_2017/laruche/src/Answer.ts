@@ -2,16 +2,14 @@
 class Answer{
   //Attributs
   private name:String;
-  private id:String;
   private type:String;
   private value:any;
   private block_html:AnswerBlock;
 
-  constructor(name,type,id){
+  constructor(name,type){
     this.name = name;
     this.type = type;
-    this.id = id;
-    this.block_html = new AnswerBlock(name,id,type);
+    this.block_html = new AnswerBlock(name,type);
   }
 
   public get_block_html(){
