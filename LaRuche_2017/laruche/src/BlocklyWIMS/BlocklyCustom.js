@@ -175,10 +175,10 @@ Blockly.Blocks['analyse_feedback'] = {
             .appendField(Blockly.Msg.WIMS_FEEDBACK);
         this.appendDummyInput()
             .appendField(Blockly.Msg.WIMS_FEEDBACK_IF)
-            .appendField(new Blockly.FieldWIMSEditor("", "Quill contents in blockly", false), "WIMS_EDITOR");
-        this.appendStatementInput("DO")
+            .appendField(new Blockly.FieldWIMSEditor("", "Quill contents in blockly", false), "WIMS_EDITOR_TEST");
+        this.appendDummyInput()
             .appendField(Blockly.Msg.WIMS_FEEDBACK_SEND)
-            .setCheck(null);
+            .appendField(new Blockly.FieldWIMSEditor("", "Quill contents in blockly", true), "WIMS_EDITOR");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(230);
