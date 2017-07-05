@@ -284,11 +284,9 @@ Blockly.Workspace.prototype.createVariable = function(name) {
     this.variableList.push(name);
   }
   //AJOUT POUR LE PROJET LA RUCHE
-  if(this.id == prepEditor.mBlocklyWorkspace.id){
-    if(!variable_List[name]){
-      variable_List[name] = new Variable(name,'Real');
-      update_all_view();
-    }
+  if(!variable_List[name]){
+    variable_List[name] = new Variable(name,'Real');
+    update_all_view();
   }
 };
 

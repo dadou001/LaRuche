@@ -534,7 +534,7 @@ function generate_popup_list_var(x,y,withAnswer){
 	maDiv.style.position = 'absolute';
 	maDiv.style.overflow = 'scroll';
 	maDiv.style.backgroundColor = 'blue';
-	if(Object.keys(variable_List).length == 0){
+	if((Object.keys(variable_List).length == 0) && (Object.keys(answer_List).length == 0)){
 		maDiv.style.visibility = 'hidden';
 	}
 	document.body.appendChild(maDiv);
