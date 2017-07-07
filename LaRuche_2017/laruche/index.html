@@ -38,7 +38,7 @@
         <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Entete" onclick="Blockly.ExternalDiv.hide(); change_onglet('Entete');">Entête</span>
         <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Enonce" onclick="Blockly.ExternalDiv.hide();change_onglet('Enonce');">Enoncé</span>
         <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Preparation" onclick="Blockly.ExternalDiv.hide();change_onglet('Preparation');update_all_view();">Préparation</span>
-        <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Analyse" onclick="Blockly.ExternalDiv.hide();change_onglet('Analyse');update_variables_answers_view('card_Analyse_Variable',variable_List,answer_List)">Analyse</span>
+        <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Analyse" onclick="Blockly.ExternalDiv.hide();change_onglet('Analyse');update_analyse_answer(editor_Enonce,answer_List);update_variables_answers_view('card_Analyse_Variable',variable_List,answer_List)">Analyse</span>
         <!-- update_analyse_answer(editor_Enonce,answer_List); -->
         <span class="RCl_Onglet_Fake RCl_Onglet"></span>
         <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Code" onclick="Blockly.ExternalDiv.hide();change_onglet('Code'); generate_prep_code(); update_final_code();">Code</span>
@@ -378,6 +378,7 @@
 
   <button name="TESTOUILLE" onclick="console.log(get_variables_JSON())" value="TEST">Hello</button>
   <button name="TESTOUILLE2" onclick="use_save_state({'x':answer_List})" value="23">restore</button>
+  <button name="TESTOUILLE3" onclick="console.log(Blockly.Xml.workspaceToDom(prepEditor.mBlocklyWorkspace))" value="ji">test</button>
 
   <script src="js_tools/vendor/jquery.js" type="text/javascript" charset="utf-8"></script>
   <script src="js_tools/vendor/what-input.js" type="text/javascript" charset="utf-8"></script>

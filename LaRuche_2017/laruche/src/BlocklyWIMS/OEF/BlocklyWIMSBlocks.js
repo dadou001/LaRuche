@@ -10,12 +10,16 @@ goog.require('Blockly.OEF');
 
 
 Blockly.OEF['wims_editor'] = function(block) {
-  var editorTmp = new SEditor(block.getFieldValue('WIMS_EDITOR'));
+  var editor = block.getField('WIMS_EDITOR').quillEditor_;
+  editor.setContents(JSON.parse(block.getFieldValue('WIMS_EDITOR')));
+  var editorTmp = new SEditor(editor);
   return [editorTmp.to_variable_value(),1];
 };
 
 Blockly.OEF['wims_up_down_editor'] = function(block) {
-  var editorTmp = new SEditor(block.getFieldValue('WIMS_EDITOR'));
+  var editor = block.getField('WIMS_EDITOR').quillEditor_;
+  editor.setContents(JSON.parse(block.getFieldValue('WIMS_EDITOR')));
+  var editorTmp = new SEditor(editor);
   return editorTmp.to_variable_value()+'\n';
 };
 
@@ -27,14 +31,20 @@ Blockly.OEF['wims_comment'] = function(block) {
 Blockly.OEF['wims_variable_editor'] = function(block) {
   var varName = Blockly.OEF.variableDB_.getName(
       block.getFieldValue('VARIABLE_CHOICE'), Blockly.Variables.NAME_TYPE);
-  var editorTmp = new SEditor(block.getFieldValue('WIMS_EDITOR'));
+
+  var editor = block.getField('WIMS_EDITOR').quillEditor_;
+  editor.setContents(JSON.parse(block.getFieldValue('WIMS_EDITOR')));
+  var editorTmp = new SEditor(editor);
+
   var type = variable_List[varName].type;
   // variable_List[varName].setValue(editorTmp.to_variable_value());
   return '\\'+type+'{ '+varName+' = '+editorTmp.to_variable_value()+'}\n';
 };
 
 Blockly.OEF['wims_if'] = function(block) {
-  var editorTmp = new SEditor(block.getFieldValue('WIMS_EDITOR'));
+  var editor = block.getField('WIMS_EDITOR').quillEditor_;
+  editor.setContents(JSON.parse(block.getFieldValue('WIMS_EDITOR')));
+  var editorTmp = new SEditor(editor);
   var condition = editorTmp.to_variable_value();
   var branch1 = Blockly.OEF.statementToCode(block, 'DO');
   var branch2 = Blockly.OEF.statementToCode(block, 'ELSE');
@@ -76,22 +86,22 @@ Blockly.OEF['wims_for'] = function(block) {
   return '\\for{'+varName+' = '+start+' to '+end+' step '+step+'}\n{'+todo+'}\n';
 };
 
-Blockly.OEF['wims_while'] = function(block) {
-  var code = '';
-  var innerString = block.getFieldValue('WIMS_EDITOR');
-  // console.log(Blockly.OEF.statementToCode(block, 'HELLO'));
-  var subCode =  Blockly.OEF.statementToCode(block, 'WHILE');
-  // subCode = Blockly.OEF.addLoopTrap()
-  // console.log(subCode);
-  code = 'while ('+innerString+'){\n'+
-          subCode+
-          '}\n';
-  return code;
-};
+// Blockly.OEF['wims_while'] = function(block) {
+//   var code = '';
+//   var innerString = block.getFieldValue('WIMS_EDITOR');
+//   // console.log(Blockly.OEF.statementToCode(block, 'HELLO'));
+//   var subCode =  Blockly.OEF.statementToCode(block, 'WHILE');
+//   // subCode = Blockly.OEF.addLoopTrap()
+//   // console.log(subCode);
+//   code = 'while ('+innerString+'){\n'+
+//           subCode+
+//           '}\n';
+//   return code;
+// };
 
-Blockly.OEF['wims_repeat'] = function(block) {
-  var code = ''
-};
+// Blockly.OEF['wims_repeat'] = function(block) {
+//   var code = ''
+// };
 
 
 Blockly.OEF['controls_repeat_ext'] = function(block) {

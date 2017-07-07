@@ -541,7 +541,11 @@ function generate_popup_list_var(x,y,withAnswer){
 }
 
 function get_variables_JSON(){
-	var state = {'enonce':editor_Enonce,'variables':variable_List,'answer':answer_List};
+	var state = {'enonce':editor_Enonce,
+							'variables':variable_List,
+							'answer':answer_List,
+							'prep':Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(prepEditor.mBlocklyWorkspace)),
+							'analyse':Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(analyseEditor.mBlocklyWorkspace))};
 	 function fun2(key,value){
  		if( key != 'editor' && key != 'all_type' && key != 'html') {
  			return value;
@@ -573,7 +577,8 @@ function parse_save(save){
 
 	var state = JSON.parse(save,reviver);
 	editor_Enonce.editor.setContents(state['enonce']['editor'].editor);
-	console.log(JSON.parse(save,reviver));
+	Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(state['prep']),prepEditor.mBlocklyWorkspace);
+	Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(state['analyse']),analyseEditor.mBlocklyWorkspace);
 	var var_list_tmp = {};
 	var ans_list_tmp = {};
 	var res = {};
@@ -607,29 +612,19 @@ function parse_save(save){
 
 function put_on_change_answer(){
 	for(var key in answer_List){
-		console.log(answer_List);
-		console.log(answer_List[key]);
-		console.log(key);
-		console.log(answer_List[key].block_html.editor);
-		var yolo = answer_List[key].block_html.editor;
-		answer_List[key].get_block_html().get_editor().editor.on('editor-change',
-			function(){
-			// 	console.log(key);
-			// 	console.log(answer_List);
-			// 	console.log(answer_List[key]);
-			// 	console.log(answer_List[key].block_html.editor);
-			// 	if( (active_editor_analyse != null) || (active_editor_analyse != answer_List[key].get_block_html().get_editor())){
-			// 		//REVOIR CE IF, IL VA PAS
-			// 		active_editor_analyse = answer_List[key].get_block_html().get_editor();
-			// 		console.log('YOLO');
-			// 		console.log(answer_List[key].get_block_html().get_editor());
-			// 		console.log(active_editor_analyse);
-			// 	}
-			// }
-			console.log(answer_List[key]);
-
-		});
+		editor_on_change_analysis(key);
 	}
+}
+
+function editor_on_change_analysis(key){
+	answer_List[key].get_block_html().get_editor().editor.on('editor-change',
+		function(){
+			if( (active_editor_analyse != null) || (active_editor_analyse != answer_List[key].get_block_html().get_editor())){
+			// 	REVOIR CE IF, IL VA PAS
+				active_editor_analyse = answer_List[key].get_block_html().get_editor();
+			}
+
+	});
 }
 
 function use_save_state(ans){

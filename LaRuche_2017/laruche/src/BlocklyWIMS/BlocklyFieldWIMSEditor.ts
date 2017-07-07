@@ -35,6 +35,9 @@ Blockly.FieldWIMSEditor = function(content, opt_alt,toolbar,isAnalyze) {
   this.toolbar = toolbar;
   this.isAnalyze = isAnalyze;
   this.content_ = content;
+  this.value;
+
+  // this.EDITABLE;
   // Ensure height and width are numbers.  Strings are bad at math.
   this.size_ = new goog.math.Size(0,0);  /* Size cannot be determined until after rendering */
   this.text_ = opt_alt || '';
@@ -44,7 +47,7 @@ goog.inherits(Blockly.FieldWIMSEditor, Blockly.Field);
 /**
  * Editable fields are saved by the XML renderer, non-editable fields are not.
  */
-Blockly.FieldWIMSEditor.prototype.EDITABLE = false;
+Blockly.FieldWIMSEditor.prototype.EDITABLE = true;
 Blockly.FieldWIMSEditor.UNIQUE_QUILL_ID = 0;
 
 /**
@@ -63,7 +66,9 @@ Blockly.FieldWIMSEditor.prototype.init = function() {
   }
   // Build the DOM.
   Blockly.FieldWIMSEditor.superClass_.init.call(this);
-
+  // this.EDITABLE = true;
+  // Blockly.FieldWIMSEditor.superClass_.updateEditable.call(this);
+  console.log(this.EDITABLE);
   // Build the quill editor in a special div (invisible at the start)
   var editorDiv = document.createElement("div");
   // Temporarily add div to document so that we can get its size.
@@ -109,6 +114,9 @@ Blockly.FieldWIMSEditor.prototype.init = function() {
       });
       this.quillEditor_.insertText(0,"");
     }
+  }
+  if(this.value){
+    this.quillEditor_.setContents(this.value);
   }
 
   // Build the placeholder image in the block
@@ -313,7 +321,18 @@ Blockly.FieldWIMSEditor.prototype.showEditor_ = function(opt_quietInput) {
 
 Blockly.FieldWIMSEditor.prototype.getValue = function(){
   // console.log('BON',this.quillEditor_);
-  return this.quillEditor_;
+  if(this.quillEditor_){
+    return JSON.stringify(this.quillEditor_.getContents());
+  }
+  else{
+    return '';
+  }
+}
+
+Blockly.FieldWIMSEditor.prototype.setValue = function(val){
+  if(val){
+    this.value = JSON.parse(val);
+  }
 }
 
 
