@@ -570,7 +570,9 @@ function parse_save(save){
 			return value;
 		}
 	}
+
 	var state = JSON.parse(save,reviver);
+	editor_Enonce.editor.setContents(state['enonce']['editor'].editor);
 	console.log(JSON.parse(save,reviver));
 	var var_list_tmp = {};
 	var ans_list_tmp = {};
@@ -579,52 +581,55 @@ function parse_save(save){
 		var_list_tmp[key] = new Variable(state['variables'][key]['name'],state['variables'][key]['type']);
 	}
 	variable_List = var_list_tmp;
-	$('#answer_list_analyse').html('');
+	// $('#answer_list_analyse').html('');
 	for(var key in state['answer']){
 		ans_list_tmp[key] = new Answer(state['answer'][key]['name'],state['answer'][key]['type']);
 		ans_list_tmp[key].get_block_html().create_editor();
-		ans_list_tmp[key].get_block_html().get_editor().editor.on('editor-change',
-			function(){
-				if( (active_editor_analyse != null) || (active_editor_analyse != ans_list_tmp[key].get_block_html().get_editor())){
-					//REVOIR CE IF, IL VA PAS
-					active_editor_analyse = ans_list_tmp[key].get_block_html().get_editor();
-				}
-			}
-		);
-		ans_list_tmp[key].get_block_html().editor.editor.setContents(state['answer'][key]['block_html']['editor']);
+		// console.log(ans_list_tmp);
+		// ans_list_tmp[key].get_block_html().get_editor().editor.on('editor-change',
+		// 	function(){
+		// 		if( (active_editor_analyse != null) || (active_editor_analyse != ans_list_tmp[key].get_block_html().get_editor())){
+		// 			//REVOIR CE IF, IL VA PAS
+		// 			active_editor_analyse = ans_list_tmp[key].get_block_html().get_editor();
+		// 			console.log('YOLO');
+		// 			console.log(active_editor_analyse);
+		// 		}
+		// 	}
+		// );
+		ans_list_tmp[key].get_block_html().editor.editor.setContents(state['answer'][key]['block_html']['editor'].editor);
 		ans_list_tmp[key].get_block_html().change_to_type(state['answer'][key]['type']);
 	}
-	editor_Enonce.editor.setContents(state['enonce']['editor'].editor);
-	console.log('JPP',state['enonce']['editor']);
-	// console.log('A',ans_list_tmp);
-	// ans['x'] = ans_list_tmp;
-	// console.log('B',answer_List);
-	// answer_List = ans_list_tmp;
-	// console.log('B',answer_List);
+	answer_List = ans_list_tmp;
+	put_on_change_answer();
 	res['answer'] = ans_list_tmp;
 	return res;
+}
 
+function put_on_change_answer(){
+	for(var key in answer_List){
+		console.log(answer_List);
+		console.log(answer_List[key]);
+		console.log(key);
+		console.log(answer_List[key].block_html.editor);
+		var yolo = answer_List[key].block_html.editor;
+		answer_List[key].get_block_html().get_editor().editor.on('editor-change',
+			function(){
+			// 	console.log(key);
+			// 	console.log(answer_List);
+			// 	console.log(answer_List[key]);
+			// 	console.log(answer_List[key].block_html.editor);
+			// 	if( (active_editor_analyse != null) || (active_editor_analyse != answer_List[key].get_block_html().get_editor())){
+			// 		//REVOIR CE IF, IL VA PAS
+			// 		active_editor_analyse = answer_List[key].get_block_html().get_editor();
+			// 		console.log('YOLO');
+			// 		console.log(answer_List[key].get_block_html().get_editor());
+			// 		console.log(active_editor_analyse);
+			// 	}
+			// }
+			console.log(answer_List[key]);
 
-
-
-	// var contentTmp;
-	// for(var key in answer_List){
-	// 	contentTmp = answer_List[key].block_html.editor.editor;
-	// 	console.log(answer_List[key].block_html);
-	// 	answer_List[key].block_html.html = answer_List[key].block_html.construct_basic_html();
-	// 	$('#answer_list_analyse').append(answer_List[key].block_html.html);
-	// 	answer_List[key].block_html.change_to_type(answer_List[key].type);
-	// 	answer_List[name].block_html.create_editor();
-	// 	answer_List[name].block_html.get_editor().editor.on('editor-change',
-	// 		function(){
-	// 			if( (active_editor_analyse != null) || (active_editor_analyse != answer_List[name].block_html.get_editor())){
-	// 				//REVOIR CE IF, IL VA PAS
-	// 				active_editor_analyse = answer_List[name].block_html.get_editor();
-	// 			}
-	// 		}
-	// 	);
-	// 	answer_List[key].block_html.editor.editor.setContents(contentTmp);
-	// }
+		});
+	}
 }
 
 function use_save_state(ans){

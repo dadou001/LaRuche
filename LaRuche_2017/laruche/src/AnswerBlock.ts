@@ -26,8 +26,6 @@ class AnswerBlock{
       this.name = name;
       this.html = this.construct_basic_html();
       $('#answer_list_analyse').append(this.html);
-      console.log($('#answer_list_analyse').get(0));
-      console.log(answer_List);
   }
 
   //Methodes public
