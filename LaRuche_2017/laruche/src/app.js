@@ -147,7 +147,7 @@ function change_to_var(editor,var_list){
 		create_variable_choice_popup("variable_creation_button",positionSelection.index);
 	}
 	else{
-		var nameVar = editor.getText(positionSelection.index,positionSelection.length); //On récupère le contenu de la séléction
+		var nameVar = editor.getText(positionSelection.index,positionSelection.length); //On récupère le contenu de la sélection
 		if (test_valid_expression(nameVar)){
 			editor.deleteText(positionSelection.index,positionSelection.length); //On enlève le texte séléctionné
 			editor.insertEmbed(positionSelection.index, 'VariableImage',nameVar); //On le remplace par Variable possédant le nom que l'utilisateur avait sélectionné

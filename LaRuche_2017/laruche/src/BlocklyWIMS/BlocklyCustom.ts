@@ -1,3 +1,13 @@
+Blockly.Blocks['wims_start'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldLabel(""), "START_TEXT");
+    this.setNextStatement(true, null);
+    this.setColour(180);
+    this.setTooltip('');
+    this.setHelpUrl('');
+  }
+};
 
 Blockly.Blocks['wims_while'] = {
   init: function() {
@@ -60,17 +70,15 @@ Blockly.Blocks['wims_if'] = {
 
 Blockly.Blocks['wims_comment'] = {
   init: function() {
-    var textInput = new Blockly.FieldTextInput('');
-    textInput.setText('Doesn\'t appear');
     this.appendDummyInput()
         .appendField("//")
-        .appendField(textInput, "COMMENT");
+        .appendField(new Blockly.FieldTextInput(''), "COMMENT");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip('');
     this.setHelpUrl('');
-    textInput.setText('default');
+    this.getField("COMMENT").setValue('default');
   }
 };
 

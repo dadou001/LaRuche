@@ -8,6 +8,9 @@ goog.provide('Blockly.OEF.wims');
 
 goog.require('Blockly.OEF');
 
+Blockly.OEF['wims_start'] = function(block) {
+  return '';
+};
 
 Blockly.OEF['wims_editor'] = function(block) {
   var editor = block.getField('WIMS_EDITOR').quillEditor_;
