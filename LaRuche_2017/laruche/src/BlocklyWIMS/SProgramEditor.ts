@@ -12,11 +12,12 @@ class SProgramEditor {
               // space on the page for the editor
   mDiv: any;  // div element on the page that will contain the editor
   mBlocklyWorkspace: any;
+  mFirstBlock: any;
 
   // Variables statiques :
 
   // SModele constructor
-  constructor( idToolboxXml:string, idDiv:string, idArea:string) {
+  constructor( title:string, idToolboxXml:string, idDiv:string, idArea:string) {
     this.mArea = $('#'+idArea)[0];
     this.mDiv = $('#'+idDiv)[0];
     this.mBlocklyWorkspace = Blockly.inject(this.mDiv,
@@ -50,6 +51,18 @@ class SProgramEditor {
     );
     this.onResize();
     Blockly.svgResize(this.mBlocklyWorkspace);
+
+    // var xml = '<xml><block type="wims_start" deletable="false" movable="false"></block></xml>';
+    // Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(xml), this.mBlocklyWorkspace);
+    this.mFirstBlock = this.mBlocklyWorkspace.newBlock('wims_start');
+    this.mFirstBlock.getField("START_TEXT").setValue(title);
+    this.mFirstBlock.setDeletable(false);
+    this.mFirstBlock.setMovable(false);
+    this.mFirstBlock.initSvg();
+    this.mFirstBlock.render();
+
+    // All blocks not connected are grayed out and disabled
+    this.mBlocklyWorkspace.addChangeListener(Blockly.Events.disableOrphans);
   }
 
   // ***********  méthodes de l'éditeur graphique de programme ************
@@ -79,7 +92,9 @@ class SProgramEditor {
 
 // Ne doit construire les editeurs que lorsque la page est complètement chargée
 $(document).ready(function() {
-  prepEditor = new SProgramEditor('RId_toolbox_programPrep', 'RId_programPrep_blockly', 'RId_programPrep');
-  analyseEditor = new SProgramEditor('RId_toolbox_programAnalyse', 'RId_programAnalyse_blockly', 'RId_programAnalyse');
+  // If wants a "hat" on the first block
+  // Blockly.BlockSvg.START_HAT = true;
+  prepEditor = new SProgramEditor(Blockly.Msg.WIMS_BKY_PREP_START,'RId_toolbox_programPrep', 'RId_programPrep_blockly', 'RId_programPrep');
+  analyseEditor = new SProgramEditor(Blockly.Msg.WIMS_BKY_ANALYSIS_START,'RId_toolbox_programAnalyse', 'RId_programAnalyse_blockly', 'RId_programAnalyse');
   // console.log(prepEditor.mBlocklyWorkspace.id);
 });
