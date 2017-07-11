@@ -17,7 +17,7 @@ class SProgramEditor {
   // Variables statiques :
 
   // SModele constructor
-  constructor( title:string, idToolboxXml:string, idDiv:string, idArea:string) {
+  constructor( type:string, idToolboxXml:string, idDiv:string, idArea:string) {
     this.mArea = $('#'+idArea)[0];
     this.mDiv = $('#'+idDiv)[0];
     this.mBlocklyWorkspace = Blockly.inject(this.mDiv,
@@ -52,15 +52,26 @@ class SProgramEditor {
     this.onResize();
     Blockly.svgResize(this.mBlocklyWorkspace);
 
-    // var xml = '<xml><block type="wims_start" deletable="false" movable="false"></block></xml>';
-    // Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(xml), this.mBlocklyWorkspace);
+    if (type=='prep') title = Blockly.Msg.WIMS_BKY_PREP_START;
+    else if (type == 'analysis') title = Blockly.Msg.WIMS_BKY_ANALYSIS_START;
+    title = "   "+title+"   ";
     this.mFirstBlock = this.mBlocklyWorkspace.newBlock('wims_start');
     this.mFirstBlock.getField("START_TEXT").setValue(title);
     this.mFirstBlock.setDeletable(false);
     this.mFirstBlock.setMovable(false);
     this.mFirstBlock.initSvg();
     this.mFirstBlock.render();
-
+    if (type=='prep') {
+      this.mDeclarationBlock = this.mBlocklyWorkspace.newBlock('wims_declaration');
+      this.mDeclarationBlock.getField("DECLARATION_TEXT").setValue(Blockly.Msg.WIMS_BKY_PREP_DECLARATION);
+      this.mDeclarationBlock.setDeletable(false);
+      this.mDeclarationBlock.setMovable(false);
+      this.mDeclarationBlock.initSvg();
+      this.mDeclarationBlock.render();
+      var parentConnection = this.mFirstBlock.nextConnection;
+      var childConnection = this.mDeclarationBlock.previousConnection;
+      parentConnection.connect(childConnection);
+    }
     // All blocks not connected are grayed out and disabled
     this.mBlocklyWorkspace.addChangeListener(Blockly.Events.disableOrphans);
   }
@@ -94,7 +105,7 @@ class SProgramEditor {
 $(document).ready(function() {
   // If wants a "hat" on the first block
   // Blockly.BlockSvg.START_HAT = true;
-  prepEditor = new SProgramEditor(Blockly.Msg.WIMS_BKY_PREP_START,'RId_toolbox_programPrep', 'RId_programPrep_blockly', 'RId_programPrep');
-  analyseEditor = new SProgramEditor(Blockly.Msg.WIMS_BKY_ANALYSIS_START,'RId_toolbox_programAnalyse', 'RId_programAnalyse_blockly', 'RId_programAnalyse');
+  prepEditor = new SProgramEditor('prep', 'RId_toolbox_programPrep', 'RId_programPrep_blockly', 'RId_programPrep');
+  analyseEditor = new SProgramEditor('analysis', 'RId_toolbox_programAnalyse', 'RId_programAnalyse_blockly', 'RId_programAnalyse');
   // console.log(prepEditor.mBlocklyWorkspace.id);
 });

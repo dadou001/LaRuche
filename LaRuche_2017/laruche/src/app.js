@@ -128,6 +128,7 @@ function create_variable_editor(id_select_type_popup,id_input_name_popup,index){
 		quill.insertEmbed(index, 'VariableImage',name);//On insère la variable dans l'éditeur sous la forme d'un Embed
 		if (variable_List[name] == null){ //Si la variable n'existe pas encore
 			variable_List[name] = new Variable(name,type); //On ajoute la nouvelle variable à notre liste de variable
+			variable_List[name].init();
 			update_variables_view("card_Enonce_Variable",variable_List); //On met à jour l'affichage ds variables
 			update_all_view();
 			$('#popup').toggleClass('popup_variable_visible');//On désactive le popup
@@ -137,6 +138,15 @@ function create_variable_editor(id_select_type_popup,id_input_name_popup,index){
 	else{
 		window.alert(Blockly.Msg.WIMS_PROMPT_VARIABLE_NAME_ERROR);
 	}
+}
+
+function create_OEF_variable_from_Blockly(name){
+/* Called from within the Blockly code to build an OEF variable */
+	if(variable_List[name]==null){
+    variable_List[name] = new Variable(name,'Real');
+		variable_List[name].init();
+    update_all_view();
+  }
 }
 
 function change_to_var(editor,var_list){
@@ -153,6 +163,7 @@ function change_to_var(editor,var_list){
 			editor.insertEmbed(positionSelection.index, 'VariableImage',nameVar); //On le remplace par Variable possédant le nom que l'utilisateur avait sélectionné
 			if (var_list[nameVar] == null){
 				var_list[nameVar] = new Variable(nameVar,typeVariable.Real);
+				var_list[nameVar].init();
 				update_variables_view("card_Enonce_Variable",var_list);
 				update_all_view();
 				add_blockly_variable(nameVar);
@@ -541,24 +552,21 @@ function generate_popup_list_var(x,y,withAnswer){
 }
 
 function get_variables_JSON(){
+	var teststate = Blockly.Xml.workspaceToDom(prepEditor.mBlocklyWorkspace);
 	var state = {'enonce':editor_Enonce,
 							'variables':variable_List,
 							'answer':answer_List,
 							'prep':Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(prepEditor.mBlocklyWorkspace)),
 							'analyse':Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(analyseEditor.mBlocklyWorkspace))};
-	 function fun2(key,value){
- 		if( key != 'editor' && key != 'all_type' && key != 'html') {
+	function fun2(key,value){
+ 		if( key != 'editor' && key != 'all_type' && key != 'html' && key != 'mTypeDeclarationBlock') {
  			return value;
  		}
 		if(key == 'editor'){
 			return value.getContents();
 		}
-		if(key == 'enonce'){
-			return value.editor.getContents();
-		}
-
- 	 };
-	 document.getElementById('save_state').value = JSON.stringify(state,fun2,' ');
+ 	};
+	document.getElementById('save_state').value = JSON.stringify(state,fun2,' ');
 	return JSON.stringify(state,fun2,' ');
 }
 
@@ -584,6 +592,7 @@ function parse_save(save){
 	var res = {};
 	for(var key in state['variables']){
 		var_list_tmp[key] = new Variable(state['variables'][key]['name'],state['variables'][key]['type']);
+		var_list_tmp[key].init();
 	}
 	variable_List = var_list_tmp;
 	// $('#answer_list_analyse').html('');

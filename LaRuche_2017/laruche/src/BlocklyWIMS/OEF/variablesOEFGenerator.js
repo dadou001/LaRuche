@@ -28,7 +28,6 @@ goog.provide('Blockly.OEF.variables');
 
 goog.require('Blockly.OEF');
 
-
 Blockly.OEF['variables_get'] = function(block) {
   // Variable getter.
   var code = Blockly.OEF.variableDB_.getName(block.getFieldValue('VAR'),
