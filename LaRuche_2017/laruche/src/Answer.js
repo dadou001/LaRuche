@@ -4,6 +4,7 @@ var Answer = (function () {
         this.name = name;
         this.type = type;
         this.block_html = new AnswerBlock(name, type);
+        this.length = '10';
     }
     Answer.prototype.get_block_html = function () {
         return this.block_html;
@@ -35,7 +36,7 @@ var Answer = (function () {
     //   this.get_block_html().change_id(new_id);
     // }
     Answer.prototype.to_OEF = function () {
-        return this.block_html.editor.to_OEFcode().split("<p>").join("").split("</p>").join("").split("\n").join("");
+        return this.block_html.get_editor().to_OEFcode().split("<p>").join("").split("</p>").join("").split("\n").join("");
     };
     return Answer;
 }());

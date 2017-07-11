@@ -212,8 +212,14 @@ var SEditor = (function () {
         }
         else if (element['insert']['answerImage'] != null) {
             //si c'est une answer on la traite avec un <answer> devant
-            result = "\\embed{reply" + count_answer['value'] + ",10}";
+            result = "\\embed{reply" + count_answer['value'] + ",'" + answer_List[element['insert']['answerImage']].length + "'}";
             count_answer['value']++;
+        }
+        else if (element['insert']['image'] != null) {
+            //si c'est une image on la traite
+            // result = "<img src=\""+element['insert']['image']+"\">";
+            result = "<img src=\"Pour le moment ça marche pas je sais pas pourquoi\">";
+            // console.log(result);
         }
         else if (element['attributes'] != null) {
             if (element['attributes']['LatexImage'] != null) {
@@ -234,6 +240,33 @@ var SEditor = (function () {
                         break;
                     case 'strike':
                         result = "<s>" + result + "</s>";
+                        break;
+                    case 'script':
+                        if (element['attributes']['script'] == 'sub') {
+                            result = '<sub>' + result + '</sub>';
+                        }
+                        else if (element['attributes']['script'] == 'super') {
+                            result = '<sup>' + result + '</sup>';
+                        }
+                        break;
+                    case 'link':
+                        var lien = element['attributes']['link'];
+                        result = '<a href="' + lien + '">' + result + '</a>';
+                        break;
+                    case 'indent':
+                        var maClass = element['attributes']['indent'];
+                        result = '<span class="wims_indent_' + maClass + '">' + result + '</span>';
+                        break;
+                    case 'size':
+                        if (element['attributes']['size'] == 'small') {
+                            result = '<span style="font-size:0.75em;">' + result + '</span>';
+                        }
+                        else if (element['attributes']['size'] == 'large') {
+                            result = '<span style="font-size:1.25em;">' + result + '</span>';
+                        }
+                        else if (element['attributes']['size'] == 'huge') {
+                            result = '<span style="font-size:1.5em;">' + result + '</span>';
+                        }
                         break;
                 }
             }
@@ -292,6 +325,26 @@ var SEditor = (function () {
                     break;
                 case 'code-block':
                     result += "\n";
+                    break;
+                case 'header':
+                    var bal = 'h' + attributes['header'];
+                    result = '<' + bal + '>' + result + '</' + bal + '>';
+                    break;
+                case 'align':
+                    switch (attributes['align']) {
+                        case 'right':
+                            result = '<span style="text-align:right;">' + result + '</span>';
+                            break;
+                        case 'left':
+                            result = '<span style="text-align:left;">' + result + '</span>';
+                            break;
+                        case 'center':
+                            result = '<span style="text-align:center;">' + result + '</span>';
+                            break;
+                        case 'justify':
+                            result = '<span style="text-align:justify;">' + result + '</span>';
+                            break;
+                    }
                     break;
             }
         }

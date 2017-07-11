@@ -87,8 +87,16 @@ var editor_Enonce = new SEditor(quill);
 quill_EnTete.format('code-block',true);
 /* SE DEMENER POUR ENLEVER CES VARIABLES GLOBALES */
 
+
+/** Fonction qui permet d'ajouter une réponse à un éditeur Quill
+** et de l'ajouter à la liste des réponses
+**
+********* IN *************
+** editor : SEditor où il faut ajouter la réponse
+** ans_list : la liste des réponses où ajouter la nouvelle réponse
+**
+*/
 function add_answer(editor,ans_list){
-	//AJOUTER A LA LISTE DE VARIABLES AUSSI
 	editor.focus();
 	var positionSelection = editor.getSelection(); //On obtient la sélection de l'utilisateur
 	if (positionSelection.length == 0){
@@ -96,29 +104,36 @@ function add_answer(editor,ans_list){
 
 		if((name != null) && (test_valid_expression(name)) && (ans_list[name] == null)){
 			ans_list[name] = new Answer(name,'numeric');
-			ans_list[name].get_block_html().create_editor();
+			ans_list[name].get_block_html().create_editor(); //on crée l'éditeur Quill
+			//On ajoute la fonction qui permet de savoir quel éditeur est actif quand.
 			ans_list[name].get_block_html().get_editor().editor.on('editor-change',
 				function(){
 					if( (active_editor_analyse != null) || (active_editor_analyse != ans_list[name].get_block_html().get_editor())){
 						//REVOIR CE IF, IL VA PAS
 						active_editor_analyse = ans_list[name].get_block_html().get_editor();}});
-			editor.insertEmbed(positionSelection.index,'answerImage',name);
+			editor.insertEmbed(positionSelection.index,'answerImage',name); //On rajoute la réponse à l'éditeur
 		}
 		else{
 			window.alert(Blockly.Msg.WIMS_PROMPT_ANSWER_NAME_ERROR);
 		}
-		// ans_list.push(new Answer('reply'+(ans_list.length+1)));
-	}
-	else{
-
 	}
 }
 
+/** Fonction qui permet de tester si une chaine est composé uniquement de caractères alphanumérique
+********* IN *************
+** str : chaine de caractères à tester
+*/
 function test_valid_expression(str){
 	var patt = /^[a-zA-Z][a-zA-Z0-9-]*$/;
 	return patt.test(str);
 }
 
+/** Fonction qui permet de créer la variable avec les paramètres du popup de création de variable
+********* IN *************
+** id_select_type_popup : id du select du popup d'où tirer les informations
+** id_input_name_popup : id du popup d'où tirer les informations
+** index : endroit où insérer la variable dans l'éditeur
+*/
 function create_variable_editor(id_select_type_popup,id_input_name_popup,index){
 	//On récupère le type de la variable_List
 	var type = document.getElementById(id_select_type_popup).options[document.getElementById(id_select_type_popup).selectedIndex].value;
@@ -149,6 +164,12 @@ function create_OEF_variable_from_Blockly(name){
   }
 }
 
+/** Fonction qui permet de créer une variable à partir d'une sélection d'un éditeur
+** ou de créer un popup s'il n't a pas de selection dans l'éditeur
+********* IN *************
+** editor : l'éditeur à regarder pour voir la sélection et ajouter la variable
+** var_list : liste de variables où ajouter la variable nouvellement créer
+*/
 function change_to_var(editor,var_list){
 	editor.focus();
 	var positionSelection = editor.getSelection(); //On obtient la sélection de l'utilisateur
@@ -175,19 +196,33 @@ function change_to_var(editor,var_list){
 	}
 }
 
-
- /****************************EN CHANTIER*****************************/
+ /** Fonction qui permet de changer le type d'une réponse
+ ********* IN *************
+ ** id_answer : id de la réponse à changer
+ ** type : le type que l'on veut attribuer à la réponse
+ ** ans_list : la liste de réponse où aller chercher celle que l'on veut
+ */
 function change_type_answer(id_answer,type,ans_list){
 	console.log(id_answer,ans_list)
  	ans_list[id_answer].get_block_html().change_to_type(type);
 	ans_list[id_answer].type = type;
 }
 
+/** Fonction qui permet de détruire une réponse
+********* IN *************
+** name : le nom de la réponse à détruire
+*/
 function delete_element_answer_list(name){
 	answer_List[name].get_block_html().destroy();
 	delete answer_List[name];
 }
 
+/** Fonction qui permet de replacer les réponses dans le bon ordre dans l'onglet analyse
+** si elles ont changés de place dans l'énoncé ou les détruire si elles n'existent plus dans l'énoncé
+********* IN *************
+** editor : l'éditeur que l'on va regarder pour savoir dans quelle ordre sont nos réponses
+** ans_list : la liste des réponses à replacer correctement
+*/
 function update_analyse_answer(editor,ans_list){
 	var tab_answer = editor.get_answer_tab(); //On obtient le tableau des réponses dans l'énoncé dans l'ordre
 	var pos;//on initialise notre position courante
@@ -208,9 +243,14 @@ function update_analyse_answer(editor,ans_list){
 	}
 }
 
+/** Fonction qui permet de donner l'éditeur qui a le focus dans l'onglet analyse
+********* OUT *************
+** result : l'éditeur qui a le focus
+*/
 function get_active_editor_analyse(){
 	var result = null;
 	for(var key in answer_List){
+		//On parcours tous les éditeurs et on regarde celui qui a le focus
 		if(answer_List[key].get_block_html().get_editor().editor.hasFocus()){
 			result = answer_List[key].get_block_html().get_editor();
 		}
@@ -218,6 +258,10 @@ function get_active_editor_analyse(){
 	return result;
 }
 
+/** Fonction qui permet de détruire toutes traces de la réponse donné dans tous les éditeurs quill
+********* IN *************
+** name : le nom de la réponse à détruire dans les éditeurs
+*/
 function destroy_answer(name){
 	delete_element_answer_list(name);
 	editor_Enonce.destroy_answer(name);
@@ -225,9 +269,13 @@ function destroy_answer(name){
 		answer_List[key].get_block_html().get_editor().destroy_answer(name);
 	}
 }
- /****************************FIN DU CHANTIER*****************************/
 
-
+/** Fonction qui permet de créer la liste des '<li>' de toutes les variables que l'on affiche à droite dans l'énoncé
+********* IN *************
+** variable_list: la liste des variables d'où l'on crée notre liste de '<li>'
+********* OUT *************
+** result : la chaine des '<li>'
+*/
 function create_list_variables(variable_list){
 	var result = "";
 	for(var key in variable_list){
@@ -236,6 +284,12 @@ function create_list_variables(variable_list){
 	return result;
 }
 
+/** Fonction qui permet de créer la liste des '<li>' de toutes les variables que l'on affiche à droite dans l'analyse
+********* IN *************
+** variable_list: la liste des variables d'où l'on crée notre liste de '<li>'
+********* OUT *************
+** result : la chaine des '<li>'
+*/
 function create_list_variables_analyse(variable_list){
 	var result = "";
 	for(var key in variable_list){
@@ -244,6 +298,12 @@ function create_list_variables_analyse(variable_list){
 	return result;
 }
 
+/** Fonction qui permet de créer la liste des '<li>' de toutes les réponses que l'on affiche à droite dans l'énoncé
+********* IN *************
+** answer_tab: la liste des réponses d'où l'on crée notre liste de '<li>'
+********* OUT *************
+** result : la chaine des '<li>'
+*/
 function create_list_answer(answer_tab){
 	var result = "";
 	for(var  key in answer_tab){
@@ -252,7 +312,12 @@ function create_list_answer(answer_tab){
 	return result;
 }
 
-/****************LES MODIFS A FAIRE SONT LA****************************/
+/** Fonction qui permet de créer la liste des '<li>' de toutes les variables que l'on affiche à droite dans la préparation
+********* IN *************
+** variable_list: la liste des variables d'où l'on crée notre liste de '<li>'
+********* OUT *************
+** result : la chaine des '<li>'
+*/
 function create_list_var_prep(variable_list){
 	var result = "";
 	for(var key in variable_list){
@@ -260,38 +325,55 @@ function create_list_var_prep(variable_list){
 	}
 	return result;
 }
-/**************************************************************************/
 
+/** Fonction qui permet de mettre à jour les listes de variables qui s'affichent dans l'énoncé et l'analyse
+********* IN *************
+** id_to_updt: id de l'élement HTML à mettre à jour
+** variable_list: la liste des variables d'où l'on crée notre liste de '<li>'
+*/
 function update_variables_view(id_to_updt, variable_list){
 	var result = "";
 	result = "<ul class='variable_List_Enonce'>"+create_list_variables(variable_list)+"</ul>";
 	document.getElementById(id_to_updt).innerHTML = result;
 }
 
+/** Fonction qui permet de mettre à jour les listes de variables qui s'affichent dans la préparation
+********* IN *************
+** variable_list: la liste des variables d'où l'on crée notre liste de '<li>'
+*/
 function update_variables_prep_view(variable_list){
 	var result ="";
 	result = "<ul class='variable_List_Enonce'>"+create_list_var_prep(variable_list)+"</ul>";
 	document.getElementById('card_Prep_Variable').innerHTML = result;
 }
 
+/** Fonction qui permet de mettre à jour les listes de variables qui s'affichent dans l'analyse
+********* IN *************
+** id_to_updt: id de l'élement HTML à mettre à jour
+** variable_list: la liste des variables d'où l'on crée notre liste de '<li>'
+** answer_tab: la liste des réponses d'où l'on crée notre liste de '<li>'
+*/
 function update_variables_answers_view(id_to_updt,variable_list,answer_tab){
 	var result = "";
 	result = "<ul class='variable_List_Enonce'>"+create_list_variables_analyse(variable_list)+create_list_answer(answer_tab)+"</ul>";
 	document.getElementById(id_to_updt).innerHTML = result;
 }
 
+/** fonction pour mettre à jour toutes les vues de variables dans l'énoncé, la préparation et l'analyse
+*/
 function update_all_view(){
 	update_variables_view('card_Enonce_Variable',variable_List);
 	update_variables_prep_view(variable_List);
 	update_variables_answers_view('card_Analyse_Variable',variable_List,answer_List);
 }
 
-
-
-/*****************************************************/
-function gather_all_info(editor){
+/** Fonction qui permet de récupérer toutes les infos de l'en-tête et de l'énoncé
+********* OUT *************
+** all_info : an associative array with all the informations
+*/
+function gather_all_info(){
 	var all_info = {};
-	//We get all th interesting infos wher we have to
+	//We get all the interesting infos where we have to
 	all_info["title"] = document.getElementById("title_EnTete").value;
 	all_info["language"] = document.getElementById("language_EnTete").value;
 	all_info["name"] = document.getElementById("name_EnTete").value;
@@ -302,6 +384,11 @@ function gather_all_info(editor){
 	return all_info;
 }
 
+/** Fonction qui permet de créer le popup pour créer une variable sans sélection
+********* IN *************
+** id_to_popup: id de l'élement à côté duquel le popup va apparaitre
+** index : l'nedroit où l'on va créer la varaible dans l'éditeur
+*/
 function create_variable_choice_popup(id_to_popup,index){
 	var rect = document.getElementById(id_to_popup).getBoundingClientRect(); //On obtient la position du bouton var
 	$('#popup').toggleClass('popup_variable_visible');//On active le popup
@@ -323,7 +410,10 @@ function create_variable_choice_popup(id_to_popup,index){
 +'</div>'
 }
 
-
+/** Fonction qui permet de détruire une variable
+********* IN *************
+** name : le nom de la variable qui doit disparaitre
+*/
 function destroy_variable(name){
 	delete_blockly_variable(name);
 	delete variable_List[name];
@@ -337,6 +427,12 @@ function destroy_variable(name){
 	}
 }
 
+/** Fonction qui permet de créer la chaine de caractère caractérisant les réponses dans un éditeur OEF
+********* IN *************
+** answer : la réponse d'on l'on veut le bon code OEF
+********* OUT *************
+** result : la chaine de caractères qui représente le code OEF
+*/
 function create_answer_OEF(answer){
 	var result = "\\answer{}";
 	result += "{"+answer.to_OEF()+"}";
@@ -345,81 +441,50 @@ function create_answer_OEF(answer){
 	return result;
 }
 
+/** Fonction qui permet de créer toutes les chaines de caractères caractérisant les réponses dans un éditeur OEF
+********* OUT *************
+** result : la chaine de caractères qui représente le code OEF
+*/
 function get_all_answer_OEF(){
 	var result = "";
-	for(var key in answer_List){
-		result += create_answer_OEF(answer_List[key]) + "\n";
+	for (var i = 0;i<Object.keys(answer_List).length;i++){
+		result += create_answer_OEF(answer_List[$('#answer_list_analyse .callout').get(i).id.substring(11)]) + "\n";
 	}
 	return result;
 }
 
-
-
-function declaration_variable_OEFcode(){
-	//FONCTION A COMPLETER
-	var result = "";
-	for (var nameVar in variable_List){ //Pour toutes les variables connues
-		// if (variable_List[nameVar].type == "Real"){ //dans le cas d'un réel
-		// 	result += "\\real{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
-		// }
-		// else if (variable_List[nameVar].type == "Int"){ //dans le cas d'un entier
-		// 	result += "\\integer{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
-		// }
-		if(variable_List[nameVar].value != undefined){
-			switch(variable_List[nameVar].type){
-				case 'Real':
-					result += "\\real{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
-					break;
-				case 'Int':
-					result += "\\integer{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
-					break;
-				case 'Rational':
-					result += "\\rational{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
-					break;
-				case 'Complex':
-					result += "\\complex{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
-					break;
-				case 'Matrix':
-					result += "\\matrix{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
-					break;
-				case 'Fun':
-					result += "\\function{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
-					break;
-				case 'Text':
-					result += "\\text{"+nameVar+" = "+variable_List[nameVar].getValue()+"}\n";
-					break;
-			}
-		}
-	}
-	return result;
-}
-
+/** Fonction qui permet de créer le code OEF final
+*/
 function update_final_code(){
-	//content_to_OEFcode(quill.getContents());
-	// console.log(quill.getContents());
 	var result = "";
-	var infos = gather_all_info(quill);
+	var infos = gather_all_info();
 	/* HEAD DU CODE */
-	result += "\\title{"+infos.title+"}\n";
+	if(infos.title == ''){
+		result += "\\title{Exercice}\n";
+	}
+	else{
+		result += "\\title{"+infos.title+"}\n";
+	}
 	result += "\\language{"+infos.language+"}\n";
-	result += "\\author{"+infos.firstName+","+infos.name+"}\n";
+	if(infos.firstName == '' && infos.name == ''){
+		result += "\\author{}\n";
+	}
+	else{
+		result += "\\author{"+infos.firstName+","+infos.name+"}\n";
+	}
 	result += "\\email{"+infos.email+"}\n";
-	result += "\\computeanswer{}\n";
+	result += "\\computeanswer{no}\n";
 	result += "\\format{html}\n";
 	result += "\\precision{1000}\n";
 	result += "\\range{-5..5}";
 	result += "\n"
 	result += infos.OEF_code
 	result += "\n"
-
-	/* INSERER LES VARIABLES ICI */
-	// result += declaration_variable_OEFcode() + '\n';
 	/*DEBUT DU CODE EN SOI*/
 	result += generate_prep_code() + '\n';
-	// result += "";
 	result += "\\statement{\n";
 	/* RAJOUTER LE CODE TRANSFORMé DE L'ONGLET ENONCE */
-	result += infos.enonce;//A faire
+	result += infos.enonce;
 	/*ON FERME LE DOCUMENT */
 	result += "}\n";
 	result += get_all_answer_OEF()+'\n';
@@ -427,69 +492,82 @@ function update_final_code(){
 	document.getElementById("final_OEF_code").value = result;
 }
 
-//blockly_init();
-
-
-
-
-/***************************CHANTIER**************************/
+/** Fonction qui permet d'ajouter une variable à un workspace Blockly
+********* IN *************
+** name : le nom de la variable que l'on veut ajouter
+*/
 function add_blockly_variable(name){
 	prepEditor.mBlocklyWorkspace.createVariable(name);
-	// console.log("AHHAHAHAHAHA");
 }
 
+/** Fonction qui permet de supprimer une variable d'un workspace Blockly
+********* IN *************
+** name : le nom de la variable à enlever du Blockly
+*/
 function delete_blockly_variable(name){
 	prepEditor.mBlocklyWorkspace.deleteVariable(name);
 }
 
+/** Fonction qui permet d'ajouter une variable dans un éditeur quill coincé dans un Blockly
+********* IN *************
+** name : le nom de la variable à ajouter
+*/
 function add_variable_editor_blockly(name){
 	var monDiv = Blockly.ExternalDiv.activeDivId;
 	var index = -1;
-	// console.log(monDiv);
-	// console.log(Blockly.ExternalDiv.DIV);
 	if(monDiv){
 		for(var i = 0;i<Blockly.ExternalDiv.DIV.length;i++){
 			if(Blockly.ExternalDiv.DIV[i].id == monDiv){
 				index = i;
 			}
 		}
-		// console.log(index);
 		var tmp = new SEditor(Blockly.ExternalDiv.owner[index].quillEditor_);
 		tmp.add_variable(name);
-		// Blockly.ExternalDiv.owner[index].quillEditor_.insertEmbed(0,'VariableImage',name);
 	}
 }
 
+/** Fonction qui permet d'ajouter une réponse dans un éditeur quill coincé dans un Blockly
+********* IN *************
+** name : le nom de la réponse à ajouter
+*/
 function add_answer_editor_blockly(name){
 	var monDiv = Blockly.ExternalDiv.activeDivId;
 	var index = -1;
-	// console.log(monDiv);
-	// console.log(Blockly.ExternalDiv.DIV);
 	if(monDiv){
 		for(var i = 0;i<Blockly.ExternalDiv.DIV.length;i++){
 			if(Blockly.ExternalDiv.DIV[i].id == monDiv){
 				index = i;
 			}
 		}
-		// console.log(index);
 		var tmp = new SEditor(Blockly.ExternalDiv.owner[index].quillEditor_);
 		tmp.add_answer(name);
-		// Blockly.ExternalDiv.owner[index].quillEditor_.insertEmbed(0,'VariableImage',name);
 	}
 }
 
+/** Fonction qui permet de génerer le code du Blockly de préparation
+********* OUT *************
+** code : le code OEF final du Blockly
+*/
 function generate_prep_code(){
 	Blockly.OEF.addReservedWords('code');
 	var code = Blockly.OEF.workspaceToCode(prepEditor.mBlocklyWorkspace);
 	return code;
 }
 
+/** Fonction qui permet de génerer le code du Blockly d'analyse
+********* OUT *************
+** code : le code OEF final du Blockly
+*/
 function generate_analyse_code(){
 	Blockly.OEF.addReservedWords('code');
 	var code = Blockly.OEF.workspaceToCode(analyseEditor.mBlocklyWorkspace);
 	return code;
 }
 
+/** Fonction qui permet de génerer la liste des variables à ajouter au popup pour les quill dans Blockly
+********* OUT *************
+** result : la liste html des variables à implémenter dans le popup
+*/
 function generate_list_var_popup(){
 	 var result = '<ul style="margin-left:5px;">';
 	 for(var key in variable_List){
@@ -501,6 +579,10 @@ function generate_list_var_popup(){
 	 return result;
 }
 
+/** Fonction qui permet de génerer la liste des variables et des réponses à ajouter au popup pour les quill dans Blockly
+********* OUT *************
+** result : la liste html des variables et des réponses à implémenter dans le popup
+*/
 function generate_list_var_answer_popup(){
 	 var result = '<ul style="margin-left:5px;">';
 	 for(var key in variable_List){
@@ -518,6 +600,11 @@ function generate_list_var_answer_popup(){
 	 return result;
 }
 
+/** Fonction qui permet de changer le nom d'une variable
+********* IN *************
+** oldName : le nom actuel de la variable
+** newName: le nouveau nom que l'on veut donner à la variable
+*/
 function changeAllNameVar(oldName,newName){
 	editor_Enonce.changeNameVar(oldName,newName);
 	editor_EnTete.changeNameVar(oldName,newName);
@@ -530,6 +617,13 @@ function changeAllNameVar(oldName,newName){
 	}
 }
 
+/** Fonction qui permet de générer le popup pour séléctionner
+** les variables et les réponses à ajouter dans un éditeur quill dans un Blockly
+********* IN *************
+** x : l'emplacement en abscisse du popup
+** y: l'emplacement en ordonnée du popup
+** withAnswer : boolean pour savoir si on ajoute les réponses ou non
+*/
 function generate_popup_list_var(x,y,withAnswer){
 	var maDiv = document.createElement('div');
 	maDiv.id = 'popup_var_blockly';
@@ -551,13 +645,22 @@ function generate_popup_list_var(x,y,withAnswer){
 	document.body.appendChild(maDiv);
 }
 
+/** Fonction qui permet de générer un JSON de l'état actuel de tous le site, les éditeurs, les Blockly etc..
+********* OUT *************
+** state : l'état de l'e'xercice en JSON
+*/
 function get_variables_JSON(){
 	var teststate = Blockly.Xml.workspaceToDom(prepEditor.mBlocklyWorkspace);
+	var entete = gather_all_info();
+	delete entete['enonce'];
+	delete entete['OEF_code'];
 	var state = {'enonce':editor_Enonce,
 							'variables':variable_List,
 							'answer':answer_List,
 							'prep':Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(prepEditor.mBlocklyWorkspace)),
-							'analyse':Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(analyseEditor.mBlocklyWorkspace))};
+							'analyse':Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(analyseEditor.mBlocklyWorkspace)),
+							'en_tete':entete,
+							'editor_EnTete':editor_EnTete};
 	function fun2(key,value){
  		if( key != 'editor' && key != 'all_type' && key != 'html' && key != 'mTypeDeclarationBlock') {
  			return value;
@@ -570,6 +673,10 @@ function get_variables_JSON(){
 	return JSON.stringify(state,fun2,' ');
 }
 
+/** Fonction qui permet de parser une sauvegarde pour réprendre à l'état de la sauvegarde
+********* IN *************
+** save : la sauvegarde sous forme de JSON
+*/
 function parse_save(save){
 	function reviver(key,value){
 		if(key == 'editor'){
@@ -584,7 +691,15 @@ function parse_save(save){
 	}
 
 	var state = JSON.parse(save,reviver);
+	$('#title_EnTete').get(0).value = state['en_tete']['title'];
+	$('#language_EnTete').get(0).value = state['en_tete']['language'];
+	$('#name_EnTete').get(0).value = state['en_tete']['name'];
+	$('#firstName_EnTete').get(0).value = state['en_tete']['firstName'];
+	$('#email_EnTete').get(0).value = state['en_tete']['email'];
+	editor_EnTete.editor.setContents(state['editor_EnTete']['editor'].editor);
 	editor_Enonce.editor.setContents(state['enonce']['editor'].editor);
+	prepEditor.mBlocklyWorkspace.clear();
+	analyseEditor.mBlocklyWorkspace.clear();
 	Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(state['prep']),prepEditor.mBlocklyWorkspace);
 	Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(state['analyse']),analyseEditor.mBlocklyWorkspace);
 	var var_list_tmp = {};
@@ -595,36 +710,22 @@ function parse_save(save){
 		var_list_tmp[key].init();
 	}
 	variable_List = var_list_tmp;
-	// $('#answer_list_analyse').html('');
+	$('#answer_list_analyse').html('');
 	for(var key in state['answer']){
 		ans_list_tmp[key] = new Answer(state['answer'][key]['name'],state['answer'][key]['type']);
+		ans_list_tmp[key].length = state['answer'][key]['length'];
 		ans_list_tmp[key].get_block_html().create_editor();
-		// console.log(ans_list_tmp);
-		// ans_list_tmp[key].get_block_html().get_editor().editor.on('editor-change',
-		// 	function(){
-		// 		if( (active_editor_analyse != null) || (active_editor_analyse != ans_list_tmp[key].get_block_html().get_editor())){
-		// 			//REVOIR CE IF, IL VA PAS
-		// 			active_editor_analyse = ans_list_tmp[key].get_block_html().get_editor();
-		// 			console.log('YOLO');
-		// 			console.log(active_editor_analyse);
-		// 		}
-		// 	}
-		// );
 		ans_list_tmp[key].get_block_html().editor.editor.setContents(state['answer'][key]['block_html']['editor'].editor);
 		ans_list_tmp[key].get_block_html().change_to_type(state['answer'][key]['type']);
 	}
 	answer_List = ans_list_tmp;
-	put_on_change_answer();
-	res['answer'] = ans_list_tmp;
-	return res;
 }
 
-function put_on_change_answer(){
-	for(var key in answer_List){
-		editor_on_change_analysis(key);
-	}
-}
-
+/** Fonction qui permet de rajouter l'écouteur sur les éditeurs quill dans les Blockly lorsqu'on
+** fait appel à la restore de sauvegarde
+********* IN *************
+** key : le nom de la réponse
+*/
 function editor_on_change_analysis(key){
 	answer_List[key].get_block_html().get_editor().editor.on('editor-change',
 		function(){
@@ -632,26 +733,88 @@ function editor_on_change_analysis(key){
 			// 	REVOIR CE IF, IL VA PAS
 				active_editor_analyse = answer_List[key].get_block_html().get_editor();
 			}
-
 	});
 }
 
-function use_save_state(ans){
-	ans['x'] = parse_save(document.getElementById('save_state').value)['answer'];
-	console.log(ans['x']);
+/** Fonction qui permet de lancer la restauration depuis la dernière sauvegarde
+*/
+function use_save_state(){
+	parse_save(document.getElementById('save_state').value);
 }
 
-function beautifuler_JSON(JSON_str){
-	// var tab_counter = 0;
-	// var start = JSON_str.search('{');
-	// var end = '';
-	// while(start != -1)
-}
-
-function good_tab(number){
-	var result = '';
-	for(var i = 0;i<number;i++){
-		result += '\t';
+/** Fonction qui permet de récupérer un éditeur quill
+** et de le transformer en SEditor à partir de l'ID d'un fieldWIMSEditor
+********* IN *************
+** id_field_WIMS : l'id de la div à récupérer
+*/
+function get_editor_field_wims(id_field_WIMS){
+	var index = -1;
+	for(var i = 0;i<Blockly.ExternalDiv.DIV.length;i++){
+		if(Blockly.ExternalDiv.DIV[i].id == id_field_WIMS){
+			index = i;
+		}
 	}
-	return result;
+	if(index != -1){
+		var editorTmp = new SEditor(Blockly.ExternalDiv.owner[index].quillEditor_);
+		return editorTmp;
+	}
+	else{
+		console.log('error somewhere');
+		return null;
+	}
+}
+
+/** Fonction qui permet de créer un popup et de l'afficher en dessous de la réponse
+** qui a recu le click
+********* IN *************
+** id_element : l'id de l'AnswerImage où l'on doit afficher le popup
+** answer_name : le nom de la réponse
+*/
+function create_popup_embed_answer(id_element,answer_name){
+	var textHtml = 'Entrez la taille que vous souhaitez pour votre réponse (par défaut 10):'+
+									'<textarea id="popup_textarea_'+answer_name+'" placeholder="length..."></textarea>'+
+									'<a class="button tiny" onclick=\'change_length_answer_via_popup(\"'+answer_name+'\")\'>Valider</a>';
+	var length = document.getElementById(id_element).getBoundingClientRect();
+	$('#popup').html(textHtml);
+	$('#popup_textarea_'+answer_name).get(0).value = answer_List[answer_name].length;
+	$('#popup').css('height','150px');
+	$('#popup').css('position','fixed');
+	$('#popup').css('width','230px');
+	$('#popup').css('font-size','0.7em');
+	$('#popup').css('z-index','9000');
+	$('#popup').css('background-color','white');
+	$('#popup').addClass('callout');
+	$('#popup').css('top',(length.top+20)+'px');
+	$('#popup').css('left',(length.left-5)+'px');
+	$('#popup').toggleClass('popup_variable_visible');
+}
+
+/** Fonction qui permet de génerer un id unique pour chaque answerImage des éditeurs quill
+********* IN *************
+** name : le nom de la réponse
+*/
+function generate_unique_id_answer(name){
+	var valid_id = false;
+	var tmpId = '';
+	var i = 1;
+	while(!valid_id){
+		tmpId = name + i;
+		if(document.getElementById(tmpId) == null){
+			valid_id = true;
+		}
+		else{
+			i++;
+		}
+	}
+	return tmpId;
+}
+
+/** Fonction qui permet de mettre à jour la longueur d'une réponse en utilisant les données du popup
+********* IN *************
+** answer_name : le nom de la réponse
+*/
+function change_length_answer_via_popup(answer_name){
+	var length = $('#popup_textarea_'+answer_name).get(0).value;
+	answer_List[answer_name].length = length;
+	$('#popup').toggleClass('popup_variable_visible');
 }

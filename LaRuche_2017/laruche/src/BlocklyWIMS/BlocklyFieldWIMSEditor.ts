@@ -102,9 +102,10 @@ Blockly.FieldWIMSEditor.prototype.init = function() {
       	theme: 'snow'
       });
       this.quillEditor_.insertText(0,"");
+      this.editorSEditor = new SEditor(this.quillEditor_);
     }
     else{
-      var toolbarOptions = [['bold', 'italic'], ['link', 'image']];
+      // var toolbarOptions = [['bold', 'italic'], ['link', 'image']];
       this.quillEditor_ = new Quill('#'+this.editorDivId_+'_quill', {
         modules: {
           toolbar: '#'+this.editorDivId_+'_toolbar'
@@ -113,6 +114,7 @@ Blockly.FieldWIMSEditor.prototype.init = function() {
         theme: 'snow'
       });
       this.quillEditor_.insertText(0,"");
+      this.editorSEditor = new SEditor(this.quillEditor_);
     }
   }
   if(this.value){
@@ -236,6 +238,9 @@ function create_div_quill_toolbar(id){
                     '<button class="ql-underline"></button>'+
                     '<button class="ql-strike"></button>'+
                   '</span>'+
+                  '<span class="ql-formats">'+
+                    '<button style="margin-right:8px;" title="latex" onclick="get_editor_field_wims(\''+id+'\').change_to_latex()">LaTeX</button>'+
+                  '</span>'+
                 '</div>';
   var quill = '<div id=\''+id+'_quill\'></div>';
   return toolbar + quill;
@@ -295,7 +300,7 @@ Blockly.FieldWIMSEditor.prototype.showEditor_ = function(opt_quietInput) {
     generate_popup_list_var(xy.x+210,xy.y,false);
   }
   else{
-    generate_popup_list_var(xy.x+210,xy.y,true)
+    generate_popup_list_var(xy.x+410,xy.y+40,true)
   }
 //  this.resizeEditor_();
   if (!quietInput) {
