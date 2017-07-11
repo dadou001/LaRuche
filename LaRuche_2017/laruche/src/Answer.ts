@@ -4,12 +4,14 @@ class Answer{
   private name:String;
   private type:String;
   private value:any;
+  private length:string;
   private block_html:AnswerBlock;
 
   constructor(name,type){
     this.name = name;
     this.type = type;
     this.block_html = new AnswerBlock(name,type);
+    this.length = '10';
   }
 
   public get_block_html(){
@@ -47,7 +49,7 @@ class Answer{
   // }
 
   public to_OEF(){
-    return this.block_html.editor.to_OEFcode().split("<p>").join("").split("</p>").join("").split("\n").join("");
+    return this.block_html.get_editor().to_OEFcode().split("<p>").join("").split("</p>").join("").split("\n").join("");
   }
 
 }

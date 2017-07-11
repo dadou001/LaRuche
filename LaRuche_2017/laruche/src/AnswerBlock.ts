@@ -75,7 +75,6 @@ class AnswerBlock{
     this.html = "";
     this.destroy_html();
     this.editor = null;
-    this.id = "I SHOULDN'T BE HERE";
   }
 
   //Methodes private
@@ -97,12 +96,7 @@ class AnswerBlock{
   				+ Blockly.Msg.WIMS_ANSWER_ANALYSIS_STRING
   				+'<div id="editor_'+this.name+'">'
   				+'</div>'
-  				+'<fieldset id="fieldset_ans_'+this.name+'">'
-  					+'<legend>'+Blockly.Msg.WIMS_ANSWER_ANALYSIS_OPTIONS+'</legend>'
-  					+'<input id="checkbox1" type="checkbox"><label for="checkbox1">'+Blockly.Msg.WIMS_ANSWER_ANALYSIS_OPTION+' 1</label>'
-  					+'<input id="checkbox2" type="checkbox"><label for="checkbox2">'+Blockly.Msg.WIMS_ANSWER_ANALYSIS_OPTION+' 2</label>'
-  					+'<input id="checkbox3" type="checkbox"><label for="checkbox3">'+Blockly.Msg.WIMS_ANSWER_ANALYSIS_OPTION+' 3</label>'
-  				+'</fieldset>'
+  				+this.generate_fieldset_code('numeric')
   			+'</div>'
   			+'<div class="large-1 columns">'
   				+'<button class="close-button" onclick="destroy_answer(\''+this.name+'\');update_variables_answers_view(\'card_Analyse_Variable\',variable_List,answer_List)" aria-label="Close alert" type="button">'
@@ -156,7 +150,7 @@ class AnswerBlock{
 
   private generate_fieldset_code(type){
     var result = '<fieldset id="fieldset_ans_'+this.name+'">'
-      +'<legend>Option(s)</legend>';
+      +'<legend>'+Blockly.Msg.WIMS_ANSWER_ANALYSIS_OPTIONS+'</legend>';
     for(var key in this.all_type[type]){
       result += '<input value="'+key+'" type="checkbox"><label>'+this.all_type[type][key]+'</label>'
     }

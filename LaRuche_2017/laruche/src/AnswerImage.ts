@@ -13,6 +13,9 @@ class AnswerImage extends Embed {
     node.innerHTML = value;
     node.setAttribute('data-value',value);
     node.setAttribute('contenteditable',false);
+    var id = generate_unique_id_answer(value);
+    node.setAttribute('id',id);
+    node.setAttribute('onclick','create_popup_embed_answer(\''+id+'\',\''+value+'\');');
     return node;
   }
 
