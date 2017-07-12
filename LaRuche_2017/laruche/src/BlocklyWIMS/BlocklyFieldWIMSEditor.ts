@@ -77,7 +77,7 @@ Blockly.FieldWIMSEditor.prototype.init = function() {
   Blockly.FieldWIMSEditor.UNIQUE_QUILL_ID++;
   this.editorDivId_ = "Blockly_quill_"+Blockly.FieldWIMSEditor.UNIQUE_QUILL_ID;
   editorDiv.id = this.editorDivId_
-  if(toolbar){
+  if(this.toolbar){
     editorDiv.innerHTML = create_div_quill_toolbar(this.editorDivId_);
   }
   document.body.appendChild( editorDiv );
@@ -103,6 +103,7 @@ Blockly.FieldWIMSEditor.prototype.init = function() {
       });
       this.quillEditor_.insertText(0,"");
       this.editorSEditor = new SEditor(this.quillEditor_);
+      console.log(this.value);
     }
     else{
       // var toolbarOptions = [['bold', 'italic'], ['link', 'image']];
@@ -115,6 +116,7 @@ Blockly.FieldWIMSEditor.prototype.init = function() {
       });
       this.quillEditor_.insertText(0,"");
       this.editorSEditor = new SEditor(this.quillEditor_);
+      console.log(this.value);
     }
   }
   if(this.value){
@@ -327,7 +329,9 @@ Blockly.FieldWIMSEditor.prototype.showEditor_ = function(opt_quietInput) {
 Blockly.FieldWIMSEditor.prototype.getValue = function(){
   // console.log('BON',this.quillEditor_);
   if(this.quillEditor_){
+    console.log('j"y passe lolilol');
     return JSON.stringify(this.quillEditor_.getContents());
+
   }
   else{
     return '';
@@ -335,6 +339,7 @@ Blockly.FieldWIMSEditor.prototype.getValue = function(){
 }
 
 Blockly.FieldWIMSEditor.prototype.setValue = function(val){
+  console.log(val);
   if(val){
     this.value = JSON.parse(val);
   }

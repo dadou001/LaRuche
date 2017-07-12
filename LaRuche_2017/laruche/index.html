@@ -200,8 +200,12 @@
 
           <!-- ONGLET SAUVEGARDE -->
           <div class="RCl_Contenu_Onglet_Cache" id="RId_Contenu_Onglet_Sauvegarde">
-            <div class="callout" >
+            <div class="large-10 columns" >
               <textarea id="save_state" style="height:650px;"></textarea>
+            </div>
+            <div class="large-2 columns">
+              <a class="button large" onclick="get_variables_JSON()" style="margin-top: 25px;">Sauvegarder</a>
+              <a class="button large" onclick="use_save_state()" style="margin-top: 25px;">Restaurer</a>
             </div>
           </div>
 
@@ -252,36 +256,6 @@
       </block>
     </category>
     <category name="Variables" colour="#0099ff" custom="VARIABLE" id="Rid_Prep_Blockly_Toolbar_Variables"></category>
-<!--
-    <category name="Contrôle">
-      <block type="controls_for">
-        <field name="VAR">i</field>
-        <value name="FROM">
-          <shadow type="math_number">
-            <field name="NUM">1</field>
-          </shadow>
-        </value>
-        <value name="TO">
-          <shadow type="math_number">
-            <field name="NUM">10</field>
-          </shadow>
-        </value>
-        <value name="BY">
-          <shadow type="math_number">
-            <field name="NUM">1</field>
-          </shadow>
-        </value>
-      </block>
-      <block type="controls_repeat_ext">
-        <value name="TIMES">
-          <shadow type="math_number">
-            <field name="NUM">10</field>
-          </shadow>
-        </value>
-      </block>
-      <block type="controls_if"></block>
-    </category>
--->
     <sep></sep>
     <category name="Essaims" id="Rid_Prep_Blockly_Toolbar_Swarms"></category>
   </xml>
@@ -330,55 +304,10 @@
     <block type="wims_up_down_editor">
       <field name="WIMS_EDITOR">true</field>
     </block>
-<!--    <block type="wims_define_variable">
-      <field name="VARIABLE_CHOICE"></field>
-      <field name="TYPE"></field>
-      <field name="WIMS_EDITOR">value</field>
-    </block>
-    <block type="text">
-      <field name="TEXT"></field>
-    </block>
--->
   </category>
   <category name="Variables" colour="#a55b6d" custom="VARIABLE"  id="Rid_Analysis_Blockly_Toolbar_Variables"></category>
-<!--  <category name="Contrôle">
-    <block type="controls_for">
-      <field name="VAR">i</field>
-      <value name="FROM">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
-        </shadow>
-      </value>
-      <value name="TO">
-        <shadow type="math_number">
-          <field name="NUM">10</field>
-        </shadow>
-      </value>
-      <value name="BY">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="controls_repeat_ext">
-      <value name="TIMES">
-        <shadow type="math_number">
-          <field name="NUM">10</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="controls_if"></block>
-  </category>
-  <sep></sep>
-  <category name="Essaims"></category>
--->
 </xml>
-<!-- FIN DU TEST -->
 
-
-  <button name="TESTOUILLE" onclick="console.log(get_variables_JSON())" value="TEST">Hello</button>
-  <button name="TESTOUILLE2" onclick="use_save_state()" value="23">restore</button>
-  <button name="TESTOUILLE3" onclick="console.log(editor_Enonce.editor.getContents())" value="ji">test</button>
 
   <script src="js_tools/vendor/jquery.js" type="text/javascript" charset="utf-8"></script>
   <script src="js_tools/vendor/what-input.js" type="text/javascript" charset="utf-8"></script>
@@ -394,7 +323,6 @@
   <script src="src/ImageVariable.js" type="text/javascript" charset="utf-8"></script>
   <script src="src/LatexImage.js" type="text/javascript" charset="utf-8"></script>
   <script src="src/AnswerImage.js" type="text/javascript" charset="utf-8"></script>
-  <script src="src/typeVariable.js" type="text/javascript" charset="utf-8"></script>
   <script src="src/Variable.js" type="text/javascript" charset="utf-8"></script>
   <script src="src/Answer.js" type="text/javascript" charset="utf-8"></script>
   <script src="src/AnswerBlock.js" type="text/javascript" charset="utf-8"></script>
@@ -408,10 +336,6 @@
   <script src="src/BlocklyWIMS/OEF/BlocklyWIMSBlocks.js" type="text/javascript" charset="utf-8"></script>
   <script src="src/BlocklyWIMS/BlocklyCustom.js" type="text/javascript" charset="utf-8"></script>
   <script src="src/BlocklyWIMS/SProgramEditor.js" type="text/javascript" charset="utf-8"></script>
-  <!-- <script src="js_tools/blockly/generators/javascript.js" type="text/javascript" charset="utf-8"></script>
-  <script src="js_tools/blockly/generators/javascript/loops.js" type="text/javascript" charset="utf-8"></script>
-  <script src="js_tools/blockly/generators/javascript/variables.js" type="text/javascript" charset="utf-8"></script>
-  <script src="js_tools/blockly/generators/javascript/text.js" type="text/javascript" charset="utf-8"></script> -->
   <script src="src/app.js" type="text/javascript" charset="utf-8"></script>
 </body>
 </html>

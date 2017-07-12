@@ -3,7 +3,7 @@ class Variable{
   private type:String;
   private value:any;
   public mTypeDeclarationBlock:any;
-  constructor(name:String,type:String){
+  constructor(name,type){
     this.name=name;
     this.type=type;
     // Build and insert the type declaration block inside the
@@ -68,15 +68,4 @@ class Variable{
   public toString(){
     return "Variable "+this.name+" of type "+ this.type
   }
-
-  // public toJSON(){
-  //   // var result = '';
-  //   // result = this.name+'{\n'+
-  //   //             '\tname: '+this.name+',\n'+
-  //   //             '\ttype: '+this.type+',\n'+
-  //   //             '\tvalue: '+this.value+'\n'+
-  //   //           '}';
-  //   // return result;
-  //   return JSON.stringify(this);
-  // }
 }

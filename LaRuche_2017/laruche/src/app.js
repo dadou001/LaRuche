@@ -183,8 +183,13 @@ function change_to_var(editor,var_list){
 			editor.deleteText(positionSelection.index,positionSelection.length); //On enlève le texte séléctionné
 			editor.insertEmbed(positionSelection.index, 'VariableImage',nameVar); //On le remplace par Variable possédant le nom que l'utilisateur avait sélectionné
 			if (var_list[nameVar] == null){
+<<<<<<< HEAD
+				// console.log('YOLO SWAGGGGGGGG');
+				var_list[nameVar] = new Variable(nameVar,'real');
+=======
 				var_list[nameVar] = new Variable(nameVar,typeVariable.Real);
 				var_list[nameVar].init();
+>>>>>>> 06a7242bf7b8fa0e01458d54718d791a066c45b3
 				update_variables_view("card_Enonce_Variable",var_list);
 				update_all_view();
 				add_blockly_variable(nameVar);
@@ -636,9 +641,10 @@ function generate_popup_list_var(x,y,withAnswer){
 	maDiv.style.top = y+'px';
 	maDiv.style.left = x+'px';
 	maDiv.style.height = '100px';
+	maDiv.style.padding = '1px 10px 1px 1px';
 	maDiv.style.position = 'absolute';
 	maDiv.style.overflow = 'scroll';
-	maDiv.style.backgroundColor = 'blue';
+	maDiv.style.backgroundColor = 'grey';
 	if((Object.keys(variable_List).length == 0) && (Object.keys(answer_List).length == 0)){
 		maDiv.style.visibility = 'hidden';
 	}
