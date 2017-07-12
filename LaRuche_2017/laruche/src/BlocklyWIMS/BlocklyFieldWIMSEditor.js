@@ -56,6 +56,7 @@ Blockly.FieldWIMSEditor.prototype.init = function () {
     Blockly.FieldWIMSEditor.superClass_.init.call(this);
     // this.EDITABLE = true;
     // Blockly.FieldWIMSEditor.superClass_.updateEditable.call(this);
+    console.log(this.EDITABLE);
     // Build the quill editor in a special div (invisible at the start)
     var editorDiv = document.createElement("div");
     // Temporarily add div to document so that we can get its size.
@@ -290,6 +291,7 @@ Blockly.FieldWIMSEditor.prototype.showEditor_ = function (opt_quietInput) {
     // this.workspace_.addChangeListener(htmlInput.onWorkspaceChangeWrapper_);
 };
 Blockly.FieldWIMSEditor.prototype.getValue = function () {
+    // console.log('BON',this.quillEditor_);
     if (this.quillEditor_) {
         return JSON.stringify(this.quillEditor_.getContents());
     }

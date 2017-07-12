@@ -650,7 +650,7 @@ function generate_popup_list_var(x,y,withAnswer){
 ** state : l'état de l'e'xercice en JSON
 */
 function get_variables_JSON(){
-	var teststate = Blockly.Xml.workspaceToDom(prepEditor.mBlocklyWorkspace);
+//	var teststate = Blockly.Xml.workspaceToDom(prepEditor.mBlocklyWorkspace);
 	var entete = gather_all_info();
 	delete entete['enonce'];
 	delete entete['OEF_code'];
@@ -691,6 +691,10 @@ function parse_save(save){
 	}
 
 	var state = JSON.parse(save,reviver);
+	// clear variable list before loading blockly editors contents
+	// some variables will be defined during the load (the loop indices mainly)
+	variable_List = {};
+
 	$('#title_EnTete').get(0).value = state['en_tete']['title'];
 	$('#language_EnTete').get(0).value = state['en_tete']['language'];
 	$('#name_EnTete').get(0).value = state['en_tete']['name'];
@@ -698,18 +702,33 @@ function parse_save(save){
 	$('#email_EnTete').get(0).value = state['en_tete']['email'];
 	editor_EnTete.editor.setContents(state['editor_EnTete']['editor'].editor);
 	editor_Enonce.editor.setContents(state['enonce']['editor'].editor);
-	prepEditor.mBlocklyWorkspace.clear();
-	analyseEditor.mBlocklyWorkspace.clear();
-	Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(state['prep']),prepEditor.mBlocklyWorkspace);
-	Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(state['analyse']),analyseEditor.mBlocklyWorkspace);
+	prepEditor.load(state['prep']);
+	analyseEditor.load(state['analyse']);
+
 	var var_list_tmp = {};
 	var ans_list_tmp = {};
 	var res = {};
 	for(var key in state['variables']){
-		var_list_tmp[key] = new Variable(state['variables'][key]['name'],state['variables'][key]['type']);
-		var_list_tmp[key].init();
+		if (variable_List[key]) {
+			// variable was already defined during the load of the Blockly editor
+			// except for the type of variable
+			variable_List[key].setType(state['variables'][key]['type']);
+		} else {
+			var_list_tmp[key] = new Variable(state['variables'][key]['name'],state['variables'][key]['type']);
+			var_list_tmp[key].init();
+		}
 	}
-	variable_List = var_list_tmp;
+
+	// transfer in variable_List the variables that were not already defined before
+	// in the load of the Blockly editors
+	for(var key in var_list_tmp) {
+		variable_List[key] = var_list_tmp[key];
+	}
+	// Set the type in all the Blockly type declaration fields
+	for(var key in variable_List) {
+		variable_List[key].setTypeInDeclaration();
+	}
+
 	$('#answer_list_analyse').html('');
 	for(var key in state['answer']){
 		ans_list_tmp[key] = new Answer(state['answer'][key]['name'],state['answer'][key]['type']);

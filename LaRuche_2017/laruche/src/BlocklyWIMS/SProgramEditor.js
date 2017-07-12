@@ -10,6 +10,7 @@ var SProgramEditor = (function () {
     function SProgramEditor(type, idToolboxXml, idDiv, idArea) {
         this.mArea = $('#' + idArea)[0];
         this.mDiv = $('#' + idDiv)[0];
+        this.mType = type;
         this.mBlocklyWorkspace = Blockly.inject(this.mDiv, { media: 'js_tools/blockly/media/',
             toolbox: document.getElementById(idToolboxXml),
             collapse: true,
@@ -39,9 +40,20 @@ var SProgramEditor = (function () {
         });
         this.onResize();
         Blockly.svgResize(this.mBlocklyWorkspace);
-        if (type == 'prep')
-            title = Blockly.Msg.WIMS_BKY_PREP_START;
-        else if (type == 'analysis')
+        this.build_header_blocks();
+        // All blocks not connected are grayed out and disabled
+        this.mBlocklyWorkspace.addChangeListener(Blockly.Events.disableOrphans);
+    }
+    // ***********  méthodes de l'éditeur graphique de programme ************
+    SProgramEditor.prototype.init = function () {
+        // Initialisation à faire après construction
+    };
+    SProgramEditor.prototype.build_header_blocks = function () {
+        // build the static start and type declaration blocks
+        if (this.mType == 'prep') {
+            var title = Blockly.Msg.WIMS_BKY_PREP_START;
+        }
+        else if (this.mType == 'analysis')
             title = Blockly.Msg.WIMS_BKY_ANALYSIS_START;
         title = "   " + title + "   ";
         this.mFirstBlock = this.mBlocklyWorkspace.newBlock('wims_start');
@@ -50,7 +62,7 @@ var SProgramEditor = (function () {
         this.mFirstBlock.setMovable(false);
         this.mFirstBlock.initSvg();
         this.mFirstBlock.render();
-        if (type == 'prep') {
+        if (this.mType == 'prep') {
             this.mDeclarationBlock = this.mBlocklyWorkspace.newBlock('wims_declaration');
             this.mDeclarationBlock.getField("DECLARATION_TEXT").setValue(Blockly.Msg.WIMS_BKY_PREP_DECLARATION);
             this.mDeclarationBlock.setDeletable(false);
@@ -61,12 +73,33 @@ var SProgramEditor = (function () {
             var childConnection = this.mDeclarationBlock.previousConnection;
             parentConnection.connect(childConnection);
         }
-        // All blocks not connected are grayed out and disabled
-        this.mBlocklyWorkspace.addChangeListener(Blockly.Events.disableOrphans);
-    }
-    // ***********  méthodes de l'éditeur graphique de programme ************
-    SProgramEditor.prototype.init = function () {
-        // Initialisation à faire après construction
+    };
+    SProgramEditor.prototype.load = function (xmlState) {
+        // clear the current workspace and (re)load a blockly workspace
+        this.mBlocklyWorkspace.clear();
+        this.build_header_blocks();
+        // remove the first "unmovable" elements from the xml tree
+        // (title and variable type declaration)
+        var xmlTree = $.parseXML(xmlState);
+        var xmlStateReduced = $(xmlTree).find("[type='wims_declaration']").children(":last-child").children().first().prop('outerHTML');
+        xmlStateReduced = '<xml xmlns=\"http://www.w3.org/1999/xhtml\">' + xmlStateReduced + '</xml>';
+        // set the blocks onto the workspace
+        var xmlStateDom = Blockly.Xml.textToDom(xmlStateReduced);
+        var xmlStateFirst = $(xmlStateDom).children().first();
+        if (xmlStateFirst.length > 0) {
+            var xmlStateFirstId = xmlStateFirst[0].id;
+            Blockly.Xml.domToWorkspace(xmlStateDom, this.mBlocklyWorkspace);
+            // connect the start blocks to the newly loaded blocks
+            // var topBlocks = this.mBlocklyWorkspace.getTopBlocks();
+            // for (var iBlock=0;iBlock<topBlocks.length;iBlock++) {
+            //   if (topBlocks[iBlock].type != 'wims_start') {
+            //     var childConnection = topBlocks[iBlock].previousConnection;
+            //   }
+            // }
+            var childConnection = this.mBlocklyWorkspace.getBlockById(xmlStateFirstId).previousConnection;
+            var parentConnection = this.mDeclarationBlock.nextConnection;
+            parentConnection.connect(childConnection);
+        }
     };
     SProgramEditor.prototype.onResize = function () {
         // callback for "window resize" event
