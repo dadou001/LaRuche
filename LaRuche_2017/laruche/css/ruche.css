@@ -125,3 +125,7 @@
 	visibility: hidden;
 	height:0px;
 }
+
+.editor_title_block{
+	font: bold 17px arial, sans-serif;
+}

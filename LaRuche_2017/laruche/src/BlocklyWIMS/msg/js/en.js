@@ -30,6 +30,7 @@ Blockly.Msg.WIMS_INTEGER_NUMBER = "Integer number";
 Blockly.Msg.WIMS_RATIONAL_NUMBER = "Rational number";
 Blockly.Msg.WIMS_MATRIX = "Matrix";
 Blockly.Msg.WIMS_BKY_PREP_START = "Preparation of the exercise data";
+Blockly.Msg.WIMS_BKY_PREP_DECLARATION = "Variables and objects types"
 Blockly.Msg.WIMS_BKY_ANALYSIS_START = "Analysis of the students\' answer";
 Blockly.Msg.WIMS_TEXT = "Text";
 Blockly.Msg.WIMS_FUNCTION = "Function";

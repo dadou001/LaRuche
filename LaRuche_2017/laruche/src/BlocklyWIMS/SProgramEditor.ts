@@ -11,15 +11,18 @@ class SProgramEditor {
   mArea: any; // div or table cell or... element that will reserve
               // space on the page for the editor
   mDiv: any;  // div element on the page that will contain the editor
+  mType: string; // type of the editor (preparation 'prep' or analysis 'analysis')
   mBlocklyWorkspace: any;
-  mFirstBlock: any;
+  mFirstBlock: any; // Top start block
+  mDeclarationBlock: any; // Type declaration block
 
   // Variables statiques :
 
   // SModele constructor
-  constructor( title:string, idToolboxXml:string, idDiv:string, idArea:string) {
+  constructor( type:string, idToolboxXml:string, idDiv:string, idArea:string) {
     this.mArea = $('#'+idArea)[0];
     this.mDiv = $('#'+idDiv)[0];
+    this.mType = type;
     this.mBlocklyWorkspace = Blockly.inject(this.mDiv,
         {media: 'js_tools/blockly/media/',
          toolbox: document.getElementById(idToolboxXml),
@@ -52,14 +55,7 @@ class SProgramEditor {
     this.onResize();
     Blockly.svgResize(this.mBlocklyWorkspace);
 
-    // var xml = '<xml><block type="wims_start" deletable="false" movable="false"></block></xml>';
-    // Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(xml), this.mBlocklyWorkspace);
-    this.mFirstBlock = this.mBlocklyWorkspace.newBlock('wims_start');
-    this.mFirstBlock.getField("START_TEXT").setValue(title);
-    this.mFirstBlock.setDeletable(false);
-    this.mFirstBlock.setMovable(false);
-    this.mFirstBlock.initSvg();
-    this.mFirstBlock.render();
+    this.build_header_blocks();
 
     // All blocks not connected are grayed out and disabled
     this.mBlocklyWorkspace.addChangeListener(Blockly.Events.disableOrphans);
@@ -69,6 +65,58 @@ class SProgramEditor {
 
   init(): void {
     // Initialisation à faire après construction
+  }
+
+  build_header_blocks(): void {
+    // build the static start and type declaration blocks
+    if (this.mType=='prep') {var title = Blockly.Msg.WIMS_BKY_PREP_START;}
+    else if (this.mType == 'analysis') title = Blockly.Msg.WIMS_BKY_ANALYSIS_START;
+    title = "   "+title+"   ";
+    this.mFirstBlock = this.mBlocklyWorkspace.newBlock('wims_start');
+    this.mFirstBlock.getField("START_TEXT").setValue(title);
+    this.mFirstBlock.setDeletable(false);
+    this.mFirstBlock.setMovable(false);
+    this.mFirstBlock.initSvg();
+    this.mFirstBlock.render();
+    if (this.mType=='prep') {
+      this.mDeclarationBlock = this.mBlocklyWorkspace.newBlock('wims_declaration');
+      this.mDeclarationBlock.getField("DECLARATION_TEXT").setValue(Blockly.Msg.WIMS_BKY_PREP_DECLARATION);
+      this.mDeclarationBlock.setDeletable(false);
+      this.mDeclarationBlock.setMovable(false);
+      this.mDeclarationBlock.initSvg();
+      this.mDeclarationBlock.render();
+      var parentConnection = this.mFirstBlock.nextConnection;
+      var childConnection = this.mDeclarationBlock.previousConnection;
+      parentConnection.connect(childConnection);
+    }
+  }
+
+  load(xmlState:string): void {
+    // clear the current workspace and (re)load a blockly workspace
+    this.mBlocklyWorkspace.clear();
+    this.build_header_blocks();
+    // remove the first "unmovable" elements from the xml tree
+    // (title and variable type declaration)
+    var xmlTree = $.parseXML(xmlState);
+    var xmlStateReduced = $(xmlTree).find("[type='wims_declaration']").children(":last-child").children().first().prop('outerHTML');
+    xmlStateReduced = '<xml xmlns=\"http://www.w3.org/1999/xhtml\">'+xmlStateReduced+'</xml>';
+    // set the blocks onto the workspace
+    var xmlStateDom = Blockly.Xml.textToDom(xmlStateReduced);
+    var xmlStateFirst = $(xmlStateDom).children().first();
+    if (xmlStateFirst.length>0){
+      var xmlStateFirstId = xmlStateFirst[0].id;
+      Blockly.Xml.domToWorkspace(xmlStateDom,this.mBlocklyWorkspace);
+      // connect the start blocks to the newly loaded blocks
+      // var topBlocks = this.mBlocklyWorkspace.getTopBlocks();
+      // for (var iBlock=0;iBlock<topBlocks.length;iBlock++) {
+      //   if (topBlocks[iBlock].type != 'wims_start') {
+      //     var childConnection = topBlocks[iBlock].previousConnection;
+      //   }
+      // }
+      var childConnection = this.mBlocklyWorkspace.getBlockById(xmlStateFirstId).previousConnection;
+      var parentConnection = this.mDeclarationBlock.nextConnection;
+      parentConnection.connect(childConnection);
+    }
   }
 
   onResize(): void {
@@ -94,7 +142,7 @@ class SProgramEditor {
 $(document).ready(function() {
   // If wants a "hat" on the first block
   // Blockly.BlockSvg.START_HAT = true;
-  prepEditor = new SProgramEditor(Blockly.Msg.WIMS_BKY_PREP_START,'RId_toolbox_programPrep', 'RId_programPrep_blockly', 'RId_programPrep');
-  analyseEditor = new SProgramEditor(Blockly.Msg.WIMS_BKY_ANALYSIS_START,'RId_toolbox_programAnalyse', 'RId_programAnalyse_blockly', 'RId_programAnalyse');
+  prepEditor = new SProgramEditor('prep', 'RId_toolbox_programPrep', 'RId_programPrep_blockly', 'RId_programPrep');
+  analyseEditor = new SProgramEditor('analysis', 'RId_toolbox_programAnalyse', 'RId_programAnalyse_blockly', 'RId_programAnalyse');
   // console.log(prepEditor.mBlocklyWorkspace.id);
 });

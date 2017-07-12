@@ -12,6 +12,10 @@ Blockly.OEF['wims_start'] = function(block) {
   return '';
 };
 
+Blockly.OEF['wims_declaration'] = function(block) {
+  return Blockly.OEF.statementToCode(block,'DECLARATION');
+};
+
 Blockly.OEF['wims_editor'] = function(block) {
   var editor = block.getField('WIMS_EDITOR').quillEditor_;
   editor.setContents(JSON.parse(block.getFieldValue('WIMS_EDITOR')));

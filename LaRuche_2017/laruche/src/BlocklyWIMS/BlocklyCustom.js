@@ -1,7 +1,20 @@
 Blockly.Blocks['wims_start'] = {
     init: function () {
         this.appendDummyInput()
-            .appendField(new Blockly.FieldLabel(""), "START_TEXT");
+            .appendField(new Blockly.FieldLabel("", "editor_title_block"), "START_TEXT");
+        this.setNextStatement(true, null);
+        this.setColour(180);
+        this.setTooltip('');
+        this.setHelpUrl('');
+    }
+};
+Blockly.Blocks['wims_declaration'] = {
+    init: function () {
+        this.appendDummyInput()
+            .appendField(new Blockly.FieldLabel(""), "DECLARATION_TEXT");
+        this.appendStatementInput("DECLARATION")
+            .setCheck(null);
+        this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(180);
         this.setTooltip('');
@@ -37,7 +50,7 @@ Blockly.Blocks['wims_change_type'] = {
             [Blockly.Msg.WIMS_COMPLEX_NUMBER, "complex"]]), "TYPE");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(100);
+        this.setColour(180);
         this.setTooltip('');
         this.setHelpUrl('');
     }

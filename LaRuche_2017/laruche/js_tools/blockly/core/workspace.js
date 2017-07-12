@@ -284,10 +284,7 @@ Blockly.Workspace.prototype.createVariable = function(name) {
     this.variableList.push(name);
   }
   //AJOUT POUR LE PROJET LA RUCHE
-  if(!variable_List[name]){
-    variable_List[name] = new Variable(name,'Real');
-    update_all_view();
-  }
+  create_OEF_variable_from_Blockly(name);
 };
 
 /**

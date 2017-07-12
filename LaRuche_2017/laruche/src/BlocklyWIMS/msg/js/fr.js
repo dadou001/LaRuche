@@ -34,6 +34,7 @@ Blockly.Msg.WIMS_INTEGER_NUMBER = "Nombre entier";
 Blockly.Msg.WIMS_RATIONAL_NUMBER = "Nombre rationnel";
 Blockly.Msg.WIMS_MATRIX = "Matrice";
 Blockly.Msg.WIMS_BKY_PREP_START = "Préparation des données de l\'exercice";
+Blockly.Msg.WIMS_BKY_PREP_DECLARATION = "Type des variables et objets"
 Blockly.Msg.WIMS_BKY_ANALYSIS_START = "Analyse des réponses étudiants";
 Blockly.Msg.WIMS_TEXT = "Texte";
 Blockly.Msg.WIMS_FUNCTION = "Fonction";

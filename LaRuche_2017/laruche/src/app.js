@@ -143,6 +143,7 @@ function create_variable_editor(id_select_type_popup,id_input_name_popup,index){
 		quill.insertEmbed(index, 'VariableImage',name);//On insère la variable dans l'éditeur sous la forme d'un Embed
 		if (variable_List[name] == null){ //Si la variable n'existe pas encore
 			variable_List[name] = new Variable(name,type); //On ajoute la nouvelle variable à notre liste de variable
+			variable_List[name].init();
 			update_variables_view("card_Enonce_Variable",variable_List); //On met à jour l'affichage ds variables
 			update_all_view();
 			$('#popup').toggleClass('popup_variable_visible');//On désactive le popup
@@ -152,6 +153,15 @@ function create_variable_editor(id_select_type_popup,id_input_name_popup,index){
 	else{
 		window.alert(Blockly.Msg.WIMS_PROMPT_VARIABLE_NAME_ERROR);
 	}
+}
+
+function create_OEF_variable_from_Blockly(name){
+/* Called from within the Blockly code to build an OEF variable */
+	if(variable_List[name]==null){
+    variable_List[name] = new Variable(name,'Real');
+		variable_List[name].init();
+    update_all_view();
+  }
 }
 
 /** Fonction qui permet de créer une variable à partir d'une sélection d'un éditeur
@@ -173,8 +183,13 @@ function change_to_var(editor,var_list){
 			editor.deleteText(positionSelection.index,positionSelection.length); //On enlève le texte séléctionné
 			editor.insertEmbed(positionSelection.index, 'VariableImage',nameVar); //On le remplace par Variable possédant le nom que l'utilisateur avait sélectionné
 			if (var_list[nameVar] == null){
+<<<<<<< HEAD
 				// console.log('YOLO SWAGGGGGGGG');
 				var_list[nameVar] = new Variable(nameVar,'real');
+=======
+				var_list[nameVar] = new Variable(nameVar,typeVariable.Real);
+				var_list[nameVar].init();
+>>>>>>> 06a7242bf7b8fa0e01458d54718d791a066c45b3
 				update_variables_view("card_Enonce_Variable",var_list);
 				update_all_view();
 				add_blockly_variable(nameVar);
@@ -641,6 +656,7 @@ function generate_popup_list_var(x,y,withAnswer){
 ** state : l'état de l'e'xercice en JSON
 */
 function get_variables_JSON(){
+//	var teststate = Blockly.Xml.workspaceToDom(prepEditor.mBlocklyWorkspace);
 	var entete = gather_all_info();
 	delete entete['enonce'];
 	delete entete['OEF_code'];
@@ -651,19 +667,15 @@ function get_variables_JSON(){
 							'analyse':Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(analyseEditor.mBlocklyWorkspace)),
 							'en_tete':entete,
 							'editor_EnTete':editor_EnTete};
-	 function fun2(key,value){
- 		if( key != 'editor' && key != 'all_type' && key != 'html') {
+	function fun2(key,value){
+ 		if( key != 'editor' && key != 'all_type' && key != 'html' && key != 'mTypeDeclarationBlock') {
  			return value;
  		}
 		if(key == 'editor'){
 			return value.getContents();
 		}
-		if(key == 'enonce'){
-			return value.editor.getContents();
-		}
-
- 	 };
-	 document.getElementById('save_state').value = JSON.stringify(state,fun2,' ');
+ 	};
+	document.getElementById('save_state').value = JSON.stringify(state,fun2,' ');
 	return JSON.stringify(state,fun2,' ');
 }
 
@@ -685,6 +697,10 @@ function parse_save(save){
 	}
 
 	var state = JSON.parse(save,reviver);
+	// clear variable list before loading blockly editors contents
+	// some variables will be defined during the load (the loop indices mainly)
+	variable_List = {};
+
 	$('#title_EnTete').get(0).value = state['en_tete']['title'];
 	$('#language_EnTete').get(0).value = state['en_tete']['language'];
 	$('#name_EnTete').get(0).value = state['en_tete']['name'];
@@ -692,17 +708,33 @@ function parse_save(save){
 	$('#email_EnTete').get(0).value = state['en_tete']['email'];
 	editor_EnTete.editor.setContents(state['editor_EnTete']['editor'].editor);
 	editor_Enonce.editor.setContents(state['enonce']['editor'].editor);
-	prepEditor.mBlocklyWorkspace.clear();
-	analyseEditor.mBlocklyWorkspace.clear();
-	Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(state['prep']),prepEditor.mBlocklyWorkspace);
-	Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(state['analyse']),analyseEditor.mBlocklyWorkspace);
+	prepEditor.load(state['prep']);
+	analyseEditor.load(state['analyse']);
+
 	var var_list_tmp = {};
 	var ans_list_tmp = {};
 	var res = {};
 	for(var key in state['variables']){
-		var_list_tmp[key] = new Variable(state['variables'][key]['name'],state['variables'][key]['type']);
+		if (variable_List[key]) {
+			// variable was already defined during the load of the Blockly editor
+			// except for the type of variable
+			variable_List[key].setType(state['variables'][key]['type']);
+		} else {
+			var_list_tmp[key] = new Variable(state['variables'][key]['name'],state['variables'][key]['type']);
+			var_list_tmp[key].init();
+		}
 	}
-	variable_List = var_list_tmp;
+
+	// transfer in variable_List the variables that were not already defined before
+	// in the load of the Blockly editors
+	for(var key in var_list_tmp) {
+		variable_List[key] = var_list_tmp[key];
+	}
+	// Set the type in all the Blockly type declaration fields
+	for(var key in variable_List) {
+		variable_List[key].setTypeInDeclaration();
+	}
+
 	$('#answer_list_analyse').html('');
 	for(var key in state['answer']){
 		ans_list_tmp[key] = new Answer(state['answer'][key]['name'],state['answer'][key]['type']);
