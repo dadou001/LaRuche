@@ -158,7 +158,7 @@ function create_variable_editor(id_select_type_popup,id_input_name_popup,index){
 function create_OEF_variable_from_Blockly(name){
 /* Called from within the Blockly code to build an OEF variable */
 	if(variable_List[name]==null){
-    variable_List[name] = new Variable(name,'Real');
+    variable_List[name] = new Variable(name,'real');
 		variable_List[name].init();
     update_all_view();
   }
@@ -705,7 +705,6 @@ function parse_save(save){
 	prepEditor.load(state['prep']);
 	analyseEditor.load(state['analyse']);
 
-	var var_list_tmp = {};
 	var ans_list_tmp = {};
 	var res = {};
 	for(var key in state['variables']){
@@ -714,16 +713,11 @@ function parse_save(save){
 			// except for the type of variable
 			variable_List[key].setType(state['variables'][key]['type']);
 		} else {
-			var_list_tmp[key] = new Variable(state['variables'][key]['name'],state['variables'][key]['type']);
-			var_list_tmp[key].init();
+			variable_List[key] = new Variable(state['variables'][key]['name'],state['variables'][key]['type']);
+			variable_List[key].init();
 		}
 	}
 
-	// transfer in variable_List the variables that were not already defined before
-	// in the load of the Blockly editors
-	for(var key in var_list_tmp) {
-		variable_List[key] = var_list_tmp[key];
-	}
 	// Set the type in all the Blockly type declaration fields
 	for(var key in variable_List) {
 		variable_List[key].setTypeInDeclaration();
