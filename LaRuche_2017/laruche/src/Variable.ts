@@ -2,7 +2,7 @@ class Variable{
   private name:String;
   private type:String;
   private value:any;
-  constructor(name:String,type:String){
+  constructor(name,type){
     this.name=name;
     this.type=type;
   }

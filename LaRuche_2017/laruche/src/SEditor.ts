@@ -236,8 +236,8 @@ class SEditor{
   	}
     else if (element['insert']['image']!= null){
   		//si c'est une image on la traite
-  		// result = "<img src=\""+element['insert']['image']+"\">";
-      result = "<img src=\"Pour le moment ça marche pas je sais pas pourquoi\">";
+  		result = "<img src=\""+element['insert']['image']+"\">";
+      // result = "<img src=\"Pour le moment ça marche pas je sais pas pourquoi\">";
       // console.log(result);
   	}
   	else if (element['attributes'] != null) {
@@ -426,23 +426,29 @@ private isAlphaNumeric(str) {
   			end_balise = str.search(">"); //On va voir la fin de la balise
   			name_balise = str.substring(start_balise+1,end_balise);//On récupère le nom de la balise courante
   			//On obtient le nom du complément de la balise
-  			if(name_balise[0] == "/"){
-  				name_complement = name_balise.substring(1);
-  			}
-  			else{
-  				name_complement = "/"+name_balise;
-  			}
-  			//On cherche la position de la balise complémentaire
-  			pos_complement = str.search("<"+name_complement+">");
-  			//Si elle n'existe pas, on ajoute la balise courant au résultat
-  			if(pos_complement == -1){
-  				result += "<"+name_balise+">";
-  				str = str.substring(end_balise+1);//On obtient la suite de la chaine
-  			}
-  			else{
-  				//Sinon on supprime la balise courante et la balise complémentaire dans la chaine
-  				str = str.substring(name_balise.length+2,pos_complement)+str.substring(pos_complement+name_complement.length+2);
-  			}
+        if(name_balise.substring(0,3) != 'img'){
+    			if(name_balise[0] == "/"){
+    				name_complement = name_balise.substring(1);
+    			}
+    			else{
+    				name_complement = "/"+name_balise;
+    			}
+    			//On cherche la position de la balise complémentaire
+    			pos_complement = str.search("<"+name_complement+">");
+    			//Si elle n'existe pas, on ajoute la balise courant au résultat
+    			if(pos_complement == -1){
+    				result += "<"+name_balise+">";
+    				str = str.substring(end_balise+1);//On obtient la suite de la chaine
+    			}
+    			else{
+    				//Sinon on supprime la balise courante et la balise complémentaire dans la chaine
+    				str = str.substring(name_balise.length+2,pos_complement)+str.substring(pos_complement+name_complement.length+2);
+    			}
+        }
+        else{
+          result += "<"+name_balise+">";
+          str = str.substring(end_balise+1);//On obtient la suite de la chaine
+        }
   		}
   	}
   	return result;
