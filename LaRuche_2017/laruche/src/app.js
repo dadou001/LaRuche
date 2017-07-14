@@ -47,10 +47,13 @@ function change_onglet(name) {
 	if (typeof(prepEditor)!='undefined') {
 		prepEditor.onResize();
 		Blockly.svgResize(prepEditor.mBlocklyWorkspace);
+		prepEditor.mBlocklyWorkspace.scrollX = 27;
 	}
 	if (typeof(analyseEditor)!='undefined') {
 		analyseEditor.onResize();
 		Blockly.svgResize(analyseEditor.mBlocklyWorkspace);
+//		console.log("posX :"+analyseEditor.mBlocklyWorkspace.scrollX);
+		analyseEditor.mBlocklyWorkspace.scrollX = 27;
 	}
 }
 
@@ -183,13 +186,8 @@ function change_to_var(editor,var_list){
 			editor.deleteText(positionSelection.index,positionSelection.length); //On enlève le texte séléctionné
 			editor.insertEmbed(positionSelection.index, 'VariableImage',nameVar); //On le remplace par Variable possédant le nom que l'utilisateur avait sélectionné
 			if (var_list[nameVar] == null){
-<<<<<<< HEAD
-				// console.log('YOLO SWAGGGGGGGG');
 				var_list[nameVar] = new Variable(nameVar,'real');
-=======
-				var_list[nameVar] = new Variable(nameVar,typeVariable.Real);
 				var_list[nameVar].init();
->>>>>>> 06a7242bf7b8fa0e01458d54718d791a066c45b3
 				update_variables_view("card_Enonce_Variable",var_list);
 				update_all_view();
 				add_blockly_variable(nameVar);

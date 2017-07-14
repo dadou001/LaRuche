@@ -30,6 +30,15 @@ class Variable{
       }
       var childConnection = this.mTypeDeclarationBlock.previousConnection;
       parentConnection.connect(childConnection);
+
+      // update the type in this "variable" object
+      // when changed in the dropdown menus
+      var varTypeChanged = this;
+      var typeDeclarationBlock = this.mTypeDeclarationBlock;
+      this.mTypeDeclarationBlock.setOnChange(function(changeEvent) {
+        varTypeChanged.type = typeDeclarationBlock.getFieldValue('TYPE');
+        console.log('Variable : ' +varTypeChanged.name+'\n'+typeDeclarationBlock.getFieldValue('TYPE'));
+      });
     }
   }
 
@@ -47,6 +56,7 @@ class Variable{
 
   public setType(type){
     this.type = type;
+    if (this.mTypeDeclarationBlock) this.setTypeInDeclaration();
   }
 
   public setTypeInDeclaration(){

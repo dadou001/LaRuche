@@ -237,3 +237,43 @@ Blockly.Blocks['analyse_hint'] = {
     this.setHelpUrl('');
   }
 };
+
+/**
+ * ========================La Ruche ============================
+ * ==== override the following function in Blockly to adapt ====
+ * ==== the "Variables" flyout in the Toolbox               ====
+ * =============================================================
+ * Construct the blocks required by the flyout for the variable category.
+ * @param {!Blockly.Workspace} workspace The workspace containing variables.
+ * @return {!Array.<!Element>} Array of XML block elements.
+ */
+Blockly.Variables.flyoutCategory = function(workspace) {
+  var variableList = workspace.variableList;
+  variableList.sort(goog.string.caseInsensitiveCompare);
+
+  var xmlList = [];
+  var button = goog.dom.createDom('button');
+  button.setAttribute('text', Blockly.Msg.NEW_VARIABLE);
+  button.setAttribute('callbackKey', 'CREATE_VARIABLE');
+
+  workspace.registerButtonCallback('CREATE_VARIABLE', function(button) {
+    Blockly.Variables.createVariable(button.getTargetWorkspace());
+  });
+
+  xmlList.push(button);
+
+  if (variableList.length > 0) {
+    for (var i = 0; i < variableList.length; i++) {
+      if (Blockly.Blocks['variables_get']) {
+        var blockText = '<xml>' +
+            '<block type="variables_get" gap="8">' +
+            '<field name="VAR">' + variableList[i] + '</field>' +
+            '</block>' +
+            '</xml>';
+        var block = Blockly.Xml.textToDom(blockText).firstChild;
+        xmlList.push(block);
+      }
+    }
+  }
+  return xmlList;
+};
