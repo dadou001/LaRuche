@@ -65,7 +65,7 @@ var SEditor = (function () {
     SEditor.prototype.add_answer = function (nameAns) {
         this.editor.focus(); //On regarde l'editeur
         var selection = this.editor.getSelection(); //on obtient l'index de la selection de l'utilisateur
-        this.editor.insertEmbed(selection.index, 'answerImage', nameAns); //On insere une imageVariable à cet endroit
+        this.editor.insertEmbed(selection.index, 'answerImage', nameAns);
     };
     SEditor.prototype.destroy_var = function (varName) {
         var content = this.editor.getContents(); //On obtient le delta de l'éditeur
@@ -84,7 +84,8 @@ var SEditor = (function () {
         var tab = content['ops']; //On récupère le tableau d'insert
         var tabRes = []; //On initialise notre tableau de résultat final que l'on enverra à l'éditeur
         for (var i = 0; i < content['ops'].length; i++) {
-            if ((content['ops'][i]['insert']['answerImage'] == null) || (content['ops'][i]['insert']['answerImage'] != ansName)) {
+            if ((content['ops'][i]['insert']['answerImage'] == null) ||
+                (content['ops'][i]['insert']['answerImage'] != ansName)) {
                 tabRes.push(content['ops'][i]); //On prend toutes les valeurs qui ne sont pas notre réponse
             }
         }

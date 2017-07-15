@@ -21,7 +21,11 @@ var AnswerImage = (function (_super) {
     }
     AnswerImage.create = function (value) {
         var node = _super.create.call(this, value);
-        node.innerHTML = value;
+        var embedInnerHTML = value;
+        if (editor_Enonce.editor.hasFocus()) {
+            embedInnerHTML = '<img src="images/question.png" style="max-height:60px;max-width:60px;"/>' + embedInnerHTML;
+        }
+        node.innerHTML = embedInnerHTML;
         node.setAttribute('data-value', value);
         node.setAttribute('contenteditable', false);
         var id = generate_unique_id_answer(value);

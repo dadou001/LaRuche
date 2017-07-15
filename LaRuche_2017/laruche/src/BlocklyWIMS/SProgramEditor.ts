@@ -98,7 +98,14 @@ class SProgramEditor {
     // remove the first "unmovable" elements from the xml tree
     // (title and variable type declaration)
     var xmlTree = $.parseXML(xmlState);
-    var xmlStateReduced = $(xmlTree).find("[type='wims_declaration']").children(":last-child").children().first().prop('outerHTML');
+    // if preparation 'prep' editor, also remove the declaration blocks
+    // else remove only the start title block
+    if (this.mType=='prep') {
+      var xmlStateReduced = $(xmlTree).find("[type='wims_declaration']").children(":last-child").children().first().prop('outerHTML');
+    } else {
+      var xmlStateReduced = $(xmlTree).find("[type='wims_start']").children(":last-child").children().first().prop('outerHTML');
+    }
+    // add the xml header
     xmlStateReduced = '<xml xmlns=\"http://www.w3.org/1999/xhtml\">'+xmlStateReduced+'</xml>';
     // set the blocks onto the workspace
     var xmlStateDom = Blockly.Xml.textToDom(xmlStateReduced);
@@ -114,7 +121,13 @@ class SProgramEditor {
       //   }
       // }
       var childConnection = this.mBlocklyWorkspace.getBlockById(xmlStateFirstId).previousConnection;
-      var parentConnection = this.mDeclarationBlock.nextConnection;
+      // connect to the already built parent block.
+      // the type of parent block depends on the type of blockly editor
+      if (this.mType=='prep') {
+        var parentConnection = this.mDeclarationBlock.nextConnection;
+      } else {
+        var parentConnection = this.mFirstBlock.nextConnection;
+      }
       parentConnection.connect(childConnection);
     }
   }

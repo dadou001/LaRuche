@@ -91,7 +91,8 @@
 	border-radius: 5px;
 }
 .surligne_Answer{
-	background-color: rgb(240,83,83);
+	display:inline-block;
+	background-color: rgb(198,144,217);
 	padding: 2px 5px 2px 5px;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
@@ -99,7 +100,7 @@
 }
 
 .surligne_Latex{
-	background-color: rgb(253,255,187);
+	background-color: rgb(248,156,101);
 	padding: 2px 5px 2px 5px;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;

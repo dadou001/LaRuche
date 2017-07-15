@@ -57,9 +57,6 @@ function change_onglet(name) {
 	}
 }
 
-var anc_onglet = 'Enonce';
-change_onglet(anc_onglet);
-
 // hljs.configure({   // optionally configure hljs -> ask Bernadette for OEF definition file
 //   languages: ['HTML']
 // });
@@ -84,12 +81,15 @@ var quill_EnTete = new Quill('#editor-EnTete', {
 });
 
 
-var editor_EnTete = new SEditor(quill_EnTete);
-var editor_Enonce = new SEditor(quill);
-/* CONFIGURATION DU QUILL DE L'ENTETE, VARIABLE GLOBAL = MOCHE*/
-quill_EnTete.format('code-block',true);
+var anc_onglet = 'Entete';
+change_onglet(anc_onglet);
+/* CONFIGURATION DU QUILL DE L'ENTETE, VARIABLE GLOBALE = MOCHE*/
+quill_EnTete.format('code-block',true); // WEBKIT : ne fonctionne que si l'onglet est actif
 /* SE DEMENER POUR ENLEVER CES VARIABLES GLOBALES */
+var editor_EnTete = new SEditor(quill_EnTete);
 
+change_onglet('Enonce');
+var editor_Enonce = new SEditor(quill);
 
 /** Fonction qui permet d'ajouter une réponse à un éditeur Quill
 ** et de l'ajouter à la liste des réponses
@@ -127,7 +127,7 @@ function add_answer(editor,ans_list){
 ** str : chaine de caractères à tester
 */
 function test_valid_expression(str){
-	var patt = /^[a-zA-Z][a-zA-Z0-9-]*$/;
+	var patt = /^[a-zA-Z][a-zA-Z0-9_]*$/;
 	return patt.test(str);
 }
 

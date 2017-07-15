@@ -72,7 +72,7 @@ class SEditor{
   public add_answer(nameAns){
   	this.editor.focus(); //On regarde l'editeur
   	var selection = this.editor.getSelection(); //on obtient l'index de la selection de l'utilisateur
-  	this.editor.insertEmbed(selection.index,'answerImage',nameAns); //On insere une imageVariable à cet endroit
+  	this.editor.insertEmbed(selection.index,'answerImage',nameAns);
   }
 
   public destroy_var(varName){
@@ -93,7 +93,8 @@ class SEditor{
   	var tab = content['ops']; //On récupère le tableau d'insert
   	var tabRes = []; //On initialise notre tableau de résultat final que l'on enverra à l'éditeur
   	for (var i = 0;i<content['ops'].length;i++){
-  		if ((content['ops'][i]['insert']['answerImage'] == null) || (content['ops'][i]['insert']['answerImage'] != ansName)){
+  		if ( (content['ops'][i]['insert']['answerImage'] == null) ||
+            (content['ops'][i]['insert']['answerImage'] != ansName) ){
   			tabRes.push(content['ops'][i]); //On prend toutes les valeurs qui ne sont pas notre réponse
   		}
   	}

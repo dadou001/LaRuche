@@ -10,7 +10,11 @@ var Embed = Quill.import('blots/embed');
 class AnswerImage extends Embed {
   static create(value) {
     let node = super.create(value);
-    node.innerHTML = value;
+    var embedInnerHTML = value;
+    if (editor_Enonce.editor.hasFocus()) {
+      embedInnerHTML = '<img src="images/question.png" style="max-height:60px;max-width:60px;"/>' + embedInnerHTML;
+    }
+    node.innerHTML = embedInnerHTML;
     node.setAttribute('data-value',value);
     node.setAttribute('contenteditable',false);
     var id = generate_unique_id_answer(value);
