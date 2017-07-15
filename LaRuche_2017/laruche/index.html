@@ -159,7 +159,7 @@
           <div class="RCl_Contenu_Onglet_Cache" id="RId_Contenu_Onglet_Preparation">
             <div class="row" style="margin:15px;">
               <div class="large-9 columns">
-                <div id="RId_programPrep" style="position: relative; height:400px"></div>
+                <div id="RId_programPrep" style="position: relative; height:400px;"></div>
               </div>
               <div class="large-3 columns" style="visibility:hidden;"> <div class="callout" id="card_Prep_Variable">un peu plus de texte ? </div></div>
             </div>
@@ -217,11 +217,12 @@
   <!-- Div programme préparation Blockly -->
   <div id="RId_programPrep_blockly" style="position: absolute"></div>
   <xml id="RId_toolbox_programPrep" xmlns="http://www.w3.org/1999/xhtml" style="display: none;">
+    <category name="Variables" colour="#0099ff" custom="VARIABLE" id="Rid_Prep_Blockly_Toolbar_Variables"></category>
     <category name="WIMS" id="Rid_Prep_Blockly_Toolbar_WIMS">
-      <block type="wims_change_type">
+      <!-- <block type="wims_change_type">
         <field name="VARIABLE_CHOICE"></field>
         <field name="TYPE"></field>
-      </block>
+      </block> -->
       <block type ="wims_comment">
         <field name="COMMENT">Comment</field>
       </block>
@@ -255,7 +256,6 @@
         <field name="WIMS_EDITOR">true</field>
       </block>
     </category>
-    <category name="Variables" colour="#0099ff" custom="VARIABLE" id="Rid_Prep_Blockly_Toolbar_Variables"></category>
     <sep></sep>
     <category name="Essaims" id="Rid_Prep_Blockly_Toolbar_Swarms"></category>
   </xml>

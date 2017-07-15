@@ -30,7 +30,7 @@ goog.require('Blockly.OEF');
 
 Blockly.OEF['variables_get'] = function(block) {
   // Variable getter.
-  var code = Blockly.OEF.variableDB_.getName(block.getFieldValue('VAR'),
+  var code = '\\'+Blockly.OEF.variableDB_.getName(block.getFieldValue('VAR'),
       Blockly.Variables.NAME_TYPE);
   return ['', Blockly.OEF.ORDER_ATOMIC];
 };

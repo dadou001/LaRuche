@@ -1,0 +1,72 @@
+{
+ "enonce": {
+  "editor": {
+   "ops": [
+    {
+     "insert": " Remettre les parties du spectre dans l'ordre croissant des longueurs d’onde :\n"
+    },
+    {
+     "insert": {
+      "answerImage": "liste"
+     }
+    },
+    {
+     "insert": "\n"
+    }
+   ]
+  }
+ },
+ "variables": {
+  "liste": {
+   "name": "liste",
+   "type": "text"
+  },
+  "i": {
+   "name": "i",
+   "type": "real"
+  }
+ },
+ "answer": {
+  "liste": {
+   "name": "liste",
+   "type": "other",
+   "block_html": {
+    "name": "liste",
+    "editor": {
+     "ops": [
+      {
+       "insert": {
+        "VariableImage": "liste"
+       }
+      },
+      {
+       "insert": "\n"
+      }
+     ]
+    }
+   },
+   "length": "10"
+  }
+ },
+ "prep": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><block type=\"wims_start\" id=\"=w=SU%hpYdiWU(~f=ev0\" deletable=\"false\" movable=\"false\" x=\"0\" y=\"0\"><next><block type=\"wims_declaration\" id=\"Y!FO(gIez(io|B5jM:+U\" deletable=\"false\" movable=\"false\"><statement name=\"DECLARATION\"><block type=\"wims_change_type\" id=\"BeTFd`O!o%1`8N.PlL7_\" deletable=\"false\" movable=\"false\"><field name=\"VARIABLE_CHOICE\">liste</field><field name=\"TYPE\">text</field><next><block type=\"wims_change_type\" id=\".p{^MD#,O[1Y~jv^%r@)\" deletable=\"false\" movable=\"false\"><field name=\"VARIABLE_CHOICE\">i</field><field name=\"TYPE\">real</field></block></next></block></statement><next><block type=\"wims_variable_editor\" id=\"#=Z(8=7,b1pO=33X(+*_\"><field name=\"VARIABLE_CHOICE\">liste</field><field name=\"WIMS_EDITOR\">{\"ops\":[{\"insert\":\"rayons \\\\(\\\\gamma\\\\), rayons X, ultraviolet , lumière visible, infrarouge, micro−ondes, ondes radio \\n\"}]}</field></block></next></block></next></block></xml>",
+ "analyse": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><block type=\"wims_start\" id=\"Et)sH7Wigxud}47$C]6D\" deletable=\"false\" movable=\"false\" x=\"0\" y=\"0\"></block></xml>",
+ "en_tete": {
+  "title": "Spectre électromagnétique",
+  "language": "Fr",
+  "name": "Buskulic",
+  "firstName": "Damir",
+  "email": ""
+ },
+ "editor_EnTete": {
+  "editor": {
+   "ops": [
+    {
+     "attributes": {
+      "code-block": true
+     },
+     "insert": "\n"
+    }
+   ]
+  }
+ }
+}

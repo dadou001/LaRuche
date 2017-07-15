@@ -26,6 +26,14 @@ var Variable = (function () {
             }
             var childConnection = this.mTypeDeclarationBlock.previousConnection;
             parentConnection.connect(childConnection);
+            // update the type in this "variable" object
+            // when changed in the dropdown menus
+            var varTypeChanged = this;
+            var typeDeclarationBlock = this.mTypeDeclarationBlock;
+            this.mTypeDeclarationBlock.setOnChange(function (changeEvent) {
+                varTypeChanged.type = typeDeclarationBlock.getFieldValue('TYPE');
+                console.log('Variable : ' + varTypeChanged.name + '\n' + typeDeclarationBlock.getFieldValue('TYPE'));
+            });
         }
     };
     Variable.prototype.getName = function () {
@@ -39,6 +47,8 @@ var Variable = (function () {
     };
     Variable.prototype.setType = function (type) {
         this.type = type;
+        if (this.mTypeDeclarationBlock)
+            this.setTypeInDeclaration();
     };
     Variable.prototype.setTypeInDeclaration = function () {
         this.mTypeDeclarationBlock.getField('TYPE').setValue(this.type);

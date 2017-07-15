@@ -1,0 +1,175 @@
+{
+ "enonce": {
+  "editor": {
+   "ops": [
+    {
+     "insert": "Calculer le produit "
+    },
+    {
+     "attributes": {
+      "LatexImage": true
+     },
+     "insert": "A\\cdot B"
+    },
+    {
+     "insert": " de deux matrices avec "
+    },
+    {
+     "attributes": {
+      "LatexImage": true
+     },
+     "insert": "A = ["
+    },
+    {
+     "attributes": {
+      "LatexImage": true
+     },
+     "insert": {
+      "VariableImage": "M"
+     }
+    },
+    {
+     "attributes": {
+      "LatexImage": true
+     },
+     "insert": "]"
+    },
+    {
+     "insert": " et "
+    },
+    {
+     "attributes": {
+      "LatexImage": true
+     },
+     "insert": "B = ["
+    },
+    {
+     "attributes": {
+      "LatexImage": true
+     },
+     "insert": {
+      "VariableImage": "v"
+     }
+    },
+    {
+     "attributes": {
+      "LatexImage": true
+     },
+     "insert": "]"
+    },
+    {
+     "insert": "\n"
+    },
+    {
+     "attributes": {
+      "LatexImage": true
+     },
+     "insert": "A\\cdot B"
+    },
+    {
+     "insert": " = "
+    },
+    {
+     "insert": {
+      "answerImage": "produit"
+     }
+    },
+    {
+     "attributes": {
+      "align": "center"
+     },
+     "insert": "\n"
+    }
+   ]
+  }
+ },
+ "variables": {
+  "matFinale": {
+   "name": "matFinale",
+   "type": "real"
+  },
+  "ux": {
+   "name": "ux",
+   "type": "real"
+  },
+  "v": {
+   "name": "v",
+   "type": "matrix"
+  },
+  "M": {
+   "name": "M",
+   "type": "matrix"
+  },
+  "y": {
+   "name": "y",
+   "type": "integer"
+  },
+  "x": {
+   "name": "x",
+   "type": "integer"
+  },
+  "d": {
+   "name": "d",
+   "type": "integer"
+  },
+  "c": {
+   "name": "c",
+   "type": "integer"
+  },
+  "b": {
+   "name": "b",
+   "type": "integer"
+  },
+  "a": {
+   "name": "a",
+   "type": "integer"
+  },
+  "uy": {
+   "name": "uy",
+   "type": "real"
+  }
+ },
+ "answer": {
+  "produit": {
+   "name": "produit",
+   "type": "other",
+   "block_html": {
+    "name": "produit",
+    "editor": {
+     "ops": [
+      {
+       "insert": {
+        "VariableImage": "matFinale"
+       }
+      },
+      {
+       "insert": "\n"
+      }
+     ]
+    }
+   },
+   "length": "10"
+  }
+ },
+ "prep": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><block type=\"wims_start\" id=\"8f7kKM[n1JV67fe6t|c=\" deletable=\"false\" movable=\"false\" x=\"0\" y=\"0\"><next><block type=\"wims_declaration\" id=\")_0#l!(]:GZz4OXc#!%V\" deletable=\"false\" movable=\"false\"><statement name=\"DECLARATION\"><block type=\"wims_change_type\" id=\"mC6!DRU.07!BRr]6d_rx\" deletable=\"false\" movable=\"false\"><field name=\"VARIABLE_CHOICE\">matFinale</field><field name=\"TYPE\">real</field><next><block type=\"wims_change_type\" id=\"6tt|B;VLQ/Z.4HfF5y2+\" deletable=\"false\" movable=\"false\"><field name=\"VARIABLE_CHOICE\">ux</field><field name=\"TYPE\">real</field><next><block type=\"wims_change_type\" id=\"Tdk*|OVJ?~b]FD$^gZ[f\" deletable=\"false\" movable=\"false\"><field name=\"VARIABLE_CHOICE\">v</field><field name=\"TYPE\">matrix</field><next><block type=\"wims_change_type\" id=\"#}yQ;|IF:h[LigeC/ZgM\" deletable=\"false\" movable=\"false\"><field name=\"VARIABLE_CHOICE\">M</field><field name=\"TYPE\">matrix</field><next><block type=\"wims_change_type\" id=\"H+_AIooUB@yT;,~Q3dF-\" deletable=\"false\" movable=\"false\"><field name=\"VARIABLE_CHOICE\">y</field><field name=\"TYPE\">integer</field><next><block type=\"wims_change_type\" id=\"b)a=l5kTrqH(BwZ*|]R=\" deletable=\"false\" movable=\"false\"><field name=\"VARIABLE_CHOICE\">x</field><field name=\"TYPE\">integer</field><next><block type=\"wims_change_type\" id=\"0GO%fOp$4Ni.wQ;;,)E4\" deletable=\"false\" movable=\"false\"><field name=\"VARIABLE_CHOICE\">d</field><field name=\"TYPE\">integer</field><next><block type=\"wims_change_type\" id=\"bwTD1D**]m#D3:Vda*Ug\" deletable=\"false\" movable=\"false\"><field name=\"VARIABLE_CHOICE\">c</field><field name=\"TYPE\">integer</field><next><block type=\"wims_change_type\" id=\"H/H~n[v(Dp`T)c6W5oJp\" deletable=\"false\" movable=\"false\"><field name=\"VARIABLE_CHOICE\">b</field><field name=\"TYPE\">integer</field><next><block type=\"wims_change_type\" id=\"!o,*3$?(C)vz6lKye`oq\" deletable=\"false\" movable=\"false\"><field name=\"VARIABLE_CHOICE\">a</field><field name=\"TYPE\">integer</field><next><block type=\"wims_change_type\" id=\"wCyrp`-IS8GmOm!Zu]b~\" deletable=\"false\" movable=\"false\"><field name=\"VARIABLE_CHOICE\">uy</field><field name=\"TYPE\">real</field></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></statement><next><block type=\"wims_variable_editor\" id=\"lV1K.xb/f{|3Bl1lpGo;\"><field name=\"VARIABLE_CHOICE\">a</field><field name=\"WIMS_EDITOR\">{\"ops\":[{\"insert\":\"randint(-5..5)\\n\"}]}</field><next><block type=\"wims_variable_editor\" id=\"y^.}Ati{c[dqFz.`ENTq\"><field name=\"VARIABLE_CHOICE\">b</field><field name=\"WIMS_EDITOR\">{\"ops\":[{\"insert\":\"randint(-5..5)\\n\"}]}</field><next><block type=\"wims_variable_editor\" id=\"*jL/$)?qMSwXHl{eH+7O\"><field name=\"VARIABLE_CHOICE\">c</field><field name=\"WIMS_EDITOR\">{\"ops\":[{\"insert\":\"randint(-5..5)\\n\"}]}</field><next><block type=\"wims_variable_editor\" id=\"*.4ajxW$iqr`w!BsxSa#\"><field name=\"VARIABLE_CHOICE\">d</field><field name=\"WIMS_EDITOR\">{\"ops\":[{\"insert\":\"randint(-5..5)\\n\"}]}</field><next><block type=\"wims_variable_editor\" id=\"R7GKW{Yb3%S-Lnjsz@@=\"><field name=\"VARIABLE_CHOICE\">x</field><field name=\"WIMS_EDITOR\">{\"ops\":[{\"insert\":\"randint(-5..5)\\n\"}]}</field><next><block type=\"wims_variable_editor\" id=\"Z3|H#C=~T%0/z)]I0Un.\"><field name=\"VARIABLE_CHOICE\">y</field><field name=\"WIMS_EDITOR\">{\"ops\":[{\"insert\":\"randint(-5..5)\\n\"}]}</field><next><block type=\"wims_variable_editor\" id=\"^]D(9?Qe[VJqE{E?.$;(\"><field name=\"VARIABLE_CHOICE\">M</field><field name=\"WIMS_EDITOR\">{\"ops\":[{\"insert\":{\"VariableImage\":\"a\"}},{\"insert\":\",\"},{\"insert\":{\"VariableImage\":\"b\"}},{\"insert\":\"\\n\"},{\"insert\":{\"VariableImage\":\"c\"}},{\"insert\":\",\"},{\"insert\":{\"VariableImage\":\"d\"}},{\"insert\":\"\\n\"}]}</field><next><block type=\"wims_variable_editor\" id=\"-pi.DQTI9L-,[F4@q9me\"><field name=\"VARIABLE_CHOICE\">v</field><field name=\"WIMS_EDITOR\">{\"ops\":[{\"insert\":{\"VariableImage\":\"x\"}},{\"insert\":\"\\n\"},{\"insert\":{\"VariableImage\":\"y\"}},{\"insert\":\"\\n\"}]}</field><next><block type=\"wims_variable_editor\" id=\"N6[#n/MSR6Uc8Z3qlqa-\"><field name=\"VARIABLE_CHOICE\">ux</field><field name=\"WIMS_EDITOR\">{\"ops\":[{\"insert\":{\"VariableImage\":\"a\"}},{\"insert\":\"*\"},{\"insert\":{\"VariableImage\":\"x\"}},{\"insert\":\"+\"},{\"insert\":{\"VariableImage\":\"b\"}},{\"insert\":\"*\"},{\"insert\":{\"VariableImage\":\"y\"}},{\"insert\":\"\\n\"}]}</field><next><block type=\"wims_variable_editor\" id=\"Tp?fO,36KooY]RY%iiHs\"><field name=\"VARIABLE_CHOICE\">ux</field><field name=\"WIMS_EDITOR\">{\"ops\":[{\"insert\":{\"VariableImage\":\"c\"}},{\"insert\":\"*\"},{\"insert\":{\"VariableImage\":\"x\"}},{\"insert\":\"+\"},{\"insert\":{\"VariableImage\":\"d\"}},{\"insert\":\"*\"},{\"insert\":{\"VariableImage\":\"y\"}},{\"insert\":\"\\n\"}]}</field><next><block type=\"wims_variable_editor\" id=\"~J2=/ri5N]-S7aq^lgBF\"><field name=\"VARIABLE_CHOICE\">matFinale</field><field name=\"WIMS_EDITOR\">{\"ops\":[{\"insert\":{\"VariableImage\":\"ux\"}},{\"insert\":\"\\n\"},{\"insert\":{\"VariableImage\":\"uy\"}},{\"insert\":\"\\n\"}]}</field></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></xml>",
+ "analyse": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><block type=\"wims_start\" id=\"?XtB,KNeq0Z5rlH#r!*J\" deletable=\"false\" movable=\"false\" x=\"0\" y=\"0\"></block></xml>",
+ "en_tete": {
+  "title": "Multiplication par une matrice 2x2",
+  "language": "",
+  "name": "",
+  "firstName": "",
+  "email": ""
+ },
+ "editor_EnTete": {
+  "editor": {
+   "ops": [
+    {
+     "attributes": {
+      "code-block": true
+     },
+     "insert": "\n"
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,87 @@
+{
+ "enonce": {
+  "editor": {
+   "ops": [
+    {
+     "insert": " Mettre en correspondance les unités du système international : \n"
+    },
+    {
+     "insert": {
+      "answerImage": "Unites"
+     }
+    },
+    {
+     "attributes": {
+      "align": "center"
+     },
+     "insert": "\n"
+    }
+   ]
+  }
+ },
+ "variables": {
+  "liste": {
+   "name": "liste",
+   "type": "matrix"
+  },
+  "mix": {
+   "name": "mix",
+   "type": "text"
+  },
+  "question": {
+   "name": "question",
+   "type": "matrix"
+  }
+ },
+ "answer": {
+  "Unites": {
+   "name": "Unites",
+   "type": "other",
+   "block_html": {
+    "name": "Unites",
+    "editor": {
+     "ops": [
+      {
+       "insert": {
+        "VariableImage": "question"
+       }
+      },
+      {
+       "insert": "[;1];"
+      },
+      {
+       "insert": {
+        "VariableImage": "question"
+       }
+      },
+      {
+       "insert": "[;2]\n"
+      }
+     ]
+    }
+   },
+   "length": "10"
+  }
+ },
+ "prep": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><block type=\"wims_start\" id=\"J:x(4mM8*{L!aW*H{E#`\" deletable=\"false\" movable=\"false\" x=\"0\" y=\"0\"><next><block type=\"wims_declaration\" id=\"-%JT(;b_5Emh)A4FFl5*\" deletable=\"false\" movable=\"false\"><statement name=\"DECLARATION\"><block type=\"wims_change_type\" id=\"0[%2c.pKLc:59/ZQwvr(\" deletable=\"false\" movable=\"false\"><field name=\"VARIABLE_CHOICE\">liste</field><field name=\"TYPE\">matrix</field><next><block type=\"wims_change_type\" id=\"Lr?IZtRA/@Uz*`ufj=(9\" deletable=\"false\" movable=\"false\"><field name=\"VARIABLE_CHOICE\">mix</field><field name=\"TYPE\">text</field><next><block type=\"wims_change_type\" id=\"w64.vl)]j{UBe}l-K]v8\" deletable=\"false\" movable=\"false\"><field name=\"VARIABLE_CHOICE\">question</field><field name=\"TYPE\">matrix</field></block></next></block></next></block></statement><next><block type=\"wims_variable_editor\" id=\"{X6?oIFYX_~.tpc/I[S|\"><field name=\"VARIABLE_CHOICE\">liste</field><field name=\"WIMS_EDITOR\">{\"ops\":[{\"insert\":\"Longueur,mètre\\nMasse , kilogramme\\nTemps , seconde\\nIntensité de courant électrique , ampère\\nTempérature , kelvin\\nIntensité lumineuse , candela\\nQuantité de matière , mole\\nAngle plan , radian \\nAngle solide, stéradian\\n\"}]}</field><next><block type=\"wims_variable_editor\" id=\"qu?,mN;)*U+4e`v6s@3a\"><field name=\"VARIABLE_CHOICE\">mix</field><field name=\"WIMS_EDITOR\">{\"ops\":[{\"insert\":\"shuffle(rows(\"},{\"insert\":{\"VariableImage\":\"liste\"}},{\"insert\":\"))\\n\"}]}</field><next><block type=\"wims_variable_editor\" id=\"$S9_=D?|f0[TC{p[|YbM\"><field name=\"VARIABLE_CHOICE\">question</field><field name=\"WIMS_EDITOR\">{\"ops\":[{\"insert\":{\"VariableImage\":\"liste\"}},{\"insert\":\"[\"},{\"insert\":{\"VariableImage\":\"mix\"}},{\"insert\":\"[1..4];]\\n\"}]}</field></block></next></block></next></block></next></block></next></block></xml>",
+ "analyse": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><block type=\"wims_start\" id=\".;qC}6vX;lwUd,ZbK?/4\" deletable=\"false\" movable=\"false\" x=\"0\" y=\"0\"></block></xml>",
+ "en_tete": {
+  "title": "Unités du Système International",
+  "language": "",
+  "name": "",
+  "firstName": "",
+  "email": ""
+ },
+ "editor_EnTete": {
+  "editor": {
+   "ops": [
+    {
+     "attributes": {
+      "code-block": true
+     },
+     "insert": "\n"
+    }
+   ]
+  }
+ }
+}
