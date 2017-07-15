@@ -47,13 +47,10 @@ function change_onglet(name) {
 	if (typeof(prepEditor)!='undefined') {
 		prepEditor.onResize();
 		Blockly.svgResize(prepEditor.mBlocklyWorkspace);
-		prepEditor.mBlocklyWorkspace.scrollX = 27;
 	}
 	if (typeof(analyseEditor)!='undefined') {
 		analyseEditor.onResize();
 		Blockly.svgResize(analyseEditor.mBlocklyWorkspace);
-//		console.log("posX :"+analyseEditor.mBlocklyWorkspace.scrollX);
-		analyseEditor.mBlocklyWorkspace.scrollX = 27;
 	}
 }
 
@@ -161,7 +158,7 @@ function create_variable_editor(id_select_type_popup,id_input_name_popup,index){
 function create_OEF_variable_from_Blockly(name){
 /* Called from within the Blockly code to build an OEF variable */
 	if(variable_List[name]==null){
-    variable_List[name] = new Variable(name,'real');
+    variable_List[name] = new Variable(name,'Real');
 		variable_List[name].init();
     update_all_view();
   }
@@ -501,6 +498,8 @@ function update_final_code(){
 */
 function add_blockly_variable(name){
 	prepEditor.mBlocklyWorkspace.createVariable(name);
+	analyseEditor.mBlocklyWorkspace.createVariable(name);
+
 }
 
 /** Fonction qui permet de supprimer une variable d'un workspace Blockly
@@ -686,9 +685,6 @@ function parse_save(save){
 		if(key == 'editor'){
 			return new SEditor(value);
 		}
-		if(typeof key == Variable){
-			console.log('YAYAYAYAYAYA');
-		}
 		else{
 			return value;
 		}
@@ -707,8 +703,10 @@ function parse_save(save){
 	editor_EnTete.editor.setContents(state['editor_EnTete']['editor'].editor);
 	editor_Enonce.editor.setContents(state['enonce']['editor'].editor);
 	prepEditor.load(state['prep']);
+	console.log(state['prep']);
 	analyseEditor.load(state['analyse']);
 
+	var var_list_tmp = {};
 	var ans_list_tmp = {};
 	var res = {};
 	for(var key in state['variables']){
@@ -717,11 +715,16 @@ function parse_save(save){
 			// except for the type of variable
 			variable_List[key].setType(state['variables'][key]['type']);
 		} else {
-			variable_List[key] = new Variable(state['variables'][key]['name'],state['variables'][key]['type']);
-			variable_List[key].init();
+			var_list_tmp[key] = new Variable(state['variables'][key]['name'],state['variables'][key]['type']);
+			var_list_tmp[key].init();
 		}
 	}
 
+	// transfer in variable_List the variables that were not already defined before
+	// in the load of the Blockly editors
+	for(var key in var_list_tmp) {
+		variable_List[key] = var_list_tmp[key];
+	}
 	// Set the type in all the Blockly type declaration fields
 	for(var key in variable_List) {
 		variable_List[key].setTypeInDeclaration();
@@ -734,6 +737,12 @@ function parse_save(save){
 		ans_list_tmp[key].get_block_html().create_editor();
 		ans_list_tmp[key].get_block_html().editor.editor.setContents(state['answer'][key]['block_html']['editor'].editor);
 		ans_list_tmp[key].get_block_html().change_to_type(state['answer'][key]['type']);
+		if(state['answer'][key]['type'] == 'other'){
+			$('#ans_'+key+'_type textarea').val(state['answer'][key]['sub_type'])
+		}
+		console.log($('answer_all_'+key));
+		$('answer_all_'+key).find('select').val(state['answer'][key]['type']);
+		$('answer_all_'+key+' option[value='+state['answer'][key]['type']+']').attr('selected','selected');
 	}
 	answer_List = ans_list_tmp;
 }
@@ -836,7 +845,19 @@ function change_length_answer_via_popup(answer_name){
 	$('#popup').toggleClass('popup_variable_visible');
 }
 
+/** Fonction qui permet de cacher les éditeurs et les popups lors du changement d'onglet.
+*/
 function hide_popup(){
 	Blockly.ExternalDiv.hide();
-	$('#popup').css('visibility','hidden');
+	$('#popup').removeClass('popup_variable_visible');
+}
+
+function register_type_other(){
+	for(var key in answer_List){
+		// console.log($('#answer_all_'+key+' select').val());
+		if($('#answer_all_'+key+' select').val() == 'other'){
+			answer_List[key].type = 'other';
+			answer_List[key].set_sub_type(answer_List[key].get_type());
+		}
+	}
 }

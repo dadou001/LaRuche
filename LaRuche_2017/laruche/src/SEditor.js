@@ -212,7 +212,7 @@ var SEditor = (function () {
         }
         else if (element['insert']['answerImage'] != null) {
             //si c'est une answer on la traite avec un <answer> devant
-            result = "\\embed{reply" + count_answer['value'] + ",'" + answer_List[element['insert']['answerImage']].length + "'}";
+            result = "\\embed{reply" + count_answer['value'] + "," + answer_List[element['insert']['answerImage']].length + "}";
             count_answer['value']++;
         }
         else if (element['insert']['image'] != null) {
@@ -290,6 +290,7 @@ var SEditor = (function () {
     };
     SEditor.prototype.applied_attributes = function (line, element, was_list) {
         var attributes = element['attributes']; //on récupère les attributs
+        var style = '';
         if (attributes == undefined) {
             attributes = {};
         }
@@ -333,16 +334,20 @@ var SEditor = (function () {
                 case 'align':
                     switch (attributes['align']) {
                         case 'right':
-                            result = '<span style="text-align:right;">' + result + '</span>';
+                            // result = '<span style="text-align:right;">'+result+'</span>';
+                            style += 'text-align:right;';
                             break;
                         case 'left':
-                            result = '<span style="text-align:left;">' + result + '</span>';
+                            // result = '<span style="text-align:left;">'+result+'</span>';
+                            style += 'text-align:left;';
                             break;
                         case 'center':
-                            result = '<span style="text-align:center;">' + result + '</span>';
+                            // result = '<span style="text-align:center;">'+result+'</span>';
+                            style += 'text-align:center;';
                             break;
                         case 'justify':
-                            result = '<span style="text-align:justify;">' + result + '</span>';
+                            // result = '<span style="text-align:justify;">'+result+'</span>';
+                            style += 'text-align:justify;';
                             break;
                     }
                     break;
@@ -370,6 +375,9 @@ var SEditor = (function () {
                 result = "</ul>" + result;
                 was_list['unordered'] = false;
             }
+        }
+        if (style != '') {
+            result = '<p style="' + style + '">' + result + '</p>\n';
         }
         return { 'line': result, 'was_list': was_list };
     };
