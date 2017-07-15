@@ -55,7 +55,15 @@ Blockly.OEF['wims_if'] = function(block) {
   var condition = editorTmp.to_variable_value();
   var branch1 = Blockly.OEF.statementToCode(block, 'DO');
   var branch2 = Blockly.OEF.statementToCode(block, 'ELSE');
-  return '\\if{'+condition+'}\n{'+branch1.substring(0,branch1.length-1)+'}\n{'+branch2.substring(0,branch2.length-1)+'}\n';
+  if((branch1 == '')||(condition == '')){
+    return '';
+  }
+  else if(branch2 == ''){
+    return '\\if{'+condition+'}\n{'+branch1.substring(0,branch1.length-1)+'}\n';
+  }
+  else{
+    return '\\if{'+condition+'}\n{'+branch1.substring(0,branch1.length-1)+'}\n{'+branch2.substring(0,branch2.length-1)+'}\n';
+  }
 };
 
 Blockly.OEF['wims_for'] = function(block) {
@@ -90,7 +98,13 @@ Blockly.OEF['wims_for'] = function(block) {
   if (todo[todo.length-1] == '\n'){
     todo = todo.substring(0,todo.length-1);
   }
-  return '\\for{'+varName+' = '+start+' to '+end+' step '+step+'}\n{'+todo+'}\n';
+
+  if(todo == ''){
+    return '';
+  }
+  else{
+    return '\\for{'+varName+' = '+start+' to '+end+' step '+step+'}\n{'+todo+'}\n';
+  }
 };
 
 // Blockly.OEF['wims_while'] = function(block) {

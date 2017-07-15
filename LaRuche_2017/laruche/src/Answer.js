@@ -5,6 +5,7 @@ var Answer = (function () {
         this.type = type;
         this.block_html = new AnswerBlock(name, type);
         this.length = '10';
+        this.sub_type = null;
     }
     Answer.prototype.get_block_html = function () {
         return this.block_html;
@@ -13,9 +14,12 @@ var Answer = (function () {
         if (this.type != 'other')
             return this.type;
         else {
-            console.log($('#ans_' + this.name + '_type').find('textarea'));
+            // console.log($('#ans_'+this.name+'_type').find('textarea'));
             return $('#ans_' + this.name + '_type').find('textarea').get(0).value;
         }
+    };
+    Answer.prototype.set_sub_type = function (type) {
+        this.sub_type = type;
     };
     Answer.prototype.get_option = function () {
         var result = "";

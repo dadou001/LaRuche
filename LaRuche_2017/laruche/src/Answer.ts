@@ -5,6 +5,7 @@ class Answer{
   private type:String;
   private value:any;
   private length:string;
+  private sub_type:string;
   private block_html:AnswerBlock;
 
   constructor(name,type){
@@ -12,6 +13,7 @@ class Answer{
     this.type = type;
     this.block_html = new AnswerBlock(name,type);
     this.length = '10';
+    this.sub_type = null;
   }
 
   public get_block_html(){
@@ -22,9 +24,13 @@ class Answer{
     if(this.type != 'other')
       return this.type;
     else{
-      console.log($('#ans_'+this.name+'_type').find('textarea'));
+      // console.log($('#ans_'+this.name+'_type').find('textarea'));
       return $('#ans_'+this.name+'_type').find('textarea').get(0).value;
     }
+  }
+
+  public set_sub_type(type){
+    this.sub_type = type;
   }
 
   public get_option(){

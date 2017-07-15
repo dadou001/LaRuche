@@ -32,17 +32,18 @@ Blockly.OEF['variables_get'] = function(block) {
   // Variable getter.
   var code = '\\'+Blockly.OEF.variableDB_.getName(block.getFieldValue('VAR'),
       Blockly.Variables.NAME_TYPE);
-  return [code, Blockly.OEF.ORDER_ATOMIC];
+  return ['', Blockly.OEF.ORDER_ATOMIC];
 };
 
 Blockly.OEF['variables_set'] = function(block) {
-  // Variable setter.
-  var argument0 = Blockly.OEF.valueToCode(block, 'VALUE',
-      Blockly.OEF.ORDER_ASSIGNMENT) || '0';
-  var varName = Blockly.OEF.variableDB_.getName(
-      block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
-  variable_List[varName].setValue(argument0.substring(0,argument0.length-1));
-  return varName + ' = ' + argument0 + ';\n';
+  // // Variable setter.
+  // var argument0 = Blockly.OEF.valueToCode(block, 'VALUE',
+  //     Blockly.OEF.ORDER_ASSIGNMENT) || '0';
+  // var varName = Blockly.OEF.variableDB_.getName(
+  //     block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+  // variable_List[varName].setValue(argument0.substring(0,argument0.length-1));
+  // return varName + ' = ' + argument0 + ';\n';
+  return '';
 };
 
 Blockly.OEF['wims_change_type'] = function(block) {

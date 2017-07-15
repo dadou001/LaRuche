@@ -18,7 +18,12 @@ Blockly.OEF['analyse_feedback'] = function(block) {
   editor2.setContents(JSON.parse(block.getFieldValue('WIMS_EDITOR')));
   var editorTmp = new SEditor(editor2);
   var valQuill = editorTmp.to_Blockly_Analyse();
-  return '\\feedback{'+valTestQuill+'}{'+valQuill+'}\n';
+  if((valTestQuill == '') || (valQuill == '')){
+    return '';
+  }
+  else{
+    return '\\feedback{'+valTestQuill+'}{'+valQuill+'}\n';
+  }
 };
 
 Blockly.OEF['analyse_hint'] = function(block) {
