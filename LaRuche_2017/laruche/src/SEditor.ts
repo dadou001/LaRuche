@@ -66,13 +66,13 @@ class SEditor{
   public add_variable(nameVar){
   	this.editor.focus(); //On regarde l'editeur
   	var selection = this.editor.getSelection(); //on obtient l'index de la selection de l'utilisateur
-  	this.editor.insertEmbed(selection.index,'VariableImage',nameVar); //On insere une imageVariable à cet endroit
+  	insert_embed_object(this.editor,selection.index,'VariableImage',nameVar); //On insere une imageVariable à cet endroit
   }
 
   public add_answer(nameAns){
   	this.editor.focus(); //On regarde l'editeur
   	var selection = this.editor.getSelection(); //on obtient l'index de la selection de l'utilisateur
-  	this.editor.insertEmbed(selection.index,'answerImage',nameAns);
+  	insert_embed_object(this.editor,selection.index,'answerImage',nameAns,this.editor.container.id);
   }
 
   public destroy_var(varName){
@@ -94,7 +94,7 @@ class SEditor{
   	var tabRes = []; //On initialise notre tableau de résultat final que l'on enverra à l'éditeur
   	for (var i = 0;i<content['ops'].length;i++){
   		if ( (content['ops'][i]['insert']['answerImage'] == null) ||
-            (content['ops'][i]['insert']['answerImage'] != ansName) ){
+            (AnswerImage.nameFromObject(content['ops'][i]['insert']['answerImage']) != ansName) ){
   			tabRes.push(content['ops'][i]); //On prend toutes les valeurs qui ne sont pas notre réponse
   		}
   	}
@@ -161,7 +161,7 @@ class SEditor{
     var result = [];
     for(var i = 0;i<cont.length;i++){
       if(cont[i]['insert']['answerImage'] != null){
-        result.push(cont[i]['insert']['answerImage']);
+        result.push(AnswerImage.nameFromObject(cont[i]['insert']['answerImage']));
       }
     }
     return result;
@@ -232,7 +232,7 @@ class SEditor{
   	}
     else if (element['insert']['answerImage']!= null){
   		//si c'est une answer on la traite avec un <answer> devant
-  		result = "\\embed{reply"+count_answer['value']+","+answer_List[element['insert']['answerImage']].length+"}";
+  		result = "\\embed{reply"+count_answer['value']+","+answer_List[AnswerImage.nameFromObject(element['insert']['answerImage'])].length+"}";
       count_answer['value']++;
   	}
     else if (element['insert']['image']!= null){

@@ -47,10 +47,12 @@ function change_onglet(name) {
 	if (typeof(prepEditor)!='undefined') {
 		prepEditor.onResize();
 		Blockly.svgResize(prepEditor.mBlocklyWorkspace);
+		prepEditor.mBlocklyWorkspace.scrollX = 27;
 	}
 	if (typeof(analyseEditor)!='undefined') {
 		analyseEditor.onResize();
 		Blockly.svgResize(analyseEditor.mBlocklyWorkspace);
+		analyseEditor.mBlocklyWorkspace.scrollX = 27;
 	}
 }
 
@@ -78,11 +80,10 @@ var quill_EnTete = new Quill('#editor-EnTete', {
 });
 
 
+/* SE DEMENER POUR ENLEVER CES VARIABLES GLOBALES */
 var anc_onglet = 'Entete';
 change_onglet(anc_onglet);
-/* CONFIGURATION DU QUILL DE L'ENTETE, VARIABLE GLOBALE = MOCHE*/
 quill_EnTete.format('code-block',true); // WEBKIT : ne fonctionne que si l'onglet est actif
-/* SE DEMENER POUR ENLEVER CES VARIABLES GLOBALES */
 var editor_EnTete = new SEditor(quill_EnTete);
 
 change_onglet('Enonce');
@@ -111,7 +112,8 @@ function add_answer(editor,ans_list){
 					if( (active_editor_analyse != null) || (active_editor_analyse != ans_list[name].get_block_html().get_editor())){
 						//REVOIR CE IF, IL VA PAS
 						active_editor_analyse = ans_list[name].get_block_html().get_editor();}});
-			editor.insertEmbed(positionSelection.index,'answerImage',name); //On rajoute la réponse à l'éditeur
+			//On rajoute la réponse à l'éditeur
+			insert_embed_object(editor,positionSelection.index,'answerImage',name,editor.container.id);
 		}
 		else{
 			window.alert(Blockly.Msg.WIMS_PROMPT_ANSWER_NAME_ERROR);
@@ -119,13 +121,35 @@ function add_answer(editor,ans_list){
 	}
 }
 
-/** Fonction qui permet de tester si une chaine est composé uniquement de caractères alphanumérique
+/** Fonction qui permet de tester si une chaine est composée uniquement de caractères alphanumériques
 ********* IN *************
 ** str : chaine de caractères à tester
 */
 function test_valid_expression(str){
 	var patt = /^[a-zA-Z][a-zA-Z0-9_]*$/;
 	return patt.test(str);
+}
+
+/** Insertion d'un objet (variable, réponse) dans un éditeur quill
+** sous forme de blot (Embed dans notre cas)
+** Le passage des variables au blot se fait sous forme de chaine de car.
+** transforme les variables en JSON et les passe au Blot.
+********* IN *************
+** editor : editeur quill concerné
+** index : position d'insertion dans l'éditeur
+** type : type d'objet et donc d'Embed
+** value : valeur à afficher dans le blot
+** variable1,2,3 : variables annexes à passer au blot (peuvent être des objets).
+*/
+function insert_embed_object(editor,index,type,value,variable1,variable2,variable3) {
+	var transferVar;
+	// If variables 1..3 not defined, behave like normal, send only value
+	if (typeof variable1=='undefined' && typeof variable2=='undefined' && typeof variable3=='undefined') {
+		transferVar = value;
+	}	else {
+		transferVar = JSON.stringify({'value':value,'variable1':variable1,'variable2':variable2,'variable3':variable3});
+	}
+	editor.insertEmbed(index,type,transferVar);
 }
 
 /** Fonction qui permet de créer la variable avec les paramètres du popup de création de variable
@@ -140,7 +164,8 @@ function create_variable_editor(id_select_type_popup,id_input_name_popup,index){
 	//On récupère le nom de la variable
 	var name = document.getElementById(id_input_name_popup).value;
 	if(test_valid_expression(name)){
-		quill.insertEmbed(index, 'VariableImage',name);//On insère la variable dans l'éditeur sous la forme d'un Embed
+		//On insère la variable dans l'éditeur sous la forme d'un Embed
+		insert_embed_object(quill,index,'VariableImage',name);
 		if (variable_List[name] == null){ //Si la variable n'existe pas encore
 			variable_List[name] = new Variable(name,type); //On ajoute la nouvelle variable à notre liste de variable
 			variable_List[name].init();
@@ -181,7 +206,7 @@ function change_to_var(editor,var_list){
 		var nameVar = editor.getText(positionSelection.index,positionSelection.length); //On récupère le contenu de la sélection
 		if (test_valid_expression(nameVar)){
 			editor.deleteText(positionSelection.index,positionSelection.length); //On enlève le texte séléctionné
-			editor.insertEmbed(positionSelection.index, 'VariableImage',nameVar); //On le remplace par Variable possédant le nom que l'utilisateur avait sélectionné
+			insert_embed_object(editor,positionSelection.index, 'VariableImage',nameVar); //On le remplace par Variable possédant le nom que l'utilisateur avait sélectionné
 			if (var_list[nameVar] == null){
 				var_list[nameVar] = new Variable(nameVar,'real');
 				var_list[nameVar].init();
@@ -740,9 +765,9 @@ function parse_save(save){
 		if(state['answer'][key]['type'] == 'other'){
 			$('#ans_'+key+'_type textarea').val(state['answer'][key]['sub_type'])
 		}
-		console.log($('answer_all_'+key));
-		$('answer_all_'+key).find('select').val(state['answer'][key]['type']);
-		$('answer_all_'+key+' option[value='+state['answer'][key]['type']+']').attr('selected','selected');
+		console.log($('#answer_all_'+key));
+		$('#answer_all_'+key).find('select').val(state['answer'][key]['type']);
+		$('#answer_all_'+key+' option[value='+state['answer'][key]['type']+']').attr('selected','selected');
 	}
 	answer_List = ans_list_tmp;
 }
