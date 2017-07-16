@@ -92,7 +92,17 @@
 }
 .surligne_Answer{
 	display:inline-block;
-	background-color: rgb(198,144,217);
+	background-color: hsl(300,45%,65%);
+	color: white;
+	padding: 2px 5px 2px 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.surligne_Answer_Place{
+	display:inline-block;
+	background-color: hsl(300,45%,40%);
 	padding: 2px 5px 2px 5px;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
