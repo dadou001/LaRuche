@@ -11,14 +11,69 @@ class AnswerBlock{
   private editor:SEditor;
   private name:string;
   all_type = {'numeric':{'coma':Blockly.Msg.WIMS_ANSWER_OPTION_COMA,
-                          'noanalyze':Blockly.Msg.WIMS_ANSWER_OPTION_NOANALYZE},
-              'function':{'noanalyze':Blockly.Msg.WIMS_ANSWER_OPTION_NOANALYZE},
+                         'noanalyze':Blockly.Msg.WIMS_ANSWER_OPTION_NOANALYZE},
               'range':{'noanalyze':Blockly.Msg.WIMS_ANSWER_OPTION_NOANALYZE},
+              'units':{'noanalyze':Blockly.Msg.WIMS_ANSWER_OPTION_NOANALYZE},
+              'numexp':{'noreduction':Blockly.Msg.WIMS_ANSWER_OPTION_NOREDUCTION,
+                        'noanalyze':Blockly.Msg.WIMS_ANSWER_OPTION_NOANALYZE},
+              'matrix':{'noanalyze':Blockly.Msg.WIMS_ANSWER_OPTION_NOANALYZE,
+                        'split_coeff':Blockly.Msg.WIMS_ANSWER_OPTION_SPLIT_COEFF,
+                        'split_column':Blockly.Msg.WIMS_ANSWER_OPTION_SPLIT_COLUMN,
+                        'split_row':Blockly.Msg.WIMS_ANSWER_OPTION_SPLIT_ROW},
+              'correspond':{'split':Blockly.Msg.WIMS_ANSWER_OPTION_SPLIT,
+                            'noanalyze':Blockly.Msg.WIMS_ANSWER_OPTION_NOANALYZE},
+              'case':{'noreaccent':Blockly.Msg.WIMS_ANSWER_OPTION_NOREACCENT,
+                      'noanalyze':Blockly.Msg.WIMS_ANSWER_OPTION_NOANALYZE},
               'menu':{'split':Blockly.Msg.WIMS_ANSWER_OPTION_SPLIT,
                       'shuffle':Blockly.Msg.WIMS_ANSWER_OPTION_SHUFFLE,
                       'multiple': Blockly.Msg.WIMS_ANSWER_OPTION_MULTIPLE,
                       'sort': Blockly.Msg.WIMS_ANSWER_OPTION_SORT,
+                      'eqweight': Blockly.Msg.WIMS_ANSWER_OPTION_EQWEIGHT,
+                      'nolegend': Blockly.Msg.WIMS_ANSWER_OPTION_NOLEGEND,
                       'noanalyze':Blockly.Msg.WIMS_ANSWER_OPTION_NOANALYZE},
+              'radio':{'split':Blockly.Msg.WIMS_ANSWER_OPTION_SPLIT,
+                      'shuffle':Blockly.Msg.WIMS_ANSWER_OPTION_SHUFFLE,
+                      'multiple': Blockly.Msg.WIMS_ANSWER_OPTION_MULTIPLE,
+                      'sort': Blockly.Msg.WIMS_ANSWER_OPTION_SORT,
+                      'eqweight': Blockly.Msg.WIMS_ANSWER_OPTION_EQWEIGHT,
+                      'nolegend': Blockly.Msg.WIMS_ANSWER_OPTION_NOLEGEND,
+                      'noanalyze':Blockly.Msg.WIMS_ANSWER_OPTION_NOANALYZE},
+              'click':{'split':Blockly.Msg.WIMS_ANSWER_OPTION_SPLIT,
+                      'shuffle':Blockly.Msg.WIMS_ANSWER_OPTION_SHUFFLE,
+                      'multiple': Blockly.Msg.WIMS_ANSWER_OPTION_MULTIPLE,
+                      'sort': Blockly.Msg.WIMS_ANSWER_OPTION_SORT,
+                      'eqweight': Blockly.Msg.WIMS_ANSWER_OPTION_EQWEIGHT,
+                      'nolegend': Blockly.Msg.WIMS_ANSWER_OPTION_NOLEGEND,
+                      'noanalyze':Blockly.Msg.WIMS_ANSWER_OPTION_NOANALYZE},
+              'checkbox':{'split':Blockly.Msg.WIMS_ANSWER_OPTION_SPLIT,
+                      'shuffle':Blockly.Msg.WIMS_ANSWER_OPTION_SHUFFLE,
+                      'show': Blockly.Msg.WIMS_ANSWER_OPTION_SHOW,
+                      'sort': Blockly.Msg.WIMS_ANSWER_OPTION_SORT,
+                      'eqweight': Blockly.Msg.WIMS_ANSWER_OPTION_EQWEIGHT,
+                      'nolegend': Blockly.Msg.WIMS_ANSWER_OPTION_NOLEGEND,
+                      'noanalyze':Blockly.Msg.WIMS_ANSWER_OPTION_NOANALYZE},
+              'flashcard':{'split':Blockly.Msg.WIMS_ANSWER_OPTION_SPLIT,
+                      'shuffle':Blockly.Msg.WIMS_ANSWER_OPTION_SHUFFLE,
+                      'show': Blockly.Msg.WIMS_ANSWER_OPTION_SHOW,
+                      'sort': Blockly.Msg.WIMS_ANSWER_OPTION_SORT,
+                      'eqweight': Blockly.Msg.WIMS_ANSWER_OPTION_EQWEIGHT,
+                      'nolegend': Blockly.Msg.WIMS_ANSWER_OPTION_NOLEGEND,
+                      'noanalyze':Blockly.Msg.WIMS_ANSWER_OPTION_NOANALYZE},
+              'mark':{'split':Blockly.Msg.WIMS_ANSWER_OPTION_SPLIT,
+                      'shuffle':Blockly.Msg.WIMS_ANSWER_OPTION_SHUFFLE,
+                      'show': Blockly.Msg.WIMS_ANSWER_OPTION_SHOW,
+                      'sort': Blockly.Msg.WIMS_ANSWER_OPTION_SORT,
+                      'eqweight': Blockly.Msg.WIMS_ANSWER_OPTION_EQWEIGHT,
+                      'nolegend': Blockly.Msg.WIMS_ANSWER_OPTION_NOLEGEND,
+                      'noanalyze':Blockly.Msg.WIMS_ANSWER_OPTION_NOANALYZE},
+              'dragfill':{'noorder':Blockly.Msg.WIMS_ANSWER_OPTION_NOORDER,
+                          'transparent':Blockly.Msg.WIMS_ANSWER_OPTION_TRANSPARENT,
+                          'noanalyze':Blockly.Msg.WIMS_ANSWER_OPTION_NOANALYZE},
+              'clickfill':{'noorder':Blockly.Msg.WIMS_ANSWER_OPTION_NOORDER,
+                          'transparent':Blockly.Msg.WIMS_ANSWER_OPTION_TRANSPARENT,
+                          'noanalyze':Blockly.Msg.WIMS_ANSWER_OPTION_NOANALYZE},
+              'function':{'integer':Blockly.Msg.WIMS_ANSWER_OPTION_INTEGER,
+                          'noanalyze':Blockly.Msg.WIMS_ANSWER_OPTION_NOANALYZE},
               'other':{}
             };
   //Constructeur
@@ -81,13 +136,28 @@ class AnswerBlock{
   private construct_basic_html(){
     var result = '<div class="large-12 columns callout" id="answer_all_'+this.name+'">'
   		+'<div class="large-11 columns">'
-  		+this.name
-  			+'<label>Answer Type'
-  				+'<select oninput="$(\'#ans_'+this.name+'\').removeClass(\'answer_hidden\');change_type_answer(\''+this.name+'\',this.value,answer_List)">'//Rajouter le moyen de changer le type
+      +'<div style="text-align:center;"><span class="surligne_Answer_Place">'
+  		+'<img src="images/question.png" style="max-height:50px;max-width:50px;"/><span class="surligne_Answer">'
+      +this.name+'</span></span></div>'
+  			+'<label>'+Blockly.Msg.WIMS_ANSWER_TYPE
+  				+'<select oninput="$(\'#ans_'+this.name+'\').removeClass(\'answer_hidden\');change_type_answer(\''+this.name+'\',this.value,answer_List)">'
             +'<option value="numeric">'+Blockly.Msg.WIMS_ANSWER_TYPE_NUMERIC+'</option>'
-  					+'<option value="function">'+Blockly.Msg.WIMS_ANSWER_TYPE_FUNCTION+'</option>'
   					+'<option value="range">'+Blockly.Msg.WIMS_ANSWER_TYPE_RANGE+'</option>'
+            +'<option value="units">'+Blockly.Msg.WIMS_ANSWER_TYPE_UNITS+'</option>'
+            +'<option value="numexp">'+Blockly.Msg.WIMS_ANSWER_TYPE_NUMEXP+'</option>'
+            +'<option value="matrix">'+Blockly.Msg.WIMS_ANSWER_TYPE_MATRIX+'</option>'
+            +'<option value="correspond">'+Blockly.Msg.WIMS_ANSWER_TYPE_CORRESPOND+'</option>'
+            +'<option value="case">'+Blockly.Msg.WIMS_ANSWER_TYPE_CASE+'</option>'
   					+'<option value="menu">'+Blockly.Msg.WIMS_ANSWER_TYPE_MENU+'</option>'
+            +'<option value="radio">'+Blockly.Msg.WIMS_ANSWER_TYPE_RADIO+'</option>'
+            +'<option value="click">'+Blockly.Msg.WIMS_ANSWER_TYPE_CLICK+'</option>'
+            +'<option value="checkbox">'+Blockly.Msg.WIMS_ANSWER_TYPE_CHECKBOX+'</option>'
+            +'<option value="flashcard">'+Blockly.Msg.WIMS_ANSWER_TYPE_FLASHCARD+'</option>'
+            +'<option value="mark">'+Blockly.Msg.WIMS_ANSWER_TYPE_MARK+'</option>'
+            +'<option value="dragfill">'+Blockly.Msg.WIMS_ANSWER_TYPE_DRAGFILL+'</option>'
+            +'<option value="clickfill">'+Blockly.Msg.WIMS_ANSWER_TYPE_CLICKFILL+'</option>'
+            +'<option value="function">'+Blockly.Msg.WIMS_ANSWER_TYPE_FUNCTION+'</option>'
+            +'<option value="coord">'+Blockly.Msg.WIMS_ANSWER_TYPE_COORD+'</option>'
             +'<option value="other">'+Blockly.Msg.WIMS_ANSWER_TYPE_OTHER+'</option>'
   				+'</select>'
   			+'</label>'
