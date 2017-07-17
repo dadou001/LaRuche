@@ -100,7 +100,10 @@ class SProgramEditor {
     var xmlTree = $.parseXML(xmlState);
     // if preparation 'prep' editor, also remove the declaration blocks
     // else remove only the start title block
+    console.log('xmlState : '+xmlState);
     if (this.mType=='prep') {
+      $(xmlTree).remove("[name='DECLARATION']");
+      var xmlTreeTmp = $(xmlTree).find("[type='wims_declaration']");
       var xmlStateReduced = $(xmlTree).find("[type='wims_declaration']").children(":last-child").children().first().prop('outerHTML');
     } else {
       var xmlStateReduced = $(xmlTree).find("[type='wims_start']").children(":last-child").children().first().prop('outerHTML');
@@ -108,18 +111,13 @@ class SProgramEditor {
     // add the xml header
     xmlStateReduced = '<xml xmlns=\"http://www.w3.org/1999/xhtml\">'+xmlStateReduced+'</xml>';
     // set the blocks onto the workspace
+    console.log('xmlStateReduced : '+xmlStateReduced);
     var xmlStateDom = Blockly.Xml.textToDom(xmlStateReduced);
     var xmlStateFirst = $(xmlStateDom).children().first();
     if (xmlStateFirst.length>0){
       var xmlStateFirstId = xmlStateFirst[0].id;
       Blockly.Xml.domToWorkspace(xmlStateDom,this.mBlocklyWorkspace);
       // connect the start blocks to the newly loaded blocks
-      // var topBlocks = this.mBlocklyWorkspace.getTopBlocks();
-      // for (var iBlock=0;iBlock<topBlocks.length;iBlock++) {
-      //   if (topBlocks[iBlock].type != 'wims_start') {
-      //     var childConnection = topBlocks[iBlock].previousConnection;
-      //   }
-      // }
       var childConnection = this.mBlocklyWorkspace.getBlockById(xmlStateFirstId).previousConnection;
       // connect to the already built parent block.
       // the type of parent block depends on the type of blockly editor
