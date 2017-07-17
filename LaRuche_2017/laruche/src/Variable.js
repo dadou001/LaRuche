@@ -32,7 +32,6 @@ var Variable = (function () {
             var typeDeclarationBlock = this.mTypeDeclarationBlock;
             this.mTypeDeclarationBlock.setOnChange(function (changeEvent) {
                 varTypeChanged.type = typeDeclarationBlock.getFieldValue('TYPE');
-                console.log('Variable : ' + varTypeChanged.name + '\n' + typeDeclarationBlock.getFieldValue('TYPE'));
             });
         }
     };

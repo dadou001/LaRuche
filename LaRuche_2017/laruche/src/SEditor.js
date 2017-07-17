@@ -219,8 +219,6 @@ var SEditor = (function () {
         else if (element['insert']['image'] != null) {
             //si c'est une image on la traite
             result = "<img src=\"" + element['insert']['image'] + "\">";
-            // result = "<img src=\"Pour le moment ça marche pas je sais pas pourquoi\">";
-            // console.log(result);
         }
         else if (element['attributes'] != null) {
             if (element['attributes']['LatexImage'] != null) {

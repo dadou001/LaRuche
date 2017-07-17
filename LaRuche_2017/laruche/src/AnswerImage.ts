@@ -28,9 +28,13 @@ class AnswerImage extends Embed {
 
     let node = super.create(value);
     var embedInnerHTML = value;
-    if (valueTransferObj['variable1']=='editor-enonce') {
-      embedInnerHTML = '<img src="images/question.png" style="max-height:60px;max-width:60px;"/><span class="surligne_Answer">' + embedInnerHTML+'</span>';
-    } else node.className = "surligne_Answer";
+    node.className = "surligne_Answer";
+    if (typeof valueTransferObj != 'undefined') {
+      if (valueTransferObj['variable1']=='editor-enonce') {
+        embedInnerHTML = '<img src="images/question.png" style="max-height:60px;max-width:60px;"/><span class="surligne_Answer">' + embedInnerHTML+'</span>';
+        node.className = "surligne_Answer_Place";
+      }
+    }
     node.innerHTML = embedInnerHTML;
     node.setAttribute('data-value',valueTransfer);
     node.setAttribute('contenteditable',false);

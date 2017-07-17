@@ -51,7 +51,6 @@ Blockly.OEF['wims_change_type'] = function(block) {
   var varName = Blockly.OEF.variableDB_.getName(
       block.getFieldValue('VARIABLE_CHOICE'), Blockly.Variables.NAME_TYPE);
   var type = block.getFieldValue('TYPE');
-  // console.log(type);
   variable_List[varName].setType(type);
   return '';
 };
@@ -64,7 +63,6 @@ Blockly.OEF['wims_define_variable'] = function(block) {
   var editor = block.getField('WIMS_EDITOR').quillEditor_;
   editor.setContents(JSON.parse(block.getFieldValue('WIMS_EDITOR')));
   var value = new SEditor(editor);
-  // console.log(type);
   variable_List[varName].setType(type);
   variable_List[varName].setValue(value.to_variable_value());
   return '';

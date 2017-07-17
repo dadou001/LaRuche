@@ -14,7 +14,6 @@ var Answer = (function () {
         if (this.type != 'other')
             return this.type;
         else {
-            // console.log($('#ans_'+this.name+'_type').find('textarea'));
             return $('#ans_' + this.name + '_type').find('textarea').get(0).value;
         }
     };
@@ -24,10 +23,8 @@ var Answer = (function () {
     Answer.prototype.get_option = function () {
         var result = "";
         var tab = $('#fieldset_ans_' + this.name).find('input:checked');
-        // console.log($('#fieldset_ans_'+this.name).find('input:checked'));
         for (var i = 0; i < tab.length; i++) {
             result += $('#fieldset_ans_' + this.name).find('input:checked').eq(i).val() + ",";
-            // console.log(tab[i]);
         }
         if (result.length > 0) {
             result = result.substring(0, result.length - 1);

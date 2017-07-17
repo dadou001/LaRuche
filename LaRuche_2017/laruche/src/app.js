@@ -228,7 +228,6 @@ function change_to_var(editor,var_list){
  ** ans_list : la liste de réponse où aller chercher celle que l'on veut
  */
 function change_type_answer(id_answer,type,ans_list){
-	console.log(id_answer,ans_list)
  	ans_list[id_answer].get_block_html().change_to_type(type);
 	ans_list[id_answer].type = type;
 }
@@ -728,7 +727,6 @@ function parse_save(save){
 	editor_EnTete.editor.setContents(state['editor_EnTete']['editor'].editor);
 	editor_Enonce.editor.setContents(state['enonce']['editor'].editor);
 	prepEditor.load(state['prep']);
-	console.log(state['prep']);
 	analyseEditor.load(state['analyse']);
 
 	var ans_list_tmp = {};
@@ -760,7 +758,6 @@ function parse_save(save){
 		if(state['answer'][key]['type'] == 'other'){
 			$('#ans_'+key+'_type textarea').val(state['answer'][key]['sub_type'])
 		}
-		console.log($('#answer_all_'+key));
 		$('#answer_all_'+key).find('select').val(state['answer'][key]['type']);
 		$('#answer_all_'+key+' option[value='+state['answer'][key]['type']+']').attr('selected','selected');
 	}
@@ -805,7 +802,7 @@ function get_editor_field_wims(id_field_WIMS){
 		return editorTmp;
 	}
 	else{
-		console.log('error somewhere');
+		console.log('get_editor_field_wims() error, no index found');
 		return null;
 	}
 }
@@ -874,7 +871,6 @@ function hide_popup(){
 
 function register_type_other(){
 	for(var key in answer_List){
-		// console.log($('#answer_all_'+key+' select').val());
 		if($('#answer_all_'+key+' select').val() == 'other'){
 			answer_List[key].type = 'other';
 			answer_List[key].set_sub_type(answer_List[key].get_type());

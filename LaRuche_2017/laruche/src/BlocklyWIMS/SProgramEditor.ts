@@ -100,7 +100,6 @@ class SProgramEditor {
     var xmlTree = $.parseXML(xmlState);
     // if preparation 'prep' editor, also remove the declaration blocks
     // else remove only the start title block
-    console.log('xmlState : '+xmlState);
     if (this.mType=='prep') {
       $(xmlTree).remove("[name='DECLARATION']");
       var xmlTreeTmp = $(xmlTree).find("[type='wims_declaration']");
@@ -111,7 +110,6 @@ class SProgramEditor {
     // add the xml header
     xmlStateReduced = '<xml xmlns=\"http://www.w3.org/1999/xhtml\">'+xmlStateReduced+'</xml>';
     // set the blocks onto the workspace
-    console.log('xmlStateReduced : '+xmlStateReduced);
     var xmlStateDom = Blockly.Xml.textToDom(xmlStateReduced);
     var xmlStateFirst = $(xmlStateDom).children().first();
     if (xmlStateFirst.length>0){
@@ -155,5 +153,4 @@ $(document).ready(function() {
   // Blockly.BlockSvg.START_HAT = true;
   prepEditor = new SProgramEditor('prep', 'RId_toolbox_programPrep', 'RId_programPrep_blockly', 'RId_programPrep');
   analyseEditor = new SProgramEditor('analysis', 'RId_toolbox_programAnalyse', 'RId_programAnalyse_blockly', 'RId_programAnalyse');
-  // console.log(prepEditor.mBlocklyWorkspace.id);
 });

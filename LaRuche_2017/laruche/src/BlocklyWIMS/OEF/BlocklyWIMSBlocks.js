@@ -110,10 +110,8 @@ Blockly.OEF['wims_for'] = function(block) {
 // Blockly.OEF['wims_while'] = function(block) {
 //   var code = '';
 //   var innerString = block.getFieldValue('WIMS_EDITOR');
-//   // console.log(Blockly.OEF.statementToCode(block, 'HELLO'));
 //   var subCode =  Blockly.OEF.statementToCode(block, 'WHILE');
 //   // subCode = Blockly.OEF.addLoopTrap()
-//   // console.log(subCode);
 //   code = 'while ('+innerString+'){\n'+
 //           subCode+
 //           '}\n';

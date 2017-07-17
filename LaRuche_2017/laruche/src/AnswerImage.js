@@ -39,11 +39,13 @@ var AnswerImage = (function (_super) {
         }
         var node = _super.create.call(this, value);
         var embedInnerHTML = value;
-        if (valueTransferObj['variable1'] == 'editor-enonce') {
-            embedInnerHTML = '<img src="images/question.png" style="max-height:60px;max-width:60px;"/><span class="surligne_Answer">' + embedInnerHTML + '</span>';
+        node.className = "surligne_Answer";
+        if (typeof valueTransferObj != 'undefined') {
+            if (valueTransferObj['variable1'] == 'editor-enonce') {
+                embedInnerHTML = '<img src="images/question.png" style="max-height:60px;max-width:60px;"/><span class="surligne_Answer">' + embedInnerHTML + '</span>';
+                node.className = "surligne_Answer_Place";
+            }
         }
-        else
-            node.className = "surligne_Answer";
         node.innerHTML = embedInnerHTML;
         node.setAttribute('data-value', valueTransfer);
         node.setAttribute('contenteditable', false);

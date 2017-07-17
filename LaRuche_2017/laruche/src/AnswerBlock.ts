@@ -209,7 +209,6 @@ class AnswerBlock{
 
   private update_all_html(){
     // var number = Number(this.id.substring(6,7))-1;
-    // console.log($('#answer_list_analyse .callout').eq(number).get(0));
     // if($('#answer_list_analyse .callout').eq(number).get(0) == undefined){
     //   $('#answer_list_analyse .callout').append(this.html);
     // }

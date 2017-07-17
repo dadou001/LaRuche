@@ -56,7 +56,6 @@ Blockly.FieldWIMSEditor.prototype.init = function () {
     Blockly.FieldWIMSEditor.superClass_.init.call(this);
     // this.EDITABLE = true;
     // Blockly.FieldWIMSEditor.superClass_.updateEditable.call(this);
-    console.log(this.EDITABLE);
     // Build the quill editor in a special div (invisible at the start)
     var editorDiv = document.createElement("div");
     // Temporarily add div to document so that we can get its size.
@@ -89,7 +88,6 @@ Blockly.FieldWIMSEditor.prototype.init = function () {
             });
             this.quillEditor_.insertText(0, "");
             this.editorSEditor = new SEditor(this.quillEditor_);
-            console.log(this.value);
         }
         else {
             // var toolbarOptions = [['bold', 'italic'], ['link', 'image']];
@@ -102,7 +100,6 @@ Blockly.FieldWIMSEditor.prototype.init = function () {
             });
             this.quillEditor_.insertText(0, "");
             this.editorSEditor = new SEditor(this.quillEditor_);
-            console.log(this.value);
         }
     }
     if (this.value) {
@@ -293,9 +290,7 @@ Blockly.FieldWIMSEditor.prototype.showEditor_ = function (opt_quietInput) {
     // this.workspace_.addChangeListener(htmlInput.onWorkspaceChangeWrapper_);
 };
 Blockly.FieldWIMSEditor.prototype.getValue = function () {
-    // console.log('BON',this.quillEditor_);
     if (this.quillEditor_) {
-        console.log('j"y passe lolilol');
         return JSON.stringify(this.quillEditor_.getContents());
     }
     else {
@@ -303,7 +298,6 @@ Blockly.FieldWIMSEditor.prototype.getValue = function () {
     }
 };
 Blockly.FieldWIMSEditor.prototype.setValue = function (val) {
-    console.log(val);
     if (val) {
         this.value = JSON.parse(val);
     }
