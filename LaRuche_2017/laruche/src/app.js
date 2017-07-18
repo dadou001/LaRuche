@@ -79,7 +79,6 @@ var quill_EnTete = new Quill('#editor-EnTete', {
 	theme: 'snow'
 });
 
-
 /* SE DEMENER POUR ENLEVER CES VARIABLES GLOBALES */
 var anc_onglet = 'Entete';
 change_onglet(anc_onglet);
@@ -88,6 +87,65 @@ var editor_EnTete = new SEditor(quill_EnTete);
 
 change_onglet('Enonce');
 var editor_Enonce = new SEditor(quill);
+
+
+/** Modify the Blockly source by adding LaRuche specific parts
+ ** hack some Blockly functions
+ **/
+
+Blockly.Workspace.prototype.createVariable_orig = Blockly.Workspace.prototype.createVariable;
+Blockly.Workspace.prototype.createVariable = function(name) {
+	Blockly.Workspace.prototype.createVariable_orig.call(this,name);
+	/* Called from within the Blockly code to build an OEF variable */
+	if(variable_List[name]==null){
+   	variable_List[name] = new Variable(name,'Real');
+		variable_List[name].init();
+   	update_all_view();
+ 	}
+	if (this.id == prepEditor.mBlocklyWorkspace.id){
+		analyseEditor.mBlocklyWorkspace.createVariable(name);
+	}
+}
+
+Blockly.Workspace.prototype.renameVariable_orig = Blockly.Workspace.prototype.renameVariable;
+Blockly.Workspace.prototype.renameVariable = function(oldName, newName) {
+	Blockly.Workspace.prototype.renameVariable_orig.call(this,oldName, newName);
+	if(!variable_List[newName]){
+		variable_List[newName] = variable_List[oldName];
+		variable_List[newName].setName(newName);
+		changeAllNameVar(oldName,newName);
+		//Ajouter le changement dans tous les quill
+		delete variable_List[oldName];
+		update_all_view();
+		if(this.id == prepEditor.mBlocklyWorkspace.id){
+			analyseEditor.mBlocklyWorkspace.renameVariable_orig.call(analyseEditor.mBlocklyWorkspace,oldName, newName);
+		} else if (this.id == analyseEditor.mBlocklyWorkspace.id){
+			prepEditor.mBlocklyWorkspace.renameVariable_orig.call(prepEditor.mBlocklyWorkspace,oldName, newName);
+		}
+	}
+}
+
+Blockly.Workspace.prototype.deleteVariable_orig = Blockly.Workspace.prototype.deleteVariable;
+Blockly.Workspace.prototype.deleteVariable = function(name) {
+	if (variable_List[name]) {
+		delete variable_List[name];
+	  editor_Enonce.destroy_var(name);
+	  for(var key in answer_List){
+	    answer_List[key].get_block_html().get_editor().destroy_var(name);
+	  }
+	  for(var i = 0; i<Blockly.ExternalDiv.owner.length;i++){
+			var tmpEditor = new SEditor(Blockly.ExternalDiv.owner[i].quillEditor_);
+			tmpEditor.destroy_var(name);
+		}
+	  update_all_view();
+		Blockly.Workspace.prototype.deleteVariable_orig.call(this,name);
+		if (this.id == prepEditor.mBlocklyWorkspace.id){
+			analyseEditor.mBlocklyWorkspace.deleteVariable_orig.call(analyseEditor.mBlocklyWorkspace,name);
+		} else if (this.id == analyseEditor.mBlocklyWorkspace.id){
+			prepEditor.mBlocklyWorkspace.deleteVariable_orig.call(prepEditor.mBlocklyWorkspace,name);
+		}
+	}
+}
 
 /** Fonction qui permet d'ajouter une réponse à un éditeur Quill
 ** et de l'ajouter à la liste des réponses
@@ -178,15 +236,6 @@ function create_variable_editor(id_select_type_popup,id_input_name_popup,index){
 	else{
 		window.alert(Blockly.Msg.WIMS_PROMPT_VARIABLE_NAME_ERROR);
 	}
-}
-
-function create_OEF_variable_from_Blockly(name){
-/* Called from within the Blockly code to build an OEF variable */
-	if(variable_List[name]==null){
-    variable_List[name] = new Variable(name,'Real');
-		variable_List[name].init();
-    update_all_view();
-  }
 }
 
 /** Fonction qui permet de créer une variable à partir d'une sélection d'un éditeur

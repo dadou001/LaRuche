@@ -259,18 +259,18 @@ Blockly.Workspace.prototype.renameVariable = function(oldName, newName) {
     console.log('Tried to rename an non-existent variable.');
   }
 
-  //MES AJOUTS
-  if(this.id = prepEditor.mBlocklyWorkspace.id){
-    if(!variable_List[newName]){
-      variable_List[newName] = variable_List[oldName];
-      variable_List[newName].setName(newName);
-      changeAllNameVar(oldName,newName);
-      //Ajoiter le changement dans tous les quill
-      delete variable_List[oldName];
-      update_all_view();
-    }
-  }
-  //FIN DES AJOUTS
+  // //LA RUCHE AJOUTS
+  // if(this.id = prepEditor.mBlocklyWorkspace.id){
+  //   if(!variable_List[newName]){
+  //     variable_List[newName] = variable_List[oldName];
+  //     variable_List[newName].setName(newName);
+  //     changeAllNameVar(oldName,newName);
+  //     //Ajoiter le changement dans tous les quill
+  //     delete variable_List[oldName];
+  //     update_all_view();
+  //   }
+  // }
+  // //FIN DES AJOUTS
 };
 
 /**
@@ -283,8 +283,8 @@ Blockly.Workspace.prototype.createVariable = function(name) {
   if (index == -1) {
     this.variableList.push(name);
   }
-  //AJOUT POUR LE PROJET LA RUCHE
-  create_OEF_variable_from_Blockly(name);
+  // //AJOUT POUR LE PROJET LA RUCHE
+  // create_OEF_variable_from_Blockly(name);
 };
 
 /**
@@ -317,20 +317,20 @@ Blockly.Workspace.prototype.getVariableUses = function(name) {
  * @param {string} name Name of variable to delete.
  */
 Blockly.Workspace.prototype.deleteVariable = function(name) {
-  //AJOUT
-  if(this.id == prepEditor.mBlocklyWorkspace.id){
-    delete variable_List[name];
-    editor_Enonce.destroy_var(name);
-    for(var key in answer_List){
-      answer_List[key].get_block_html().get_editor().destroy_var(name);
-    }
-    for(var i = 0; i<Blockly.ExternalDiv.owner.length;i++){
-  		var tmpEditor = new SEditor(Blockly.ExternalDiv.owner[i].quillEditor_);
-  		tmpEditor.destroy_var(name);
-  	}
-    update_all_view();
-  }
-  //FIN DE L'AJOUT
+  // // AJOUT POUR LA RUCHE
+  // if(this.id == prepEditor.mBlocklyWorkspace.id){
+  //   delete variable_List[name];
+  //   editor_Enonce.destroy_var(name);
+  //   for(var key in answer_List){
+  //     answer_List[key].get_block_html().get_editor().destroy_var(name);
+  //   }
+  //   for(var i = 0; i<Blockly.ExternalDiv.owner.length;i++){
+  // 		var tmpEditor = new SEditor(Blockly.ExternalDiv.owner[i].quillEditor_);
+  // 		tmpEditor.destroy_var(name);
+  // 	}
+  //   update_all_view();
+  // }
+  // //FIN DE L'AJOUT
   var variableIndex = this.variableIndexOf(name);
   if (variableIndex == -1) {
     return;
