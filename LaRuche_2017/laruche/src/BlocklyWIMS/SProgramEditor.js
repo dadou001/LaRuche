@@ -84,7 +84,7 @@ var SProgramEditor = (function () {
         // if preparation 'prep' editor, also remove the declaration blocks
         // else remove only the start title block
         if (this.mType == 'prep') {
-            $(xmlTree).remove("[name='DECLARATION']");
+            $(xmlTree).find("[name='DECLARATION']").remove();
             var xmlTreeTmp = $(xmlTree).find("[type='wims_declaration']");
             var xmlStateReduced = $(xmlTree).find("[type='wims_declaration']").children(":last-child").children().first().prop('outerHTML');
         }
