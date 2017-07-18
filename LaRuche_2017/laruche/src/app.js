@@ -93,6 +93,11 @@ var editor_Enonce = new SEditor(quill);
  ** hack some Blockly functions
  **/
 
+/** Create a variable in all editors, Blockly and Quill
+ **
+ ********* IN *************
+ ** name : name of the variable to be created
+ **/
 Blockly.Workspace.prototype.createVariable_orig = Blockly.Workspace.prototype.createVariable;
 Blockly.Workspace.prototype.createVariable = function(name) {
 	Blockly.Workspace.prototype.createVariable_orig.call(this,name);
@@ -107,6 +112,12 @@ Blockly.Workspace.prototype.createVariable = function(name) {
 	}
 }
 
+/** Rename a variable in all editors, Blockly and Quill
+ **
+ ********* IN *************
+ ** oldName : name of the variable to be changed
+ ** newName : new name of the variable
+ **/
 Blockly.Workspace.prototype.renameVariable_orig = Blockly.Workspace.prototype.renameVariable;
 Blockly.Workspace.prototype.renameVariable = function(oldName, newName) {
 	Blockly.Workspace.prototype.renameVariable_orig.call(this,oldName, newName);
@@ -125,6 +136,11 @@ Blockly.Workspace.prototype.renameVariable = function(oldName, newName) {
 	}
 }
 
+/** Delete a variable in all editors, Blockly and Quill
+ **
+ ********* IN *************
+ ** name : name of the variable to be deleted
+ **/
 Blockly.Workspace.prototype.deleteVariable_orig = Blockly.Workspace.prototype.deleteVariable;
 Blockly.Workspace.prototype.deleteVariable = function(name) {
 	if (variable_List[name]) {
@@ -580,7 +596,9 @@ function add_blockly_variable(name){
 ** name : le nom de la variable à enlever du Blockly
 */
 function delete_blockly_variable(name){
-	prepEditor.mBlocklyWorkspace.deleteVariable(name);
+	// Call only the Blockly destructors
+	prepEditor.mBlocklyWorkspace.deleteVariable_orig.call(prepEditor.mBlocklyWorkspace,name);
+	analyseEditor.mBlocklyWorkspace.deleteVariable_orig.call(analyseEditor.mBlocklyWorkspace,name);
 }
 
 /** Fonction qui permet d'ajouter une variable dans un éditeur quill coincé dans un Blockly
