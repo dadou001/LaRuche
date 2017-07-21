@@ -4,7 +4,9 @@ La Ruche is an interactive editor of exercises for the [WIMS pedagogical platfor
 
 Use
 -----
-For the end user, just download the contents of the repository and double-click on the "index.html" file.
+For the end user :
+ - download the contents of the distribution/laruche directory or download and uncompress the laruche.tar.gz file
+ - inside the laruche directory, double-click on the "index.html" file, this should bring the editor in standalone mode
 
 Integration into WIMS
 --------------------------
