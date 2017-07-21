@@ -1,0 +1,95 @@
+{
+ "enonce": {
+  "editor": {
+   "ops": [
+    {
+     "insert": " Calculer le carré de "
+    },
+    {
+     "insert": {
+      "VariableImage": "n"
+     }
+    },
+    {
+     "insert": "\nCarré de "
+    },
+    {
+     "insert": {
+      "VariableImage": "n"
+     }
+    },
+    {
+     "insert": " = "
+    },
+    {
+     "insert": {
+      "answerImage": "carre"
+     }
+    },
+    {
+     "attributes": {
+      "align": "center"
+     },
+     "insert": "\n"
+    }
+   ]
+  }
+ },
+ "variables": {
+  "n": {
+   "name": "n",
+   "type": "integer"
+  },
+  "i": {
+   "name": "i",
+   "type": "integer"
+  },
+  "n2": {
+   "name": "n2",
+   "type": "integer"
+  }
+ },
+ "answer": {
+  "carre": {
+   "name": "carre",
+   "type": "numeric",
+   "block_html": {
+    "name": "carre",
+    "editor": {
+     "ops": [
+      {
+       "insert": {
+        "VariableImage": "n2"
+       }
+      },
+      {
+       "insert": "\n"
+      }
+     ]
+    }
+   },
+   "length": "15"
+  }
+ },
+ "prep": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><block type=\"wims_start\" id=\"WQ?;w*2fOWgN%.Bt)3jd\" deletable=\"false\" movable=\"false\" x=\"0\" y=\"0\"><next><block type=\"wims_declaration\" id=\".`OJ#Gb%hCc3u}*6!MOQ\" deletable=\"false\" movable=\"false\"><statement name=\"DECLARATION\"><block type=\"wims_change_type\" id=\"|y?LUN8nhSvapy_pnnRm\" deletable=\"false\" movable=\"false\"><field name=\"VARIABLE_CHOICE\">n</field><field name=\"TYPE\">integer</field><next><block type=\"wims_change_type\" id=\"so?H3.H8uqphnErPj$_a\" deletable=\"false\" movable=\"false\"><field name=\"VARIABLE_CHOICE\">i</field><field name=\"TYPE\">integer</field><next><block type=\"wims_change_type\" id=\"22L8l#P#q)Zn/KT`wIW+\" deletable=\"false\" movable=\"false\"><field name=\"VARIABLE_CHOICE\">n2</field><field name=\"TYPE\">integer</field></block></next></block></next></block></statement><next><block type=\"wims_variable_editor\" id=\"Eoa%aXv`_dT1lmR,+*Nr\"><field name=\"VARIABLE_CHOICE\">n</field><field name=\"WIMS_EDITOR\">{\"ops\":[{\"insert\":\"randint(-50..50)\\n\"}]}</field><next><block type=\"wims_variable_editor\" id=\"3pq?(8!z8;.YW8q`iy:G\"><field name=\"VARIABLE_CHOICE\">n2</field><field name=\"WIMS_EDITOR\">{\"ops\":[{\"insert\":\"(\"},{\"insert\":{\"VariableImage\":\"n\"}},{\"insert\":\")^2\\n\"}]}</field></block></next></block></next></block></next></block></xml>",
+ "analyse": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><block type=\"wims_start\" id=\"9*Nb@l`$eKc[ygcd3!x2\" deletable=\"false\" movable=\"false\" x=\"0\" y=\"0\"><next><block type=\"analyse_feedback\" id=\"ekmZE+mS`(c:~`J:Otkm\"><field name=\"WIMS_EDITOR_TEST\">{\"ops\":[{\"insert\":{\"answerImage\":\"carre\"}},{\"insert\":\"&lt;0\\n\"}]}</field><field name=\"WIMS_EDITOR\">{\"ops\":[{\"insert\":\"Le carré d'un entier est toujours positif\\n\"}]}</field></block></next></block></xml>",
+ "en_tete": {
+  "title": "Le carré d’un entier",
+  "language": "",
+  "name": "",
+  "firstName": "",
+  "email": ""
+ },
+ "editor_EnTete": {
+  "editor": {
+   "ops": [
+    {
+     "attributes": {
+      "code-block": true
+     },
+     "insert": "\n"
+    }
+   ]
+  }
+ }
+}

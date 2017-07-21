@@ -1,0 +1,129 @@
+{
+ "enonce": {
+  "editor": {
+   "ops": [
+    {
+     "insert": "Le"
+    },
+    {
+     "attributes": {
+      "bold": true
+     },
+     "insert": " "
+    },
+    {
+     "attributes": {
+      "bold": true
+     },
+     "insert": {
+      "VariableImage": "unite"
+     }
+    },
+    {
+     "attributes": {
+      "bold": true
+     },
+     "insert": " "
+    },
+    {
+     "insert": "peut s'exprimer à l'aide des trois unités suivantes "
+    },
+    {
+     "attributes": {
+      "bold": true
+     },
+     "insert": "kg, m, s"
+    },
+    {
+     "insert": " \nDonner son expression sous la forme "
+    },
+    {
+     "attributes": {
+      "LatexImage": true
+     },
+     "insert": "kg^a \\cdot m^b \\cdot s^c "
+    },
+    {
+     "insert": " (attention à bien respecter l'ordre des symboles)\n"
+    },
+    {
+     "insert": {
+      "answerImage": "Reponse"
+     }
+    },
+    {
+     "insert": "\n\n"
+    }
+   ]
+  }
+ },
+ "variables": {
+  "unite": {
+   "name": "unite",
+   "type": "text"
+  },
+  "liste": {
+   "name": "liste",
+   "type": "matrix"
+  },
+  "quest": {
+   "name": "quest",
+   "type": "text"
+  },
+  "symbol": {
+   "name": "symbol",
+   "type": "text"
+  }
+ },
+ "answer": {
+  "Reponse": {
+   "name": "Reponse",
+   "type": "other",
+   "block_html": {
+    "name": "Reponse",
+    "editor": {
+     "ops": [
+      {
+       "insert": {
+        "VariableImage": "quest"
+       }
+      },
+      {
+       "insert": "[4..-1];"
+      },
+      {
+       "insert": {
+        "VariableImage": "symbol"
+       }
+      },
+      {
+       "insert": "\n"
+      }
+     ]
+    }
+   },
+   "length": "30x30x3"
+  }
+ },
+ "prep": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><block type=\"wims_start\" id=\"R|2jc#2GHY#~o`k/FXNT\" deletable=\"false\" movable=\"false\" x=\"0\" y=\"0\"><next><block type=\"wims_declaration\" id=\"{a`cLy*:=~snMb-+w.I$\" deletable=\"false\" movable=\"false\"><statement name=\"DECLARATION\"><block type=\"wims_change_type\" id=\"MrjDKznrdEi3V5|[GO,F\" deletable=\"false\" movable=\"false\"><field name=\"VARIABLE_CHOICE\">unite</field><field name=\"TYPE\">text</field><next><block type=\"wims_change_type\" id=\"lAt$AnpwU0C?n9D7Oyp1\" deletable=\"false\" movable=\"false\"><field name=\"VARIABLE_CHOICE\">liste</field><field name=\"TYPE\">matrix</field><next><block type=\"wims_change_type\" id=\"CLf0jVU!:_N,2u$rT8.2\" deletable=\"false\" movable=\"false\"><field name=\"VARIABLE_CHOICE\">quest</field><field name=\"TYPE\">text</field><next><block type=\"wims_change_type\" id=\"#G?h(nMPj@Bvnkz=gx(k\" deletable=\"false\" movable=\"false\"><field name=\"VARIABLE_CHOICE\">symbol</field><field name=\"TYPE\">text</field></block></next></block></next></block></next></block></statement><next><block type=\"wims_variable_editor\" id=\"nTRDQs-Na)~E(EL@v7]j\"><field name=\"VARIABLE_CHOICE\">liste</field><field name=\"WIMS_EDITOR\">{\"ops\":[{\"insert\":\"fréquence , hertz ,Hz,\\\\( s^(-1)\\\\)\\nforce ,newton,N,kg,m, \\\\(s^(-2)\\\\)\\npression ,pascal ,Pa,kg,\\\\(m^(-1)\\\\),\\\\(s^(-2)\\\\)\\ntravail ,joule ,J,kg,\\\\(m^2\\\\),\\\\(s^(-2)\\\\)\\npuissance ,watt,W,kg,\\\\(m^2\\\\),\\\\(s^(-3)\\\\)\\n\"}]}</field><next><block type=\"wims_variable_editor\" id=\"im.bGf-Ej%fYaqR~,i?T\"><field name=\"VARIABLE_CHOICE\">quest</field><field name=\"WIMS_EDITOR\">{\"ops\":[{\"insert\":\"randomrow(\"},{\"insert\":{\"VariableImage\":\"liste\"}},{\"insert\":\")\\n\"}]}</field><next><block type=\"wims_variable_editor\" id=\"eZ4c~c$w*^jm*:XHP6vH\"><field name=\"VARIABLE_CHOICE\">unite</field><field name=\"WIMS_EDITOR\">{\"ops\":[{\"insert\":{\"VariableImage\":\"quest\"}},{\"insert\":\"[2]\\n\"}]}</field><next><block type=\"wims_variable_editor\" id=\"IFdx$s5Mpqc%7t8jzp0E\"><field name=\"VARIABLE_CHOICE\">symbol</field><field name=\"WIMS_EDITOR\">{\"ops\":[{\"insert\":\"kg,m,s,\\\\(kg^2\\\\),\\\\(m^2\\\\),\\\\(s^2\\\\),\\\\(kg^3\\\\),\\\\(m^3\\\\),\\\\(s^3\\\\),\\\\(kg^(-1)\\\\),\\\\(m^(-1)\\\\),\\\\(s^(-1)\\\\),\\\\(kg^(-2)\\\\),\\\\(m^(-2)\\\\),\\\\(s^(-2)\\\\),\\\\(kg^(-3)\\\\),\\\\(m^(-3)\\\\),\\\\(s^(-3)\\\\)\\n\"}]}</field></block></next></block></next></block></next></block></next></block></next></block></xml>",
+ "analyse": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><block type=\"wims_start\" id=\"qO,fMDns4HTHB],K97XB\" deletable=\"false\" movable=\"false\" x=\"0\" y=\"0\"></block></xml>",
+ "en_tete": {
+  "title": "Unités du Système International",
+  "language": "",
+  "name": "",
+  "firstName": "",
+  "email": ""
+ },
+ "editor_EnTete": {
+  "editor": {
+   "ops": [
+    {
+     "attributes": {
+      "code-block": true
+     },
+     "insert": "\n"
+    }
+   ]
+  }
+ }
+}

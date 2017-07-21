@@ -1,0 +1,133 @@
+{
+ "enonce": {
+  "editor": {
+   "ops": [
+    {
+     "insert": "Donner, avec les unités appropriées le périmètre d’un pré rectangulaire de longueur "
+    },
+    {
+     "insert": {
+      "VariableImage": "Long"
+     }
+    },
+    {
+     "insert": " m et de largeur "
+    },
+    {
+     "insert": {
+      "VariableImage": "larg"
+     }
+    },
+    {
+     "insert": " m.\nPérimètre :  P = "
+    },
+    {
+     "insert": {
+      "answerImage": "perimetre"
+     }
+    },
+    {
+     "attributes": {
+      "align": "center"
+     },
+     "insert": "\n"
+    },
+    {
+     "insert": "Donner aussi sa superficie, en n'oubliant pas les unités\nSuperficie : P = "
+    },
+    {
+     "insert": {
+      "answerImage": "superficie"
+     }
+    },
+    {
+     "attributes": {
+      "align": "center"
+     },
+     "insert": "\n"
+    }
+   ]
+  }
+ },
+ "variables": {
+  "perim": {
+   "name": "perim",
+   "type": "real"
+  },
+  "Long": {
+   "name": "Long",
+   "type": "real"
+  },
+  "larg": {
+   "name": "larg",
+   "type": "real"
+  },
+  "superf": {
+   "name": "superf",
+   "type": "real"
+  }
+ },
+ "answer": {
+  "perimetre": {
+   "name": "perimetre",
+   "type": "other",
+   "block_html": {
+    "name": "perimetre",
+    "editor": {
+     "ops": [
+      {
+       "insert": {
+        "VariableImage": "perim"
+       }
+      },
+      {
+       "insert": " m\n"
+      }
+     ]
+    }
+   },
+   "length": "10"
+  },
+  "superficie": {
+   "name": "superficie",
+   "type": "other",
+   "block_html": {
+    "name": "superficie",
+    "editor": {
+     "ops": [
+      {
+       "insert": {
+        "VariableImage": "superf"
+       }
+      },
+      {
+       "insert": " m^2\n"
+      }
+     ]
+    }
+   },
+   "length": "10"
+  }
+ },
+ "prep": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><block type=\"wims_start\" id=\"0_5,)%*=)$,#+($M,|x@\" deletable=\"false\" movable=\"false\" x=\"0\" y=\"0\"><next><block type=\"wims_declaration\" id=\"putvsttY@X,wfpscrl]S\" deletable=\"false\" movable=\"false\"><statement name=\"DECLARATION\"><block type=\"wims_change_type\" id=\"6r[z,N]=v3TuZg{!)*_s\" deletable=\"false\" movable=\"false\"><field name=\"VARIABLE_CHOICE\">perim</field><field name=\"TYPE\">real</field><next><block type=\"wims_change_type\" id=\"[s^rq(..@F((37=*kV$o\" deletable=\"false\" movable=\"false\"><field name=\"VARIABLE_CHOICE\">Long</field><field name=\"TYPE\">real</field><next><block type=\"wims_change_type\" id=\"uBcIyVA_bfpAoS$~yt3$\" deletable=\"false\" movable=\"false\"><field name=\"VARIABLE_CHOICE\">larg</field><field name=\"TYPE\">real</field><next><block type=\"wims_change_type\" id=\"}v]?oRM!MQ]=RyP_ZAdx\" deletable=\"false\" movable=\"false\"><field name=\"VARIABLE_CHOICE\">superf</field><field name=\"TYPE\">real</field></block></next></block></next></block></next></block></statement><next><block type=\"wims_variable_editor\" id=\"$hLoqO`zhDG}cs^;l=EI\"><field name=\"VARIABLE_CHOICE\">larg</field><field name=\"WIMS_EDITOR\">{\"ops\":[{\"insert\":\"10*randint(1..10)\\n\"}]}</field><next><block type=\"wims_variable_editor\" id=\"rgS4UR+:{(Q]t=M5o1@T\"><field name=\"VARIABLE_CHOICE\">Long</field><field name=\"WIMS_EDITOR\">{\"ops\":[{\"insert\":\"10*randint(1..10)\\n\"}]}</field><next><block type=\"wims_variable_editor\" id=\"hJydX?kb+s{2yE+6W`(!\"><field name=\"VARIABLE_CHOICE\">perim</field><field name=\"WIMS_EDITOR\">{\"ops\":[{\"insert\":\"2*(\"},{\"insert\":{\"VariableImage\":\"Long\"}},{\"insert\":\"+\"},{\"insert\":{\"VariableImage\":\"larg\"}},{\"insert\":\")\\n\"}]}</field><next><block type=\"wims_variable_editor\" id=\"~TKACUPu[5G$AAqOf;T/\"><field name=\"VARIABLE_CHOICE\">superf</field><field name=\"WIMS_EDITOR\">{\"ops\":[{\"insert\":{\"VariableImage\":\"Long\"}},{\"insert\":\"*\"},{\"insert\":{\"VariableImage\":\"larg\"}},{\"insert\":\"\\n\"}]}</field></block></next></block></next></block></next></block></next></block></next></block></xml>",
+ "analyse": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><block type=\"wims_start\" id=\"Bz~ll~#${+5@509KMvN^\" deletable=\"false\" movable=\"false\" x=\"0\" y=\"0\"></block></xml>",
+ "en_tete": {
+  "title": "Un pré avec les unités",
+  "language": "Fr",
+  "name": "Lemaire",
+  "firstName": "Sophie",
+  "email": ""
+ },
+ "editor_EnTete": {
+  "editor": {
+   "ops": [
+    {
+     "attributes": {
+      "code-block": true
+     },
+     "insert": "\n"
+    }
+   ]
+  }
+ }
+}

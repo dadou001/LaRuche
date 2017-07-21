@@ -1,0 +1,142 @@
+.RCl_Titre_Editeur {
+	padding: 5px 0;
+	background-color: rgba(0,0,0,0.7);
+	text-align: center;
+}
+/******************************************************************************************
+ ************************ STYLES DU MENU (TAB) DES ONGLETS ********************************/
+.RCl_Menu_Onglets {
+	display: flex;
+  background-color: rgba(0,0,0,0.7);
+}
+.RCl_Onglet {
+	width: 50%;
+	text-align: center;
+	cursor: pointer;
+}
+.RCl_Onglet_Cache {
+	padding: 5px 5px;
+	font-size: 1.2em;
+	border-bottom: 4px solid rgba(30,30,30,1);
+	-webkit-transition: border-color 0.4s ease-in-out;
+  	-moz-transition: border-color 0.4s ease-in-out;
+  	-o-transition: border-color 0.4s ease-in-out;
+  	transition: border-color 0.4s ease-in-out;
+	color: rgba(192,192,192,0.5);
+}
+.RCl_Onglet_Cache:hover {
+	border-bottom: 4px solid rgba(255,255,255,1);
+	-webkit-transition: border-color 0.4s ease-in-out;
+  	-moz-transition: border-color 0.4s ease-in-out;
+  	-o-transition: border-color 0.4s ease-in-out;
+  	transition: border-color 0.4s ease-in-out;
+  	color: rgba(255,255,255,1);
+}
+.RCl_Onglet_Affiche {
+	padding: 5px 5px;
+  font-size: 1.2em;
+	border-bottom: 4px solid rgba(255,255,255,1);
+	-webkit-transition: border-color 0.4s ease-in-out;
+  	-moz-transition: border-color 0.4s ease-in-out;
+  	-o-transition: border-color 0.4s ease-in-out;
+  	transition: border-color 0.4s ease-in-out;
+  	color: rgba(255,255,255,1);
+}
+.RCl_Onglet_Fake {
+	cursor: auto;
+  border-bottom: 4px solid rgba(30,30,30,1);
+}
+
+#RId_Onglet_Sauvegarde, #RId_Onglet_Code {
+	background-color: rgba(60,60,60,1);
+	border-bottom: 4px solid rgba(60,60,60,1);
+	-webkit-transition: border-color 0.4s ease-in-out;
+  	-moz-transition: border-color 0.4s ease-in-out;
+  	-o-transition: border-color 0.4s ease-in-out;
+  	transition: border-color 0.4s ease-in-out;
+  	border-top-right-radius: 10px;
+		border-top-left-radius: 10px;
+  	color: rgba(255,255,255,1);
+	font-style: italic;
+}
+#RId_Onglet_Sauvegarde:hover, #RId_Onglet_Code:hover, .RCl_Onglet_Affiche#RId_Onglet_Sauvegarde, .RCl_Onglet_Affiche#RId_Onglet_Code {
+	border-bottom: 4px solid rgba(255,10,0,1);
+	-webkit-transition: border-color 0.4s ease-in-out;
+  	-moz-transition: border-color 0.4s ease-in-out;
+  	-o-transition: border-color 0.4s ease-in-out;
+  	transition: border-color 0.4s ease-in-out;
+	color: rgba(255,255,255,1);
+}
+
+/*
+ * Cache les onglets inactifs */
+.RCl_Contenu_Onglet_Cache {
+	display: none;
+}
+
+/* Editeur Quill principal */
+#enonce-container {
+	margin: 50px 50px 50px 50px;
+	/*width: 720px;*/
+}
+#editor-enonce {
+	height: 350px;
+}
+
+.surligne_Variable{
+	background-color: rgb(175,217,235);
+	padding: 2px 5px 2px 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+.surligne_Answer{
+	display:inline-block;
+	background-color: hsl(300,45%,65%);
+	color: white;
+	padding: 2px 5px 2px 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.surligne_Answer_Place{
+	display:inline-block;
+	background-color: hsl(300,45%,40%);
+	padding: 2px 5px 2px 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.surligne_Latex{
+	background-color: rgb(248,156,101);
+	padding: 2px 5px 2px 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.variable_List_Enonce{
+	list-style: none;
+
+}
+
+.popup_hidden{
+	visibility: hidden;
+	position: absolute;
+}
+
+.popup_variable_visible{
+	visibility: visible;
+	z-index: 50000;
+}
+
+.answer_hidden{
+	visibility: hidden;
+	height:0px;
+}
+
+.editor_title_block{
+	font: bold 17px arial, sans-serif;
+}

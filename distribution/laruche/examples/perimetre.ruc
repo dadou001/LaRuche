@@ -1,0 +1,98 @@
+{
+ "enonce": {
+  "editor": {
+   "ops": [
+    {
+     "insert": "Donner le périmètre d’un pré rectangulaire de longueur "
+    },
+    {
+     "insert": {
+      "VariableImage": "Long"
+     }
+    },
+    {
+     "insert": " m et de largeur "
+    },
+    {
+     "insert": {
+      "VariableImage": "larg"
+     }
+    },
+    {
+     "insert": " m\nPérimètre (en mètres) :  P = "
+    },
+    {
+     "insert": {
+      "answerImage": "perimetre"
+     }
+    },
+    {
+     "attributes": {
+      "align": "center"
+     },
+     "insert": "\n"
+    },
+    {
+     "insert": "\n"
+    }
+   ]
+  }
+ },
+ "variables": {
+  "Long": {
+   "name": "Long",
+   "type": "real"
+  },
+  "larg": {
+   "name": "larg",
+   "type": "real"
+  },
+  "perim": {
+   "name": "perim",
+   "type": "real"
+  }
+ },
+ "answer": {
+  "perimetre": {
+   "name": "perimetre",
+   "type": "numeric",
+   "block_html": {
+    "name": "perimetre",
+    "editor": {
+     "ops": [
+      {
+       "insert": {
+        "VariableImage": "perim"
+       }
+      },
+      {
+       "insert": "\n"
+      }
+     ]
+    }
+   },
+   "length": "10"
+  }
+ },
+ "prep": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><block type=\"wims_start\" id=\"KmrJOD,dKnuI}1UC/7kB\" deletable=\"false\" movable=\"false\" x=\"0\" y=\"0\"><next><block type=\"wims_declaration\" id=\"7)mc1j2d3hGZ(@|s;~z|\" deletable=\"false\" movable=\"false\"><statement name=\"DECLARATION\"><block type=\"wims_change_type\" id=\"|7Sk17S63O@w9a=-!;;9\" deletable=\"false\" movable=\"false\"><field name=\"VARIABLE_CHOICE\">Long</field><field name=\"TYPE\">real</field><next><block type=\"wims_change_type\" id=\"2DzrN0Sr:c+ijzp^c%!T\" deletable=\"false\" movable=\"false\"><field name=\"VARIABLE_CHOICE\">larg</field><field name=\"TYPE\">real</field><next><block type=\"wims_change_type\" id=\"40ep[d0xxg.i(l,9l6YQ\" deletable=\"false\" movable=\"false\"><field name=\"VARIABLE_CHOICE\">perim</field><field name=\"TYPE\">real</field></block></next></block></next></block></statement><next><block type=\"wims_variable_editor\" id=\"$hLoqO`zhDG}cs^;l=EI\"><field name=\"VARIABLE_CHOICE\">larg</field><field name=\"WIMS_EDITOR\">{\"ops\":[{\"insert\":\"10*randint(1..10)\\n\"}]}</field><next><block type=\"wims_variable_editor\" id=\"rgS4UR+:{(Q]t=M5o1@T\"><field name=\"VARIABLE_CHOICE\">Long</field><field name=\"WIMS_EDITOR\">{\"ops\":[{\"insert\":\"10*randint(1..10)\\n\"}]}</field><next><block type=\"wims_variable_editor\" id=\"hJydX?kb+s{2yE+6W`(!\"><field name=\"VARIABLE_CHOICE\">perim</field><field name=\"WIMS_EDITOR\">{\"ops\":[{\"insert\":\"2*(\"},{\"insert\":{\"VariableImage\":\"Long\"}},{\"insert\":\"+\"},{\"insert\":{\"VariableImage\":\"larg\"}},{\"insert\":\")\\n\"}]}</field></block></next></block></next></block></next></block></next></block></xml>",
+ "analyse": "<xml xmlns=\"http://www.w3.org/1999/xhtml\"><block type=\"wims_start\" id=\"-@YTxPv:fkEWh-U;S?Zq\" deletable=\"false\" movable=\"false\" x=\"0\" y=\"0\"></block></xml>",
+ "en_tete": {
+  "title": "Périmètre d'un pré",
+  "language": "Fr",
+  "name": "Lemaire",
+  "firstName": "Sophie",
+  "email": ""
+ },
+ "editor_EnTete": {
+  "editor": {
+   "ops": [
+    {
+     "attributes": {
+      "code-block": true
+     },
+     "insert": "\n"
+    }
+   ]
+  }
+ }
+}
