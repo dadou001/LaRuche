@@ -6,16 +6,6 @@ Use
 -----
 For the end user, just download the contents of the repository and double-click on the "index.html" file.
 
-Developers
-----------------
-For most of the Javascript development, we use TypeScript, so one should download and install the TypeScript compiler.
-The packages used are
- - the [Foundation](http://foundation.zurb.com) framework
- - the [Blockly](https://developers.google.com/blockly/) editor
- - the [Quill](http://quilljs.com) editor which uses
- - the [KaTex](https://khan.github.io/KaTeX/) library
- - the [highlight](https://highlightjs.org/) library
-
 Integration into WIMS
 --------------------------
 La Ruche will be integrated into WIMS very soon (promise on the 17 July 2017...)
@@ -47,5 +37,3 @@ There are three main tabs in the editor :
  - the **Analysis** tab, where the answer type for the student is set, as well as all necessary action (in another Blockly editor) after the student has entered his answer and pushed the "Send" button.
 
 The metadata (name of the exercise, name of the author, etc...) are entered in the **Header** tab. The **Code** tab will contain the OEF generated code that may be copied to the raw mode editor in the "*Createxo*" module of WIMS. In the **Saving** tab one can generate a JSON string that may be used to save and reload an exercise.
-
-> Written with [StackEdit](https://stackedit.io/).
