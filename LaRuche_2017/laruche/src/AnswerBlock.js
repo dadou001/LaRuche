@@ -73,7 +73,7 @@ var AnswerBlock = (function () {
         };
         this.name = name;
         this.html = this.construct_basic_html();
-        $('#answer_list_analyse').append(this.html);
+        jQuery('#answer_list_analyse').append(this.html);
     }
     //Methodes public
     AnswerBlock.prototype.change_to_type = function (type) {
@@ -124,7 +124,7 @@ var AnswerBlock = (function () {
             + '<img src="images/question.png" style="max-height:50px;max-width:50px;"/><span class="surligne_Answer">'
             + this.name + '</span></span></div>'
             + '<label>' + Blockly.Msg.WIMS_ANSWER_TYPE
-            + '<select oninput="$(\'#ans_' + this.name + '\').removeClass(\'answer_hidden\');change_type_answer(\'' + this.name + '\',this.value,answer_List)">'
+            + '<select oninput="jQuery(\'#ans_' + this.name + '\').removeClass(\'answer_hidden\');change_type_answer(\'' + this.name + '\',this.value,answer_List)">'
             + '<option value="numeric">' + Blockly.Msg.WIMS_ANSWER_TYPE_NUMERIC + '</option>'
             + '<option value="range">' + Blockly.Msg.WIMS_ANSWER_TYPE_RANGE + '</option>'
             + '<option value="units">' + Blockly.Msg.WIMS_ANSWER_TYPE_UNITS + '</option>'
@@ -173,24 +173,24 @@ var AnswerBlock = (function () {
         var start = this.html.search('<fieldset');
         var end = this.html.search('</fieldset>');
         result = this.html.substring(start, end + 11);
-        $('#fieldset_ans_' + this.name).replaceWith(result);
+        jQuery('#fieldset_ans_' + this.name).replaceWith(result);
         if (textAreaType) {
-            $('#ans_' + this.name + '_type').html('<textarea placeholder="Type"></textarea>');
+            jQuery('#ans_' + this.name + '_type').html('<textarea placeholder="Type"></textarea>');
         }
         else {
-            $('#ans_' + this.name + '_type').html('');
+            jQuery('#ans_' + this.name + '_type').html('');
         }
     };
     AnswerBlock.prototype.destroy_html = function () {
-        $('#answer_all_' + this.name).remove();
+        jQuery('#answer_all_' + this.name).remove();
     };
     AnswerBlock.prototype.update_all_html = function () {
         // var number = Number(this.id.substring(6,7))-1;
-        // if($('#answer_list_analyse .callout').eq(number).get(0) == undefined){
-        //   $('#answer_list_analyse .callout').append(this.html);
+        // if(jQuery('#answer_list_analyse .callout').eq(number).get(0) == undefined){
+        //   jQuery('#answer_list_analyse .callout').append(this.html);
         // }
         // else {
-        $('#answer_all_' + this.name).replaceWith(this.html);
+        jQuery('#answer_all_' + this.name).replaceWith(this.html);
         // }
     };
     AnswerBlock.prototype.generate_fieldset_code = function (type) {
@@ -203,12 +203,12 @@ var AnswerBlock = (function () {
         return result;
     };
     AnswerBlock.prototype.generate_choice_type = function () {
-        var result = '<select oninput="$(\'#ans_' + this.name + '\').removeClass(\'answer_hidden\');change_type_answer(\'' + this.name + '\',this.value,answer_List)">';
+        var result = '<select oninput="jQuery(\'#ans_' + this.name + '\').removeClass(\'answer_hidden\');change_type_answer(\'' + this.name + '\',this.value,answer_List)">';
         for (var key in this.all_type) {
             result += '<option value="' + key + '">' + key + '</option>';
         }
         return result + '</select>';
-        // +'<select oninput="$(\'#ans_'+this.name+'\').removeClass(\'answer_hidden\');change_type_answer(\''+this.name+'\',this.value,answer_List)">'//Rajouter le moyen de changer le type
+        // +'<select oninput="jQuery(\'#ans_'+this.name+'\').removeClass(\'answer_hidden\');change_type_answer(\''+this.name+'\',this.value,answer_List)">'//Rajouter le moyen de changer le type
         //   +'<option value="numeric">Numeric</option>'
         //   +'<option value="function">Function</option>'
         //   +'<option value="range">Range</option>'
