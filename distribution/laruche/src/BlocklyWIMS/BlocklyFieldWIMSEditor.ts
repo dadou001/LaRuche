@@ -397,7 +397,7 @@ Blockly.ExternalDiv.hide = function() {
     }
   }
   Blockly.ExternalDiv.activeDivId = null;
-  $('#popup_var_blockly').remove();
+  jQuery('#popup_var_blockly').remove();
 }
 
 /*

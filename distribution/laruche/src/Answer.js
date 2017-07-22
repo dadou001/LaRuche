@@ -14,7 +14,7 @@ var Answer = (function () {
         if (this.type != 'other')
             return this.type;
         else {
-            return $('#ans_' + this.name + '_type').find('textarea').get(0).value;
+            return jQuery('#ans_' + this.name + '_type').find('textarea').get(0).value;
         }
     };
     Answer.prototype.set_sub_type = function (type) {
@@ -22,9 +22,9 @@ var Answer = (function () {
     };
     Answer.prototype.get_option = function () {
         var result = "";
-        var tab = $('#fieldset_ans_' + this.name).find('input:checked');
+        var tab = jQuery('#fieldset_ans_' + this.name).find('input:checked');
         for (var i = 0; i < tab.length; i++) {
-            result += $('#fieldset_ans_' + this.name).find('input:checked').eq(i).val() + ",";
+            result += jQuery('#fieldset_ans_' + this.name).find('input:checked').eq(i).val() + ",";
         }
         if (result.length > 0) {
             result = result.substring(0, result.length - 1);

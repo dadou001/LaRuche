@@ -1,7 +1,5 @@
 
-$(document).ready();
-
-$(document).foundation();
+/** La Ruche WIMS Main app.js **/
 
 var variable_List = {};
 var answer_List = {};
@@ -9,40 +7,42 @@ var active_editor_analyse = null;
 var prepEditor;
 var analyseEditor;
 
-/*
- * Set the strings in index.html according to the current language
- */
-$('#RId_Onglet_Entete').html(Blockly.Msg.WIMS_INTERFACE_TAB_HEADER);
-$('#RId_Onglet_Enonce').html(Blockly.Msg.WIMS_INTERFACE_TAB_STATEMENT);
-$('#RId_Onglet_Preparation').html(Blockly.Msg.WIMS_INTERFACE_TAB_PREPARATION);
-$('#RId_Onglet_Analyse').html(Blockly.Msg.WIMS_INTERFACE_TAB_ANALYSIS);
-$('#RId_Onglet_Code').html(Blockly.Msg.WIMS_INTERFACE_TAB_CODE);
-$('#RId_Onglet_Sauvegarde').html(Blockly.Msg.WIMS_INTERFACE_TAB_SAVING);
-$('#Rid_Entete_Label_Title').html(Blockly.Msg.WIMS_INTERFACE_HEADER_TITLE);
-$('#Rid_Entete_Label_Language').html(Blockly.Msg.WIMS_INTERFACE_HEADER_LANGUAGE);
-$('#Rid_Entete_Label_Name').html(Blockly.Msg.WIMS_INTERFACE_HEADER_NAME);
-$('#Rid_Entete_Label_FirstName').html(Blockly.Msg.WIMS_INTERFACE_HEADER_FIRSTNAME);
-$('#Rid_Entete_Label_Email').html(Blockly.Msg.WIMS_INTERFACE_HEADER_EMAIL);
-$('#Rid_Entete_Label_EOFCode').html(Blockly.Msg.WIMS_INTERFACE_HEADER_OEF_CODE);
-$('#title_EnTete').attr('placeholder',Blockly.Msg.WIMS_INTERFACE_HEADER_TITLE_PLACEHOLDER)
-$('#language_EnTete').attr('placeholder',Blockly.Msg.WIMS_INTERFACE_HEADER_LANGUAGE_PLACEHOLDER)
-$('#name_EnTete').attr('placeholder',Blockly.Msg.WIMS_INTERFACE_HEADER_NAME_PLACEHOLDER_PLACEHOLDER)
-$('#firstName_EnTete').attr('placeholder',Blockly.Msg.WIMS_INTERFACE_HEADER_FIRSTNAME_PLACEHOLDER)
-$('#email_EnTete').attr('placeholder',Blockly.Msg.WIMS_INTERFACE_HEADER_EMAIL_PLACEHOLDER)
-$('#variable_creation_button').html(Blockly.Msg.WIMS_INTERFACE_BUTTON_VAR_CREATION);
-$('#answer_creation_button').html(Blockly.Msg.WIMS_INTERFACE_BUTTON_ANSWER_CREATION);
-$('#Rid_Analysis_Header_VarAnswers').html(Blockly.Msg.WIMS_INTERFACE_ANALYSIS_VARIABLES_AND_ANSWERS);
-$('#Rid_Prep_Blockly_Toolbar_WIMS').attr('name',Blockly.Msg.WIMS_BLOCKLY_PREP_WIMS);
-$('#Rid_Prep_Blockly_Toolbar_Variables').attr('name',Blockly.Msg.WIMS_BLOCKLY_PREP_VARIABLES);
-$('#Rid_Prep_Blockly_Toolbar_Swarms').attr('name',Blockly.Msg.WIMS_BLOCKLY_PREP_SWARMS);
-$('#Rid_Analysis_Blockly_Toolbar_Analysis').attr('name',Blockly.Msg.WIMS_BLOCKLY_ANALYSIS_ANALYSIS);
-$('#Rid_Analysis_Blockly_Toolbar_Variables').attr('name',Blockly.Msg.WIMS_BLOCKLY_ANALYSIS_VARIABLES);
+jQuery(document).ready(function($) {
+	/*
+	 * Set the strings in index.html according to the current language
+	 */
+	jQuery('#RId_Onglet_Entete').html(Blockly.Msg.WIMS_INTERFACE_TAB_HEADER);
+	jQuery('#RId_Onglet_Enonce').html(Blockly.Msg.WIMS_INTERFACE_TAB_STATEMENT);
+	jQuery('#RId_Onglet_Preparation').html(Blockly.Msg.WIMS_INTERFACE_TAB_PREPARATION);
+	jQuery('#RId_Onglet_Analyse').html(Blockly.Msg.WIMS_INTERFACE_TAB_ANALYSIS);
+	jQuery('#RId_Onglet_Code').html(Blockly.Msg.WIMS_INTERFACE_TAB_CODE);
+	jQuery('#RId_Onglet_Sauvegarde').html(Blockly.Msg.WIMS_INTERFACE_TAB_SAVING);
+	jQuery('#Rid_Entete_Label_Title').html(Blockly.Msg.WIMS_INTERFACE_HEADER_TITLE);
+	jQuery('#Rid_Entete_Label_Language').html(Blockly.Msg.WIMS_INTERFACE_HEADER_LANGUAGE);
+	jQuery('#Rid_Entete_Label_Name').html(Blockly.Msg.WIMS_INTERFACE_HEADER_NAME);
+	jQuery('#Rid_Entete_Label_FirstName').html(Blockly.Msg.WIMS_INTERFACE_HEADER_FIRSTNAME);
+	jQuery('#Rid_Entete_Label_Email').html(Blockly.Msg.WIMS_INTERFACE_HEADER_EMAIL);
+	jQuery('#Rid_Entete_Label_EOFCode').html(Blockly.Msg.WIMS_INTERFACE_HEADER_OEF_CODE);
+	jQuery('#title_EnTete').attr('placeholder',Blockly.Msg.WIMS_INTERFACE_HEADER_TITLE_PLACEHOLDER)
+	jQuery('#language_EnTete').attr('placeholder',Blockly.Msg.WIMS_INTERFACE_HEADER_LANGUAGE_PLACEHOLDER)
+	jQuery('#name_EnTete').attr('placeholder',Blockly.Msg.WIMS_INTERFACE_HEADER_NAME_PLACEHOLDER_PLACEHOLDER)
+	jQuery('#firstName_EnTete').attr('placeholder',Blockly.Msg.WIMS_INTERFACE_HEADER_FIRSTNAME_PLACEHOLDER)
+	jQuery('#email_EnTete').attr('placeholder',Blockly.Msg.WIMS_INTERFACE_HEADER_EMAIL_PLACEHOLDER)
+	jQuery('#variable_creation_button').html(Blockly.Msg.WIMS_INTERFACE_BUTTON_VAR_CREATION);
+	jQuery('#answer_creation_button').html(Blockly.Msg.WIMS_INTERFACE_BUTTON_ANSWER_CREATION);
+	jQuery('#Rid_Analysis_Header_VarAnswers').html(Blockly.Msg.WIMS_INTERFACE_ANALYSIS_VARIABLES_AND_ANSWERS);
+	jQuery('#Rid_Prep_Blockly_Toolbar_WIMS').attr('name',Blockly.Msg.WIMS_BLOCKLY_PREP_WIMS);
+	jQuery('#Rid_Prep_Blockly_Toolbar_Variables').attr('name',Blockly.Msg.WIMS_BLOCKLY_PREP_VARIABLES);
+	jQuery('#Rid_Prep_Blockly_Toolbar_Swarms').attr('name',Blockly.Msg.WIMS_BLOCKLY_PREP_SWARMS);
+	jQuery('#Rid_Analysis_Blockly_Toolbar_Analysis').attr('name',Blockly.Msg.WIMS_BLOCKLY_ANALYSIS_ANALYSIS);
+	jQuery('#Rid_Analysis_Blockly_Toolbar_Variables').attr('name',Blockly.Msg.WIMS_BLOCKLY_ANALYSIS_VARIABLES);
+});
 
 function change_onglet(name) {
-	$('#RId_Onglet_'+anc_onglet).removeClass('RCl_Onglet_Affiche').addClass('RCl_Onglet_Cache');
-	$('#RId_Onglet_'+name).removeClass('RCl_Onglet_Cache').addClass('RCl_Onglet_Affiche');
-	$('#RId_Contenu_Onglet_'+anc_onglet).addClass('RCl_Contenu_Onglet_Cache');
-	$('#RId_Contenu_Onglet_'+name).removeClass('RCl_Contenu_Onglet_Cache');
+	jQuery('#RId_Onglet_'+anc_onglet).removeClass('RCl_Onglet_Affiche').addClass('RCl_Onglet_Cache');
+	jQuery('#RId_Onglet_'+name).removeClass('RCl_Onglet_Cache').addClass('RCl_Onglet_Affiche');
+	jQuery('#RId_Contenu_Onglet_'+anc_onglet).addClass('RCl_Contenu_Onglet_Cache');
+	jQuery('#RId_Contenu_Onglet_'+name).removeClass('RCl_Contenu_Onglet_Cache');
 	anc_onglet = name;
 	if (typeof(prepEditor)!='undefined') {
 		prepEditor.onResize();
@@ -245,7 +245,7 @@ function create_variable_editor(id_select_type_popup,id_input_name_popup,index){
 			variable_List[name].init();
 			update_variables_view("card_Enonce_Variable",variable_List); //On met à jour l'affichage ds variables
 			update_all_view();
-			$('#popup').toggleClass('popup_variable_visible');//On désactive le popup
+			jQuery('#popup').toggleClass('popup_variable_visible');//On désactive le popup
 			add_blockly_variable(name);
 		}
 	}
@@ -320,10 +320,10 @@ function update_analyse_answer(editor,ans_list){
 		if(pos != -1){ //si cette réponse est encore valide
 			//On l'ajoute au bon endroit
 			if(pos > 0){
-				$('#answer_list_analyse .callout').eq(pos-1).after($('#answer_all_'+key));
+				jQuery('#answer_list_analyse .callout').eq(pos-1).after(jQuery('#answer_all_'+key));
 			}
 			else{
-				$('#answer_list_analyse .callout').eq(0).before($('#answer_all_'+key));
+				jQuery('#answer_list_analyse .callout').eq(0).before(jQuery('#answer_all_'+key));
 			}
 		}
 		else{
@@ -480,11 +480,11 @@ function gather_all_info(){
 */
 function create_variable_choice_popup(id_to_popup,index){
 	var rect = document.getElementById(id_to_popup).getBoundingClientRect(); //On obtient la position du bouton var
-	$('#popup').toggleClass('popup_variable_visible');//On active le popup
-	$('#popup').addClass('large-3');
-	$('#popup').addClass('columns');
+	jQuery('#popup').toggleClass('popup_variable_visible');//On active le popup
+	jQuery('#popup').addClass('large-3');
+	jQuery('#popup').addClass('columns');
 	//On place le popup là ou il faut
-	$('#popup').css({'top':rect.top + ((rect.bottom - rect.top)/2),'left':rect.left + ((rect.right - rect.left)/1.3), 'position':'absolute'});
+	jQuery('#popup').css({'top':rect.top + ((rect.bottom - rect.top)/2),'left':rect.left + ((rect.right - rect.left)/1.3), 'position':'absolute'});
 	//On crée le contenu du popup
 	document.getElementById("popup").innerHTML = '<div class="callout"><label>Variable type'
   +'<select id = "popup_select">'
@@ -537,7 +537,7 @@ function create_answer_OEF(answer){
 function get_all_answer_OEF(){
 	var result = "";
 	for (var i = 0;i<Object.keys(answer_List).length;i++){
-		result += create_answer_OEF(answer_List[$('#answer_list_analyse .callout').get(i).id.substring(11)]) + "\n";
+		result += create_answer_OEF(answer_List[jQuery('#answer_list_analyse .callout').get(i).id.substring(11)]) + "\n";
 	}
 	return result;
 }
@@ -786,11 +786,11 @@ function parse_save(save){
 	// some variables will be defined during the load (the loop indices mainly)
 	variable_List = {};
 
-	$('#title_EnTete').get(0).value = state['en_tete']['title'];
-	$('#language_EnTete').get(0).value = state['en_tete']['language'];
-	$('#name_EnTete').get(0).value = state['en_tete']['name'];
-	$('#firstName_EnTete').get(0).value = state['en_tete']['firstName'];
-	$('#email_EnTete').get(0).value = state['en_tete']['email'];
+	jQuery('#title_EnTete').get(0).value = state['en_tete']['title'];
+	jQuery('#language_EnTete').get(0).value = state['en_tete']['language'];
+	jQuery('#name_EnTete').get(0).value = state['en_tete']['name'];
+	jQuery('#firstName_EnTete').get(0).value = state['en_tete']['firstName'];
+	jQuery('#email_EnTete').get(0).value = state['en_tete']['email'];
 	editor_EnTete.editor.setContents(state['editor_EnTete']['editor'].editor);
 	editor_Enonce.editor.setContents(state['enonce']['editor'].editor);
 	prepEditor.load(state['prep']);
@@ -815,7 +815,7 @@ function parse_save(save){
 		variable_List[key].setTypeInDeclaration();
 	}
 
-	$('#answer_list_analyse').html('');
+	jQuery('#answer_list_analyse').html('');
 	for(var key in state['answer']){
 		ans_list_tmp[key] = new Answer(state['answer'][key]['name'],state['answer'][key]['type']);
 		ans_list_tmp[key].length = state['answer'][key]['length'];
@@ -823,10 +823,10 @@ function parse_save(save){
 		ans_list_tmp[key].get_block_html().editor.editor.setContents(state['answer'][key]['block_html']['editor'].editor);
 		ans_list_tmp[key].get_block_html().change_to_type(state['answer'][key]['type']);
 		if(state['answer'][key]['type'] == 'other'){
-			$('#ans_'+key+'_type textarea').val(state['answer'][key]['sub_type'])
+			jQuery('#ans_'+key+'_type textarea').val(state['answer'][key]['sub_type'])
 		}
-		$('#answer_all_'+key).find('select').val(state['answer'][key]['type']);
-		$('#answer_all_'+key+' option[value='+state['answer'][key]['type']+']').attr('selected','selected');
+		jQuery('#answer_all_'+key).find('select').val(state['answer'][key]['type']);
+		jQuery('#answer_all_'+key+' option[value='+state['answer'][key]['type']+']').attr('selected','selected');
 	}
 	answer_List = ans_list_tmp;
 }
@@ -885,18 +885,18 @@ function create_popup_embed_answer(id_element,answer_name){
 									'<textarea id="popup_textarea_'+answer_name+'" placeholder="length..."></textarea>'+
 									'<a class="button tiny" onclick=\'change_length_answer_via_popup(\"'+answer_name+'\")\'>Valider</a>';
 	var length = document.getElementById(id_element).getBoundingClientRect();
-	$('#popup').html(textHtml);
-	$('#popup_textarea_'+answer_name).get(0).value = answer_List[answer_name].length;
-	$('#popup').css('height','150px');
-	$('#popup').css('position','fixed');
-	$('#popup').css('width','230px');
-	$('#popup').css('font-size','0.7em');
-	$('#popup').css('z-index','9000');
-	$('#popup').css('background-color','white');
-	$('#popup').addClass('callout');
-	$('#popup').css('top',(length.top+20)+'px');
-	$('#popup').css('left',(length.left-5)+'px');
-	$('#popup').toggleClass('popup_variable_visible');
+	jQuery('#popup').html(textHtml);
+	jQuery('#popup_textarea_'+answer_name).get(0).value = answer_List[answer_name].length;
+	jQuery('#popup').css('height','150px');
+	jQuery('#popup').css('position','fixed');
+	jQuery('#popup').css('width','230px');
+	jQuery('#popup').css('font-size','0.7em');
+	jQuery('#popup').css('z-index','9000');
+	jQuery('#popup').css('background-color','white');
+	jQuery('#popup').addClass('callout');
+	jQuery('#popup').css('top',(length.top+20)+'px');
+	jQuery('#popup').css('left',(length.left-5)+'px');
+	jQuery('#popup').toggleClass('popup_variable_visible');
 }
 
 /** Fonction qui permet de génerer un id unique pour chaque answerImage des éditeurs quill
@@ -924,21 +924,21 @@ function generate_unique_id_answer(name){
 ** answer_name : le nom de la réponse
 */
 function change_length_answer_via_popup(answer_name){
-	var length = $('#popup_textarea_'+answer_name).get(0).value;
+	var length = jQuery('#popup_textarea_'+answer_name).get(0).value;
 	answer_List[answer_name].length = length;
-	$('#popup').toggleClass('popup_variable_visible');
+	jQuery('#popup').toggleClass('popup_variable_visible');
 }
 
 /** Fonction qui permet de cacher les éditeurs et les popups lors du changement d'onglet.
 */
 function hide_popup(){
 	Blockly.ExternalDiv.hide();
-	$('#popup').removeClass('popup_variable_visible');
+	jQuery('#popup').removeClass('popup_variable_visible');
 }
 
 function register_type_other(){
 	for(var key in answer_List){
-		if($('#answer_all_'+key+' select').val() == 'other'){
+		if(jQuery('#answer_all_'+key+' select').val() == 'other'){
 			answer_List[key].type = 'other';
 			answer_List[key].set_sub_type(answer_List[key].get_type());
 		}
