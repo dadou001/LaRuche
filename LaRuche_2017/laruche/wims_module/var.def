@@ -1,0 +1,7 @@
+status	deny
+
+any:fileout1 fileout2
+
+reply:dataoef datajson
+deny: dataoef_ datajson_
+

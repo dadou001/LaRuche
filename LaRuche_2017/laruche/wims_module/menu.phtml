@@ -1,0 +1,276 @@
+<div class="popup_hidden" id="popup"></div> <!-- va servir pour tous les popups -->
+
+  <div class="row">
+    <div class="large-12 columns RCl_Titre_Editeur">
+      <img src="$dirjs/images/logo.png">
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-12 medium-12">
+      <div class="RCl_Menu_Onglets">
+        <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Entete" onclick="hide_popup(); change_onglet('Entete');">$name_Entete</span>
+        <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Enonce" onclick="hide_popup();change_onglet('Enonce');">$name_Enonce</span>
+        <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Preparation" onclick="hide_popup();change_onglet('Preparation');update_all_view();">$name_Preparation</span>
+        <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Analyse" onclick="hide_popup();change_onglet('Analyse');update_analyse_answer(editor_Enonce,answer_List);update_variables_answers_view('card_Analyse_Variable',variable_List,answer_List)">$name_Analyse</span>
+        <!-- update_analyse_answer(editor_Enonce,answer_List); -->
+        <span class="RCl_Onglet_Fake RCl_Onglet"></span>
+        <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Code" onclick="hide_popup();change_onglet('Code'); generate_prep_code(); update_final_code();">$name_Code</span>
+        <span class="RCl_Onglet_Cache RCl_Onglet" id="RId_Onglet_Sauvegarde" onclick="hide_popup();register_type_other();change_onglet('Sauvegarde');">$name_Sauvegarde</span>
+      </div>
+    </div>
+
+    <div class="large-12 medium-12 columns">
+      <div class="callout">
+        <div class="row">
+
+          <!-- ONGLET ENTETE -->
+          <div class="RCl_Contenu_Onglet_Cache" id="RId_Contenu_Onglet_Entete">
+            <div class="row" style="margin:15px;">
+              <div class="medium-3 columns">
+                <label><span id="Rid_Entete_Label_Title">$wims_name_title</span>
+                  <input type="text" placeholder="$wims_name_title" id="title_EnTete">
+                </label>
+              </div>
+              <div class="medium-2 columns">
+                <label><span id="Rid_Entete_Label_Language">$wims_name_Language</span>
+                  <input type="text" placeholder="Fr,En.." id="language_EnTete">
+                </label>
+              </div>
+              <div class="medium-2 columns">
+                <label><span id="Rid_Entete_Label_Name">$wims_name_name</span>
+                  <input type="text" placeholder="$wims_name_name" id="name_EnTete">
+                </label>
+              </div>
+              <div class="medium-2 columns">
+                <label><span id="Rid_Entete_Label_FirstName">$wims_name_firstname</span>
+                  <input type="text" placeholder="$wims_name_firstname" id="firstName_EnTete">
+                </label>
+              </div>
+              <div class="medium-3 columns">
+                <label><span id="Rid_Entete_Label_Email">$wims_name_email</span>
+                  <input type="text" placeholder="$wims_name_email" id="email_EnTete">
+                </label>
+              </div>
+            </div>
+            <div class="row" style="margin:15px">
+              <label><span id="Rid_Entete_Label_EOFCode">$name_free_code:</span>
+                <div class="row" id="editor-EnTete" style="margin:15px;"></div>
+              </label>
+            </div>
+          </div>
+
+          <!-- ONGLET ENONCE -->
+          <div id="RId_Contenu_Onglet_Enonce" class="RCl_Contenu_Onglet_Cache">
+              <div id="enonce-container" class="row">
+                <div class="large-9 columns" >
+                  <div id="toolbar-container">
+                    <span class="ql-formats">
+                      <select class="ql-font"></select>
+                      <select class="ql-size"></select>
+                    </span>
+                    <span class="ql-formats">
+                      <button class="ql-bold"></button>
+                      <button class="ql-italic"></button>
+                      <button class="ql-underline"></button>
+                      <button class="ql-strike"></button>
+                    </span>
+                    <span class="ql-formats">
+                      <select class="ql-color"></select>
+                      <select class="ql-background"></select>
+                    </span>
+                    <span class="ql-formats">
+                      <button class="ql-script" value="sub"></button>
+                      <button class="ql-script" value="super"></button>
+                    </span>
+                    <span class="ql-formats">
+                      <button class="ql-header" value="1"></button>
+                      <button class="ql-header" value="2"></button>
+                      <!--<button class="ql-blockquote"></button>-->
+                      <button class="ql-code-block"></button>
+                    </span>
+                    <span class="ql-formats">
+                      <button class="ql-list" value="ordered"></button>
+                      <button class="ql-list" value="bullet"></button>
+                      <button class="ql-indent" value="-1"></button>
+                      <button class="ql-indent" value="+1"></button>
+                    </span>
+                    <span class="ql-formats">
+                      <button class="ql-direction" value="rtl"></button>
+                      <select class="ql-align"></select>
+                    </span>
+                    <span class="ql-formats">
+                      <button class="ql-link"></button>
+                      <button class="ql-image"></button>
+                      <button class="ql-video"></button>
+                      <!--<button class="ql-formula"></button>-->
+                    </span>
+                    <span class="ql-formats">
+                      <button title="variable" id="variable_creation_button" onclick="change_to_var(quill,variable_List)">Var</button>
+                      <button style="margin-right:8px;" title="latex" onclick="editor_Enonce.change_to_latex()">LaTex</button>
+                      <button style="margin-left:8px;margin-right:8px" title="answer"  id="answer_creation_button" onclick="add_answer(quill,answer_List)">Answer</button>
+                    </span>
+                    <span class="ql-formats">
+                      <button class="ql-clean"></button>
+                    </span>
+                  </div>
+
+                  <div id="editor-enonce" ></div>
+
+                </div>
+                <div class="large-3 card">
+                  <div class="card-divider">
+                    Variables
+                  </div>
+                  <div class="card-section" id="card_Enonce_Variable">
+                    <!--Rajouter une fonction javascript pour afficher toutes les variables -->
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          <!-- ONGLET PREPARATION -->
+          <div class="RCl_Contenu_Onglet_Cache" id="RId_Contenu_Onglet_Preparation">
+            <div class="row" style="margin:15px;">
+              <div class="large-9 columns">
+                <div id="RId_programPrep" style="position: relative; height:400px;"></div>
+              </div>
+              <div class="large-3 columns" style="visibility:hidden;"> <div class="callout" id="card_Prep_Variable">un peu plus de texte ? </div></div>
+            </div>
+          </div>
+
+
+          <!-- ONGLET ANALYSE -->
+          <div class="RCl_Contenu_Onglet_Cache" id="RId_Contenu_Onglet_Analyse">
+            <div class="row" style="margin:15px;">
+              <div id="Contenu_all_answer" class="large-7 columns callout">
+                <div id="answer_list_analyse"></div>
+              </div>
+              <div class="large-3 card">
+                <div class="card-divider" id="Rid_Analysis_Header_VarAnswers">
+                  Variables & Answers
+                </div>
+                <div class="card-section" id="card_Analyse_Variable">
+                </div>
+              </div>
+            </div>
+            <div id="RId_programAnalyse" style="position: relative; height:400px"></div>
+          </div>
+
+          <!-- ONGLET CODE -->
+          <div class="RCl_Contenu_Onglet_Cache" id="RId_Contenu_Onglet_Code">
+            <div class="large-12 columns">
+              <div class="callout fullwidth" >
+                <textarea id="final_OEF_code" style="height:650px;"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- ONGLET SAUVEGARDE -->
+          <div class="RCl_Contenu_Onglet_Cache" id="RId_Contenu_Onglet_Sauvegarde">
+            <div class="large-10 columns" >
+              <textarea id="save_state" style="height:650px;"></textarea>
+            </div>
+            <div class="large-2 columns">
+              <a class="wims_button button large" onclick="get_variables_JSON()" style="margin-top: 25px;">Sauvegarder</a>
+              <a class="wims_button button large" onclick="use_save_state()" style="margin-top: 25px;">Restaurer</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Div programme préparation Blockly -->
+  <div id="RId_programPrep_blockly" style="position: absolute"></div>
+  <xml id="RId_toolbox_programPrep" xmlns="http://www.w3.org/1999/xhtml" style="display: none;">
+    <category name="Variables" colour="#0099ff" custom="VARIABLE" id="Rid_Prep_Blockly_Toolbar_Variables"></category>
+    <category name="WIMS" id="Rid_Prep_Blockly_Toolbar_WIMS">
+      <!-- <block type="wims_change_type">
+        <field name="VARIABLE_CHOICE"></field>
+        <field name="TYPE"></field>
+      </block> -->
+      <block type ="wims_comment">
+        <field name="COMMENT">Comment</field>
+      </block>
+      <block type="wims_variable_editor">
+        <field name = "VARIABLE_CHOICE"></field>
+        <field name="WIMS_EDITOR"></field>
+      </block>
+      <block type="wims_editor">
+        <field name="WIMS_EDITOR">true</field>
+      </block>
+      <block type="wims_if">
+      </block>
+      <block type="wims_for">
+        <value name="START">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+        <value name="END">
+          <shadow type="math_number">
+            <field name="NUM">10</field>
+          </shadow>
+        </value>
+        <value name="STEP">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="wims_up_down_editor">
+        <field name="WIMS_EDITOR">true</field>
+      </block>
+    </category>
+    <sep></sep>
+    <category name="Essaims" id="Rid_Prep_Blockly_Toolbar_Swarms"></category>
+  </xml>
+
+
+<!-- L'analyse Blockly -->
+<div id="RId_programAnalyse_blockly" style="position: absolute"></div>
+<xml id="RId_toolbox_programAnalyse" xmlns="http://www.w3.org/1999/xhtml" style="display: none;">
+  <category name="Analyse" id="Rid_Analysis_Blockly_Toolbar_Analysis">
+    <block type="analyse_feedback">
+      <field name="WIMS_EDITOR"></field>
+    </block>
+    <block type="analyse_hint">
+      <field name="WIMS_EDITOR"></field>
+    </block>
+    <!-- <block type="wims_change_type">
+      <field name="VARIABLE_CHOICE"></field>
+      <field name="TYPE"></field>
+    </block> -->
+    <block type="wims_variable_editor">
+      <field name = "VARIABLE_CHOICE"></field>
+      <field name="WIMS_EDITOR"></field>
+    </block>
+    <block type="wims_if">
+    </block>
+    <block type ="wims_comment">
+      <field name="COMMENT">Comment</field>
+    </block>
+    <block type="wims_for">
+      <value name="START">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="END">
+        <shadow type="math_number">
+          <field name="NUM">10</field>
+        </shadow>
+      </value>
+      <value name="STEP">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="wims_up_down_editor">
+      <field name="WIMS_EDITOR">true</field>
+    </block>
+  </category>
+  <category name="Variables" colour="#a55b6d" custom="VARIABLE"  id="Rid_Analysis_Blockly_Toolbar_Variables"></category>
+</xml>

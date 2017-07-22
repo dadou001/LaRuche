@@ -1,0 +1,26 @@
+!! Give answers in this file.
+
+<p><strong class="debug">ID = $wims_session</strong></p>
+
+<p>Voici le résultat :</p>
+
+<div class="spacer">
+    <label for="dataoef">OEF</label>
+    <textarea id="dataoef">$dataoef</textarea>
+    !getfile $fileout1 fichier_oef
+</div>
+
+<div class="spacer">
+    <label for="datajson">JSON</label>
+    <textarea id="datajson">$datajson</textarea>
+    !getfile $fileout2 fichier_json
+</div>
+
+!set wims_ref_class=wims_button
+!href cmd=resume $wims_name_back2
+
+<div class="wimscenter">
+    !set wims_ref_class=wims_button
+    !href module=adm/createxo&cmd=new&level=3&rawinp=yes TESTER !!!
+    !!href module=adm/createxo&cmd=reply&level=3 TESTER !!!
+</div>

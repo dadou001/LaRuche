@@ -1,0 +1,7 @@
+# Variable initialisation file.
+# This file is read by wims for new sessions.
+
+# content of the file: initialisation of the problem.
+
+status=waiting
+wims_module_log=$cmd

@@ -1,0 +1,16 @@
+about_phtml=Fichier a propos. Vous pouvez le laisser tel quel.
+help_phtml=Aides aux utilisateurs.
+main_phtml=Fichier principal d'organisation de sortie.
+present_phtml=Présentation du problème.
+answer_phtml=Présentation du résultat de calcul.
+menu_phtml=Menu et formulaire pour la saisie des données à calculer.
+intro_phtml=Introduction et configuration de l'outil.
+msg_phtml=Messages d'erreur.
+
+var_proc=Traitement de variables général (calcul des données).
+var_init=Initialisation de variables.
+var_def=Déclarations de variables d'utilisateurs.
+
+filedesc=Explication de chaque fichier dans le module.
+NEWS=Enregistrement des modifications du module.
+

@@ -1,0 +1,34 @@
+title=La Ruche
+# Commencez la description par minuscule!
+description=Modèle de module d'outil
+author=Damir Buskulic
+address=buskulic@lapp.in2p3.fr
+copyright=&copy; 2016- (<a href="COPYING">GNU GPL</a>) 2017
+translator=
+translator_address=
+version=0.90
+# minimal version of wims server under which the module may run
+wims_version=4.15
+language=fr
+
+# Possible categories: exercise, tool, dictionary, course, recreation.
+category=tool
+
+# En: elementary. Hn: high school. Un: under. G: graduate. R: research.
+# E1,...,E6; H1...,H6; U1,...,U4; G; R
+level=H1 H2 H3 H4 H5 H6 U1 U2 U3 U4 G R
+
+# e.g. algebra, analysis, geometry, etc.
+# read public_html/modules/home/lists/domains.allow for the list of
+# allowed domains.
+domain=
+
+# Anything you like.
+keywords=oef editor createxo
+
+# Software packages required to run the module
+require=
+
+# Does the module have scoring system?
+scoring=no
+
