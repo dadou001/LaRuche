@@ -31,7 +31,13 @@ class AnswerImage extends Embed {
     node.className = "surligne_Answer";
     if (typeof valueTransferObj != 'undefined') {
       if (valueTransferObj['variable1']=='editor-enonce') {
-        embedInnerHTML = '<img src="images/question.png" style="max-height:60px;max-width:60px;"/><span class="surligne_Answer">' + embedInnerHTML+'</span>';
+        var imagesPath ='';
+        if (typeof isInWIMS!='undefined') {
+          // isInWIMS is defined in the wims module "menu.phtml",
+          // true if editor is called from within WIMS, undefined or false if not
+          if (isInWIMS == true) imagesPath = 'scripts/js/laruche/';
+        }
+        embedInnerHTML = '<img src="'+imagesPath+'images/question.png" style="max-height:60px;max-width:60px;"/><span class="surligne_Answer">' + embedInnerHTML+'</span>';
         node.className = "surligne_Answer_Place";
       }
     }
