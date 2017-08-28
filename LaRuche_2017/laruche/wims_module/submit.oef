@@ -1,15 +1,20 @@
-\title{ Sans titre }
-\language{  }
-\author{  }
-\email{  }
-\computeanswer{  }
-\format{ html }
-\precision{ 1000 }
-\range{ -5..5 }
+\title{Le carré d\’un entier}
+\language{}
+\author{}
+\email{}
+\computeanswer{no}
+\format{html}
+\precision{1000}
+\range{-5..5}
 
 
-\statement{ 
-<div><br></div>
- }
+\integer{ n = randint(-50..50)}
+\integer{ n2 = (\n)^2}
 
+\statement{
+<p> Calculer le carré de \n</p>
+<p style=\"text-align:center;\">Carré de \n = \embed{reply1,15}</p>
+}
+\answer{}{\n2}{type=numeric}
 
+\feedback{\reply1<0}{Le carré d\'un entier est toujours positif}

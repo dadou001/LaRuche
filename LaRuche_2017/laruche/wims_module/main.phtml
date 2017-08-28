@@ -1,9 +1,9 @@
-!if $httpd_HTTP_X_REQUESTED_WITH!=$empty
-  !changeto msg.phtml
-!endif
-
 !read names-$lang.phtml
 !set dirjs=scripts/js/laruche
+
+!if $httpd_HTTP_X_REQUESTED_WITH!=$empty
+  !changeto json.phtml
+!endif
 
 !set wims_html_header=!append line \
   <!-- Foundation 6 styles -->\
@@ -25,26 +25,35 @@ to $wims_html_header
 !! Contenu du module par ici.
 
 !if $compute=yes
- !if $error!=$empty
-  <div class="wims_alertmsg">
-  !read msg.phtml
-  </div>
-  !read menu.phtml
-  !goto end
- !else
-  !read answer.phtml
- !endif
+  !if $error!=$empty
+    !read msg.phtml
+  !else
+    !read answer.phtml
+  !endif
 !else
- !! put some explanations here.
- !read menu.phtml
-!endif compute=yes?
+  <div class="popup_hidden" id="popup"></div> <!-- va servir pour tous les popups -->
+  <div class="row">
+    <div class="large-12 columns RCl_Titre_Editeur">
+      <img src="$dirjs/images/logo.png">
+    </div>
+  </div>
+ !if $job=sendfile
+    !read sendfile.phtml
+ !else
+    <div class="row">
+      !set wims_ref_class=wims_button
+      !href module=$module&job=sendfile TEST AJAX
+    </div>
+    !read menu.phtml
+    !read footer.phtml
+  !endif
+!endif
 
-
-:end
-
-!read footer.phtml
-
+!set wims_menu_items=!append line laruche,1,module=adm/tool/laruche\
+  to $wims_menu_items
 !set wims_menu_items=!append line modtool,1,module=adm/modtool\
+  to $wims_menu_items
+!set wims_menu_items=!append line createxo,1,module=adm/createxo\
   to $wims_menu_items
 
 !tail

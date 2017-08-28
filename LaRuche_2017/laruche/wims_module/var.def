@@ -1,7 +1,7 @@
 status	deny
 
-any:fileout1 fileout2
+any:fileout1 job
 
-reply:dataoef datajson
-deny: dataoef_ datajson_
+reply:dataoef
+deny: dataoef_
 
