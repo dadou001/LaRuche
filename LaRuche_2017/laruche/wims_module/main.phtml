@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="$dirjs/js_tools/quill/quill.snow-custom.css" />\
 to $wims_html_header
 
+!set module_title=<img src="$dirjs/images/logo.png" alt="La Ruche">
 !header
 
 !! Contenu du module par ici.
@@ -33,11 +34,6 @@ to $wims_html_header
   !endif
 !else
   <div class="popup_hidden" id="popup"></div> <!-- va servir pour tous les popups -->
-  <div class="row">
-    <div class="large-12 columns RCl_Titre_Editeur">
-      <img src="$dirjs/images/logo.png">
-    </div>
-  </div>
  !if $job=sendfile
     !read sendfile.phtml
  !else
