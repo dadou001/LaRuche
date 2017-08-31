@@ -134,10 +134,16 @@ class AnswerBlock{
 
   //Methodes private
   private construct_basic_html(){
+    var imagesPath ='';
+    if (typeof isInWIMS!='undefined') {
+      // isInWIMS is defined in the wims module "menu.phtml",
+      // true if editor is called from within WIMS, undefined or false if not
+      if (isInWIMS == true) imagesPath = 'scripts/js/laruche/';
+    }
     var result = '<div class="large-12 columns callout" id="answer_all_'+this.name+'">'
   		+'<div class="large-11 columns">'
       +'<div style="text-align:center;"><span class="surligne_Answer_Place">'
-  		+'<img src="images/question.png" style="max-height:50px;max-width:50px;"/><span class="surligne_Answer">'
+  		+'<img src="'+imagesPath+'images/question.png" style="max-height:50px;max-width:50px;"/><span class="surligne_Answer">'
       +this.name+'</span></span></div>'
   			+'<label>'+Blockly.Msg.WIMS_ANSWER_TYPE
   				+'<select oninput="jQuery(\'#ans_'+this.name+'\').removeClass(\'answer_hidden\');change_type_answer(\''+this.name+'\',this.value,answer_List)">'
