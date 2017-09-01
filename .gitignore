@@ -1,0 +1,8 @@
+.bin
+distribution.old
+laruche.min.js*
+
+**/node_modules/uglify-js/
+**/node_modules/commander/
+**/node_modules/source-map/
+**/node_modules/typescript/

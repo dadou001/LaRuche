@@ -1,18 +1,21 @@
 #!/bin/sh
 # ========== Build the LaRuche distribution =============
 
-# minify the LaRuche code
-uglifyjs ../src/*.js ../src/BlocklyWIMS/*.js ../src/BlocklyWIMS/OEF/*.js --source-map -o ../laruche.min.js
+echo "Minifying the LaRuche code."
+../node_modules/.bin/uglifyjs ../src/*.js ../src/BlocklyWIMS/*.js ../src/BlocklyWIMS/OEF/*.js --source-map -o ../laruche.min.js
 
 # == save the old distribution directory ===========
+
 orig=".."
 dist0="../../../distribution"
+echo "Saving $dist0 to ${dist0}.old"
 if [ -d $dist0 ]; then
   rm -rf "${dist0}.old"
   mv $dist0 "${dist0}.old"
   rm -rf $dist0
 fi
 
+echo "Copying all required files to $dist0"
 dist="${dist0}/laruche"
 mkdir -p $dist
 
@@ -50,10 +53,9 @@ cp -Rf "${orig_katex}/README.md" "${dist}/js_tools/katex"
 # ---------- QuillJS --------------------------------
 orig_quill="${orig}/js_tools/quill"
 mkdir -p "${dist}/js_tools/quill"
-cp -Rf "${orig_quill}/atom-one-light.css" "${dist}/js_tools/quill"
-cp -Rf "${orig_quill}/highlight.js-master" "${dist}/js_tools/quill"
-cp -Rf "${orig_quill}/quill.min.js" "${dist}/js_tools/quill"
-cp -Rf "${orig_quill}/quill.snow-custom.css" "${dist}/js_tools/quill"
+cp -f "${orig_quill}/atom-one-light.css" "${dist}/js_tools/quill/"
+cp -Rf "${orig_quill}/highlight.js-master" "${dist}/js_tools/quill/"
+cp -f ${orig_quill}/quill.* "${dist}/js_tools/quill/"
 
 # ---------- Foundation --------------------------------
 orig_vendor="${orig}/js_tools/vendor"
@@ -73,9 +75,12 @@ cp -Rf "${orig}/src" ${dist}
 
 cp -f "${orig}/index.html" ${dist}
 cp -f "${orig}/laruche.min.js" ${dist}
-cp -f "${orig}/README" ${dist}
-cp -f "${orig}/README.md" ${dist}
+cp -f ${orig}/README* ${dist}
+
 
 # == compress the distribution
+echo "Compressing the distribution."
 cd $dist0
-tar zcvf laruche.tar.gz laruche
+tar zcf laruche.tar.gz laruche
+
+echo "La Ruche Distribution complete. Have a nice day ;)"
