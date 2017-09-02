@@ -42,3 +42,9 @@ Editeur Quill
 
 Blockly
 =======
+
+Integration dans WIMS
+=====================
+- les css de fondation ne sont pas là par défaut dans le svn de wims -> les mettre dans themes/_css
+- j'ai mis là dedans foundation.min.css pour ne pas me casser la tête
+- idem pour les icônes foundation-icons, j'ai mis tout le dossier dans themes/_css

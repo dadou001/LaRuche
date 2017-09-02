@@ -1,6 +1,3 @@
-
-distribution.old/laruche.tar.gz
-
 Annexe_devis_NathanBuskulic_201706-001.pdf
 
 distribution.old/
@@ -19,3 +16,11 @@ outils-softs developpement/
 Projet développement NB.docx
 
 Projet_reference_JManganoni_2016/
+.bin
+distribution.old
+laruche.min.js*
+
+**/node_modules/uglify-js/
+**/node_modules/commander/
+**/node_modules/source-map/
+**/node_modules/typescript/

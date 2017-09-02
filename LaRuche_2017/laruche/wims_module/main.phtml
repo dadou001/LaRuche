@@ -11,15 +11,17 @@
   <link rel="stylesheet" href="themes/_css/foundation_card.css"/>\
   <link rel="stylesheet" href="themes/_css/foundation_callout.css"/>\
   <link rel="stylesheet" href="themes/_css/foundation_grid_float.css"/>\
-  \
-  <link rel="stylesheet" href="$dirjs/styles/ruche.css"/>\
+  <!--link rel="stylesheet" href="themes/_css/foundation.min.css"/-->\
+  <!--link rel="stylesheet" href="themes/_css/foundation-icons/foundation-icons.css"/-->\
+  <link rel="stylesheet" href="$dirjs/css/ruche.css"/>\
   <!-- Style sheets of tools for the Quill editor -->\
-  <link rel="stylesheet" href="$dirjs/katex/katex.min.css" />\
-  <link rel="stylesheet" href="$dirjs/quill/highlight.js-master/src/styles/atom-one-light.css" />\
+  <link rel="stylesheet" href="$dirjs/js_tools/katex/katex.min.css" />\
+  <link rel="stylesheet" href="$dirjs/js_tools/quill/highlight.js-master/src/styles/atom-one-light.css" />\
   <!-- Customized style sheet of Quill -->\
-  <link rel="stylesheet" href="$dirjs/quill/quill.snow-custom.css" />\
+  <link rel="stylesheet" href="$dirjs/js_tools/quill/quill.snow-custom.css" />\
 to $wims_html_header
 
+!set module_title=<img src="$dirjs/images/logo.png" alt="La Ruche">
 !header
 
 !! Contenu du module par ici.
@@ -32,11 +34,6 @@ to $wims_html_header
   !endif
 !else
   <div class="popup_hidden" id="popup"></div> <!-- va servir pour tous les popups -->
-  <div class="row">
-    <div class="large-12 columns RCl_Titre_Editeur">
-      <img src="$dirjs/images/logo.png">
-    </div>
-  </div>
  !if $job=sendfile
     !read sendfile.phtml
  !else
