@@ -15,9 +15,11 @@ For most of the Javascript development, we use TypeScript, so one should downloa
 
 ### Installing and using the Typescript compiler
 As explained on the [typescript site](https://www.typescriptlang.org/#download-links), one can install the typescript compiler as a Node.js package :
+
 `npm install -g typescript`
 
 and the compilation of .ts files is done with :
+
 `tsc helloworld.ts`
 
 To customize the Typescript behavior, one has to put a tsconfig.json file in the top directory (in the "laruche" directory). An example file can be :
@@ -39,6 +41,7 @@ To customize the Typescript behavior, one has to put a tsconfig.json file in the
 
 ### Installing UglifyJS
 [UglifyJS](https://github.com/mishoo/UglifyJS2) is used to minify the final code. The installation as a NodeJS package is done via :
+
 `npm install -g uglify-js`
 
 ### Building
