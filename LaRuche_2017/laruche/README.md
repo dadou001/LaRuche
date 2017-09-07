@@ -21,7 +21,8 @@ and the compilation of .ts files is done with :
 `tsc helloworld.ts`
 
 To customize the Typescript behavior, one has to put a tsconfig.json file in the top directory (in the "laruche" directory). An example file can be :
-```{
+```
+{
     "compilerOptions": {
         "outDir": "./src",
         "allowJs": false,
@@ -33,7 +34,8 @@ To customize the Typescript behavior, one has to put a tsconfig.json file in the
     "exclude": [
         "./reference.ts"
     ]
-}```
+}
+```
 
 ### Installing UglifyJS
 [UglifyJS](https://github.com/mishoo/UglifyJS2) is used to minify the final code. The installation as a NodeJS package is done via :
