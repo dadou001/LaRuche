@@ -83,4 +83,4 @@ echo "Compressing the distribution."
 cd $dist0
 tar zcf laruche.tar.gz laruche
 
-echo "La Ruche Distribution complete. Have a nice day ;)"
+echo "La Ruche Distribution completed"

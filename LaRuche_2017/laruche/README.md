@@ -38,6 +38,7 @@ To customize the Typescript behavior, one has to put a tsconfig.json file in the
     ]
 }
 ```
+One should then be able to use the command `tsc` in the "laruche" directory to compile everything at once.
 
 ### Installing UglifyJS
 [UglifyJS](https://github.com/mishoo/UglifyJS2) is used to minify the final code. The installation as a NodeJS package is done via :
@@ -48,7 +49,7 @@ To customize the Typescript behavior, one has to put a tsconfig.json file in the
 The package should be built with the laruche/build/dist_build.sh script.
 It will
 - collect and minify the js files, produce the laruche.min.js file, as well as the corresponding map file for debugging.
-- build the "distribution" that contains a cleaned and streamlined distribution
+- build the "distribution" directory that contains a cleaned and streamlined distribution (without any `.ts` files)
 
 ### Other packages used
 
