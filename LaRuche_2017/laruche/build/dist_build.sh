@@ -2,7 +2,8 @@
 # ========== Build the LaRuche distribution =============
 
 echo "Minifying the LaRuche code."
-../node_modules/.bin/uglifyjs ../src/*.js ../src/BlocklyWIMS/*.js ../src/BlocklyWIMS/OEF/*.js --source-map -o ../laruche.min.js
+#../node_modules/.bin/uglifyjs ../src/*.js ../src/BlocklyWIMS/*.js ../src/BlocklyWIMS/OEF/*.js --source-map -o ../laruche.min.js
+uglifyjs ../src/*.js ../src/BlocklyWIMS/*.js ../src/BlocklyWIMS/OEF/*.js --source-map -o ../laruche.min.js
 
 # == save the old distribution directory ===========
 

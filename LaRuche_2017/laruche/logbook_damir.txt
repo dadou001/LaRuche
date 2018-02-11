@@ -1,3 +1,14 @@
+Installation de WIMS
+====================
+
+- installation des packages macports sur le mac
+   * le package "atlas" met un temps fou à compiler (plusieurs heures)
+   * il ne réussit pas à la fin. C'est dû au fait qu'il cherche gfortran de la version gcc6 (/opt/local/lib/libgcc/libgfortran.3.dylib) alors que c'est la version 7 qui est installée (libgfortran.4.dylib). Un
+            sudo port -v install gcc6
+   précédé et suivi par
+            sudo port -v install atlas +clang
+   a réglé le problème
+
 Editeur Quill
 ==============
 

@@ -68,8 +68,8 @@ Blockly.FieldWIMSEditor.prototype.init = function () {
         editorDiv.innerHTML = create_div_quill_toolbar(this.editorDivId_);
     }
     document.body.appendChild(editorDiv);
-    editorDiv.style.width = "200px";
-    editorDiv.style.height = "40px";
+    editorDiv.style.width = "300px";
+    editorDiv.style.height = "50px";
     if (this.toolbar) {
         editorDiv.style.width = "400px";
         editorDiv.style.height = "150px";
@@ -264,7 +264,7 @@ Blockly.FieldWIMSEditor.prototype.showEditor_ = function (opt_quietInput) {
     editorDiv.style.top = xy.y + 'px';
     editorDiv.display = 'block';
     if (!this.isAnalyze) {
-        generate_popup_list_var(xy.x + 210, xy.y, false);
+        generate_popup_list_var(xy.x + 310, xy.y, false);
     }
     else {
         generate_popup_list_var(xy.x + 410, xy.y + 40, true);

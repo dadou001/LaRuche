@@ -12,6 +12,47 @@ For the end user :
 Developers
 ----------------
 For most of the Javascript development, we use TypeScript, so one should download and install the TypeScript compiler.
+
+### Installing and using the Typescript compiler
+As explained on the [typescript site](https://www.typescriptlang.org/#download-links), one can install the typescript compiler as a Node.js package :
+
+`npm install -g typescript`
+
+and the compilation of .ts files is done with :
+
+`tsc helloworld.ts`
+
+To customize the Typescript behavior, one has to put a tsconfig.json file in the top directory (in the "laruche" directory). An example file can be :
+```
+{
+    "compilerOptions": {
+        "outDir": "./src",
+        "allowJs": false,
+        "target": "es5"
+    },
+    "include": [
+        "./src/**/*"
+    ],
+    "exclude": [
+        "./reference.ts"
+    ]
+}
+```
+One should then be able to use the command `tsc` in the "laruche" directory to compile everything at once.
+
+### Installing UglifyJS
+[UglifyJS](https://github.com/mishoo/UglifyJS2) is used to minify the final code. The installation as a NodeJS package is done via :
+
+`npm install -g uglify-js`
+
+### Building
+The package should be built with the laruche/build/dist_build.sh script.
+It will
+- collect and minify the js files, produce the laruche.min.js file, as well as the corresponding map file for debugging.
+- build the "distribution" directory that contains a cleaned and streamlined distribution (without any `.ts` files)
+
+### Other packages used
+
 The packages used are
 
  - the [Foundation](http://foundation.zurb.com) framework
