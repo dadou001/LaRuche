@@ -1,14 +1,21 @@
 Annexe_devis_NathanBuskulic_201706-001.pdf
+distribution.old/
 LaRuche_2017/devis_NathanBuskulic_201706-001.pdf
-LaRuche_2017/laruche/logbook-damir1.txt
-LaRuche_2017/laruche/tsconfig.json
-outils-softs developpement/
-Projet développement NB.docx
-Projet_reference_JManganoni_2016/
 
+LaRuche_2017/laruche/logbook-damir1.txt
+
+LaRuche_2017/laruche/tsconfig.json
+
+outils-softs developpement/
+
+Projet développement NB.docx
+
+Projet_reference_JManganoni_2016/
 .bin
 distribution.old
 laruche.min.js*
-
-node_modules/
-LaRuche_2017/laruche/src/*.js
+bugs
+**/node_modules/uglify-js/
+**/node_modules/commander/
+**/node_modules/source-map/
+**/node_modules/typescript/
