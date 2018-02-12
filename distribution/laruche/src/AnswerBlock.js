@@ -2,7 +2,7 @@
 /// <reference path="../js_tools/quill/quill.min.js"/>
 /// <reference path="../js_tools/vendor/jquery.js"/>
 /// <reference path="../node_modules/@types/quill/index.d.ts"/>
-var AnswerBlock = (function () {
+var AnswerBlock = /** @class */ (function () {
     //Constructeur
     function AnswerBlock(name, type) {
         this.all_type = { 'numeric': { 'coma': Blockly.Msg.WIMS_ANSWER_OPTION_COMA,

@@ -14,7 +14,7 @@ var Embed = Quill.import('blots/embed');
 //   'height',
 //   'width'
 // ];
-var AnswerImage = (function (_super) {
+var AnswerImage = /** @class */ (function (_super) {
     __extends(AnswerImage, _super);
     function AnswerImage() {
         return _super !== null && _super.apply(this, arguments) || this;

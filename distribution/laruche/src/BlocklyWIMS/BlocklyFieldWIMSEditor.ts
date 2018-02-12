@@ -267,7 +267,6 @@ Blockly.FieldWIMSEditor.prototype.showEditor_ = function(opt_quietInput) {
 
   Blockly.ExternalDiv.show(this.editorDivId_);
 
-
   // Needs Bounding Box only for positioning, not for resizing the editor
   // No resizing for the moment.
   var bBox = this.fieldGroup_.getBBox();
@@ -296,10 +295,10 @@ Blockly.FieldWIMSEditor.prototype.showEditor_ = function(opt_quietInput) {
   editorDiv.style.top = xy.y + 'px';
   editorDiv.display = 'block';
   if(!this.isAnalyze){
-    generate_popup_list_var(xy.x+310,xy.y,false);
+    generate_popup_list_var(xy.x+303,xy.y,false);
   }
   else{
-    generate_popup_list_var(xy.x+410,xy.y+40,true)
+    generate_popup_list_var(xy.x+403,xy.y+40,true)
   }
 //  this.resizeEditor_();
   if (!quietInput) {

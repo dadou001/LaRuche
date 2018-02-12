@@ -728,7 +728,7 @@ function generate_popup_list_var(x,y,withAnswer){
 	}
 	maDiv.style.top = y+'px';
 	maDiv.style.left = x+'px';
-	maDiv.style.height = '100px';
+	maDiv.style.height = '150px';
 	maDiv.style.padding = '1px 10px 1px 1px';
 	maDiv.style.position = 'absolute';
 	maDiv.style.overflow = 'scroll';

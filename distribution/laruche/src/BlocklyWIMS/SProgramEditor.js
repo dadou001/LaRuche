@@ -4,7 +4,7 @@ var analyseEditor;
 // SProgramEditor : éditeur graphique de programmes
 // Version basée sur Blockly (https://developers.google.com/blockly/)
 // ----------------------------------------------------
-var SProgramEditor = (function () {
+var SProgramEditor = /** @class */ (function () {
     // Variables statiques :
     // SModele constructor
     function SProgramEditor(type, idToolboxXml, idDiv, idArea) {
