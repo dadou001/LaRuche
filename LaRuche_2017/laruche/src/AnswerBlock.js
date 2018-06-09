@@ -5,6 +5,8 @@
 var AnswerBlock = /** @class */ (function () {
     //Constructeur
     function AnswerBlock(name, type) {
+        this.activeEditorId = null;
+        this.activeBlock = null;
         this.all_type = { 'numeric': { 'coma': Blockly.Msg.WIMS_ANSWER_OPTION_COMA,
                 'noanalyze': Blockly.Msg.WIMS_ANSWER_OPTION_NOANALYZE },
             'range': { 'noanalyze': Blockly.Msg.WIMS_ANSWER_OPTION_NOANALYZE },
@@ -69,6 +71,8 @@ var AnswerBlock = /** @class */ (function () {
                 'noanalyze': Blockly.Msg.WIMS_ANSWER_OPTION_NOANALYZE },
             'function': { 'integer': Blockly.Msg.WIMS_ANSWER_OPTION_INTEGER,
                 'noanalyze': Blockly.Msg.WIMS_ANSWER_OPTION_NOANALYZE },
+            'formal': { 'noanalyze': Blockly.Msg.WIMS_ANSWER_OPTION_NOANALYZE },
+            'coord': { 'noanalyze': Blockly.Msg.WIMS_ANSWER_OPTION_NOANALYZE },
             'other': {}
         };
         this.name = name;
@@ -86,7 +90,7 @@ var AnswerBlock = /** @class */ (function () {
             this.update_html(false);
         }
     };
-    //Getteurs/stteurs
+    //Getters/setters
     AnswerBlock.prototype.get_html = function () {
         return this.html;
     };
@@ -110,6 +114,24 @@ var AnswerBlock = /** @class */ (function () {
             placeholder: Blockly.Msg.WIMS_ANSWER_ANALYSIS_STRING_PLACEHOLDER,
             theme: 'snow'
         }));
+        var answerEditorDivId = this.get_editeur_div_id();
+        var thisBlock = this;
+        this.editor.editor.on('selection-change', function (range, oldRange, source) {
+            if (range) {
+                if (jQuery('#popup_var_answer').length == 0) {
+                    posEditor = jQuery('#' + answerEditorDivId).offset();
+                    widthEditor = jQuery('#' + answerEditorDivId).width();
+                    generate_popup_list_var('popup_var_answer', posEditor.left + widthEditor + 3, posEditor.top, false);
+                    AnswerBlock.activeEditorId = answerEditorDivId;
+                    AnswerBlock.activeBlock = thisBlock;
+                }
+            }
+            else {
+                jQuery('#popup_var_answer').remove();
+                AnswerBlock.activeEditorId = null;
+                AnswerBlock.activeBlock = null;
+            }
+        });
     };
     AnswerBlock.prototype.destroy = function () {
         this.html = "";
@@ -148,6 +170,7 @@ var AnswerBlock = /** @class */ (function () {
             + '<option value="dragfill">' + Blockly.Msg.WIMS_ANSWER_TYPE_DRAGFILL + '</option>'
             + '<option value="clickfill">' + Blockly.Msg.WIMS_ANSWER_TYPE_CLICKFILL + '</option>'
             + '<option value="function">' + Blockly.Msg.WIMS_ANSWER_TYPE_FUNCTION + '</option>'
+            + '<option value="formal">' + Blockly.Msg.WIMS_ANSWER_TYPE_FORMAL + '</option>'
             + '<option value="coord">' + Blockly.Msg.WIMS_ANSWER_TYPE_COORD + '</option>'
             + '<option value="other">' + Blockly.Msg.WIMS_ANSWER_TYPE_OTHER + '</option>'
             + '</select>'

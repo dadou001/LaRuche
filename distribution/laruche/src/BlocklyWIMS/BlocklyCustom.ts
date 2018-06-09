@@ -42,7 +42,7 @@ Blockly.Blocks['wims_while'] = {
 Blockly.Blocks['wims_change_type'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField(new Blockly.FieldVariable(""), "VARIABLE_CHOICE")
+        .appendField(new Blockly.FieldVariable("i"), "VARIABLE_CHOICE")
     // this.appendDummyInput()
         .appendField(Blockly.Msg.WIMS_IS_TYPE)
         .appendField(new Blockly.FieldDropdown([[Blockly.Msg.WIMS_REAL_NUMBER,"real"],
@@ -99,7 +99,7 @@ Blockly.Blocks['wims_comment'] = {
 Blockly.Blocks['wims_define_variable'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField(new Blockly.FieldVariable(""), "VARIABLE_CHOICE")
+        .appendField(new Blockly.FieldVariable("i"), "VARIABLE_CHOICE")
         .appendField(Blockly.Msg.WIMS_IS_TYPE)
     // this.appendDummyInput()
         .appendField(new Blockly.FieldDropdown([[Blockly.Msg.WIMS_REAL_NUMBER,"real"],
@@ -136,7 +136,7 @@ Blockly.Blocks['wims_variable_editor'] = {
   init: function() {
     this.appendDummyInput()
         .appendField(Blockly.Msg.WIMS_VARIABLE_SET)
-        .appendField(new Blockly.FieldVariable(""), "VARIABLE_CHOICE")
+        .appendField(new Blockly.FieldVariable('i'),'VARIABLE_CHOICE')
         .appendField(Blockly.Msg.WIMS_VARIABLE_TO)
         .appendField(new Blockly.FieldWIMSEditor("","Quill contents in blockly",false,false), "WIMS_EDITOR");
     this.setPreviousStatement(true, null);
@@ -184,7 +184,7 @@ Blockly.Blocks['wims_for'] = {
   init: function() {
     this.appendDummyInput()
         .appendField(Blockly.Msg.WIMS_LOOP_FOR)
-        .appendField(new Blockly.FieldVariable(""), "VARIABLE_CHOICE");
+        .appendField(new Blockly.FieldVariable('i'), "VARIABLE_CHOICE");
     this.appendValueInput("START")
         .setCheck(null)
         .appendField(Blockly.Msg.WIMS_LOOP_FROM);

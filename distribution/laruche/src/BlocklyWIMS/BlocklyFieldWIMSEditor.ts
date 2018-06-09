@@ -130,9 +130,13 @@ Blockly.FieldWIMSEditor.prototype.init = function() {
   this.computePlaceholderImage_();
   this.sourceBlock_.getSvgRoot().appendChild(this.fieldGroup_);
 //  this.setValue(this.content_);
+  console.log('test 1');
+  console.log(this.getAbsoluteXY_());
 };
 
 Blockly.FieldWIMSEditor.prototype.computePlaceholderImage_ = function() {
+  console.log('test 6');
+  console.log(this.getAbsoluteXY_());
   if (this.placeholderImageElement_ && this.editorDivId_) {
     var fieldTmp = {x:this};
     var editorDiv = document.getElementById(this.editorDivId_);
@@ -158,6 +162,8 @@ Blockly.FieldWIMSEditor.prototype.setSize_ = function(width, height) {
   var editorDiv = document.getElementById(this.editorDivId_)
   editorDiv.setAttribute("width", width + "px");
   editorDiv.setAttribute("height", height + "px");
+  console.log('test 5');
+  console.log(this.getAbsoluteXY_());
 };
 
 /**
@@ -214,6 +220,8 @@ Blockly.FieldWIMSEditor.prototype.setValue = function(content) {
 
 // goog.events.listen(this.quillEditor_,goog.events.EventType.CLICK,callback_mine);
 // //  window.alert(document.body.namespaceURI);
+console.log('test 4');
+console.log(this.getAbsoluteXY_());
 };
 
 /**
@@ -222,6 +230,8 @@ Blockly.FieldWIMSEditor.prototype.setValue = function(content) {
  * @override
  */
 Blockly.FieldWIMSEditor.prototype.setText = function(alt) {
+  console.log('test 7');
+  console.log(this.getAbsoluteXY_());
   if (alt === null) {
     // No change if null.
     return;
@@ -252,6 +262,8 @@ function create_div_quill_toolbar(id){
  * @private
  */
 Blockly.FieldWIMSEditor.prototype.showEditor_ = function(opt_quietInput) {
+  console.log('test 2');
+  console.log(this.getAbsoluteXY_());
   this.workspace_ = this.sourceBlock_.workspace;
   var quietInput = opt_quietInput || false;
   if (!quietInput && (goog.userAgent.MOBILE || goog.userAgent.ANDROID ||
@@ -267,23 +279,30 @@ Blockly.FieldWIMSEditor.prototype.showEditor_ = function(opt_quietInput) {
 
   Blockly.ExternalDiv.show(this.editorDivId_);
 
+  console.log('test 8');
+  console.log(this.getAbsoluteXY_());
   // Needs Bounding Box only for positioning, not for resizing the editor
   // No resizing for the moment.
   var bBox = this.fieldGroup_.getBBox();
   var editorDiv = document.getElementById(this.editorDivId_)
   var xy = this.getAbsoluteXY_();
+  console.log('test 3');
+  console.log(this.getAbsoluteXY_());
+  // console.log(this.borderRect_.getBoundingClientRect());
+
   // In RTL mode block fields and LTR input fields the left edge moves,
   // whereas the right edge is fixed.  Reposition the editor.
   if (this.sourceBlock_.RTL) {
     var borderBBox = this.getScaledBBox_();
     xy.x += borderBBox.width;
-    xy.x -= div.offsetWidth;
+    xy.x -= editorDiv.offsetWidth;
   }
   // Shift by a few pixels to line up exactly.
   xy.y += 1;
   if (goog.userAgent.GECKO && editorDiv.style.top) {
     // Firefox mis-reports the location of the border by a pixel
     // once the WidgetDiv is moved into position.
+//    xy.x += 100;
     xy.x += 5;
     xy.y -= 1;
   }
@@ -295,10 +314,10 @@ Blockly.FieldWIMSEditor.prototype.showEditor_ = function(opt_quietInput) {
   editorDiv.style.top = xy.y + 'px';
   editorDiv.display = 'block';
   if(!this.isAnalyze){
-    generate_popup_list_var(xy.x+303,xy.y,false);
+    generate_popup_list_var('popup_var_blockly',xy.x+303,xy.y,false);
   }
   else{
-    generate_popup_list_var(xy.x+403,xy.y+40,true)
+    generate_popup_list_var('popup_var_blockly',xy.x+403,xy.y+40,true)
   }
 //  this.resizeEditor_();
   if (!quietInput) {
@@ -410,6 +429,7 @@ Blockly.ExternalDiv.show = function(id) {
     for (var iDiv = 0; iDiv<Blockly.ExternalDiv.DIV.length;iDiv++) {
       if (Blockly.ExternalDiv.DIV[iDiv].id == id) {
         var xy = goog.style.getViewportPageOffset(document);
+        console.log(xy);
         Blockly.ExternalDiv.DIV[iDiv].style.top = xy.y + 'px';
         Blockly.ExternalDiv.DIV[iDiv].style.display = 'block';
         Blockly.ExternalDiv.activeDivId = id;

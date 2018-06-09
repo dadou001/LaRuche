@@ -388,7 +388,7 @@ var SEditor = /** @class */ (function () {
         var counter = 0; //On initialise notre compteur qui va nous permettre de retrouver le block de balise dans la chaine originale
         result.push(start_balise); //On entre le début du block de balise
         while (str[start_balise] == "<") {
-            end_balise = str.search(">"); //On va chercher ou se ferme la balise courante
+            end_balise = str.substring(start_balise).search(">") + start_balise; //On va chercher ou se ferme la balise courante
             name_balise = str.substring(start_balise + 1, end_balise); //On obtient le nom de la balise (INUTILE POUR LE MOMENT)
             counter += name_balise.length + 2; //On ajoute au compteur la taille de la balise
             str = str.substring(end_balise + 1); //On récupère la suite de la chaine
