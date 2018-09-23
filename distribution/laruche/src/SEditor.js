@@ -1,4 +1,4 @@
-var SEditor = (function () {
+var SEditor = /** @class */ (function () {
     //Constructeur
     function SEditor(editor) {
         this.editor = editor;
@@ -279,8 +279,8 @@ var SEditor = (function () {
         var code, i, len;
         for (i = 0, len = str.length; i < len; i++) {
             code = str.charCodeAt(i);
-            if (!(code > 47 && code < 58) &&
-                !(code > 64 && code < 91) &&
+            if (!(code > 47 && code < 58) && // numeric (0-9)
+                !(code > 64 && code < 91) && // upper alpha (A-Z)
                 !(code > 96 && code < 123)) {
                 return false;
             }
@@ -388,7 +388,7 @@ var SEditor = (function () {
         var counter = 0; //On initialise notre compteur qui va nous permettre de retrouver le block de balise dans la chaine originale
         result.push(start_balise); //On entre le début du block de balise
         while (str[start_balise] == "<") {
-            end_balise = str.search(">"); //On va chercher ou se ferme la balise courante
+            end_balise = str.substring(start_balise).search(">") + start_balise; //On va chercher ou se ferme la balise courante
             name_balise = str.substring(start_balise + 1, end_balise); //On obtient le nom de la balise (INUTILE POUR LE MOMENT)
             counter += name_balise.length + 2; //On ajoute au compteur la taille de la balise
             str = str.substring(end_balise + 1); //On récupère la suite de la chaine

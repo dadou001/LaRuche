@@ -3,7 +3,7 @@ Blockly.Blocks['wims_start'] = {
     this.appendDummyInput()
         .appendField(new Blockly.FieldLabel("","editor_title_block"), "START_TEXT");
     this.setNextStatement(true, null);
-    this.setColour(180);
+    this.setColour(0);
     this.setTooltip('');
     this.setHelpUrl('');
   }
@@ -17,7 +17,7 @@ Blockly.Blocks['wims_declaration'] = {
         .setCheck(null);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(180);
+    this.setColour(0);
     this.setTooltip('');
     this.setHelpUrl('');
   }
@@ -33,7 +33,7 @@ Blockly.Blocks['wims_while'] = {
         .appendField("Do");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(300);
+    this.setColour(260);
     this.setTooltip('');
     this.setHelpUrl('');
   }
@@ -42,7 +42,7 @@ Blockly.Blocks['wims_while'] = {
 Blockly.Blocks['wims_change_type'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField(new Blockly.FieldVariable(""), "VARIABLE_CHOICE")
+        .appendField(new Blockly.FieldVariable("i"), "VARIABLE_CHOICE")
     // this.appendDummyInput()
         .appendField(Blockly.Msg.WIMS_IS_TYPE)
         .appendField(new Blockly.FieldDropdown([[Blockly.Msg.WIMS_REAL_NUMBER,"real"],
@@ -55,7 +55,7 @@ Blockly.Blocks['wims_change_type'] = {
                                                             , "TYPE");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(180);
+    this.setColour(260);
     this.setTooltip('');
     this.setHelpUrl('');
   }
@@ -76,7 +76,7 @@ Blockly.Blocks['wims_if'] = {
         .appendField(Blockly.Msg.WIMS_IF_CONDITION_DO);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(245);
     this.setTooltip('');
     this.setHelpUrl('');
   }
@@ -89,7 +89,7 @@ Blockly.Blocks['wims_comment'] = {
         .appendField(new Blockly.FieldTextInput(''), "COMMENT");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(245);
     this.setTooltip('');
     this.setHelpUrl('');
     this.getField("COMMENT").setValue('default');
@@ -99,7 +99,7 @@ Blockly.Blocks['wims_comment'] = {
 Blockly.Blocks['wims_define_variable'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField(new Blockly.FieldVariable(""), "VARIABLE_CHOICE")
+        .appendField(new Blockly.FieldVariable("i"), "VARIABLE_CHOICE")
         .appendField(Blockly.Msg.WIMS_IS_TYPE)
     // this.appendDummyInput()
         .appendField(new Blockly.FieldDropdown([[Blockly.Msg.WIMS_REAL_NUMBER,"real"],
@@ -115,7 +115,7 @@ Blockly.Blocks['wims_define_variable'] = {
         .appendField(new Blockly.FieldWIMSEditor("","testQuillInBlockly",false,false), "WIMS_EDITOR");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(100);
+    this.setColour(260);
     this.setTooltip('');
     this.setHelpUrl('');
   }
@@ -126,7 +126,7 @@ Blockly.Blocks['wims_editor'] = {
     this.appendDummyInput()
         .appendField(new Blockly.FieldWIMSEditor("","Quill contents in blockly",false,false), "WIMS_EDITOR");
     this.setOutput(true, null);
-    this.setColour(300);
+    this.setColour(260);
     this.setTooltip('');
     this.setHelpUrl('');
   }
@@ -136,12 +136,12 @@ Blockly.Blocks['wims_variable_editor'] = {
   init: function() {
     this.appendDummyInput()
         .appendField(Blockly.Msg.WIMS_VARIABLE_SET)
-        .appendField(new Blockly.FieldVariable(""), "VARIABLE_CHOICE")
+        .appendField(new Blockly.FieldVariable('i'),'VARIABLE_CHOICE')
         .appendField(Blockly.Msg.WIMS_VARIABLE_TO)
         .appendField(new Blockly.FieldWIMSEditor("","Quill contents in blockly",false,false), "WIMS_EDITOR");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(300);
+    this.setColour(260);
     this.setTooltip('');
     this.setHelpUrl('');
   }
@@ -155,7 +155,7 @@ Blockly.Blocks['wims_up_down_editor'] = {
         .appendField(new Blockly.FieldWIMSEditor("","Quill contents in blockly",false,false), "WIMS_EDITOR");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(270);
+    this.setColour(0);
     this.setTooltip('NOTIP');
     this.setHelpUrl('NOHELP');
   }
@@ -174,7 +174,7 @@ Blockly.Blocks['wims_repeat'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(245);
     this.setTooltip('');
     this.setHelpUrl('');
   }
@@ -184,7 +184,7 @@ Blockly.Blocks['wims_for'] = {
   init: function() {
     this.appendDummyInput()
         .appendField(Blockly.Msg.WIMS_LOOP_FOR)
-        .appendField(new Blockly.FieldVariable(""), "VARIABLE_CHOICE");
+        .appendField(new Blockly.FieldVariable('i'), "VARIABLE_CHOICE");
     this.appendValueInput("START")
         .setCheck(null)
         .appendField(Blockly.Msg.WIMS_LOOP_FROM);
@@ -200,7 +200,7 @@ Blockly.Blocks['wims_for'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(245);
     this.setTooltip('');
     this.setHelpUrl('');
   }
@@ -218,7 +218,7 @@ Blockly.Blocks['analyse_feedback'] = {
         .appendField(new Blockly.FieldWIMSEditor("","Quill contents in blockly",true,true), "WIMS_EDITOR");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(245);
     this.setTooltip('');
     this.setHelpUrl('');
   }
@@ -232,7 +232,7 @@ Blockly.Blocks['analyse_hint'] = {
         .appendField(new Blockly.FieldWIMSEditor("","Quill contents in blockly",true,true), "WIMS_EDITOR");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(245);
     this.setTooltip('');
     this.setHelpUrl('');
   }

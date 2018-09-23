@@ -1,0 +1,14 @@
+!! This file contains error messages. It will be processed
+!! whenever the variable `error' is not empty.
+{
+    "cmd"="$cmd",
+  !if $error!=$empty
+    "status":"ERROR",
+    "message":"$wims_name_Error",
+    "error_code":$error"
+  !else
+    "status":"OK",
+    "message":"file has been sent to the user session $wims_ref_name",
+    "file_link":"$wims_ref_name/getfile/submit.oef?session=$wims_session"
+  !endif
+}

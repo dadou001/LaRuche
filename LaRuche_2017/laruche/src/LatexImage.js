@@ -9,7 +9,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 var Inline = Quill.import('blots/inline'); //On récupère la bonne classe
-var LatexImage = (function (_super) {
+var LatexImage = /** @class */ (function (_super) {
     __extends(LatexImage, _super);
     function LatexImage() {
         return _super !== null && _super.apply(this, arguments) || this;

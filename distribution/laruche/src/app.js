@@ -347,7 +347,7 @@ function get_active_editor_analyse(){
 	return result;
 }
 
-/** Fonction qui permet de détruire toutes traces de la réponse donné dans tous les éditeurs quill
+/** Fonction qui permet de détruire toutes traces de la réponse donnée dans tous les éditeurs quill
 ********* IN *************
 ** name : le nom de la réponse à détruire dans les éditeurs
 */
@@ -410,7 +410,7 @@ function create_list_answer(answer_tab){
 function create_list_var_prep(variable_list){
 	var result = "";
 	for(var key in variable_list){
-		result += '<li style="margin-bottom:5px;position:relative;"><span class="surligne_Variable" onclick="add_variable_editor_blockly(\''+key+'\');">'+key+'</span><button id="button_destroy_'+key+'" class="close-button" aria-label="Close alert" type="button" style="float:right;clear:right;font-size:1.6em;top:0px;" onclick="destroy_variable(\''+key+'\');update_all_view();"><span aria-hidden="true">&times;</span></button></li>'
+		result += '<li style="margin-bottom:5px;position:relative;"><span class="surligne_Variable" onclick="add_variable_editor_blockly(event,\''+key+'\');">'+key+'</span><button id="button_destroy_'+key+'" class="close-button" aria-label="Close alert" type="button" style="float:right;clear:right;font-size:1.6em;top:0px;" onclick="destroy_variable(\''+key+'\');update_all_view();"><span aria-hidden="true">&times;</span></button></li>'
 	}
 	return result;
 }
@@ -476,7 +476,7 @@ function gather_all_info(){
 /** Fonction qui permet de créer le popup pour créer une variable sans sélection
 ********* IN *************
 ** id_to_popup: id de l'élement à côté duquel le popup va apparaitre
-** index : l'nedroit où l'on va créer la varaible dans l'éditeur
+** index : l'endroit où l'on va créer la variable dans l'éditeur
 */
 function create_variable_choice_popup(id_to_popup,index){
 	var rect = document.getElementById(id_to_popup).getBoundingClientRect(); //On obtient la position du bouton var
@@ -605,7 +605,7 @@ function delete_blockly_variable(name){
 ********* IN *************
 ** name : le nom de la variable à ajouter
 */
-function add_variable_editor_blockly(name){
+function add_variable_editor_blockly(event,name){
 	var monDiv = Blockly.ExternalDiv.activeDivId;
 	var index = -1;
 	if(monDiv){
@@ -619,11 +619,27 @@ function add_variable_editor_blockly(name){
 	}
 }
 
+/** Fonction qui permet d'ajouter une variable dans un éditeur quill d'un bloc answer
+********* IN *************
+** name : le nom de la variable à ajouter
+*/
+function add_variable_editor_answer(event,name){
+	var monDiv = AnswerBlock.activeEditorId;
+	console.log(monDiv);
+	if(monDiv){
+		if (AnswerBlock.activeBlock) {
+			var tmp = new SEditor(AnswerBlock.activeBlock.editor.editor);
+			tmp.add_variable(name);
+		}
+	}
+	event.stopPropagation();
+}
+
 /** Fonction qui permet d'ajouter une réponse dans un éditeur quill coincé dans un Blockly
 ********* IN *************
 ** name : le nom de la réponse à ajouter
 */
-function add_answer_editor_blockly(name){
+function add_answer_editor_blockly(event,name){
 	var monDiv = Blockly.ExternalDiv.activeDivId;
 	var index = -1;
 	if(monDiv){
@@ -658,14 +674,20 @@ function generate_analyse_code(){
 }
 
 /** Fonction qui permet de génerer la liste des variables à ajouter au popup pour les quill dans Blockly
+********* IN *************
+** destinationType : type de block où se trouve l'éditeur, "answer" ou "blockly"
 ********* OUT *************
 ** result : la liste html des variables à implémenter dans le popup
 */
-function generate_list_var_popup(){
+function generate_list_var_popup(destinationType){
+	 var destinationTypeFunc = 'add_variable_editor_blockly';
+	 if (destinationType == 'answer') {
+		 destinationTypeFunc = 'add_variable_editor_answer';
+	 }
 	 var result = '<ul style="margin-left:5px;">';
 	 for(var key in variable_List){
 		 result += '<li style="margin-bottom:5px;position:relative;list-style: none;">'+
-		 							'<span class="surligne_Variable" style="font-size:0.7em;" onclick="add_variable_editor_blockly(\''+key+'\');">'+key+'</span>'+
+		 							'<span class="surligne_Variable" style="font-size:0.7em;" onclick="'+destinationTypeFunc+'(event,\''+key+'\');">'+key+'</span>'+
 								'</li>';
 	 }
 	 result += '</ul>';
@@ -680,12 +702,12 @@ function generate_list_var_answer_popup(){
 	 var result = '<ul style="margin-left:5px;">';
 	 for(var key in variable_List){
 		 result += '<li style="margin-bottom:5px;position:relative;list-style: none;">'+
-		 							'<span class="surligne_Variable" style="font-size:0.7em;" onclick="add_variable_editor_blockly(\''+key+'\');">'+key+'</span>'+
+		 							'<span class="surligne_Variable" style="font-size:0.7em;" onclick="add_variable_editor_blockly(event,\''+key+'\');">'+key+'</span>'+
 								'</li>';
 	 }
 	 for(var key in answer_List){
 		 result += '<li style="margin-bottom:5px;position:relative;list-style: none;">'+
-		 							'<span class="surligne_Answer" style="font-size:0.7em;" onclick="add_answer_editor_blockly(\''+key+'\');">'+key+'</span>'+
+		 							'<span class="surligne_Answer" style="font-size:0.7em;" onclick="add_answer_editor_blockly(event,\''+key+'\');">'+key+'</span>'+
 								'</li>';
 	 }
 
@@ -717,18 +739,29 @@ function changeAllNameVar(oldName,newName){
 ** y: l'emplacement en ordonnée du popup
 ** withAnswer : boolean pour savoir si on ajoute les réponses ou non
 */
-function generate_popup_list_var(x,y,withAnswer){
+function generate_popup_list_var(divName,x,y,withAnswer){
+	var destinationType;
+	switch (divName) {
+		case 'popup_var_blockly':
+			destinationType = 'blockly';
+			break;
+		case 'popup_var_answer':
+			destinationType = 'answer';
+			break;
+		default:
+			destinationType = 'blockly';
+	}
 	var maDiv = document.createElement('div');
-	maDiv.id = 'popup_var_blockly';
+	maDiv.id = divName;
 	if(!withAnswer){
-		maDiv.innerHTML = generate_list_var_popup();
+		maDiv.innerHTML = generate_list_var_popup(destinationType);
 	}
 	else{
 		maDiv.innerHTML = generate_list_var_answer_popup();
 	}
 	maDiv.style.top = y+'px';
 	maDiv.style.left = x+'px';
-	maDiv.style.height = '100px';
+	maDiv.style.height = '150px';
 	maDiv.style.padding = '1px 10px 1px 1px';
 	maDiv.style.position = 'absolute';
 	maDiv.style.overflow = 'scroll';
@@ -820,6 +853,7 @@ function parse_save(save){
 		ans_list_tmp[key] = new Answer(state['answer'][key]['name'],state['answer'][key]['type']);
 		ans_list_tmp[key].length = state['answer'][key]['length'];
 		ans_list_tmp[key].get_block_html().create_editor();
+		//On ajoute la fonction qui permet de savoir quel éditeur est actif quand.
 		ans_list_tmp[key].get_block_html().editor.editor.setContents(state['answer'][key]['block_html']['editor'].editor);
 		ans_list_tmp[key].get_block_html().change_to_type(state['answer'][key]['type']);
 		if(state['answer'][key]['type'] == 'other'){
@@ -829,6 +863,15 @@ function parse_save(save){
 		jQuery('#answer_all_'+key+' option[value='+state['answer'][key]['type']+']').attr('selected','selected');
 	}
 	answer_List = ans_list_tmp;
+
+	// Remettre le signal "on editor-change" sur les éditeurs
+	for(var key in state['answer']){
+		answer_List[key].get_block_html().get_editor().editor.on('editor-change',
+			function(){
+				if( (active_editor_analyse != null) || (active_editor_analyse != answer_List[key].get_block_html().get_editor())){
+				//REVOIR CE IF, IL VA PAS
+					active_editor_analyse = answer_List[key].get_block_html().get_editor();}});
+	}
 }
 
 /** Fonction qui permet de rajouter l'écouteur sur les éditeurs quill dans les Blockly lorsqu'on

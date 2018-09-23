@@ -1,5 +1,5 @@
 /// <reference path="AnswerBlock.ts"/>
-var Answer = (function () {
+var Answer = /** @class */ (function () {
     function Answer(name, type) {
         this.name = name;
         this.type = type;

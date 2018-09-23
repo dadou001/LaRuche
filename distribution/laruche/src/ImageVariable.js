@@ -9,7 +9,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 var Embed = Quill.import('blots/embed'); //On récupère la bonne classe
-var VariableImage = (function (_super) {
+var VariableImage = /** @class */ (function (_super) {
     __extends(VariableImage, _super);
     function VariableImage() {
         return _super !== null && _super.apply(this, arguments) || this;

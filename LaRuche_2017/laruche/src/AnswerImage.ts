@@ -1,5 +1,4 @@
 var Embed = Quill.import('blots/embed');
-
 // const ATTRIBUTES = [
 //   'alt',
 //   'height',
