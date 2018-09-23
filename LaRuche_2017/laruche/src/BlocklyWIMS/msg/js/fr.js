@@ -76,6 +76,7 @@ Blockly.Msg.WIMS_ANSWER_ANALYSIS_STRING_PLACEHOLDER = "Chaîne d'analyse de la r
 Blockly.Msg.WIMS_ANSWER_TYPE = "Type de réponse";
 Blockly.Msg.WIMS_ANSWER_TYPE_NUMERIC = "Numérique";
 Blockly.Msg.WIMS_ANSWER_TYPE_RANGE = "Intervalle numérique";
+Blockly.Msg.WIMS_ANSWER_TYPE_REORDER = "Ordonner les éléments d'une liste";
 Blockly.Msg.WIMS_ANSWER_TYPE_UNITS = "Numérique avec unités";
 Blockly.Msg.WIMS_ANSWER_TYPE_NUMEXP = "Fraction rationnelle";
 Blockly.Msg.WIMS_ANSWER_TYPE_MATRIX = "Matrice (numérique)";

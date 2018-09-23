@@ -6,13 +6,19 @@ LaRuche_2017/laruche/logbook-damir1.txt
 
 LaRuche_2017/laruche/tsconfig.json
 
+LaRuche_Tutorial/
+
 outils-softs developpement/
 
 Projet développement NB.docx
 
 Projet_reference_JManganoni_2016/
 .bin
+
 distribution.old
+distribution.zip
+distribution/laruche.tar.gz
+
 laruche.min.js*
 bugs
 **/node_modules/uglify-js/

@@ -38,7 +38,7 @@ var SEditor = /** @class */ (function () {
         for (var i = 0; i < tabContent.length; i++) {
             tabTmp = this.cut_insert(tabContent[i]); //on découpe le contenu de la case i du tableau
             for (var j = 0; j < tabTmp.length; j++) {
-                if (tabTmp[j]['insert'] != "\n") {
+                if (tabTmp[j]['insert'] != "\n") { //Si on arrive pas sur une fin de ligne, on ajoute les élements à la ligne
                     line += this.add_element_line(tabTmp[j], answer_count, was_variable);
                     was_variable = (tabTmp[j]['insert']['VariableImage'] != null);
                 }
@@ -281,7 +281,7 @@ var SEditor = /** @class */ (function () {
             code = str.charCodeAt(i);
             if (!(code > 47 && code < 58) && // numeric (0-9)
                 !(code > 64 && code < 91) && // upper alpha (A-Z)
-                !(code > 96 && code < 123)) {
+                !(code > 96 && code < 123)) { // lower alpha (a-z)
                 return false;
             }
         }
@@ -294,7 +294,7 @@ var SEditor = /** @class */ (function () {
             attributes = {};
         }
         var result = line; //on initialise notre résultat avec le contenu de la ligne en cours
-        if (Object.keys(attributes).length == 0) {
+        if (Object.keys(attributes).length == 0) { //S'il n'y a pas d'attributs, on entoure juste la ligne de balise <p>
             result = "<p>" + result + "</p>\n";
         }
         for (var key in attributes) {
@@ -399,13 +399,13 @@ var SEditor = /** @class */ (function () {
     };
     SEditor.prototype.clean_balise_block = function (str) {
         var result = "";
-        if (str.length > 0) {
+        if (str.length > 0) { //Si la chaine comprend des choses à nettoyer
             var start_balise = 0; //On initialise la position du début de notre balise
             var end_balise = str.search(">"); //On initialise la position de la fin de la balise courante
             var name_balise = ""; //On initialise le nom de la balise
             var name_complement = ""; //On initialise le complément du nom de la balise
             var pos_complement; //On initialise la position de la balise complémentaire
-            while (str.length > 0) {
+            while (str.length > 0) { //Tant qu'il y a des caractères à traiter
                 end_balise = str.search(">"); //On va voir la fin de la balise
                 name_balise = str.substring(start_balise + 1, end_balise); //On récupère le nom de la balise courante
                 //On obtient le nom du complément de la balise

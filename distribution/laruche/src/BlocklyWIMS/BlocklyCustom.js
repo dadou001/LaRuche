@@ -40,6 +40,7 @@ Blockly.Blocks['wims_change_type'] = {
     init: function () {
         this.appendDummyInput()
             .appendField(new Blockly.FieldVariable("i"), "VARIABLE_CHOICE")
+            // this.appendDummyInput()
             .appendField(Blockly.Msg.WIMS_IS_TYPE)
             .appendField(new Blockly.FieldDropdown([[Blockly.Msg.WIMS_REAL_NUMBER, "real"],
             [Blockly.Msg.WIMS_INTEGER_NUMBER, "integer"],
@@ -93,6 +94,7 @@ Blockly.Blocks['wims_define_variable'] = {
         this.appendDummyInput()
             .appendField(new Blockly.FieldVariable("i"), "VARIABLE_CHOICE")
             .appendField(Blockly.Msg.WIMS_IS_TYPE)
+            // this.appendDummyInput()
             .appendField(new Blockly.FieldDropdown([[Blockly.Msg.WIMS_REAL_NUMBER, "real"],
             [Blockly.Msg.WIMS_INTEGER_NUMBER, "integer"],
             [Blockly.Msg.WIMS_RATIONAL_NUMBER, "rational"],

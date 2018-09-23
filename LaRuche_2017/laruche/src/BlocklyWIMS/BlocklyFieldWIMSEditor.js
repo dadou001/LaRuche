@@ -271,7 +271,7 @@ Blockly.FieldWIMSEditor.prototype.showEditor_ = function (opt_quietInput) {
         // Firefox mis-reports the location of the border by a pixel
         // once the WidgetDiv is moved into position.
         //    xy.x += 100;
-        xy.x += 5;
+        xy.x += 400;
         xy.y -= 1;
     }
     if (goog.userAgent.WEBKIT && editorDiv.style.top) {

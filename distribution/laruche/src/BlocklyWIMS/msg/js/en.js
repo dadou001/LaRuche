@@ -76,6 +76,7 @@ Blockly.Msg.WIMS_ANSWER_ANALYSIS_STRING_PLACEHOLDER = "Answer analysis string...
 Blockly.Msg.WIMS_ANSWER_TYPE = "Answer type";
 Blockly.Msg.WIMS_ANSWER_TYPE_NUMERIC = "Numeric";
 Blockly.Msg.WIMS_ANSWER_TYPE_RANGE = "Numerical range";
+Blockly.Msg.WIMS_ANSWER_TYPE_REORDER = "Reorder elements of a list";
 Blockly.Msg.WIMS_ANSWER_TYPE_UNITS = "Numeric with units";
 Blockly.Msg.WIMS_ANSWER_TYPE_NUMEXP = "Rational fraction";
 Blockly.Msg.WIMS_ANSWER_TYPE_MATRIX = "Matrix (numeric)";

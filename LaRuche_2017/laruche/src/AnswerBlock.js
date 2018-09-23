@@ -5,11 +5,10 @@
 var AnswerBlock = /** @class */ (function () {
     //Constructeur
     function AnswerBlock(name, type) {
-        this.activeEditorId = null;
-        this.activeBlock = null;
         this.all_type = { 'numeric': { 'coma': Blockly.Msg.WIMS_ANSWER_OPTION_COMA,
                 'noanalyze': Blockly.Msg.WIMS_ANSWER_OPTION_NOANALYZE },
             'range': { 'noanalyze': Blockly.Msg.WIMS_ANSWER_OPTION_NOANALYZE },
+            'reorder': { 'noanalyze': Blockly.Msg.WIMS_ANSWER_OPTION_NOANALYZE },
             'units': { 'noanalyze': Blockly.Msg.WIMS_ANSWER_OPTION_NOANALYZE },
             'numexp': { 'noreduction': Blockly.Msg.WIMS_ANSWER_OPTION_NOREDUCTION,
                 'noanalyze': Blockly.Msg.WIMS_ANSWER_OPTION_NOANALYZE },
@@ -117,20 +116,41 @@ var AnswerBlock = /** @class */ (function () {
         var answerEditorDivId = this.get_editeur_div_id();
         var thisBlock = this;
         this.editor.editor.on('selection-change', function (range, oldRange, source) {
-            if (range) {
-                if (jQuery('#popup_var_answer').length == 0) {
-                    posEditor = jQuery('#' + answerEditorDivId).offset();
-                    widthEditor = jQuery('#' + answerEditorDivId).width();
-                    generate_popup_list_var('popup_var_answer', posEditor.left + widthEditor + 3, posEditor.top, false);
-                    AnswerBlock.activeEditorId = answerEditorDivId;
-                    AnswerBlock.activeBlock = thisBlock;
-                }
-            }
-            else {
-                jQuery('#popup_var_answer').remove();
-                AnswerBlock.activeEditorId = null;
-                AnswerBlock.activeBlock = null;
-            }
+            // if (range) {
+            //   if (jQuery('#popup_var_answer').length == 0) {
+            //     posEditor = jQuery('#'+answerEditorDivId).offset();
+            //     widthEditor = jQuery('#'+answerEditorDivId).width();
+            //     generate_popup_list_var('popup_var_answer',posEditor.left+widthEditor+3, posEditor.top, false);
+            //     AnswerBlock.activeEditorId = answerEditorDivId;
+            //     AnswerBlock.activeBlock = thisBlock;
+            //   }
+            // } else {
+            //   if (answerEditorDivId != AnswerBlock.activeEditorId) {
+            //     jQuery('#popup_var_answer').remove();
+            //     posEditor = jQuery('#'+answerEditorDivId).offset();
+            //     widthEditor = jQuery('#'+answerEditorDivId).width();
+            //     generate_popup_list_var('popup_var_answer',posEditor.left+widthEditor+3, posEditor.top, false);
+            //     AnswerBlock.activeEditorId = answerEditorDivId;
+            //     AnswerBlock.activeBlock = thisBlock;
+            //   }
+            // }
+            // Remove popups for now, doesn't work
+            // if (jQuery('#popup_var_answer').length == 0) {
+            //   posEditor = jQuery('#'+answerEditorDivId).offset();
+            //   widthEditor = jQuery('#'+answerEditorDivId).width();
+            //   generate_popup_list_var('popup_var_answer',posEditor.left+widthEditor+3, posEditor.top, false);
+            //   AnswerBlock.activeEditorId = answerEditorDivId;
+            //   AnswerBlock.activeBlock = thisBlock;
+            // } else {
+            //   if (answerEditorDivId != AnswerBlock.activeEditorId) {
+            //     jQuery('#popup_var_answer').remove();
+            //     posEditor = jQuery('#'+answerEditorDivId).offset();
+            //     widthEditor = jQuery('#'+answerEditorDivId).width();
+            //     generate_popup_list_var('popup_var_answer',posEditor.left+widthEditor+3, posEditor.top, false);
+            //     AnswerBlock.activeEditorId = answerEditorDivId;
+            //     AnswerBlock.activeBlock = thisBlock;
+            //   }
+            // }
         });
     };
     AnswerBlock.prototype.destroy = function () {
@@ -156,6 +176,7 @@ var AnswerBlock = /** @class */ (function () {
             + '<select oninput="jQuery(\'#ans_' + this.name + '\').removeClass(\'answer_hidden\');change_type_answer(\'' + this.name + '\',this.value,answer_List)">'
             + '<option value="numeric">' + Blockly.Msg.WIMS_ANSWER_TYPE_NUMERIC + '</option>'
             + '<option value="range">' + Blockly.Msg.WIMS_ANSWER_TYPE_RANGE + '</option>'
+            + '<option value="reorder">' + Blockly.Msg.WIMS_ANSWER_TYPE_REORDER + '</option>'
             + '<option value="units">' + Blockly.Msg.WIMS_ANSWER_TYPE_UNITS + '</option>'
             + '<option value="numexp">' + Blockly.Msg.WIMS_ANSWER_TYPE_NUMEXP + '</option>'
             + '<option value="matrix">' + Blockly.Msg.WIMS_ANSWER_TYPE_MATRIX + '</option>'
@@ -246,5 +267,7 @@ var AnswerBlock = /** @class */ (function () {
         //   +'<option value="other">Other</option>'
         // +'</select>'
     };
+    AnswerBlock.activeEditorId = null;
+    AnswerBlock.activeBlock = null;
     return AnswerBlock;
 }());
