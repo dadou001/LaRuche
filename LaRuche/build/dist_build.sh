@@ -8,7 +8,7 @@ uglifyjs ../src/*.js ../src/BlocklyWIMS/*.js ../src/BlocklyWIMS/OEF/*.js --sourc
 # == save the old distribution directory ===========
 
 orig=".."
-dist0="../../../distribution"
+dist0="../../distribution"
 echo "Saving $dist0 to ${dist0}.old"
 if [ -d $dist0 ]; then
   rm -rf "${dist0}.old"
@@ -17,7 +17,7 @@ if [ -d $dist0 ]; then
 fi
 
 echo "Copying all required files to $dist0"
-dist="${dist0}/laruche"
+dist="${dist0}/LaRuche"
 mkdir -p $dist
 
 cp -Rf "${orig}/css" $dist
