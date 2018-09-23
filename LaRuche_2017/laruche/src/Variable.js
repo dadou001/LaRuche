@@ -1,4 +1,4 @@
-var Variable = (function () {
+var Variable = /** @class */ (function () {
     function Variable(name, type) {
         this.name = name;
         this.type = type;

@@ -5,6 +5,7 @@ La Ruche is an interactive editor of exercises for the [WIMS pedagogical platfor
 Use
 -----
 For the end user :
+
  - download the contents of the distribution/laruche directory or download and uncompress the laruche.tar.gz file
  - inside the laruche directory, double-click on the "index.html" file, this should bring the editor in standalone mode
 
@@ -15,6 +16,7 @@ La Ruche will be integrated into WIMS very soon (promise on the 17 July 2017...)
 The OEF language
 --------------------------
 The OEF language is a mix between a set of specific commands, html and LaTeX. Here is an example :
+
 ```
 \title{ Square of an integer }
 \computeanswer{ no }
@@ -27,12 +29,12 @@ The OEF language is a mix between a set of specific commands, html and LaTeX. He
 \answer{ Square of \n }{ \N }{ type=numeric }
 \feedback{ \reply1 < 0 }{ The square of an integer is always positive }
 ```
+
 This mix make it difficult for newcomers to grasp all the specifics of the language quickly. The aim of the "La Ruche" editor is to lower the barrier for a newcomer, allowing him/her to easily build exercises for WIMS.
 
 The various tabs of the editor
 ------------------------------------------
 There are three main tabs in the editor :
-
 
  - the **Statement** tab where the user enters the statement of his exercise in a RTE, namely a special [Quill](http://quilljs.com) editor. This statement may contain references to variables, drawings, objects that are prepared in...
  - the **Preparation** tab, where the user can make all the needed computations to set the variables, for example setting some of them as random. To that effect, a graphical Blockly editor is used.

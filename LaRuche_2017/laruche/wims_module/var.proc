@@ -1,5 +1,4 @@
 !read adm/language lang/names.phtml
-!set wims_form_method=file
 
 # how to detect the need to compute?
 !if $cmd=reply
@@ -10,17 +9,14 @@
   !sh mkdir -p $sesdir/getfile ;
 
   fileout1=submit.oef
-  fileout2=submit.json
 
   error=
   compute=yes
   dataoef_=$dataoef
-  datajson_=$datajson
 
   !writefile getfile/$fileout1 $dataoef_
   !sh cp -f $wims_home/sessions/$wims_session/getfile/$fileout1 $wims_home/sessions/$wims_session/$fileout1
+  !! mexec is only allowed by trusted modules.
   !!mexec makedef.sh
-
-  !writefile getfile/$fileout2 $datajson_
 
 !endif

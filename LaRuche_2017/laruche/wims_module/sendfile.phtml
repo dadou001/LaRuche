@@ -1,0 +1,50 @@
+
+!default dataoef=Tapez ici un code OEF.
+
+<div class="row">
+  !set wims_form_method=file
+  !form reply id="sendOEFform"
+    <input type="hidden" name="job" value="sendfile"/>
+
+    <textarea id="dataoef" name="dataoef" style="height:20em">$dataoef</textarea>
+
+    <div class="wimscenter">
+      <input type="submit">
+      !set wims_ref_class=wims_button wims_secondary_button
+      !href module=$module&cmd=new Retour vers la ruche
+    </div>
+  !formend
+</div>
+
+<script type="text/javascript">
+    jQuery("#sendOEFform").submit(function(event) {
+        // avoid to execute the actual submit of the form.
+        event.preventDefault();
+
+        //prevents WIMS from caching the page (generates a random Query_string)
+        var rand_code = parseInt(Math.random() * 1000000000);
+        jQuery(this).attr("action", "$wims_ref_name?form-data"+rand_code);
+
+        //add all form inputs values in formData
+        var formData = new FormData(jQuery(this)[0]);
+        jQuery(this).attr("enctype", "multipart/form-data");
+
+        // Send the request to WIMS
+        jQuery.ajax({
+               type: "POST",
+               url: jQuery(this).attr('action'),
+               data: formData,
+               processData: false,
+               contentType: false,
+               success: function(response_data)
+               {
+                  alert(response_data);
+               },
+               error: function(jqXHR, textStatus, errorThrown){
+                  alert("Une erreur est survenue.");
+                  jQuery("#dataoef").val(textStatus + "\n" + errorThrown);
+               }
+        });
+
+    });
+</script>
