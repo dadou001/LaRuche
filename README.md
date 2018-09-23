@@ -6,6 +6,14 @@ Use
 -----
 For the end user :
 
+ - in a terminal, go to the LaRuche_2017/laruche/build directory :
+   ```
+   cd LaRuche_2017/laruche/build
+   ```
+ - run the dist_build.sh script. This will build the "distribution" directory :
+   ```
+   ./dist_build.sh
+   ```
  - download the contents of the distribution/laruche directory or download and uncompress the laruche.tar.gz file
  - inside the laruche directory, double-click on the "index.html" file, this should bring the editor in standalone mode
 
