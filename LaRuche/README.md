@@ -10,7 +10,7 @@ For the end user :
    ```
    cd LaRuche/build
    ```
- - run the dist_build.sh script. This will build the "distribution" directory :
+ - run the dist_build.sh script. This will build the "distribution" directory. The "uglifyjs" software should have been installed :
    ```
    ./dist_build.sh
    ```
