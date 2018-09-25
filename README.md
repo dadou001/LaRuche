@@ -6,9 +6,9 @@ Use
 -----
 For the end user :
 
- - in a terminal, go to the LaRuche_2017/laruche/build directory :
+ - in a terminal, go to the LaRuche/build directory :
    ```
-   cd LaRuche_2017/laruche/build
+   cd LaRuche/build
    ```
  - run the dist_build.sh script. This will build the "distribution" directory :
    ```
