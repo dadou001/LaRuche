@@ -14,8 +14,7 @@ For the end user :
    ```
    ./dist_build.sh
    ```
- - download the contents of the distribution/laruche directory or download and uncompress the laruche.tar.gz file
- - inside the laruche directory, double-click on the "index.html" file, this should bring the editor in standalone mode
+ - inside the distribution/LaRuche directory, double-click on the "index.html" file, this should bring the editor in standalone mode
 
 Integration into WIMS
 --------------------------
