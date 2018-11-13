@@ -30,6 +30,7 @@ var Variable = /** @class */ (function () {
             // when changed in the dropdown menus
             var varTypeChanged = this;
             var typeDeclarationBlock = this.mTypeDeclarationBlock;
+            this.mTypeDeclarationBlock.getField('TYPE').setValue(this.type);
             this.mTypeDeclarationBlock.setOnChange(function (changeEvent) {
                 varTypeChanged.type = typeDeclarationBlock.getFieldValue('TYPE');
             });

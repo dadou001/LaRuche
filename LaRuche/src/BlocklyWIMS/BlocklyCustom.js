@@ -50,7 +50,7 @@ Blockly.Blocks['wims_change_type'] = {
             [Blockly.Msg.WIMS_FUNCTION, "function"],
             [Blockly.Msg.WIMS_COMPLEX_NUMBER, "complex"]]), "TYPE");
         this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
+        this.setNextStatement(true, 'block');
         this.setColour(260);
         this.setTooltip('');
         this.setHelpUrl('');
@@ -129,8 +129,8 @@ Blockly.Blocks['wims_variable_editor'] = {
             .appendField(new Blockly.FieldVariable('i'), 'VARIABLE_CHOICE')
             .appendField(Blockly.Msg.WIMS_VARIABLE_TO)
             .appendField(new Blockly.FieldWIMSEditor("", "Quill contents in blockly", false, false), "WIMS_EDITOR");
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
+        this.setPreviousStatement(true, 'wims_start');
+        this.setNextStatement(true, 'test');
         this.setColour(260);
         this.setTooltip('');
         this.setHelpUrl('');

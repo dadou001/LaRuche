@@ -54,6 +54,13 @@ function change_onglet(name) {
 		Blockly.svgResize(analyseEditor.mBlocklyWorkspace);
 		analyseEditor.mBlocklyWorkspace.scrollX = 27;
 	}
+	if (name==='Enonce' ||name==='Entete'||name==='Analyse'||name==='Code'||name==='Sauvegarde') {
+		var x = document.getElementsByClassName("blocklyWidgetDiv")[0];
+		if (x != undefined){
+			x.style.display = 'none';
+		}
+		
+	}
 }
 
 // hljs.configure({   // optionally configure hljs -> ask Bernadette for OEF definition file
@@ -260,7 +267,7 @@ function create_variable_editor(id_select_type_popup,id_input_name_popup,index){
 ** editor : l'éditeur à regarder pour voir la sélection et ajouter la variable
 ** var_list : liste de variables où ajouter la variable nouvellement créer
 */
-function change_to_var(editor,var_list){
+function change_to_var(editor,var_list,type){
 	editor.focus();
 	var positionSelection = editor.getSelection(); //On obtient la sélection de l'utilisateur
 	if (positionSelection.length == 0){
@@ -273,7 +280,11 @@ function change_to_var(editor,var_list){
 			editor.deleteText(positionSelection.index,positionSelection.length); //On enlève le texte séléctionné
 			insert_embed_object(editor,positionSelection.index, 'VariableImage',nameVar); //On le remplace par Variable possédant le nom que l'utilisateur avait sélectionné
 			if (var_list[nameVar] == null){
-				var_list[nameVar] = new Variable(nameVar,'real');
+				if(type == "matrix"){
+					var_list[nameVar] = new Variable(nameVar,'matrix');
+				}else{
+					var_list[nameVar] = new Variable(nameVar,'real');
+				}				
 				var_list[nameVar].init();
 				update_variables_view("card_Enonce_Variable",var_list);
 				update_all_view();
@@ -488,7 +499,8 @@ function create_variable_choice_popup(id_to_popup,index){
 	//On crée le contenu du popup
 	document.getElementById("popup").innerHTML = '<div class="callout"><label>Variable type'
   +'<select id = "popup_select">'
-    +'<option value="Real">Real</option>'
+	+'<option value="Real">Real</option>'
+	+'<option value="Matrix">Matrix</option>'
     +'<option value="Draw">Draw</option>'
     +'<option value="Fun">Function</option>'
     +'<option value="Int">Integer</option>'

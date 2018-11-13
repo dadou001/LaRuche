@@ -4,7 +4,7 @@
   <title>LaRuche - éditeur d'exercices</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="language" content="French">
+  <meta name="language" content="Engish">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <meta name="description" content="LaRuche est un éditeur d'exercice pour la plateforme WIMS">
@@ -130,7 +130,7 @@
                       <!--<button class="ql-formula"></button>-->
                     </span>
                     <span class="ql-formats">
-                      <button title="variable" id="variable_creation_button" onclick="change_to_var(quill,variable_List)">Var</button>
+                      <button title="variable" id="variable_creation_button" onclick="change_to_var(quill,variable_List,'var')">Var</button>
                       <button style="margin-right:8px;" title="latex" onclick="editor_Enonce.change_to_latex()">LaTex</button>
                       <button style="margin-left:8px;margin-right:8px" title="answer"  id="answer_creation_button" onclick="add_answer(quill,answer_List)">Answer</button>
                     </span>
@@ -144,7 +144,7 @@
                 </div>
                 <div class="large-3 card">
                   <div class="card-divider">
-                    Variables
+                    Variables 
                   </div>
                   <div class="card-section" id="card_Enonce_Variable">
                     <!--Rajouter une fonction javascript pour afficher toutes les variables -->
@@ -312,11 +312,11 @@
   <script src="js_tools/html2canvas.js" type="text/javascript" charset="utf-8"></script>
   <script src="js_tools/blockly/blockly_compressed.js" type="text/javascript" charset="utf-8"></script>
   <script src="js_tools/blockly/blocks_compressed.js" type="text/javascript" charset="utf-8"></script>
-  <script src="js_tools/blockly/msg/js/fr.js" type="text/javascript" charset="utf-8"></script>
-  <script src="src/BlocklyWIMS/msg/js/fr.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js_tools/blockly/msg/js/en.js" type="text/javascript" charset="utf-8"></script>
+  <script src="src/BlocklyWIMS/msg/js/en.js" type="text/javascript" charset="utf-8"></script>
   <script src="js_tools/quill/quill.min.js" type="text/javascript" charset="utf-8"></script>
-  <script src="laruche.min.js" type="text/javascript" charset="utf-8"></script>
-  <!-- <script src="src/ImageVariable.js" type="text/javascript" charset="utf-8"></script>
+  <!--<script src="laruche.min.js" type="text/javascript" charset="utf-8"></script>-->
+  <<script src="src/ImageVariable.js" type="text/javascript" charset="utf-8"></script>
   <script src="src/LatexImage.js" type="text/javascript" charset="utf-8"></script>
   <script src="src/AnswerImage.js" type="text/javascript" charset="utf-8"></script>
   <script src="src/Variable.js" type="text/javascript" charset="utf-8"></script>
@@ -332,6 +332,6 @@
   <script src="src/BlocklyWIMS/OEF/BlocklyWIMSBlocks.js" type="text/javascript" charset="utf-8"></script>
   <script src="src/BlocklyWIMS/BlocklyCustom.js" type="text/javascript" charset="utf-8"></script>
   <script src="src/BlocklyWIMS/SProgramEditor.js" type="text/javascript" charset="utf-8"></script>
-  <script src="src/app.js" type="text/javascript" charset="utf-8"></script> -->
+  <script src="src/app.js" type="text/javascript" charset="utf-8"></script> 
 </body>
 </html>
