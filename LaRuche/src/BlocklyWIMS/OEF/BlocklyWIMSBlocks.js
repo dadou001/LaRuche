@@ -12,6 +12,10 @@ Blockly.OEF['wims_start'] = function(block) {
   return '';
 };
 
+Blockly.OEF['wims_start_analysis'] = function(block) {
+  return '';
+};
+
 Blockly.OEF['wims_declaration'] = function(block) {
   return Blockly.OEF.statementToCode(block,'DECLARATION');
 };

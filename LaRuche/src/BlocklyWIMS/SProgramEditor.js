@@ -4,7 +4,7 @@ var analyseEditor;
 // SProgramEditor : éditeur graphique de programmes
 // Version basée sur Blockly (https://developers.google.com/blockly/)
 // ----------------------------------------------------
-var SProgramEditor = /** @class */ (function () {
+var SProgramEditor = (function () {
     // Variables statiques :
     // SModele constructor
     function SProgramEditor(type, idToolboxXml, idDiv, idArea) {
@@ -56,7 +56,10 @@ var SProgramEditor = /** @class */ (function () {
         else if (this.mType == 'analysis')
             title = Blockly.Msg.WIMS_BKY_ANALYSIS_START;
         title = "   " + title + "   ";
-        this.mFirstBlock = this.mBlocklyWorkspace.newBlock('wims_start');
+        if (this.mType == 'prep')
+            this.mFirstBlock = this.mBlocklyWorkspace.newBlock('wims_start');
+        else if (this.mType == 'analysis')
+            this.mFirstBlock = this.mBlocklyWorkspace.newBlock('wims_start_analysis');
         this.mFirstBlock.getField("START_TEXT").setValue(title);
         this.mFirstBlock.setDeletable(false);
         this.mFirstBlock.setMovable(false);

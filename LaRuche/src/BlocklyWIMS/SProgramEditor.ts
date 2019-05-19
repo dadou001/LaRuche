@@ -72,7 +72,8 @@ class SProgramEditor {
     if (this.mType=='prep') {var title = Blockly.Msg.WIMS_BKY_PREP_START;}
     else if (this.mType == 'analysis') title = Blockly.Msg.WIMS_BKY_ANALYSIS_START;
     title = "   "+title+"   ";
-    this.mFirstBlock = this.mBlocklyWorkspace.newBlock('wims_start');
+    if (this.mType=='prep') this.mFirstBlock = this.mBlocklyWorkspace.newBlock('wims_start');
+    else if (this.mType == 'analysis') this.mFirstBlock = this.mBlocklyWorkspace.newBlock('wims_start_analysis');
     this.mFirstBlock.getField("START_TEXT").setValue(title);
     this.mFirstBlock.setDeletable(false);
     this.mFirstBlock.setMovable(false);
