@@ -59,7 +59,7 @@ function change_onglet(name) {
 		if (x != undefined){
 			x.style.display = 'none';
 		}
-		
+
 	}
 }
 
@@ -110,7 +110,7 @@ Blockly.Workspace.prototype.createVariable = function(name) {
 	Blockly.Workspace.prototype.createVariable_orig.call(this,name);
 	/* Called from within the Blockly code to build an OEF variable */
 	if(variable_List[name]==null){
-   	variable_List[name] = new Variable(name,'Real');
+   	variable_List[name] = new Variable(name,'real');
 		variable_List[name].init();
    	update_all_view();
  	}
@@ -284,7 +284,7 @@ function change_to_var(editor,var_list,type){
 					var_list[nameVar] = new Variable(nameVar,'matrix');
 				}else{
 					var_list[nameVar] = new Variable(nameVar,'real');
-				}				
+				}
 				var_list[nameVar].init();
 				update_variables_view("card_Enonce_Variable",var_list);
 				update_all_view();
