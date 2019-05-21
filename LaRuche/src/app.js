@@ -744,6 +744,12 @@ function changeAllNameVar(oldName,newName){
 	}
 }
 
+/** Get the name of the first variable
+*/
+function getFirstVarName(){
+	return Object.keys(variable_List)[0];
+}
+
 /** Fonction qui permet de générer le popup pour séléctionner
 ** les variables et les réponses à ajouter dans un éditeur quill dans un Blockly
 ********* IN *************

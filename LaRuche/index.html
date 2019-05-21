@@ -220,8 +220,6 @@
         <field name="COMMENT">Comment / Commentaire / Kommentar / Comento / Comentario</field>
       </block>
       <block type="wims_variable_editor">
-        <field name="VARIABLE_CHOICE">i</field>
-        <field name="WIMS_EDITOR"></field>
       </block>
       <block type="wims_editor">
         <field name="WIMS_EDITOR">true</field>
@@ -257,6 +255,7 @@
 <!-- L'analyse Blockly -->
 <div id="RId_programAnalyse_blockly" style="position: absolute"></div>
 <xml id="RId_toolbox_programAnalyse" xmlns="http://www.w3.org/1999/xhtml" style="display: none;">
+  <category name="Variables" colour="#a55b6d" custom="VARIABLE"  id="Rid_Analysis_Blockly_Toolbar_Variables"></category>
   <category name="Analyse" id="Rid_Analysis_Blockly_Toolbar_Analysis">
     <block type="analyse_feedback">
       <field name="WIMS_EDITOR"></field>
@@ -269,8 +268,6 @@
       <field name="TYPE"></field>
     </block> -->
     <block type="wims_variable_editor">
-      <field name="VARIABLE_CHOICE">i</field>
-      <field name="WIMS_EDITOR"></field>
     </block>
     <block type="wims_if">
     </block>
@@ -298,7 +295,6 @@
       <field name="WIMS_EDITOR">true</field>
     </block>
   </category>
-  <category name="Variables" colour="#a55b6d" custom="VARIABLE"  id="Rid_Analysis_Blockly_Toolbar_Variables"></category>
 </xml>
 
 
